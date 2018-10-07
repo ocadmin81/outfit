@@ -1,0 +1,17 @@
+/*
+Theme Name:     outfit-theme
+Description:    outfit-theme
+Author:         outfitsu_admin
+Template:       twentyseventeen
+
+(optional values you can add: Theme URI, Author URI, Version, License, License URI, Tags, Text Domain)
+*/
+html[lang="he-IL"] *, html[lang="he-IL"] input,html[lang="he-IL"] button, body, button, input, select, textarea{font-family:   "Assistant",sans-serif;direction: rtl;text-align: right;}
+.site-header{background-color: #fff;}
+@media screen and (min-width: 48em){
+	.wrap {
+		max-width: 1300px;
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
