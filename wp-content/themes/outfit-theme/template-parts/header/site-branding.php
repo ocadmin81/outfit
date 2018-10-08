@@ -12,8 +12,10 @@
 <div class="site-branding">
 	<div class="wrap">
 		<div class="right header-right">
-			<div class="publish"><a href="#"><?php _e( "What's this?", 'loco-translate' ); ?></a></div>
-			<div class="favourites"></div>
+			<div class="publish"><a href="#"><?php _e( "פרסום מודעה", 'twentyseventeen' ); ?></a></div>
+			<div class="favourites">
+				
+			</div>
 			<div class="login"></div>
 		</div>
 		<?php the_custom_logo(); ?>
