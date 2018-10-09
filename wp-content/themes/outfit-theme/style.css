@@ -6,12 +6,46 @@ Template:       twentyseventeen
 
 (optional values you can add: Theme URI, Author URI, Version, License, License URI, Tags, Text Domain)
 */
-html[lang="he-IL"] *, html[lang="he-IL"] input,html[lang="he-IL"] button, body, button, input, select, textarea{font-family:   "Assistant",sans-serif;direction: rtl;text-align: right;}
+html[lang="he-IL"], html[lang="he-IL"] input,html[lang="he-IL"] button, body, button, input, select, textarea{font-family:   "Assistant",sans-serif;direction: rtl;text-align: right;}
+body, button, input, select, textarea. a{color: #191919;}
 .site-header{background-color: #fff;}
+.header-right,.header-left{float: right;width: 33.333%;}
+a.custom-logo-link{float: right;width: 33.333%;padding: 0;text-align: center;margin-top: 9px;}
+.site-branding{    margin-bottom: 25px!important;}
+.header-right div{display: inline-block;vertical-align: middle;margin-left: 50px;position: relative;}
+.header-right .publish{background: #fed3d6;padding: 7px 11px;}
+.header-right .publish a{color: #3d3d3d;}
+.header-right .favourites{top: 5px;}
+.header-right .favourites span{    position: absolute;font-size: 13px;top: -5px;background: #fed3d6;border-radius: 50%;width: 17px;height: 17px;text-align: center;right: -7px;line-height: 17px;}
+.header-left .search-field{width: 230px;float: left;border: none;height: 30px;font-size: 16px;color: #747474;border-bottom: 1px solid #f1efef;padding: 0;border-radius: 0;}
+.header-left .search-field:focus{border-color: #f1efef;color: #747474;}
+.header-left .search-field::-webkit-input-placeholder {color: #747474;}
+.header-left .search-field::-moz-placeholder {color: #747474;}
+.header-left .search-field:-ms-input-placeholder {color: #747474;}
+.header-left .search-field:-moz-placeholder {color: #747474;}
+.search-form .search-submit .icon{display: none;}
+.search-form .search-submit{background: #fff url(images/search.png) 0 0 no-repeat;width: 21px;height: 20px;top: 7px;}
+.navigation-top{border: none;}
+.navigation-top a{color: #010101;font-weight: 500;font-size: 18px;}
+.page #main .entry-header {display: none;}
+.home-features ul{text-align: center;list-style: none;}
+.home-features ul li{float: right;width: 20%;}
+.home-features ul li h3{font-size: 17px;padding-top: 5px;}
+.home-features ul li p{    color: #191919;font-size: 16px;padding: 0 15px;line-height: 19px;}
+.start-selling h3{}
+.start-selling p{}
+.start-selling a{}
+@media screen and (min-width: 30em){
+	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
+}
 @media screen and (min-width: 48em){
 	.wrap {
 		max-width: 1300px;
 		padding-left: 0;
 		padding-right: 0;
 	}
+	.main-navigation a{padding: 0.5em 1.25em;}
+}
+@media screen and (min-width: 67em){
+	.navigation-top .wrap{max-width: 1300px;padding: 0;}
 }
