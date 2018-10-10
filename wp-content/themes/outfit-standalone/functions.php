@@ -9,6 +9,13 @@
  * @since 1.0
  */
 
+/*==========================
+ Requried some Files.
+ ===========================*/
+require get_template_directory() . '/inc/theme-support.php';
+require get_template_directory() . '/inc/enque-styles-script.php';
+require get_template_directory() . '/inc/user_status.php';
+
 /**
  * Twenty Seventeen only works in WordPress 4.7 or later.
  */
@@ -584,3 +591,24 @@ require get_parent_theme_file_path( '/inc/customizer.php' );
  * SVG icons functions and filters.
  */
 require get_parent_theme_file_path( '/inc/icon-functions.php' );
+
+
+
+/*==========================
+ Outfit : Get Profile URL from attachment ID
+ ===========================*/
+function outfit_get_profile_img($attach_id){
+	$sourceURL = wp_get_attachment_image_src($attach_id);
+	$profileURL = $sourceURL[0];
+	return $profileURL;
+}
+
+/*==========================
+ Outfit : Get Avatar URL
+ ===========================*/
+function outfit_get_avatar_url($author_id, $size){
+	$get_avatar = get_avatar( $author_id, $size );
+	$matches = array();
+	preg_match('/(?<!_)src=([\'"])?(.*?)\\1/',$get_avatar, $matches);
+	return ( $matches[2] );
+}
