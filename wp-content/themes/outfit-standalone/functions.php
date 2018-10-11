@@ -620,3 +620,86 @@ function outfit_get_avatar_url($author_id, $size){
 	preg_match('/(?<!_)src=([\'"])?(.*?)\\1/',$get_avatar, $matches);
 	return ( $matches[2] );
 }
+
+/*========================================
+ Outfit : Get User Favorite Posts IDs
+ =========================================*/
+function outfit_authors_all_favorite($author_id) {
+	global $wpdb;
+	$prepared_statement = $wpdb->prepare("SELECT post_id FROM {$wpdb->prefix}author_favorite WHERE  author_id = %d", $author_id);
+	$postids = $wpdb->get_col($prepared_statement);
+	foreach ($postids as $v2){
+		$postids[] = $v2;
+	}
+	return $postids;
+}
+
+/*========================================
+ Outfit : Add Follower
+ =========================================*/
+function outfit_insert_author_follower($author_id, $follower_id) {
+	global $wpdb;
+	$author_insert = ("INSERT into {$wpdb->prefix}author_follower (author_id,follower_id)value('".$author_id."','".$follower_id."')");
+	$wpdb->query($author_insert);
+}
+
+/*========================================
+ Outfit : Delete Follower
+ =========================================*/
+function outfit_delete_author_follower($author_id, $follower_id) {
+	global $wpdb;
+	$author_del = ("DELETE from {$wpdb->prefix}author_follower WHERE author_id = $author_id AND follower_id = $follower_id ");
+	$wpdb->query($author_del);
+}
+
+/*========================================
+ Outfit : Add Post to Favorites
+ =========================================*/
+function outfit_insert_author_favorite($author_id, $post_id) {
+	global $wpdb;
+	$author_insert = ("INSERT into {$wpdb->prefix}author_favorite (author_id,post_id)value('".$author_id."','".$post_id."')");
+	$wpdb->query($author_insert);
+}
+
+/*========================================
+ Outfit : Delete Post from Favorites
+ =========================================*/
+function outfit_delete_author_favorite($author_id, $post_id) {
+	global $wpdb;
+	$author_del = ("DELETE from {$wpdb->prefix}author_favorite WHERE author_id = $author_id AND post_id = $post_id ");
+	$wpdb->query($author_del);
+}
+
+/*==========================
+ Outfit : Create tables
+ @since classiera 1.0
+ ===========================*/
+function outfit_authors_tbl_create() {
+	global $wpdb;
+	$sql2 = ("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}author_follower (
+
+        id int(11) NOT NULL AUTO_INCREMENT,
+
+        author_id int(11) NOT NULL,
+
+        follower_id int(11) NOT NULL,
+
+        PRIMARY KEY (id)
+
+    ) ENGINE=InnoDB AUTO_INCREMENT=1;");
+	$wpdb->query($sql2);
+	$sql = ("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}author_favorite (
+
+        id int(11) NOT NULL AUTO_INCREMENT,
+
+        author_id int(11) NOT NULL,
+
+        post_id int(11) NOT NULL,
+
+        PRIMARY KEY (id)
+
+    ) ENGINE=InnoDB AUTO_INCREMENT=1;");
+
+	$wpdb->query($sql);
+}
+add_action( 'init', 'outfit_authors_tbl_create', 1 );
