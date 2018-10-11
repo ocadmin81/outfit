@@ -6,13 +6,13 @@
  *
  * @package WordPress
  * @subpackage outfit-standalone
- * @since outfit-standalone
+ * @since outfit-standalone 0.1
  */
 
 if ( is_user_logged_in() ) { 
 
 	global $redux_demo; 
-	$profile = '/profile';//$redux_demo['profile'];
+	$profile = $redux_demo['profile'];
 	wp_redirect( $profile ); exit;
 
 }
@@ -200,7 +200,7 @@ if (!$user_ID){
 	}
 }
 
-//get_header(); ?>
+get_header(); ?>
 <?php 
 	$page = get_post($post->ID);
 	$current_page_id = $page->ID;
@@ -360,4 +360,4 @@ if (!$user_ID){
 	</div><!--Login-register-->
 </section>
 <!-- page content -->
-<?php //get_footer(); ?>
+<?php get_footer(); ?>

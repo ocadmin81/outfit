@@ -16,6 +16,14 @@ require get_template_directory() . '/inc/theme-support.php';
 require get_template_directory() . '/inc/enque-styles-script.php';
 require get_template_directory() . '/inc/user_status.php';
 
+/*==========================
+ Outfit : Add Redux Framework
+ @return void
+ ===========================*/
+if ( !isset( $redux_demo ) && file_exists( get_template_directory() . '/ReduxFramework/theme-options.php' ) ) {
+	require_once( get_template_directory() . '/ReduxFramework/theme-options.php' );
+}
+
 /**
  * Twenty Seventeen only works in WordPress 4.7 or later.
  */

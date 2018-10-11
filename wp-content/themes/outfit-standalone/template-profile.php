@@ -14,6 +14,10 @@ if ( !is_user_logged_in() ) {
     $login = '/login';//$redux_demo['login'];
     wp_redirect( $login ); exit;
 }
+
+get_header();
 ?>
 <h3>profile</h3>
 <a href="/profile-settings">Edit profile</a>
+
+<?php get_footer(); ?>
