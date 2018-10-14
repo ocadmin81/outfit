@@ -32,18 +32,3 @@
 		<a href="#content" class="menu-scroll-down"><?php echo twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ); ?><span class="screen-reader-text"><?php _e( 'Scroll down to content', 'twentyseventeen' ); ?></span></a>
 	<?php endif; ?>
 </nav><!-- #site-navigation -->
-<script>
-	jQuery(document).ready(function() {
-		//mobile menu width
-		var Swisth = jQuery( window ).width();
-		if(Swisth<=767){
-			jQuery(".menu-top-menu-container .menu").css( "width",Swisth );
-		}
-		//mobile menu top row
-		if(Swisth<=767){
-			var Trow = jQuery( '.m-menu-top' ).html();
-			jQuery('.menu-top-menu-container .menu').prepend('<li class="menu-top">'+Trow+'</li>');
-			jQuery('.m-menu-top').remove();
-		}
-	});
-</script>
