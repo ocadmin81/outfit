@@ -284,6 +284,7 @@ input[type="checkbox"] {
 		float: none;
 	}
 	.page:not(.home) #content{padding-bottom: 0;padding-top: 30px;}
+	.page:not(.home).page-template-template-login-signup #content{padding-bottom: 0;padding-top: 0;}
 	.has-sidebar:not(.error404) #primary {
 		float: right;
 	}
@@ -646,6 +647,12 @@ form.wpcf7-form label input[type="text"],form.wpcf7-form label input[type="email
 form.wpcf7-form label textarea{border: 1px solid #e2e2e4;margin-top: 10px;height:110px;padding-right: 10px;}
 form.wpcf7-form input[type="submit"]{padding: 0;width: 160px;height: 45px;text-align: center;}
 .contact-page h2{padding:0;font-size:35px;}
+.page-template-template-login-signup header,.page-template-template-login-signup footer{display: none;}
+/*.login-page{background:url(assets/images/login-bg.jpg) 0 0 no-repeat;}*/
+.login-page{position:relative;}
+.login-bg{position: fixed; top: 0; left: 0; min-width: 100%;min-height: 100%;}
+.outfit-login-register-heading a.custom-logo-link{width: 100%;}
+.forgot-section,.reg-section{display:none;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
 }
