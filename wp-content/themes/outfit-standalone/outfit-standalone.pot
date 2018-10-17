@@ -1,0 +1,357 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Outfit Standalone\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-10-16 12:46+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/"
+
+#: ReduxFramework/theme-options.php:430
+msgid ""
+"<p class=\"description\">This is a section created by adding a filter to the "
+"sections array. Can be used by child themes to add/remove sections from the "
+"options.</p>"
+msgstr ""
+
+#: template-login-signup.php:319
+msgid "Agree to"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:243
+msgid "All Ads Page URL"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:234
+msgid "All Categories Page URL"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:245
+msgid "Create page by selecting All Ads template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:236
+msgid "Create page by selecting All Categories template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:218
+msgid "Create page by selecting Edit Ad template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:281
+msgid "Create page by selecting Favorite Ads template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:290
+msgid "Create page by selecting Follow template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:272
+msgid "Create page by selecting inbox template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:173
+msgid "Create page by selecting Login template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:227
+msgid "Create page by selecting Pricing Plan template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:191 ReduxFramework/theme-options.php:200
+msgid "Create page by selecting Profile template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:182
+msgid "Create page by selecting Register template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:299
+msgid ""
+"Create page by selecting Reset Password Page template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:254
+msgid ""
+"Create page by selecting Single User All Ads template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:263
+msgid ""
+"Create page by selecting Single User All Plans template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:209
+msgid "Create page by selecting Submit template and insert url here."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:216
+msgid "Edit Ad Page URL"
+msgstr ""
+
+#: template-login-signup.php:298 template-login-signup.php:340
+msgid "email required"
+msgstr ""
+
+#: template-login-signup.php:298
+msgid "Enter email address"
+msgstr ""
+
+#: template-login-signup.php:340
+msgid "enter email address"
+msgstr ""
+
+#: template-login-signup.php:259
+msgid "Enter Password"
+msgstr ""
+
+#: template-login-signup.php:305
+msgid "Enter password"
+msgstr ""
+
+#: template-login-signup.php:291
+msgid "Enter username"
+msgstr ""
+
+#: template-login-signup.php:217
+msgid "Enter your Account"
+msgstr ""
+
+#: template-login-signup.php:346
+msgid "Get password"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://originalconcepts.co.il"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:270
+msgid "Inbox Page URL"
+msgstr ""
+
+#: template-login-signup.php:218
+msgid "Join"
+msgstr ""
+
+#: template-login-signup.php:271
+msgid "LOGIN NOW"
+msgstr ""
+
+#: template-login-signup.php:225
+msgid "Login or Signup With Social Media"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:171
+msgid "Login Page URL"
+msgstr ""
+
+#: template-login-signup.php:221 template-login-signup.php:230
+msgid "Login via Facebook"
+msgstr ""
+
+#: template-login-signup.php:234
+msgid "Login via Google"
+msgstr ""
+
+#: template-login-signup.php:232
+msgid "Login via Twitter"
+msgstr ""
+
+#: template-login-signup.php:306
+msgid "Minimum of 5 characters."
+msgstr ""
+
+#: template-login-signup.php:283
+msgid "Oh snap!"
+msgstr ""
+
+#: template-login-signup.php:244
+msgid "OR"
+msgstr ""
+
+#. Author of the theme
+msgid "Original Concepts"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:38 ReduxFramework/theme-options.php:39
+msgid "Outfit Options"
+msgstr ""
+
+#. Name of the theme
+msgid "Outfit Standalone"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:163
+msgid "Pages"
+msgstr ""
+
+#: template-login-signup.php:155
+msgid "Password Mismatch"
+msgstr ""
+
+#: template-login-signup.php:150
+msgid "Password must be 5 to 15 characters in length."
+msgstr ""
+
+#: template-login-signup.php:259
+msgid "Password required"
+msgstr ""
+
+#: template-login-signup.php:305
+msgid "password required"
+msgstr ""
+
+#: template-login-signup.php:138 template-login-signup.php:144
+msgid "Please enter a valid email."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:317
+msgid "Please Put Woo Commerce URL here"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:225
+msgid "Pricing Plans Page URL"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:189
+msgid "Profile Page URL"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:198
+msgid "Profile Settings Page URL"
+msgstr ""
+
+#: template-login-signup.php:312
+msgid "re-enter password"
+msgstr ""
+
+#: template-login-signup.php:325
+msgid "Register"
+msgstr ""
+
+#: template-login-signup.php:278
+msgid "Register an Account"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:180
+msgid "Register Page URL"
+msgstr ""
+
+#: template-login-signup.php:162
+msgid "Registration successful"
+msgstr ""
+
+#: template-login-signup.php:109
+msgid "Registration successful."
+msgstr ""
+
+#: template-login-signup.php:266
+msgid "Remember me"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:297
+msgid "Reset Password Page URL"
+msgstr ""
+
+#: template-login-signup.php:334
+msgid "Reset Your Password"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:429
+msgid "Section via hook"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:252
+msgid "Single User All Ads"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:279
+msgid "Single User All Favorite"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:288
+msgid "Single User All Follower"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:261
+msgid "Single User Plans"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:207
+msgid "Submit Ad Page URL"
+msgstr ""
+
+#: template-login-signup.php:319
+msgid "terms & Condition"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:306
+msgid "Terms And Conditions URL"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:142
+msgid "Thanks for using Outfit Options Panel."
+msgstr ""
+
+#: ReduxFramework/theme-options.php:308
+msgid "This Link will be shown at registration page"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:172 ReduxFramework/theme-options.php:181
+#: ReduxFramework/theme-options.php:190 ReduxFramework/theme-options.php:199
+#: ReduxFramework/theme-options.php:208 ReduxFramework/theme-options.php:217
+#: ReduxFramework/theme-options.php:226 ReduxFramework/theme-options.php:235
+#: ReduxFramework/theme-options.php:244 ReduxFramework/theme-options.php:253
+#: ReduxFramework/theme-options.php:262 ReduxFramework/theme-options.php:271
+#: ReduxFramework/theme-options.php:280 ReduxFramework/theme-options.php:289
+#: ReduxFramework/theme-options.php:298 ReduxFramework/theme-options.php:307
+#: ReduxFramework/theme-options.php:316
+msgid "This must be an URL."
+msgstr ""
+
+#: template-login-signup.php:127
+msgid "User name should not be empty."
+msgstr ""
+
+#: template-login-signup.php:252
+msgid "Username is required"
+msgstr ""
+
+#: template-login-signup.php:173
+msgid "Username or E-mail already exists. Please try another one."
+msgstr ""
+
+#: template-login-signup.php:291
+msgid "username required"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:136 ReduxFramework/theme-options.php:138
+msgid "Welcome To Outfit WordPress Theme Options Panel"
+msgstr ""
+
+#: template-login-signup.php:312
+msgid "Whoops, these dont match"
+msgstr ""
+
+#: ReduxFramework/theme-options.php:315
+msgid "WooCommerece Cart URL"
+msgstr ""
+
+#: template-login-signup.php:318
+msgid "you must need to agree with our terms and condition"
+msgstr ""
+
+#: template-login-signup.php:196
+msgid "You Must Need to Agree With Terms And Conditions."
+msgstr ""
+
+#: template-login-signup.php:252
+msgid "Your Username"
+msgstr ""

@@ -199,29 +199,33 @@ if (!$user_ID){
 		}
 	}
 }
-
-get_header(); ?>
+?>
+<?php get_header(); ?>
 <?php 
 	$page = get_post($post->ID);
 	$current_page_id = $page->ID;
 ?>
 <!-- page content -->
-<section class="inner-page-content border-bottom top-pad-50">
+<img class="login-bg" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/login-bg.jpg" />
+<section class="inner-page-content top-pad-50 login-page">
 	<div class="login-register">
-		<div class="container">
-            <div class="row">
-				<div class="col-lg-10 col-md-11 col-sm-12 center-block">
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="outfit-login-register-heading border-bottom text-center">
-                                <h3 class="text-uppercase"><?php esc_html_e('Login OR Register', 'outfit-standalone') ?></h3>
-                            </div>
+		<div class="wrap">
+				<div class="center-block">
+					<div class="outfit-login-register-heading text-center">
+						<?php the_custom_logo(); ?>
+					</div>
+					<div class="tabs">
+						<div id="tab1"><?php esc_html_e('Enter your Account', 'outfit-standalone') ?></div>
+						<div id="tab2"><?php esc_html_e('Join', 'outfit-standalone') ?></div>
+					</div>
+						<div class="login-section">
+							<a class="loginSocialbtn fb" href="<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1" onclick="window.location = '<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1&redirect='+window.location.href; return false;"><i class="fab fa-facebook-f"></i><?php esc_html_e('Login via Facebook', 'outfit-standalone') ?></a>
 							<?php if($outfitSocialLogin == 1){?>
 							<div class="social-login border-bottom">
                                 <h5 class="text-uppercase">
 									<?php esc_html_e('Login or Signup With Social Media', 'outfit-standalone') ?>
 								</h5>
-                                <!--Social Plugins-->
+                                <!--Social Plugins-->								
 								<?php if(class_exists('NextendSocialLogin', false)){ ?>
 								<!--Nextend Facebook-->
 									<a class="loginSocialbtn fb" href="<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1" onclick="window.location = '<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1&redirect='+window.location.href; return false;"><i class="fab fa-facebook-f"></i><?php esc_html_e('Login via Facebook', 'outfit-standalone') ?></a>
@@ -242,18 +246,11 @@ get_header(); ?>
                                 </div>
                             </div><!--social-login-->
 							<?php } ?>
-						</div><!--col-lg-12-->
-					</div><!--row-->
-					<div class="row">
-						<div class="col-lg-6">
-							<div class="social-login-v2">
-                                <h5 class="text-uppercase"><?php esc_html_e('Login via username', 'outfit-standalone') ?></h5>
-                            </div><!--social-login-->
 							<form data-toggle="validator" role="form" method="POST" enctype="multipart/form-data">
 								<div class="form-group">
                                     <div class="inner-addon left-addon">
                                         <i class="left-addon form-icon fa fa-user"></i>
-                                        <input type="text" class="form-control form-control-md sharp-edge" name="username" placeholder="<?php esc_html_e( 'Your Username', 'outfit-standalone' ); ?>" data-error="<?php esc_html_e( 'Username is required', 'outfit-standalone' ); ?>" required>
+                                        <input type="text" class="form-control form-control-md sharp-edge" name="username" placeholder="<?php esc_html_e( 'Email', 'outfit-standalone' ); ?>" data-error="<?php esc_html_e( 'Username is required', 'outfit-standalone' ); ?>" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div><!--username-->
@@ -277,7 +274,7 @@ get_header(); ?>
 							</form>
 						</div><!--col-lg-6-->
 						<!--Register-->
-						<div class="col-lg-6">
+						<div class="reg-section">
                             <div class="social-login-v2">
                                 <h5 class="text-uppercase"><?php esc_html_e('Register an Account', 'outfit-standalone') ?></h5>
                             </div>
@@ -331,10 +328,7 @@ get_header(); ?>
                             </form>
                         </div>
 						<!--Register-->
-					</div><!--row-->
-					<!--Reset Password-->
-					<div class="row">
-                        <div class="col-lg-6">
+                        <div class="forgot-section">
                             <div class="social-login-v2">
                                 <h5 class="text-uppercase"><?php esc_html_e('Reset Your Password', 'outfit-standalone') ?></h5>
                             </div>
@@ -352,10 +346,8 @@ get_header(); ?>
                                 </div><!--Button-->
                             </form>
                         </div>
-                    </div>
 					<!--Reset Password-->
 				</div><!--col-lg-10-->
-			</div><!--row-->
 		</div><!--container-->
 	</div><!--Login-register-->
 </section>

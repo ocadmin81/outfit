@@ -1298,6 +1298,21 @@ jQuery(document).ready(function(jQuery){
 			jQuery('.loader_submit_form').addClass('active');
 		}		
 	});
+	//mobile menu width
+	var Swisth = jQuery( window ).width();
+	if(Swisth<=767){
+		jQuery(".menu-top-menu-container .menu").css( "width",Swisth );
+	}
+	//mobile menu top row
+	if(Swisth<=767){
+		var Trow = jQuery( '.m-menu-top' ).html();
+		jQuery('.menu-top-menu-container .menu').prepend('<li class="menu-top">'+Trow+'</li>');
+		jQuery('.m-menu-top').remove();
+	}
+	//mobile search click
+	jQuery( '.m-search' ).click(function() {
+		jQuery('.header-left').addClass('active');
+	});	
 });
 jQuery(window).on('load', function () {	
     var mqxs = window.matchMedia( "(max-width: 1024px)" );
