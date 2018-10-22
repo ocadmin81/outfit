@@ -16,4 +16,7 @@ function outfit_theme_support() {
 
 add_action( 'after_setup_theme', 'outfit_theme_support' );
 endif;
+
+// Custom admin scripts
+//add_action('admin_enqueue_scripts', 'outfit_admin_scripts' );
 ?>

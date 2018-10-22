@@ -353,4 +353,13 @@ msgstr ""
 
 #: template-login-signup.php:252
 msgid "Your Username"
-msgstr ""
+msgstr "שם משתמש"
+
+msgid "Email"
+msgstr "אימייל"
+
+msgid "Password"
+msgstr "סיסמה"
+
+msgid "Confirm Password"
+msgstr "שוב סיסמה"

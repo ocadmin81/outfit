@@ -15,6 +15,20 @@
 require get_template_directory() . '/inc/theme-support.php';
 require get_template_directory() . '/inc/enque-styles-script.php';
 require get_template_directory() . '/inc/user_status.php';
+require get_template_directory() . '/inc/model-functions.php';
+require get_template_directory() . '/inc/outfit-ajax.php';
+
+/*==========================
+ Display Global ajax URL
+ ===========================*/
+add_action('wp_head','outfit_ajaxURL');
+function outfit_ajaxURL() {
+	?>
+	<script type="text/javascript">
+		var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';
+	</script>
+	<?php
+}
 
 /*==========================
  Outfit : Add Redux Framework
@@ -703,3 +717,93 @@ function outfit_authors_tbl_create() {
 	$wpdb->query($sql);
 }
 add_action( 'init', 'outfit_authors_tbl_create', 1 );
+
+// Category new fields (the form)
+add_filter('add_category_form', 'outfit_my_category_fields');
+add_filter('edit_category_form', 'outfit_my_category_fields');
+
+// Update category fields
+add_action( 'edited_category', 'outfit_update_my_category_fields', 10, 2 );
+add_action( 'create_category', 'outfit_update_my_category_fields', 10, 2 );
+
+/*==========================
+ Function to display extra info on category admin
+ ===========================*/
+// the option name
+define('MY_CATEGORY_FIELDS', 'my_category_fields_option');
+// your fields (the form)
+function outfit_my_category_fields($tag) {
+	$tag_extra_fields = get_option(MY_CATEGORY_FIELDS);
+	$catFilterByColor = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_color'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_color'] : false;
+	$catFilterByBrand = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_brand'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_brand'] : false;
+	$catFilterByAge = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_age'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_age'] : false;
+	$catFilterByCondition = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_condition'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_condition'] : false;
+	?>
+
+	<div class="form-field">
+		<table class="form-table">
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Color', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_color" type="checkbox" name="category_filter_by_color"
+						   value="1" <?php echo ($catFilterByColor? "checked" : "") ?> />
+				</td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Age', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_age" type="checkbox" name="category_filter_by_age"
+						   value="1" <?php echo ($catFilterByAge? "checked" : "") ?> />
+				</td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Brand', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_brand" type="checkbox" name="category_filter_by_brand"
+						   value="1" <?php echo ($catFilterByBrand? "checked" : "") ?> />
+				</td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Condition', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_condition" type="checkbox" name="category_filter_by_condition"
+						   value="1" <?php echo ($catFilterByCondition? "checked" : "") ?> />
+				</td>
+			</tr>
+		</table>
+	</div>
+
+	<?php
+}
+/*==========================
+ when the form gets submitted, and the category gets updated (in your case the option will get updated with the values of your custom fields above.
+ ===========================*/
+function outfit_update_my_category_fields($term_id) {
+	if(isset($_POST['taxonomy'])){
+		if($_POST['taxonomy'] == 'category'):
+			$tag_extra_fields = get_option(MY_CATEGORY_FIELDS);
+			$tag_extra_fields[$term_id]['category_filter_by_color'] = isset($_POST['category_filter_by_color'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_age'] = isset($_POST['category_filter_by_age'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_brand'] = isset($_POST['category_filter_by_brand'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_condition'] = isset($_POST['category_filter_by_condition'])? true : false;
+			update_option(MY_CATEGORY_FIELDS, $tag_extra_fields);
+		endif;
+	}
+}
+/*==========================
+ when a category is removed
+ ===========================*/
+add_filter('deleted_term_taxonomy', 'outfit_remove_my_category_fields');
+function outfit_remove_my_category_fields($term_id) {
+	if(isset($_POST['taxonomy'])){
+		if($_POST['taxonomy'] == 'category'):
+			$tag_extra_fields = get_option(MY_CATEGORY_FIELDS);
+			unset($tag_extra_fields[$term_id]);
+			update_option(MY_CATEGORY_FIELDS, $tag_extra_fields);
+		endif;
+	}
+}

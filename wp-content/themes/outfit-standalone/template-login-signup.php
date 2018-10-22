@@ -313,25 +313,25 @@ if (!$user_ID){
                             <form data-toggle="validator" role="form" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <div class="inner-addon left-addon">                                        
-                                        <input type="text" name="username" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('שם משתמש', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
+                                        <input type="text" name="username" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('Your Username', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div><!--username-->
                                 <div class="form-group">
                                     <div class="inner-addon left-addon">                                        
-                                        <input type="email" name="email" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('אימייל', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
+                                        <input type="email" name="email" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('Email', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div><!--Email Address-->
                                 <div class="form-group">
                                     <div class="inner-addon left-addon">                                        
-                                        <input type="password" name="password" data-minlength="5" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('סיסמא', 'outfit-standalone') ?>" id="registerPass" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
+                                        <input type="password" name="password" data-minlength="5" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('Password', 'outfit-standalone') ?>" id="registerPass" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
                                         <!--<div class="help-block"><?php esc_html_e('Minimum of 5 characters.', 'outfit-standalone') ?></div>-->
                                     </div>
                                 </div><!--Password-->
                                 <div class="form-group">
                                     <div class="inner-addon left-addon">                                        
-                                        <input type="password" name="confirm" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('סיסמא שוב', 'outfit-standalone') ?>" data-match="#registerPass" data-match-error="<?php esc_html_e('Whoops, these dont match', 'outfit-standalone') ?>" required>
+                                        <input type="password" name="confirm" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('Confirm Password', 'outfit-standalone') ?>" data-match="#registerPass" data-match-error="<?php esc_html_e('Whoops, these dont match', 'outfit-standalone') ?>" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div><!--re-enter password-->

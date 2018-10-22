@@ -54,7 +54,7 @@ jQuery.fn.textlimit = function(limit)
         }
     })
 };
-//classiEra JS
+//outfit JS
 jQuery(document).ready(function(jQuery){
     "use strict";
     jQuery.noConflict();
@@ -344,61 +344,54 @@ jQuery(document).ready(function(jQuery){
 		This function will show sub categories
 		list When click on main category.
 	======================================*/
-	jQuery('.classiera-post-sub-cat').hide();
+	jQuery('.post-sub-cat-container').hide();
     var mainCatText;
-    jQuery(".classiera-post-main-cat ul li > a").on('click', function (event){
+    jQuery(".post-cat-container select").on('change', function (event){
         event.preventDefault();
-		jQuery('.classiera-post-sub-cat').hide();
-		jQuery('.classiera_third_level_cat').hide();
-		jQuery('.selectCatDisplay').hide();		
-        var mainCatId = jQuery(this).attr('id');
-        mainCatText = jQuery(this).find('span').text();
-        jQuery(this).parent().parent().next().val(mainCatId);
-        jQuery('.form-control-static').text(mainCatText);
-		jQuery('#selectCatCheck').val(mainCatId);
-        jQuery(this).closest('li').addClass('active');
-        jQuery(this).closest('li').siblings().removeClass('active');
+		jQuery('.post-sub-cat-container').hide();
+        var selected = jQuery(this).find(":selected");
+        var mainCatId = selected.val();
+        mainCatText = selected.text();
 		var data = {
-			'action': 'classieraGetSubCatOnClick',
+			'action': 'outfitGetSubCatOnClick',
 			'mainCat': mainCatId,
 		};
 		jQuery.post(ajaxurl, data, function(response){
-			jQuery('.classieraSubReturn').html(response);
+			jQuery('.post-sub-cat-container select').html(response);
 			if(response){
-				jQuery('.classiera-post-sub-cat').show();
+				jQuery('.post-sub-cat-container').show();
 			}			
 		});
 
     });
     var subCatText;
-	
-   jQuery(document).on('click', '.classiera-post-sub-cat ul li > a', function (event){
+
+    /*=====================================
+     Categories AJAX Function
+     This function will show category custom fields
+     list When click on main category.
+     ======================================*/
+    jQuery('.post-sub-cat-container').hide();
+    var mainCatText;
+    jQuery(".post-cat-container select").on('change', function (event){
         event.preventDefault();
-		jQuery('.classiera_third_level_cat').hide();
-        var subCatId = jQuery(this).attr('id');
-		var data = {
-			'action': 'classieraGetSubCatOnClick',
-			'subCat': subCatId,
-		};
-		jQuery.post(ajaxurl, data, function(response){
-			jQuery('.classieraSubthird').html(response);
-			if(response){
-				jQuery('.classiera_third_level_cat').show();
-			}			
-		});
-        subCatText = jQuery(this).text();
-        jQuery(this).parent().parent().next().val(subCatId);
-        jQuery('.form-control-static').text(mainCatText +' / '+ subCatText);
+        jQuery('.post-sub-cat-container').hide();
+        var selected = jQuery(this).find(":selected");
+        var mainCatId = selected.val();
+        mainCatText = selected.text();
+        var data = {
+            'action': 'outfitGetSubCatOnClick',
+            'mainCat': mainCatId,
+        };
+        jQuery.post(ajaxurl, data, function(response){
+            jQuery('.post-sub-cat-container select').html(response);
+            if(response){
+                jQuery('.post-sub-cat-container').show();
+            }
+        });
+
     });
-	jQuery('.classiera_third_level_cat').hide();
-	var subThirdCatText;
-	jQuery(document).on('click', '.classiera_third_level_cat ul li > a', function (event){
-        event.preventDefault();
-		var thirdCatId = jQuery(this).attr('id');
-		subThirdCatText = jQuery(this).text();
-		jQuery(this).parent().parent().next().val(thirdCatId);
-		jQuery('.form-control-static').text(mainCatText +' / '+ subCatText +' / '+ subThirdCatText);
-    });
+
 	/*=====================================
 		image previews
 		This function will show image preview
@@ -1389,7 +1382,7 @@ jQuery(window).on('load', function () {
 		jQuery(".page-numbers").addClass('pagination');
 	}
 	//masonary
-	var $container = jQuery('.masonry-content');
+	/*var $container = jQuery('.masonry-content');
     $container.masonry({
         columnWidth: '.item-masonry',
         itemSelector: '.item-masonry'
@@ -1407,6 +1400,6 @@ jQuery(window).on('load', function () {
             
 
         }); //end shown
-    });  //end each
+    });  //end each*/
 	
 });
