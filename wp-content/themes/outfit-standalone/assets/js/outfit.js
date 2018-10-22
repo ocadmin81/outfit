@@ -1306,6 +1306,28 @@ jQuery(document).ready(function(jQuery){
 	jQuery( '.m-search' ).click(function() {
 		jQuery('.header-left').addClass('active');
 	});	
+	//login-page-tabs
+	jQuery( '.form-group-forgot' ).click(function() {
+		jQuery('.reg-section,.login-section').removeClass('active');
+		jQuery('.forgot-section').addClass('active');
+	});
+	jQuery( '.form-group-reg-link' ).click(function() {
+		jQuery('.login-section,.forgot-section').removeClass('active');
+		jQuery('.reg-section').addClass('active');
+	});
+	jQuery( '.tabs div' ).click(function() {
+		var id = jQuery(this).attr('id');
+		jQuery( '.tabs div' ).removeClass('active');
+		if(id == 'tab1'){
+			jQuery(this).addClass('active');
+			jQuery('.reg-section,.login-section,.forgot-section').removeClass('active');
+			jQuery('.login-section').addClass('active');		
+		}else{
+			jQuery(this).addClass('active');
+			jQuery('.reg-section,.login-section,.forgot-section').removeClass('active');
+			jQuery('.reg-section').addClass('active');
+		}
+	});
 });
 jQuery(window).on('load', function () {	
     var mqxs = window.matchMedia( "(max-width: 1024px)" );
