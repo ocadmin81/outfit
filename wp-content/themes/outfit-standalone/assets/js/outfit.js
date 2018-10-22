@@ -1336,6 +1336,20 @@ jQuery(document).ready(function(jQuery){
 			jQuery('.reg-section').addClass('active');
 		}
 	});
+	//mobile footer
+	if(Swisth<=767){
+		jQuery('footer .widget-column').find('#text-13').insertAfter(jQuery('footer .widget-column').find('#text-14'));
+	}
+	//home blog on mobile
+	if(Swisth<=767){
+		jQuery(".home-blog-content section").slick({
+			centerMode: true,
+			centerPadding: '50px',
+			slidesToShow: 1,
+			rtl: true,
+			arrows: false		
+		});		
+	}
 });
 jQuery(window).on('load', function () {	
     var mqxs = window.matchMedia( "(max-width: 1024px)" );
