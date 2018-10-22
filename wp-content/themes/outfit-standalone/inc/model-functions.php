@@ -34,3 +34,50 @@ function outfit_category_exists($termId) {
     }
     return false;
 }
+
+function outfit_get_list_of_age_groups() {
+
+    $ageGroups = get_terms('age_groups', array(
+            'hide_empty' => 0,
+            'parent' => 0
+        )
+    );
+    return $ageGroups;
+}
+
+function outfit_get_list_of_colors() {
+
+    $colors = get_terms('colors', array(
+            'hide_empty' => 0,
+            'parent' => 0
+        )
+    );
+    return $colors;
+}
+
+function outfit_get_list_of_conditions() {
+
+    $conditions = get_terms('conditions', array(
+            'hide_empty' => 0,
+            'parent' => 0
+        )
+    );
+    return $conditions;
+}
+
+function outfit_get_list_of_brands($categoryId) {
+
+    $brands = get_terms('brands', array(
+            'hide_empty' => 0,
+            'parent' => 0,
+            'meta_query' => array(
+                array(
+                    'key'       => 'categories',
+                    'value'     => $categoryId,
+                    'compare'   => '='
+                )
+            )
+        )
+    );
+    return $brands;
+}

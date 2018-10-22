@@ -30,4 +30,33 @@ function outfitGetSubCatOnClick(){
 	} // end if
 }
 
+add_action('wp_ajax_outfitGetBrandsByCat', 'outfitGetBrandsByCat');
+add_action('wp_ajax_nopriv_outfitGetBrandsByCat', 'outfitGetBrandsByCat');
+
+function outfitGetBrandsByCat() {
+
+	if(isset($_POST['mainCat'])){
+		$option = '';
+		$mainCatID = $_POST['mainCat'];
+		if (!outfit_category_exists($mainCatID)) {
+			echo $option;
+			wp_die();
+		}
+		$brands = outfit_get_list_of_brands($mainCatID);
+		if (!empty($brands)) {
+
+			foreach ($brands as $brand) {
+				$option .= '<option value="'.$brand->term_id.'">';
+				$option .= $brand->name;
+				$option .= '</option>';
+			}
+			echo '<option value="-1" selected="selected" disabled="disabled">'.esc_html__( "Select Brands", "outfit-standalone" ).'</option>'.$option;
+			wp_die();
+		}else{
+			echo $option;
+			wp_die();
+		}
+	} // end if
+}
+
 ?>

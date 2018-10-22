@@ -345,12 +345,33 @@ jQuery(document).ready(function(jQuery){
 		list When click on main category.
 	======================================*/
 	jQuery('.post-sub-cat-container').hide();
+    jQuery('.post-sub-age-groups-container').hide();
+    jQuery('.post-colors-container').hide();
+    jQuery('.post-conditions-container').hide();
+    jQuery('.post-brands-container').hide();
     var mainCatText;
     jQuery(".post-cat-container select").on('change', function (event){
         event.preventDefault();
 		jQuery('.post-sub-cat-container').hide();
+        jQuery('.post-sub-age-groups-container').hide();
+        jQuery('.post-colors-container').hide();
+        jQuery('.post-conditions-container').hide();
+        jQuery('.post-brands-container').hide();
         var selected = jQuery(this).find(":selected");
         var mainCatId = selected.val();
+        var ageFilter = selected.attr('data-age-enabled');
+        if (ageFilter == '1') {
+            jQuery('.post-age-groups-container').show();
+        }
+        var colorFilter = selected.attr('data-color-enabled');
+        if (colorFilter == '1') {
+            jQuery('.post-colors-container').show();
+        }
+        var conditionFilter = selected.attr('data-condition-enabled');
+        if (conditionFilter == '1') {
+            jQuery('.post-conditions-container').show();
+        }
+
         mainCatText = selected.text();
 		var data = {
 			'action': 'outfitGetSubCatOnClick',
@@ -363,34 +384,21 @@ jQuery(document).ready(function(jQuery){
 			}			
 		});
 
-    });
-    var subCatText;
-
-    /*=====================================
-     Categories AJAX Function
-     This function will show category custom fields
-     list When click on main category.
-     ======================================*/
-    jQuery('.post-sub-cat-container').hide();
-    var mainCatText;
-    jQuery(".post-cat-container select").on('change', function (event){
-        event.preventDefault();
-        jQuery('.post-sub-cat-container').hide();
-        var selected = jQuery(this).find(":selected");
-        var mainCatId = selected.val();
-        mainCatText = selected.text();
-        var data = {
-            'action': 'outfitGetSubCatOnClick',
+        var data1 = {
+            'action': 'outfitGetBrandsByCat',
             'mainCat': mainCatId,
         };
-        jQuery.post(ajaxurl, data, function(response){
-            jQuery('.post-sub-cat-container select').html(response);
+        jQuery.post(ajaxurl, data1, function(response){
+            jQuery('.post-brands-container select').html(response);
             if(response){
-                jQuery('.post-sub-cat-container').show();
+                jQuery('.post-brands-container').show();
             }
         });
 
     });
+    var subCatText;
+
+
 
 	/*=====================================
 		image previews

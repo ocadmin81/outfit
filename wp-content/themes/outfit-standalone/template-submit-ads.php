@@ -31,6 +31,10 @@ $currentRole = $role[0];
 $imageLimit = 5;
 
 $categories = outfit_get_main_cats(true);
+$ageGroups = outfit_get_list_of_age_groups();
+$colors = outfit_get_list_of_colors();
+$brands = array();
+$conditions = outfit_get_list_of_conditions();
 
 if(isset($_POST['postTitle'])){
 	if(trim($_POST['postTitle']) != '' && $_POST['outfit-main-cat-field'] != ''){
@@ -403,7 +407,13 @@ get_header(); ?>
 										<option value="" selected><?php esc_html_e('Select Category', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($categories as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+											<?php $c = fetch_category_custom_fields($c); ?>
+											<option value="<?php echo $c->term_id; ?>"
+													data-color-enabled="<?php echo ($c->catFilterByColor? '1' : '0'); ?>"
+													data-brand-enabled="<?php echo ($c->catFilterByBrand? '1' : '0'); ?>"
+													data-age-enabled="<?php echo ($c->catFilterByAge? '1' : '0'); ?>"
+													data-condition-enabled="<?php echo ($c->catFilterByCondition? '1' : '0'); ?>"
+												><?php esc_html_e($c->name); ?></option>
 										<?php endforeach; ?>
 									</select>
 								</div>
@@ -419,6 +429,58 @@ get_header(); ?>
 								</div>
 							</div><!-- /Ad Sub Category-->
 
+							<div class="form-group post-colors-container" style="display: none;">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Color', 'outfit-standalone') ?> : </label>
+								<div class="col-sm-9">
+									<select id="color" name="postColor" class="form-control form-control-md" multiple>
+										<option value=""><?php esc_html_e('Select Colors', 'outfit-standalone'); ?></option>
+										<?php
+										foreach ($colors as $c): ?>
+											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div><!-- /Ad Colors-->
+
+							<div class="form-group post-age-groups-container" style="display: none;">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Age Group', 'outfit-standalone') ?> : </label>
+								<div class="col-sm-9">
+									<select id="ageGroup" name="postAgeGroup" class="form-control form-control-md" multiple>
+										<option value=""><?php esc_html_e('Select Age Groups', 'outfit-standalone'); ?></option>
+										<?php
+										foreach ($ageGroups as $c): ?>
+											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div><!-- /Ad Age Groups-->
+
+							<div class="form-group post-brands-container" style="display: none;">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Brand', 'outfit-standalone') ?> : </label>
+								<div class="col-sm-9">
+									<select id="brand" name="postBrand" class="form-control form-control-md" multiple>
+										<option value=""><?php esc_html_e('Select Brands', 'outfit-standalone'); ?></option>
+										<?php
+										foreach ($brands as $c): ?>
+											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div><!-- /Ad Brands-->
+
+							<div class="form-group post-conditions-container" style="display: none;">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Condition', 'outfit-standalone') ?> : </label>
+								<div class="col-sm-9">
+									<select id="condition" name="postCondition" class="form-control form-control-md">
+										<option value=""><?php esc_html_e('Select Condition', 'outfit-standalone'); ?></option>
+										<?php
+										foreach ($conditions as $c): ?>
+											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div><!-- /Ad Conditions-->
+
 							<div class="form-group">
 								<label class="col-sm-3 text-left flip" for="description"><?php esc_html_e('Ad description', 'outfit-standalone') ?> : <span>*</span></label>
 								<div class="col-sm-9">
@@ -426,568 +488,18 @@ get_header(); ?>
 									<div class="help-block with-errors"></div>
 								</div>
 							</div><!--Ad description-->
+
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Keywords', 'outfit-standalone') ?> : </label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Your Phone/Mobile', 'outfit-standalone') ?> :</label>
 								<div class="col-sm-9">
-									<div class="form-inline row">
-										<div class="col-sm-12">
-											<div class="input-group">
-												<div class="input-group-addon"><i class="fa fa-tags"></i></div>
-												<input type="text" name="post_tags" class="form-control form-control-md" placeholder="<?php esc_html_e('enter keywords for better search..!', 'outfit-standalone') ?>">
-											</div>
-										</div>
-									</div>
-									<div class="help-block"><?php esc_html_e('Keywords Example : ads, car, cat, business', 'outfit-standalone') ?></div>
+									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>">
 								</div>
-							</div><!--Ad Tags-->
-
-
-							<!--ContactPhone-->
-							<?php $classieraAskingPhone = $redux_demo['phoneon'];?>
-							<?php if($classieraAskingPhone == 1){?>
-								<div class="form-group">
-									<label class="col-sm-3 text-left flip"><?php esc_html_e('Your Phone/Mobile', 'outfit-standalone') ?> :</label>
-									<div class="col-sm-9">
-										<div class="form-inline row">
-											<div class="col-sm-12">
-												<div class="input-group">
-													<div class="input-group-addon">
-														<i class="fa fa-mobile-alt"></i>
-													</div>
-													<input type="text" name="post_phone" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>">
-												</div>
-											</div>
-										</div>
-										<div class="help-block"><?php esc_html_e('Its Not required, but if you will put phone here then it will show publicly', 'outfit-standalone') ?></div>
-									</div>
-								</div>
-							<?php } ?>
-							<!--ContactPhone-->
-							<?php
-							$adpostCondition= $redux_demo['adpost-condition'];
-							if($adpostCondition == 1){
-								?>
-								<div class="form-group">
-									<label class="col-sm-3 text-left flip"><?php esc_html_e('Item Condition', 'outfit-standalone') ?> : <span>*</span></label>
-									<div class="col-sm-9">
-										<div class="radio">
-											<input id="new" type="radio" name="item-condition" value="<?php esc_html_e('new', 'outfit-standalone') ?>" name="item-condition" checked>
-											<label for="new"><?php esc_html_e('Brand New', 'outfit-standalone') ?></label>
-											<input id="used" type="radio" name="item-condition" value="<?php esc_html_e('used', 'outfit-standalone') ?>" name="item-condition">
-											<label for="used"><?php esc_html_e('Used', 'outfit-standalone') ?></label>
-										</div>
-									</div>
-								</div><!--Item condition-->
-							<?php } ?>
-						</div><!---form-main-section post-detail-->
-						<!--Category-->
-						<div class="form-main-section classiera-post-cat">
-							<div class="classiera-post-main-cat">
-								<h4 class="classiera-post-inner-heading">
-									<?php esc_html_e('Select a Category', 'outfit-standalone') ?> :
-								</h4>
-								<ul class="list-unstyled list-inline">
-									<?php
-
-									foreach ($categories as $category){
-										//print_r($category);
-										$tag = $category->term_id;
-										$classieraCatFields = get_option(MY_CATEGORY_FIELDS);
-										if (isset($classieraCatFields[$tag])){
-											$classieraCatIconCode = $classieraCatFields[$tag]['category_icon_code'];
-											$classieraCatIcoIMG = $classieraCatFields[$tag]['your_image_url'];
-											$classieraCatIconClr = $classieraCatFields[$tag]['category_icon_color'];
-										}
-										if(empty($classieraCatIconClr)){
-											$iconColor = $primaryColor;
-										}else{
-											$iconColor = $classieraCatIconClr;
-										}
-										$category_icon = stripslashes($classieraCatIconCode);
-										?>
-										<li class="match-height">
-											<a href="#" id="<?php echo esc_attr( $tag ); ?>" class="border">
-												<?php
-												if($classieraIconsStyle == 'icon'){
-													?>
-													<i class="<?php echo esc_html( $category_icon ); ?>" style="color:<?php echo esc_html( $iconColor ); ?>;"></i>
-													<?php
-												}elseif($classieraIconsStyle == 'img'){
-													?>
-													<img src="<?php echo esc_url( $classieraCatIcoIMG ); ?>" alt="<?php echo esc_html(get_cat_name( $catName )); ?>">
-													<?php
-												}
-												?>
-												<span><?php echo esc_html(get_cat_name( $tag )); ?></span>
-											</a>
-										</li>
-										<?php
-									}
-									?>
-								</ul><!--list-unstyled-->
-								<input class="classiera-main-cat-field" name="classiera-main-cat-field" type="hidden" value="">
-							</div><!--classiera-post-main-cat-->
-							<div class="classiera-post-sub-cat">
-								<h4 class="classiera-post-inner-heading">
-									<?php esc_html_e('Select a Sub Category', 'outfit-standalone') ?> :
-								</h4>
-								<ul class="list-unstyled classieraSubReturn">
-								</ul>
-								<input class="classiera-sub-cat-field" name="classiera-sub-cat-field" type="hidden" value="">
-							</div><!--classiera-post-sub-cat-->
-							<!--ThirdLevel-->
-							<div class="classiera_third_level_cat">
-								<h4 class="classiera-post-inner-heading">
-									<?php esc_html_e('Select a Sub Category', 'outfit-standalone') ?> :
-								</h4>
-								<ul class="list-unstyled classieraSubthird">
-								</ul>
-								<input class="classiera_third_cat" name="classiera_third_cat" type="hidden" value="">
 							</div>
-							<!--ThirdLevel-->
-						</div>
-						<!-- /Category-->
 
-						<!-- extra fields -->
-						<div class="classieraExtraFields" style="display:none;"></div>
-						<!-- extra fields -->
-
-						<!-- post location -->
-						<?php
-						$classiera_ad_location_remove = $redux_demo['classiera_ad_location_remove'];
-						if($classiera_ad_location_remove == 1){
-						?>
-						<div class="form-main-section post-location">
-							<h4 class="text-uppercase border-bottom"><?php esc_html_e('Ad Location', 'outfit-standalone') ?> :</h4>
-							<?php 
-							$args = array(
-								'post_type' => 'countries',
-								'posts_per_page'   => -1,
-								'orderby'          => 'title',
-								'order'            => 'ASC',
-								'post_status'      => 'publish',
-								'suppress_filters' => false 
-							);
-							$country_posts = get_posts($args);
-							if(!empty($country_posts)){
-							?>
-							<!--Select Country-->
-							<div class="form-group">
-                                <label class="col-sm-3 text-left flip"><?php esc_html_e('Select Country', 'outfit-standalone') ?>: <span>*</span></label>
-                                <div class="col-sm-6">
-                                    <div class="inner-addon right-addon">
-                                        <i class="form-icon right-form-icon fa fa-angle-down"></i>
-                                        <select name="post_location" id="post_location" class="form-control form-control-md">
-                                            <option value="-1" selected disabled><?php esc_html_e('Select Country', 'outfit-standalone'); ?></option>
-                                            <?php 
-											foreach( $country_posts as $country_post ){
-												?>
-												<option value="<?php echo esc_attr( $country_post->ID ); ?>">
-													<?php echo esc_html( $country_post->post_title ); ?>
-												</option>
-												<?php
-											}
-											?>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-							<?php } ?>
-							<!--Select Country-->	
-							<!--Select States-->
-							<?php 
-							$locationsStateOn = $redux_demo['location_states_on'];
-							if($locationsStateOn == 1){
-							?>
-							<div class="form-group">
-                                <label class="col-sm-3 text-left flip"><?php esc_html_e('Select State', 'outfit-standalone') ?>: <span>*</span></label>
-                                <div class="col-sm-6">
-                                    <div class="inner-addon right-addon">
-                                        <i class="form-icon right-form-icon fa fa-angle-down"></i>
-										<select name="post_state" id="post_state" class="selectState form-control form-control-md" required>
-											<option value=""><?php esc_html_e('Select State', 'outfit-standalone'); ?></option>
-										</select>
-                                    </div>
-                                </div>
-                            </div>
-							<?php } ?>
-							<!--Select States-->
-							<!--Select City-->
-							<?php 
-							$locationsCityOn= $redux_demo['location_city_on'];
-							if($locationsCityOn == 1){
-							?>
-							<div class="form-group">
-                                <label class="col-sm-3 text-left flip"><?php esc_html_e('Select City', 'outfit-standalone'); ?>: <span>*</span></label>
-                                <div class="col-sm-6">
-                                    <div class="inner-addon right-addon">
-                                        <i class="form-icon right-form-icon fa fa-angle-down"></i>
-										<select name="post_city" id="post_city" class="selectCity form-control form-control-md" required>
-											<option value=""><?php esc_html_e('Select City', 'outfit-standalone'); ?></option>
-										</select>
-                                    </div>
-                                </div>
-                            </div>
-							<?php } ?>
-							<!--Select City-->
-							<!--Address-->
-							<?php if($classieraAddress == 1){?>
-							<div class="form-group">
-                                <label class="col-sm-3 text-left flip"><?php esc_html_e('Address', 'outfit-standalone'); ?> : <span>*</span></label>
-                                <div class="col-sm-9">
-                                    <input id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>" required>
-                                </div>
-                            </div>
-							<?php } ?>
-							<!--Address-->
-							<!--Google Value-->
-							<div class="form-group">
-								<?php 
-									$googleFieldsOn = $redux_demo['google-lat-long']; 
-									if($googleFieldsOn == 1){
-								?>
-                                <label class="col-sm-3 text-left flip"><?php esc_html_e('Set Latitude & Longitude', 'outfit-standalone') ?> : <span>*</span></label>
-									<?php } ?>
-                                <div class="col-sm-9">
-								<?php 
-									$googleFieldsOn = $redux_demo['google-lat-long']; 
-									if($googleFieldsOn == 1){
-								?>
-                                    <div class="form-inline row">
-                                        <div class="col-sm-6">
-                                            <div class="input-group">
-                                                <div class="input-group-addon"><i class="fas fa-map-marker-alt"></i></div>
-                                                <input type="text" name="latitude" id="latitude" class="form-control form-control-md" placeholder="<?php esc_html_e('Latitude', 'outfit-standalone') ?>" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="input-group">
-                                                <div class="input-group-addon"><i class="fas fa-map-marker-alt"></i></div>
-                                                <input type="text" name="longitude" id="longitude" class="form-control form-control-md" placeholder="<?php esc_html_e('Longitude', 'outfit-standalone') ?>" required>
-                                            </div>
-                                        </div>
-                                    </div>
-									<?php }else{ ?>
-										<input type="hidden" id="latitude" name="latitude">
-										<input type="hidden" id="longitude" name="longitude">
-									<?php } ?>
-									<?php 
-								$googleMapadPost = $redux_demo['google-map-adpost']; 
-								if($googleMapadPost == 1){
-								?>
-                                    <div id="post-map" class="submitMAp">
-                                        <div id="map-canvas"></div>
-										<script type="text/javascript">
-										jQuery(document).ready(function($) {
-										var geocoder;
-										var map;
-										var marker;
-										var geocoder = new google.maps.Geocoder();
-										function geocodePosition(pos) {
-											geocoder.geocode({
-											latLng: pos
-										}, function(responses) {
-									    if (responses && responses.length > 0) {
-									      updateMarkerAddress(responses[0].formatted_address);
-									    } else {
-									      updateMarkerAddress('Cannot determine address at this location.');
-									    }
-
-									  });
-
-									}
-
-									function updateMarkerPosition(latLng) {
-									  jQuery('#latitude').val(latLng.lat());
-									  jQuery('#longitude').val(latLng.lng());
-									}
+						</div><!---form-main-section post-detail-->
 
 
 
-									function updateMarkerAddress(str) {
-									  jQuery('#address').val(str);
-									}
-
-
-
-									function initialize() {
-									  var latlng = new google.maps.LatLng(0, 0);
-									  var mapOptions = {
-									    zoom: 2,
-									    center: latlng,
-										draggable: true
-									  }
-
-									  map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-									  geocoder = new google.maps.Geocoder();
-									  marker = new google.maps.Marker({
-									  	position: latlng,
-									    map: map,
-									    draggable: true
-									  });
-									  // Add dragging event listeners.
-									  google.maps.event.addListener(marker, 'dragstart', function() {
-									    updateMarkerAddress('Dragging...');
-									  });									  
-
-									  google.maps.event.addListener(marker, 'drag', function() {
-									    updateMarkerPosition(marker.getPosition());
-									  });									  
-
-									  google.maps.event.addListener(marker, 'dragend', function() {
-									    geocodePosition(marker.getPosition());
-									  });
-									}
-
-
-
-									google.maps.event.addDomListener(window, 'load', initialize);
-									jQuery(document).ready(function() {							         
-
-									  initialize();									          
-
-									  jQuery(function() {
-									    jQuery("#address").autocomplete({
-									      //This bit uses the geocoder to fetch address values
-									      source: function(request, response) {
-									        geocoder.geocode( {'address': request.term }, function(results, status) {
-									          response(jQuery.map(results, function(item) {
-									            return {
-									              label:  item.formatted_address,
-									              value: item.formatted_address,
-									              latitude: item.geometry.location.lat(),
-									              longitude: item.geometry.location.lng()
-									            }
-
-									          }));
-
-									        })
-
-									      },
-
-									      //This bit is executed upon selection of an address
-
-									      select: function(event, ui) {
-									        jQuery("#latitude").val(ui.item.latitude);
-									        jQuery("#longitude").val(ui.item.longitude);
-									        var location = new google.maps.LatLng(ui.item.latitude, ui.item.longitude);
-									        marker.setPosition(location);
-									        map.setZoom(16);
-									        map.setCenter(location);
-									      }
-
-									    });
-
-									  });
-
-									  
-
-									  //Add listener to marker for reverse geocoding
-									  google.maps.event.addListener(marker, 'drag', function() {
-									    geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
-									      if (status == google.maps.GeocoderStatus.OK) {
-									        if (results[0]) {
-									          jQuery('#address').val(results[0].formatted_address);
-									          jQuery('#latitude').val(marker.getPosition().lat());
-									          jQuery('#longitude').val(marker.getPosition().lng());
-									        }
-
-									      }
-									    });
-									  });
-
-									});
-								});
-										</script>
-                                    </div>
-								<?php } ?>
-                                </div>
-                            </div>
-							<!--Google Value-->
-						</div>
-						<?php } ?>
-						<!-- post location -->
-						<!-- seller information without login-->
-						<?php if( !is_user_logged_in()){?>
-						<div class="form-main-section seller">
-                            <h4 class="text-uppercase border-bottom"><?php esc_html_e('Seller Information', 'outfit-standalone') ?> :</h4>
-                            <div class="form-group">
-                                <label class="col-sm-3 text-left flip"><?php esc_html_e('Your Are', 'outfit-standalone') ?> : <span>*</span></label>
-                                <div class="col-sm-9">
-                                    <div class="radio">
-                                        <input id="individual" type="radio" name="seller" checked>
-                                        <label for="individual"><?php esc_html_e('Individual', 'outfit-standalone') ?></label>
-                                        <input id="dealer" type="radio" name="seller">
-                                        <label for="dealer"><?php esc_html_e('Dealer', 'outfit-standalone') ?></label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 text-left flip"><?php esc_html_e('Your Name', 'outfit-standalone') ?>: <span>*</span></label>
-                                <div class="col-sm-6">
-                                    <input type="text" name="user_name" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter Your Name', 'outfit-standalone') ?>">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 text-left flip"><?php esc_html_e('Your Email', 'outfit-standalone') ?> : <span>*</span></label>
-                                <div class="col-sm-6">
-                                    <input type="email" name="user_email" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your email', 'outfit-standalone') ?>">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-3 text-left flip"><?php esc_html_e('Your Phone or Mobile No', 'outfit-standalone') ?> :<span>*</span></label>
-                                <div class="col-sm-6">
-                                    <input type="tel" name="user_phone" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your Mobile or Phone number', 'outfit-standalone') ?>">
-                                </div>
-                            </div>
-                        </div>
-						<?php }?>
-						<!-- seller information without login -->
-						<!--Select Ads Type-->
-						<?php 
-						$totalAds = '';
-						$usedAds = '';
-						$availableADS = '';
-						$planCount = 0;						
-						$regular_ads = $redux_demo['regular-ads'];
-						$classieraRegularAdsDays = $redux_demo['ad_expiry'];
-						$current_user = wp_get_current_user();
-						$userID = $current_user->ID;
-						$result = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}classiera_plans WHERE user_id = $userID ORDER BY id DESC" );
-						?>
-						<div class="form-main-section post-type">
-                            <h4 class="text-uppercase border-bottom"><?php esc_html_e('Select Ad Post Type', 'outfit-standalone') ?> :</h4>
-                            <p class="help-block"><?php esc_html_e('Select an Option to make your ad featured or regular', 'outfit-standalone') ?></p>
-                            <div class="form-group">
-							<!--Regular Ad with plans-->
-							<?php							
-							if($postLimitOn == true && $countPosts >= $regularCount && $currentRole != "administrator"){
-								if(!empty($result)){
-									$count = 0;
-									foreach( $result as $info ){
-										$totalRegularAds = $info->regular_ads;
-										$usedRegularAds = $info->regular_used;
-										$regularID = $info->id;
-										$availableRegularADS = $totalRegularAds-$usedRegularAds;
-										$planName = $info->plan_name;
-										if($availableRegularADS != 0){
-											?>
-											<div class="col-sm-4 col-md-3 col-lg-3">
-												<div class="post-type-box">
-													<h3 class="text-uppercase">
-														<?php esc_html_e('Regular with ', 'outfit-standalone') ?>
-														<?php echo esc_html($planName); ?>
-													</h3>
-													<p>
-													<?php esc_html_e('Available Regular ads ', 'outfit-standalone') ?> :
-													<?php echo esc_attr($availableRegularADS); ?>
-													</p>
-													<p>
-													<?php esc_html_e('Used Regular ads', 'outfit-standalone') ?> : 
-													<?php echo esc_attr($usedRegularAds); ?>
-													</p>
-													<div class="radio">
-														<input id="regularPlan<?php echo esc_attr($regularID); ?>" class="classieraGetID" type="radio" name="classiera_post_type" value="classiera_regular_with_plan" data-regular-id="<?php echo esc_attr($info->id); ?>">
-														<label for="regularPlan<?php echo esc_attr($regularID); ?>">
-															<?php esc_html_e('Select', 'outfit-standalone') ?>
-														</label>
-													</div><!--radio-->
-												</div><!--post-type-box-->
-											</div><!--col-sm-4-->
-											<?php
-										}
-									}
-								}
-							}else{
-								if($regular_ads == 1){
-								?>
-								<!--Regular Ad-->
-								<div class="col-sm-4 col-md-3 col-lg-3 active-post-type">
-                                    <div class="post-type-box">
-                                        <h3 class="text-uppercase"><?php esc_html_e('Regular', 'outfit-standalone') ?></h3>
-                                        <p><?php esc_html_e('For', 'outfit-standalone') ?>&nbsp;<?php echo esc_attr($classieraRegularAdsDays); ?>&nbsp;<?php esc_html_e('days', 'outfit-standalone') ?></p>
-                                        <div class="radio">
-                                            <input id="regular" type="radio" name="classiera_post_type" value="classiera_regular" checked>
-                                            <label for="regular"><?php esc_html_e('Select', 'outfit-standalone') ?></label>
-                                        </div>
-										<input type="hidden" name="regular-ads-enable" value=""  >
-                                    </div>
-                                </div>
-								<!--Regular Ad-->
-								<?php
-								}
-							}
-							?>
-							<!--Regular Ad with plans-->
-							<?php
-								if(!empty($result)){
-									foreach ( $result as $info ) {
-										//print_r($info);
-										$premiumID = $info->id;
-										$name = $info->plan_name;
-										$totalAds = $info->ads;
-										$usedAds = $info->used;
-										if($totalAds == 'unlimited'){
-											$name = esc_html__( 'Unlimited for Admin Only', 'outfit-standalone' );
-											$availableADS = 'unlimited';
-										}else{
-											$availableADS = $totalAds-$usedAds;
-										}
-										
-										if($availableADS != 0 || $totalAds == 'unlimited'){
-										?>
-											<div class="col-sm-4 col-md-3 col-lg-3">
-												<div class="post-type-box">
-													<h3 class="text-uppercase">						
-														<?php echo esc_html($name); ?>
-													</h3>
-													<p><?php esc_html_e('Total Ads Available', 'outfit-standalone') ?> : <?php echo esc_attr($availableADS); ?></p>
-													<p><?php esc_html_e('Used Ads with this Plan', 'outfit-standalone') ?> : <?php echo esc_attr($usedAds); ?></p>
-													<div class="radio">
-														<input id="featured<?php echo esc_attr($premiumID); ?>" type="radio" name="classiera_post_type" value="<?php echo esc_attr($info->id); ?>">
-														<label for="featured<?php echo esc_attr($premiumID); ?>">
-															<?php esc_html_e('Select', 'outfit-standalone') ?>
-														</label>
-													</div>
-												</div>
-											</div>
-										<?php
-										}										
-									}
-								}
-							?>	
-								<!--Pay Per Post Per Category Base-->
-								<div class="col-sm-4 col-md-3 col-lg-3 classieraPayPerPost">
-									<div class="post-type-box">
-										<h3 class="text-uppercase">
-											<?php esc_html_e('Featured Ad', 'outfit-standalone') ?>
-										</h3>	
-										<p class="classieraPPP"></p>
-										<div class="radio">
-											<input id="payperpost" type="radio" name="classiera_post_type" value="payperpost">
-											<label for="payperpost">
-											<?php esc_html_e('select', 'outfit-standalone') ?>
-											</label>
-										</div>										
-									</div>
-								</div>
-								<!--Pay Per Post Per Category Base-->
-                            </div>
-                        </div>
-						<!--Select Ads Type-->
-						<?php 
-						$featured_plans = $redux_demo['featured_plans'];
-						if(!empty($featured_plans)){
-							if($availableADS == "0" || empty($result)){
-						?>
-						<div class="row">
-                            <div class="col-sm-9">
-                                <div class="help-block terms-use">
-                                    <?php esc_html_e('Currently you have no active plan for featured ads. You must purchase a', 'outfit-standalone') ?> <strong><a href="<?php echo esc_url($featured_plans); ?>" target="_blank"><?php esc_html_e('Featured Pricing Plan', 'outfit-standalone') ?></a></strong> <?php esc_html_e('to be able to publish a Featured Ad.', 'outfit-standalone') ?>
-                                </div>
-                            </div>
-                        </div>
-						<?php }} ?>
 						<div class="row">
                             <div class="col-sm-9">
                                 <div class="help-block terms-use">
@@ -997,7 +509,6 @@ get_header(); ?>
                         </div>
 						<div class="form-main-section">
                             <div class="col-sm-4">
-								<input type="hidden" class="regular_plan_id" name="regular_plan_id" value="">
 								<?php wp_nonce_field('post_nonce', 'post_nonce_field'); ?>
 								<input type="hidden" name="submitted" id="submitted" value="true">
                                 <button class="post-submit btn btn-primary sharp btn-md btn-style-one btn-block" type="submit" name="op" value="Publish Ad"><?php esc_html_e('Publish Ad', 'outfit-standalone') ?></button>
@@ -1012,6 +523,6 @@ get_header(); ?>
 </section><!--user-pages-->
 <?php endwhile; ?>
 <div class="loader_submit_form">
-	<img src="<?php echo get_template_directory_uri().'/images/loader180.gif' ?>">
+	<img src="<?php echo get_template_directory_uri().'/assets/images/loader180.gif' ?>">
 </div>
 <?php get_footer(); ?>
