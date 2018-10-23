@@ -496,6 +496,19 @@ get_header(); ?>
 								</div>
 							</div>
 
+
+							<!--Address-->
+							<div class="form-group">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Address', 'classiera'); ?> : <span>*</span></label>
+								<div class="col-sm-9">
+									<input id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>" required>
+									<input type="hidden" id="latitude" name="latitude">
+									<input type="hidden" id="longitude" name="longitude">
+								</div>
+							</div>
+
+							<!--/Address-->
+
 						</div><!---form-main-section post-detail-->
 
 

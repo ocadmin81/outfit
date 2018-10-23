@@ -321,7 +321,22 @@
 		)
     ) );
 
-    
+    Redux::setSection( $opt_name, array(
+        'title'            => __( 'Google API', 'outfit-standalone' ),
+        'id'               => 'google_api',
+        'customizer_width' => '500px',
+        'icon'             => 'el el-map-marker',
+        'fields'     => array(
+            array(
+                'id'=>'google_api_key',
+                'type' => 'text',
+                'title' => __('Google API Key', 'outfit-standalone'),
+                'subtitle' => __('To use the Maps JavaScript API, you must get an API key.', 'outfit-standalone'),
+                'desc' => __('The API key is used to track API requests associated with your project for quota, usage, and billing.', 'outfit-standalone'),
+                'default' => ''
+            )
+        )
+    ) );
 
     /*
      * <--- END SECTIONS
