@@ -499,11 +499,28 @@ get_header(); ?>
 
 							<!--Address-->
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Address', 'classiera'); ?> : <span>*</span></label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Primary address', 'classiera'); ?> : <span>*</span></label>
 								<div class="col-sm-9">
-									<input id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>" required>
-									<input type="hidden" id="latitude" name="latitude">
-									<input type="hidden" id="longitude" name="longitude">
+									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>" required>
+									<input class="latitude" type="hidden" id="latitude" name="latitude">
+									<input class="longitude" type="hidden" id="longitude" name="longitude">
+									<input class="locality" type="hidden" id="locality" name="locality">
+									<input class="aal3" type="hidden" id="aal3" name="aal3">
+									<input class="aal2" type="hidden" id="aal2" name="aal2">
+									<input class="aal1" type="hidden" id="aal1" name="aal1">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Secondary address', 'classiera'); ?> : <span>*</span></label>
+								<div class="col-sm-9">
+									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>" required>
+									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2">
+									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2">
+									<input class="locality" type="hidden" id="locality_2" name="locality_2">
+									<input class="aal3" type="hidden" id="aal3_2" name="aal3_2">
+									<input class="aal2" type="hidden" id="aal2_2" name="aal2_2">
+									<input class="aal1" type="hidden" id="aal1_2" name="aal1_2">
 								</div>
 							</div>
 
