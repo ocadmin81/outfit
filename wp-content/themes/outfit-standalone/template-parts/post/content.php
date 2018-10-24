@@ -18,6 +18,13 @@
 		echo twentyseventeen_get_svg( array( 'icon' => 'thumb-tack' ) );
 	endif;
 	?>
+	<?php if ( '' !== get_the_post_thumbnail() && ! is_single() ) : ?>
+		<div class="post-thumbnail">
+			<a href="<?php the_permalink(); ?>">
+				<?php the_post_thumbnail( 'twentyseventeen-featured-image' ); ?>
+			</a>
+		</div><!-- .post-thumbnail -->
+	<?php endif; ?>	
 	<header class="entry-header">
 		<?php
 		if ( 'post' === get_post_type() ) {
@@ -25,7 +32,7 @@
 				if ( is_single() ) {
 					twentyseventeen_posted_on();
 				} else {
-					echo twentyseventeen_time_link();
+					echo twentyseventeen_posted_on();
 					twentyseventeen_edit_link();
 				};
 			echo '</div><!-- .entry-meta -->';
@@ -40,22 +47,11 @@
 		}
 		?>
 	</header><!-- .entry-header -->
-
-	<?php if ( '' !== get_the_post_thumbnail() && ! is_single() ) : ?>
-		<div class="post-thumbnail">
-			<a href="<?php the_permalink(); ?>">
-				<?php the_post_thumbnail( 'twentyseventeen-featured-image' ); ?>
-			</a>
-		</div><!-- .post-thumbnail -->
-	<?php endif; ?>
-
+	
 	<div class="entry-content">
+		<?php the_excerpt(); ?>
 		<?php
 		/* translators: %s: Name of current post */
-		the_content( sprintf(
-			__( 'Continue reading<span class="screen-reader-text"> "%s"</span>', 'twentyseventeen' ),
-			get_the_title()
-		) );
 
 		wp_link_pages( array(
 			'before'      => '<div class="page-links">' . __( 'Pages:', 'twentyseventeen' ),
@@ -65,7 +61,7 @@
 		) );
 		?>
 	</div><!-- .entry-content -->
-
+	<div class="to-article"><a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'הצג כתבה', 'outfit-standalone' ); ?></a></div>
 	<?php
 	if ( is_single() ) {
 		twentyseventeen_entry_footer();
