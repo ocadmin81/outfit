@@ -554,6 +554,14 @@ input[type="checkbox"] {
 
 /*---------------------- Outfit (Perfit) -----------------------
 ----------------------------------------------------------------*/
+@font-face {
+    font-family: 'vogueregular';
+    src: url('assets/webfonts/vogue-webfont.woff2') format('woff2'),
+         url('assets/webfonts/vogue-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
 html[lang="he-IL"], html[lang="he-IL"] input,html[lang="he-IL"] button, body, button, input, select, textarea,
 html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{direction: rtl;text-align: right;}
 html[lang="he-IL"] *,html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{font-family:   "Assistant",sans-serif;}
@@ -592,7 +600,7 @@ a.custom-logo-link{float: right;width: 33.333%;padding: 0;text-align: center;mar
 .home-features ul li{float: right;width: 20%;}
 .home-features ul li h3{font-size: 17px;padding-top: 5px;}
 .home-features ul li p{    color: #191919;font-size: 16px;padding: 0 30px;line-height: 19px;}
-.start-selling h3{text-transform: uppercase;font-size: 27px;}
+html[lang="he-IL"] .start-selling h3{text-transform: uppercase;font-size: 27px;font-family: 'vogueregular';font-weight: 500;}
 .start-selling p{margin: 0;font-size: 17px;}
 .start-selling a{    display: inline-block;
     margin-top: 20px;
@@ -638,7 +646,7 @@ body.page-two-column:not(.archive) #primary .entry-header .textwidget ul li a{fo
 .about-features{border: 1px solid #f3f3f3;margin: 60px 0;padding: 30px 30px 0;}
 .about-features ul {list-style: none;}
 .about-features ul li{display: inline-block;width: 33%;position: relative;margin-bottom: 15px;margin-top: 15px;vertical-align: top;}
-.about-features ul li:first-child{    text-align: center;padding-top: 25px;font-size: 26px;color: #6e6e6e;}
+.about-features ul li:first-child{font-family: 'vogueregular';text-align: center;padding-top: 25px;font-size: 26px;color: #6e6e6e;}
 .about-features ul li img{margin: 0;position: absolute;}
 .about-features ul li h3{margin: 0;padding: 0;padding-right: 90px;font-size: 17px;}
 .about-features ul li p{padding-right: 90px;font-size:16px;margin-top: 10px;line-height: 22px;padding-left: 30px;}
@@ -681,7 +689,7 @@ form.wpcf7-form input[type="submit"]{padding: 0;width: 160px;height: 45px;text-a
 .form-group.reg-text .widget_text{padding-bottom: 20px;}
 .form-group.reg-text ul li{background:url(assets/images/vi.png) right 5px no-repeat;font-size: 17px;padding: 5px 26px 0 0px;}
 .home-blog-title{text-align: center;margin-top: 15px;}
-.home-blog-title h2{color: #6e6e6e;font-size: 26px;}
+html[lang="he-IL"] .home-blog-title h2{color: #6e6e6e;font-size: 26px;font-family: 'vogueregular';font-weight: 500;}
 .home-blog-title a{font-size: 17px;border-bottom: 1px solid;background: url(assets/images/arrow-left.png) 0 3px no-repeat;padding-left: 20px;display: inline-block;line-height: 17px;}
 .home-blog-conten{    margin-top: 15px;}
 .home-blog-content .latest-post-selection article{border: none;margin-bottom: 0;padding: 0;float:right;width:33.333%;padding: 0 10px;}
@@ -705,6 +713,18 @@ form.wpcf7-form input[type="submit"]{padding: 0;width: 160px;height: 45px;text-a
 .archive .site-main > article .entry-content p{line-height: 20px;}
 .has-sidebar:not(.error404) #primary.full{    margin-top: 50px;}
 .archive .site-main > article .to-article a{display: block;width: 150px;height: 40px;line-height: 40px;border: 1px solid #efefef;text-align: center;background:  url(assets/images/arrow-left.png) 20px 15px no-repeat;margin-top: 20px;color: #6e6e6e;font-size: 15px;}
+.single-post-page .entry-title{font-size: 22px;font-weight: 500;}
+.has-sidebar:not(.error404) .single-post-page  #primary.full{margin-top: 0;}
+.single-post-page .posted-on{float: right;}
+.single-post-page .posted-on a{pointer-events: none;}
+.single-post-page .posted-on a time{float: right;width: 100%;max-width: 100%;font-size: 16px;color: #4d4d4d;margin-top: 5px;font-style: italic;font-weight: normal;}
+.single-post-page .entry-meta .byline{display: none;}
+body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: right;width: 100%;border-bottom: 1px solid #f3f3f3;padding-bottom: 5px;margin-bottom: 20px;}
+.post-share{    float: left;}
+.post-share ul{list-style: none;}
+.post-share ul li{display: inline-block;margin-right: 15px;}
+.post-share ul li a{color: #939393;font-size: 20px;}
+.post-share ul li a:hover{color: #323131;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
 }

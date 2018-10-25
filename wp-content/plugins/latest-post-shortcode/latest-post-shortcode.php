@@ -1854,7 +1854,7 @@ class Latest_Post_Shortcode {
 
 					// Tile title markup.
 					if ( in_array( 'title', $extra_display, true ) ) {
-						$tile = str_replace( '[title]', '<h3>' . esc_html( $post->post_title ) . '</h3>', $tile );
+						$tile = str_replace( '[title]', '<h3><a href="' . get_permalink( $post->ID ) . '" class="lps-author-link">' . esc_html( $post->post_title ) . '</a></h3>', $tile );
 					}
 					$tile = str_replace( '[title]', '', $tile );
 
@@ -1995,7 +1995,7 @@ class Latest_Post_Shortcode {
 				$img_url = $args['image_placeholder'];
 			}
 			if ( ! empty( $img_url ) ) {
-				$img_html = '<img src="' . esc_url( $img_url ) . '" />';
+				$img_html = '<a href="' . get_permalink( $post->ID ) . '" class="lps-author-link"><img src="' . esc_url( $img_url ) . '" /></a>';
 				$img_html = apply_filters( 'post_thumbnail_html', $img_html, (int) $post->ID, $th_id, $args['image'], array() );
 			}
 			$tile = str_replace( '[image]', $img_html, $tile );
