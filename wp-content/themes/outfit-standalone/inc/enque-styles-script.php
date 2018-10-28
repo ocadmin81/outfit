@@ -23,6 +23,7 @@ function outfit_scripts_styles(){
 	wp_enqueue_script('jquery.matchHeight', get_template_directory_uri() . '/assets/js/jquery.matchHeight.js', 'jquery', '', true);
 	wp_enqueue_script('infinitescroll', get_template_directory_uri() . '/assets/js/infinitescroll.js', 'jquery', '', true);
 	wp_enqueue_script('select2.min', get_template_directory_uri() . '/assets/js/select2.min.js', 'jquery', '', true);
+	wp_enqueue_script('slick.min', get_template_directory_uri() . '/assets/js/slick.min.js', 'jquery', '', true);
 	wp_enqueue_script('outfit', get_template_directory_uri() . '/assets/js/outfit.js', 'jquery', '', true);
 	wp_enqueue_script('jquery-ui', get_template_directory_uri() . '/assets/js/jquery-ui.min.js', 'jquery', '', true);
 

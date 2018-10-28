@@ -80,10 +80,12 @@
 		) );
 		?>
 	</div><!-- .entry-content -->
-	<div class="to-article"><a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'הצג כתבה', 'outfit-standalone' ); ?></a></div>
+	<?php if ( !is_single() ): ?>
+		<div class="to-article"><a href="<?php echo esc_url( get_permalink() ); ?>"><?php esc_html_e( 'הצג כתבה', 'outfit-standalone' ); ?></a></div>
+	<?php endif; ?>
 	<?php
 	if ( is_single() ) {
-		twentyseventeen_entry_footer();
+		//twentyseventeen_entry_footer();
 	}
 	?>
 

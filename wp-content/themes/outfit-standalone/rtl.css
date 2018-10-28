@@ -718,13 +718,20 @@ html[lang="he-IL"] .home-blog-title h2{color: #6e6e6e;font-size: 26px;font-famil
 .single-post-page .posted-on{float: right;}
 .single-post-page .posted-on a{pointer-events: none;}
 .single-post-page .posted-on a time{float: right;width: 100%;max-width: 100%;font-size: 16px;color: #4d4d4d;margin-top: 5px;font-style: italic;font-weight: normal;}
+.entry-meta{float: right;width: 100%;}
 .single-post-page .entry-meta .byline{display: none;}
-body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: right;width: 100%;border-bottom: 1px solid #f3f3f3;padding-bottom: 5px;margin-bottom: 20px;}
+.wrap.single-post-page p{margin: 0 0 20px;float: right;width: 100%;font-size: 17px;}
+.single-post-page h3{font-weight: 600;font-size: 18px;padding-top: 0;}
+.single-post-page .entry-content ul{list-style: none;margin: 0;}
+.single-post-page .entry-content ul li {background: url(assets/images/vi.png) right 5px no-repeat;font-size: 17px;padding: 5px 26px 0 0px;}
+body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: right;width: 100%;border-bottom: 1px solid #f3f3f3;padding-bottom: 0;margin-bottom: 15px;}
 .post-share{    float: left;}
 .post-share ul{list-style: none;}
 .post-share ul li{display: inline-block;margin-right: 15px;}
 .post-share ul li a{color: #939393;font-size: 20px;}
 .post-share ul li a:hover{color: #323131;}
+.related-posts .home-blog-title{margin-bottom: 25px;}
+.slick-list{overflow: hidden;margin: 0;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
 }
@@ -734,6 +741,7 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 		padding-left: 0;
 		padding-right: 0;
 	}
+	.wrap.single-post-page{padding: 25px 163px;}	
 	.social-navigation {
 		clear: none;
 		float: none;
@@ -824,4 +832,5 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 	.about-features ul li:first-child{    padding-top: 0;}
 	body.page-two-column:not(.archive) #primary .entry-header .widget{padding-bottom: 15px;}
 	body.page-two-column:not(.archive) #primary .entry-header .textwidget ul li{width: 100%;}
+	.wrap.related-posts{padding: 0;}
 }

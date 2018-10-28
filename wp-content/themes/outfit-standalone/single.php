@@ -39,5 +39,9 @@ get_header(); ?>
 	</div><!-- #primary -->
 	<?php //get_sidebar(); ?>
 </div><!-- .wrap -->
-
+<div class="wrap related-posts">
+	<div class="home-blog-content">
+		<?php wp_related_posts()?>
+	</div>
+</div>
 <?php get_footer();
