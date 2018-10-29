@@ -17,6 +17,7 @@ if ( !is_user_logged_in() ) {
 $postTitleError = '';
 $postPriceError = '';
 $catError = '';
+$imageError = '';
 $postContent = '';
 $hasError ='';
 $allowed ='';
@@ -35,6 +36,50 @@ $ageGroups = outfit_get_list_of_age_groups();
 $colors = outfit_get_list_of_colors();
 $brands = array();
 $conditions = outfit_get_list_of_conditions();
+
+/*
+ * upload_attachment[]
+ * postTitle
+ * postPrice
+ * postCategory
+ * postSubcategory
+ * postColor
+ * postAgeGroup
+ * postBrand
+ * postCondition
+ * postContent
+ * postPhone
+ * address, latitude, longitude, locality, aal3, aal2, aal1
+ *
+ */
+if(isset( $_POST['postTitle'] )) {
+
+	if(
+		isset($_POST['submitted']) &&
+		isset($_POST['post_nonce_field']) &&
+		wp_verify_nonce($_POST['post_nonce_field'], 'post_nonce')
+	) {
+		// this is a submitted form
+		$postTitle = trim($_POST['postTitle']);
+		if (empty($postTitle)) {
+			$postTitleError =  esc_html__( 'Please enter a title.', 'outfit-standalone' );
+			$hasError = true;
+		}
+		if (empty($_POST['postCategory'])) {
+			$catError = esc_html__( 'Please select a category', 'outfit-standalone' );
+			$hasError = true;
+		}
+		//Image Count check//
+		$files = $_FILES['upload_attachment'];
+		$count = count($files['name']);
+		if($count == 0){
+			$imageError = esc_html__( 'Please, upload at least one image', 'outfit-standalone' );
+			$hasError = true;
+		}
+		//Image Count check//
+	}
+}
+
 
 if(isset($_POST['postTitle'])){
 	if(trim($_POST['postTitle']) != '' && $_POST['outfit-main-cat-field'] != ''){
