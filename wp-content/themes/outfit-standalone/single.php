@@ -12,8 +12,8 @@
 
 get_header(); ?>
 
-<div class="wrap">
-	<div id="primary" class="content-area">
+<div class="wrap single-post-page">
+	<div id="primary" class="content-area full">
 		<main id="main" class="site-main" role="main">
 
 			<?php
@@ -37,7 +37,11 @@ get_header(); ?>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->
-	<?php get_sidebar(); ?>
+	<?php //get_sidebar(); ?>
 </div><!-- .wrap -->
-
+<div class="wrap related-posts">
+	<div class="home-blog-content">
+		<?php wp_related_posts()?>
+	</div>
+</div>
 <?php get_footer();
