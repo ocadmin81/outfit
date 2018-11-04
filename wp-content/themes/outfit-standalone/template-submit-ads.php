@@ -19,8 +19,8 @@ $postPriceError = '';
 $catError = '';
 $imageError = '';
 $postContent = '';
-$hasError ='';
-$allowed ='';
+$hasError = '';
+$allowed = '';
 global $redux_demo;
 global $wpdb;
 
@@ -77,6 +77,76 @@ if(isset( $_POST['postTitle'] )) {
 			$hasError = true;
 		}
 		//Image Count check//
+
+		if ($hasError != true) {
+
+			//Set Post Status//
+			if (is_super_admin() ) {
+				$postStatus = 'publish';
+			} else {
+				$postStatus = 'pending';
+			}
+			//Set Post Status//
+
+			//Check Category//
+			$outfitMainCat = $_POST['postCategory'];
+			$outfitSubCat = $_POST['postSubcategory'];
+			$outfitSubSubCat = $_POST['postSubsubcategory'];
+			$outfitCategory = $outfitMainCat;
+			if (!empty($outfitSubSubCat)) {
+				$outfitCategory = $outfitSubSubCat;
+			}
+			else if (!empty($outfitSubCat)) {
+				$outfitCategory = $outfitSubCat;
+			}
+			//Check Category//
+
+			//Setup Post Data//
+			$postInfo = array(
+				'post_title' => esc_attr(strip_tags($_POST['postTitle'])),
+				'post_content' => strip_tags($_POST['postContent'], '<h1><h2><h3><strong><b><ul><ol><li><i><a><blockquote><center><embed><iframe><pre><table><tbody><tr><td><video><br>'),
+				'post-type' => OUTFIT_AD_POST_TYPE,
+				'post_category' => array($outfitMainCat, $outfitSubCat, $outfitSubSubCat),
+				'comment_status' => 'open',
+				'ping_status' => 'open',
+				'post_status' => $postStatus
+			);
+
+			$postId = wp_insert_post($post_information);
+
+			$postPrice = trim($_POST['postPrice']);
+			$postPhone = trim($_POST['postPhone']);
+			$postAddress = trim($_POST['postAddress']);
+			$googleLat = $_POST['latitude'];
+			$googleLong = $_POST['longitude'];
+		}
+		//If Its posting featured image//
+		/*if ( isset($_FILES['upload_attachment']) ) {
+			$count = 0;
+			$files = $_FILES['upload_attachment'];
+			foreach ($files['name'] as $key => $value) {
+				if ($files['name'][$key]) {
+					$file = array(
+						'name'     => $files['name'][$key],
+						'type'     => $files['type'][$key],
+						'tmp_name' => $files['tmp_name'][$key],
+						'error'    => $files['error'][$key],
+						'size'     => $files['size'][$key]
+					);
+					$_FILES = array("upload_attachment" => $file);
+
+					foreach ($_FILES as $file => $array){
+						$featuredimg = $_POST['outfit_featured_img'];
+						$attachment_id = outfit_insert_attachment($file, $post_id);
+						if($count == $featuredimg){
+							set_post_thumbnail( $post_id, $attachment_id );
+						}
+						$count++;
+					}
+
+				}
+			}
+		}*/
 	}
 }
 
