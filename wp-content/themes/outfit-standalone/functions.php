@@ -18,6 +18,7 @@ require get_template_directory() . '/inc/enque-styles-script.php';
 require get_template_directory() . '/inc/user_status.php';
 require get_template_directory() . '/inc/model-functions.php';
 require get_template_directory() . '/inc/outfit-ajax.php';
+require get_template_directory() . '/inc/outfit-location.php';
 
 /*==========================
  Display Global ajax URL
@@ -739,6 +740,9 @@ function outfit_my_category_fields($tag) {
 	$catFilterByBrand = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_brand'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_brand'] : false;
 	$catFilterByAge = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_age'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_age'] : false;
 	$catFilterByCondition = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_condition'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_condition'] : false;
+	$catFilterByWriter = isset( $extraFields[$tag->term_id]['category_filter_by_writer'] ) ? $extraFields[$tag->term_id]['category_filter_by_writer'] : false;
+	$catFilterByCharacter = isset( $extraFields[$tag->term_id]['category_filter_by_character'] ) ? $extraFields[$tag->term_id]['category_filter_by_character'] : false;
+
 	?>
 
 	<div class="form-field">
@@ -775,6 +779,22 @@ function outfit_my_category_fields($tag) {
 						   value="1" <?php echo ($catFilterByCondition? "checked" : "") ?> />
 				</td>
 			</tr>
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Writer', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_writer" type="checkbox" name="category_filter_by_writer"
+						   value="1" <?php echo ($catFilterByWriter? "checked" : "") ?> />
+				</td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Character', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_character" type="checkbox" name="category_filter_by_character"
+						   value="1" <?php echo ($catFilterByCharacter? "checked" : "") ?> />
+				</td>
+			</tr>
 		</table>
 	</div>
 
@@ -790,6 +810,8 @@ function outfit_update_my_category_fields($term_id) {
 			$tag_extra_fields[$term_id]['category_filter_by_color'] = isset($_POST['category_filter_by_color'])? true : false;
 			$tag_extra_fields[$term_id]['category_filter_by_age'] = isset($_POST['category_filter_by_age'])? true : false;
 			$tag_extra_fields[$term_id]['category_filter_by_brand'] = isset($_POST['category_filter_by_brand'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_writer'] = isset($_POST['category_filter_by_writer'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_character'] = isset($_POST['category_filter_by_character'])? true : false;
 			$tag_extra_fields[$term_id]['category_filter_by_condition'] = isset($_POST['category_filter_by_condition'])? true : false;
 			update_option(MY_CATEGORY_FIELDS, $tag_extra_fields);
 		endif;
@@ -851,4 +873,22 @@ function outfit_ad_upload_prefilter($file)
 	}
 
 	return $file;
+}
+
+function getPostInput($key, $default = '') {
+
+	if (isset($_POST[$key])) {
+		return $_POST[$key];
+	}
+	else {
+		return $default;
+	}
+}
+
+function getPostMultiple($key) {
+
+	if (isset($_POST[$key]) && is_array($_POST[$key])) {
+		return $_POST[$key];
+	}
+	return array();
 }

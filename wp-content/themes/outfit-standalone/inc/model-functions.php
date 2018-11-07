@@ -23,6 +23,9 @@ function fetch_category_custom_fields($category) {
     $category->catFilterByBrand = isset( $extraFields[$category->term_id]['category_filter_by_brand'] ) ? $extraFields[$category->term_id]['category_filter_by_brand'] : false;
     $category->catFilterByAge = isset( $extraFields[$category->term_id]['category_filter_by_age'] ) ? $extraFields[$category->term_id]['category_filter_by_age'] : false;
     $category->catFilterByCondition = isset( $extraFields[$category->term_id]['category_filter_by_condition'] ) ? $extraFields[$category->term_id]['category_filter_by_condition'] : false;
+    $category->catFilterByWriter = isset( $extraFields[$category->term_id]['category_filter_by_writer'] ) ? $extraFields[$category->term_id]['category_filter_by_writer'] : false;
+    $category->catFilterByCharacter = isset( $extraFields[$category->term_id]['category_filter_by_character'] ) ? $extraFields[$category->term_id]['category_filter_by_character'] : false;
+
     return $category;
 }
 
@@ -65,6 +68,26 @@ function outfit_get_list_of_conditions() {
     return $conditions;
 }
 
+function outfit_get_list_of_writers() {
+
+    return outfit_get_list_of_filters('writers');
+}
+
+function outfit_get_list_of_characters() {
+
+    return outfit_get_list_of_filters('characters');
+}
+
+function outfit_get_list_of_filters($taxonomy) {
+
+    $filters = get_terms($taxonomy, array(
+            'hide_empty' => 0,
+            'parent' => 0
+        )
+    );
+    return $filters;
+}
+
 function outfit_get_list_of_brands($categoryId) {
 
     $brands = get_terms('brands', array(
@@ -80,4 +103,54 @@ function outfit_get_list_of_brands($categoryId) {
         )
     );
     return $brands;
+}
+
+function outfit_get_list_of_terms_by_cat($categoryId, $taxonomy) {
+
+    $terms = get_terms($taxonomy, array(
+            'hide_empty' => 0,
+            'parent' => 0,
+            'meta_query' => array(
+                array(
+                    'key'       => 'categories',
+                    'value'     => $categoryId,
+                    'compare'   => '='
+                )
+            )
+        )
+    );
+    return $terms;
+}
+
+function toArrayOfInts($array) {
+    $new = array();
+    foreach ($array as $k => $v) {
+        $new[$k] = (int)$v;
+    }
+    return $new;
+}
+
+function setPostColors($postId, $termIds) {
+
+    wp_set_object_terms($postId, toArrayOfInts($termIds), 'colors');
+}
+
+function setPostAgeGroups($postId, $termIds) {
+
+    wp_set_object_terms($postId, toArrayOfInts($termIds), 'age_groups');
+}
+
+function setPostBrands($postId, $termIds) {
+
+    wp_set_object_terms($postId, toArrayOfInts($termIds), 'brands');
+}
+
+function setPostCondition($postId, $termId) {
+
+    wp_set_object_terms($postId, (int)$termId, 'conditions');
+}
+
+function setPostTerms($postId, $termIds, $taxonomy) {
+
+    wp_set_object_terms($postId, toArrayOfInts($termIds), $taxonomy);
 }

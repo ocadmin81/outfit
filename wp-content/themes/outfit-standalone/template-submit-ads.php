@@ -36,6 +36,8 @@ $ageGroups = outfit_get_list_of_age_groups();
 $colors = outfit_get_list_of_colors();
 $brands = array();
 $conditions = outfit_get_list_of_conditions();
+$writers = outfit_get_list_of_writers();
+$characters = outfit_get_list_of_characters();
 
 /*
  * upload_attachment[]
@@ -47,6 +49,8 @@ $conditions = outfit_get_list_of_conditions();
  * postAgeGroup
  * postBrand
  * postCondition
+ * postWriter
+ * postCharacter
  * postContent
  * postPhone
  * address, latitude, longitude, locality, aal3, aal2, aal1
@@ -90,8 +94,8 @@ if(isset( $_POST['postTitle'] )) {
 
 			//Check Category//
 			$outfitMainCat = $_POST['postCategory'];
-			$outfitSubCat = $_POST['postSubcategory'];
-			$outfitSubSubCat = $_POST['postSubsubcategory'];
+			$outfitSubCat = getPostInput('postSubcategory');
+			$outfitSubSubCat = getPostInput('postSubsubcategory');
 			$outfitCategory = $outfitMainCat;
 			if (!empty($outfitSubSubCat)) {
 				$outfitCategory = $outfitSubSubCat;
@@ -104,336 +108,88 @@ if(isset( $_POST['postTitle'] )) {
 			//Setup Post Data//
 			$postInfo = array(
 				'post_title' => esc_attr(strip_tags($_POST['postTitle'])),
-				'post_content' => strip_tags($_POST['postContent'], '<h1><h2><h3><strong><b><ul><ol><li><i><a><blockquote><center><embed><iframe><pre><table><tbody><tr><td><video><br>'),
-				'post-type' => OUTFIT_AD_POST_TYPE,
+				'post_content' => strip_tags(getPostInput('postContent'), '<h1><h2><h3><strong><b><ul><ol><li><i><a><blockquote><center><embed><iframe><pre><table><tbody><tr><td><video><br>'),
+				'post_type' => OUTFIT_AD_POST_TYPE,
 				'post_category' => array($outfitMainCat, $outfitSubCat, $outfitSubSubCat),
 				'comment_status' => 'open',
 				'ping_status' => 'open',
 				'post_status' => $postStatus
 			);
 
-			$postId = wp_insert_post($post_information);
+			$postId = wp_insert_post($postInfo);
 
-			$postPrice = trim($_POST['postPrice']);
-			$postPhone = trim($_POST['postPhone']);
-			$postAddress = trim($_POST['postAddress']);
-			$googleLat = $_POST['latitude'];
-			$googleLong = $_POST['longitude'];
-		}
-		//If Its posting featured image//
-		/*if ( isset($_FILES['upload_attachment']) ) {
-			$count = 0;
-			$files = $_FILES['upload_attachment'];
-			foreach ($files['name'] as $key => $value) {
-				if ($files['name'][$key]) {
-					$file = array(
-						'name'     => $files['name'][$key],
-						'type'     => $files['type'][$key],
-						'tmp_name' => $files['tmp_name'][$key],
-						'error'    => $files['error'][$key],
-						'size'     => $files['size'][$key]
-					);
-					$_FILES = array("upload_attachment" => $file);
+			// post location
+			$postPrice = trim(getPostInput('postPrice'));
+			$postPhone = trim(getPostInput('postPhone'));
+			$postAddress = trim(getPostInput('address'));
+			$postLatitude = getPostInput('latitude');
+			$postLongitude = getPostInput('longitude');
+			$postLocality = getPostInput('locality');
+			$postArea1 = getPostInput('aal1');
+			$postArea2 = getPostInput('aal2');
+			$postArea3 = getPostInput('aal3');
 
-					foreach ($_FILES as $file => $array){
-						$featuredimg = $_POST['outfit_featured_img'];
-						$attachment_id = outfit_insert_attachment($file, $post_id);
-						if($count == $featuredimg){
-							set_post_thumbnail( $post_id, $attachment_id );
-						}
-						$count++;
-					}
+			$location = new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
+				'locality' => $postLocality,
+				'aal3' => $postArea3,
+				'aal2' => $postArea2,
+				'aal1' => $postArea1
+			]);
 
-				}
+			if ($location->isValid()) {
+				update_post_meta($postId, POST_META_LOCATION, $location->toJSON());
 			}
-		}*/
+
+			// post price
+			update_post_meta($postId, POST_META_PHONE, $postPhone);
+
+			//post phone
+			update_post_meta($postId, POST_META_PRICE, $postPrice);
+
+			// post color
+			$postColor = getPostMultiple('postColor');
+
+			// post age group
+			$postAgeGroup = getPostMultiple('postAgeGroup');
+
+			// post brand
+			$postBrand = getPostMultiple('postBrand');
+
+			// post condition
+			$postCondition = getPostInput('postCondition');
+
+			//If Its posting featured image//
+			if ( isset($_FILES['upload_attachment']) ) {
+                $count = 0;
+                $files = $_FILES['upload_attachment'];
+                foreach ($files['name'] as $key => $value) {
+                    if ($files['name'][$key]) {
+                        $file = array(
+                            'name'     => $files['name'][$key],
+                            'type'     => $files['type'][$key],
+                            'tmp_name' => $files['tmp_name'][$key],
+                            'error'    => $files['error'][$key],
+                            'size'     => $files['size'][$key]
+                        );
+                        $_FILES = array("upload_attachment" => $file);
+
+                        foreach ($_FILES as $file => $array){
+                            $featuredimg = $_POST['outfit_featured_img'];
+                            $attachmentId = outfit_insert_attachment($file, $postId);
+                            if($count == $featuredimg){
+                                set_post_thumbnail( $postId, $attachmentId );
+                            }
+                            $count++;
+                        }
+
+                    }
+                }
+            }
+
+		}
 	}
 }
 
-
-if(isset($_POST['postTitle'])){
-	if(trim($_POST['postTitle']) != '' && $_POST['outfit-main-cat-field'] != ''){
-		if(isset($_POST['submitted']) && isset($_POST['post_nonce_field']) && wp_verify_nonce($_POST['post_nonce_field'], 'post_nonce')) {
-			
-			if(empty($_POST['postTitle'])){
-				$postTitleError =  esc_html__( 'Please enter a title.', 'outfit-standalone' );
-				$hasError = true;
-			}else{
-				$postTitle = trim($_POST['postTitle']);
-			}
-			if(empty($_POST['classiera-main-cat-field'])){
-				$catError = esc_html__( 'Please select a category', 'outfit-standalone' );
-				$hasError = true;
-			}
-			
-			//Image Count check//
-			$userIMGCount = $_POST['image-count'];
-			$files = $_FILES['upload_attachment'];
-			$count = $files['name'];
-			$filenumber = count($count);			
-			if($filenumber > $userIMGCount){
-				$imageError = esc_html__( 'You selected Images Count is exceeded', 'outfit-standalone' );
-				$hasError = true;
-			}
-			//Image Count check//
-
-			if($hasError != true && !empty($_POST['classiera_post_type']) || isset($_POST['regular-ads-enable'])) {
-				$classieraPostType = $_POST['classiera_post_type'];
-				//Set Post Status//
-				if(is_super_admin() ){
-					$postStatus = 'publish';
-				}elseif(!is_super_admin()){
-					if($redux_demo['post-options-on'] == 1){
-						$postStatus = 'private';
-					}else{
-						$postStatus = 'publish';
-					}
-					if($classieraPostType == 'payperpost'){
-						$postStatus = 'pending';
-					}
-				}
-				//Set Post Status//
-				//Check Category//
-				$classieraMainCat = $_POST['classiera-main-cat-field'];
-				$classieraChildCat = $_POST['classiera-sub-cat-field'];
-				$classieraThirdCat = $_POST['classiera_third_cat'];
-				if(empty($classieraThirdCat)){
-					$classieraCategory = $classieraChildCat;
-				}else{
-					$classieraCategory = $classieraThirdCat;
-				}
-				if(empty($classieraCategory)){
-					$classieraCategory = $classieraMainCat;
-				}
-				//Check Category//
-				//Setup Post Data//
-				$post_information = array(
-					'post_title' => esc_attr(strip_tags($_POST['postTitle'])),			
-					'post_content' => strip_tags($_POST['postContent'], '<h1><h2><h3><strong><b><ul><ol><li><i><a><blockquote><center><embed><iframe><pre><table><tbody><tr><td><video><br>'),
-					'post-type' => 'post',
-					'post_category' => array($classieraMainCat, $classieraChildCat, $classieraThirdCat),
-					'tags_input'    => explode(',', $_POST['post_tags']),
-					'tax_input' => array(
-					'location' => $_POST['post_location'],
-					),
-					'comment_status' => 'open',
-					'ping_status' => 'open',
-					'post_status' => $postStatus
-				);
-
-				$post_id = wp_insert_post($post_information);
-				
-				//Setup Price//
-				$postMultiTag = $_POST['post_currency_tag'];
-				$post_price = trim($_POST['post_price']);
-				$post_old_price = trim($_POST['post_old_price']);
-				
-				/*Check If Latitude is OFF */
-				$googleLat = $_POST['latitude'];
-				if(empty($googleLat)){
-					$latitude = $classieraLatitude;
-				}else{
-					$latitude = $googleLat;
-				}
-				/*Check If longitude is OFF */
-				$googleLong = $_POST['longitude'];
-				if(empty($googleLong)){
-					$longitude = $classieraLongitude;
-				}else{
-					$longitude = $googleLong;
-				}
-				
-				$featuredIMG = $_POST['classiera_featured_img'];
-				$itemCondition = $_POST['item-condition'];		
-				$catID = $classieraCategory.'custom_field';		
-				$custom_fields = $_POST[$catID];
-				/*If We are using CSC Plugin*/
-				
-				/*Get Country Name*/
-				if(isset($_POST['post_location'])){
-					$postLo = $_POST['post_location'];
-					$allCountry = get_posts( array( 'include' => $postLo, 'post_type' => 'countries', 'posts_per_page' => -1, 'suppress_filters' => 0, 'orderby'=>'post__in' ) );
-					foreach( $allCountry as $country_post ){
-						$postCounty = $country_post->post_title;
-					}
-				}				
-				$poststate = $_POST['post_state'];
-				$postCity = $_POST['post_city'];
-				
-				/*If We are using CSC Plugin*/
-				if(isset($_POST['post_category_type'])){
-					update_post_meta($post_id, 'post_category_type', esc_attr( $_POST['post_category_type'] ) );
-				}	
-				if(isset($_POST['classiera_sub_fields'])){
-					$classiera_sub_fields = $_POST['classiera_sub_fields'];
-					update_post_meta($post_id, 'classiera_sub_fields', $classiera_sub_fields);
-				}
-				if(isset($_POST['classiera_CF_Front_end'])){
-					$classiera_CF_Front_end = $_POST['classiera_CF_Front_end'];
-					update_post_meta($post_id, 'classiera_CF_Front_end', $classiera_CF_Front_end);
-				}
-				update_post_meta($post_id, 'custom_field', $custom_fields);
-				
-				update_post_meta($post_id, 'post_currency_tag', $postMultiTag, $allowed);
-				update_post_meta($post_id, 'post_price', $post_price, $allowed);
-				update_post_meta($post_id, 'post_old_price', $post_old_price, $allowed);
-				
-				update_post_meta($post_id, 'post_perent_cat', $classieraMainCat, $allowed);
-				update_post_meta($post_id, 'post_child_cat', $classieraChildCat, $allowed);				
-				update_post_meta($post_id, 'post_inner_cat', $classieraThirdCat, $allowed);
-				
-				if(isset($_POST['post_phone'])){
-					update_post_meta($post_id, 'post_phone', $_POST['post_phone'], $allowed);
-				}
-				update_post_meta($post_id, 'classiera_ads_type', $_POST['classiera_ads_type'], $allowed);
-				if(isset($_POST['seller'])){
-					update_post_meta($post_id, 'seller', $_POST['seller'], $allowed);
-				}
-
-				update_post_meta($post_id, 'post_location', wp_kses($postCounty, $allowed));
-				
-				update_post_meta($post_id, 'post_state', wp_kses($poststate, $allowed));
-				update_post_meta($post_id, 'post_city', wp_kses($postCity, $allowed));
-
-				update_post_meta($post_id, 'post_latitude', wp_kses($latitude, $allowed));
-
-				update_post_meta($post_id, 'post_longitude', wp_kses($longitude, $allowed));
-
-				update_post_meta($post_id, 'post_address', wp_kses($_POST['address'], $allowed));
-				if(isset($_POST['video'])){
-					update_post_meta($post_id, 'post_video', $_POST['video'], $allowed);
-				}
-				update_post_meta($post_id, 'featured_img', $featuredIMG, $allowed);
-				
-				if(isset($_POST['item-condition'])){
-					update_post_meta($post_id, 'item-condition', $itemCondition, $allowed);
-				}
-				update_post_meta($post_id, 'classiera_post_type', $_POST['classiera_post_type'], $allowed);
-				
-				if(isset($_POST['pay_per_post_product_id'])){
-					update_post_meta($post_id, 'pay_per_post_product_id', $_POST['pay_per_post_product_id'], $allowed);
-				}
-				if(isset($_POST['days_to_expire'])){
-					update_post_meta($post_id, 'days_to_expire', $_POST['days_to_expire'], $allowed);
-				}
-				if($classieraPostType == 'payperpost'){
-					$permalink = $classieraProfileURL;
-				}else{
-					$permalink = get_permalink( $post_id );
-				}
-				//If Its posting featured image//
-				if(trim($_POST['classiera_post_type']) != 'classiera_regular'){
-					if($_POST['classiera_post_type'] == 'payperpost'){
-						//Do Nothing on Pay Per Post//
-					}elseif($_POST['classiera_post_type'] == 'classiera_regular_with_plan'){
-						//Regular Ads Posting with Plans//
-						$classieraPlanID = trim($_POST['regular_plan_id']);
-						global $wpdb;
-						$current_user = wp_get_current_user();
-						$userID = $current_user->ID;
-						$result = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}classiera_plans WHERE id = $classieraPlanID" );
-						if($result){
-							$tablename = $wpdb->prefix . 'classiera_plans';
-							foreach ( $result as $info ){
-								$newRegularUsed = $info->regular_used +1;
-								$update_data = array('regular_used' => $newRegularUsed);
-								$where = array('id' => $classieraPlanID);
-								$update_format = array('%s');
-								$wpdb->update($tablename, $update_data, $where, $update_format);
-							}
-						}
-					}else{
-						//Featured Post with Plan Ads//
-						$featurePlanID = trim($_POST['classiera_post_type']);
-						global $wpdb;
-						$current_user = wp_get_current_user();
-						$userID = $current_user->ID;
-						$result = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}classiera_plans WHERE id = $featurePlanID" );
-						if ($result){
-							$featuredADS = 0;
-							$tablename = $wpdb->prefix . 'classiera_plans';
-							foreach ( $result as $info ){
-								$totalAds = $info->ads;
-								if (is_numeric($totalAds)){
-									$totalAds = $info->ads;
-									$usedAds = $info->used;
-									$infoDays = $info->days;
-								}								
-								if($totalAds == 'unlimited'){
-									$availableADS = 'unlimited';
-								}else{
-									$availableADS = $totalAds-$usedAds;
-								}								
-								if($usedAds < $totalAds && $availableADS != "0" || $totalAds == 'unlimited'){
-									global $wpdb;
-									$newUsed = $info->used +1;
-									$update_data = array('used' => $newUsed);
-									$where = array('id' => $featurePlanID);
-									$update_format = array('%s');
-									$wpdb->update($tablename, $update_data, $where, $update_format);
-									update_post_meta($post_id, 'post_price_plan_id', $featurePlanID );
-
-									$dateActivation = date('m/d/Y H:i:s');
-									update_post_meta($post_id, 'post_price_plan_activation_date', $dateActivation );		
-									
-									$daysToExpire = $infoDays;
-									$dateExpiration_Normal = date("m/d/Y H:i:s", strtotime("+ ".$daysToExpire." days"));
-									update_post_meta($post_id, 'post_price_plan_expiration_date_normal', $dateExpiration_Normal );
-
-
-
-									$dateExpiration = strtotime(date("m/d/Y H:i:s", strtotime("+ ".$daysToExpire." days")));
-									update_post_meta($post_id, 'post_price_plan_expiration_date', $dateExpiration );
-									update_post_meta($post_id, 'featured_post', "1" );
-								}
-							}
-						}
-					}
-				}
-				//If Its posting featured image//
-				if ( isset($_FILES['upload_attachment']) ) {
-					$count = 0;
-					$files = $_FILES['upload_attachment'];
-					foreach ($files['name'] as $key => $value) {				
-						if ($files['name'][$key]) {
-							$file = array(
-								'name'     => $files['name'][$key],
-								'type'     => $files['type'][$key],
-								'tmp_name' => $files['tmp_name'][$key],
-								'error'    => $files['error'][$key],
-								'size'     => $files['size'][$key]
-							);
-							$_FILES = array("upload_attachment" => $file);
-							
-							foreach ($_FILES as $file => $array){								
-								$featuredimg = $_POST['classiera_featured_img'];
-								if($count == $featuredimg){
-									$attachment_id = classiera_insert_attachment($file,$post_id);
-									set_post_thumbnail( $post_id, $attachment_id );
-								}else{
-									$attachment_id = classiera_insert_attachment($file,$post_id);
-								}								
-								$count++;
-							}
-							
-						}						
-					}/*Foreach*/
-				}					
-				wp_redirect($permalink); exit();
-			}
-		}
-	}else{
-		if(trim($_POST['postTitle']) === '') {
-			$postTitleError = esc_html__( 'Please enter a title.', 'outfit-standalone' );	
-			$hasError = true;
-		}
-		if($_POST['classiera-main-cat-field'] === '-1') {
-			$catError = esc_html__( 'Please select a category.', 'outfit-standalone' );
-			$hasError = true;
-		} 
-	}
-
-} 
 get_header(); ?>
 <?php while ( have_posts() ) : the_post(); ?>
 <?php 
@@ -488,7 +244,7 @@ get_header(); ?>
 												</div>
 											</div>
 										<?php } ?>
-										<input type="hidden" name="classiera_featured_img" id="classiera_featured_img" value="0">
+										<input type="hidden" name="outfit_featured_img" id="outfit_featured_img" value="0">
 										<!--Imageloop-->
 									</div>
 
@@ -526,6 +282,8 @@ get_header(); ?>
 											<option value="<?php echo $c->term_id; ?>"
 													data-color-enabled="<?php echo ($c->catFilterByColor? '1' : '0'); ?>"
 													data-brand-enabled="<?php echo ($c->catFilterByBrand? '1' : '0'); ?>"
+													data-writer-enabled="<?php echo ($c->catFilterByWriter? '1' : '0'); ?>"
+													data-character-enabled="<?php echo ($c->catFilterByCharacter? '1' : '0'); ?>"
 													data-age-enabled="<?php echo ($c->catFilterByAge? '1' : '0'); ?>"
 													data-condition-enabled="<?php echo ($c->catFilterByCondition? '1' : '0'); ?>"
 												><?php esc_html_e($c->name); ?></option>
@@ -547,7 +305,7 @@ get_header(); ?>
 							<div class="form-group post-colors-container" style="display: none;">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Color', 'outfit-standalone') ?> : </label>
 								<div class="col-sm-9">
-									<select id="color" name="postColor" class="form-control form-control-md" multiple>
+									<select id="color" name="postColor[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Colors', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($colors as $c): ?>
@@ -560,7 +318,7 @@ get_header(); ?>
 							<div class="form-group post-age-groups-container" style="display: none;">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Age Group', 'outfit-standalone') ?> : </label>
 								<div class="col-sm-9">
-									<select id="ageGroup" name="postAgeGroup" class="form-control form-control-md" multiple>
+									<select id="ageGroup" name="postAgeGroup[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Age Groups', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($ageGroups as $c): ?>
@@ -573,7 +331,7 @@ get_header(); ?>
 							<div class="form-group post-brands-container" style="display: none;">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Brand', 'outfit-standalone') ?> : </label>
 								<div class="col-sm-9">
-									<select id="brand" name="postBrand" class="form-control form-control-md" multiple>
+									<select id="brand" name="postBrand[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Brands', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($brands as $c): ?>
@@ -595,6 +353,32 @@ get_header(); ?>
 									</select>
 								</div>
 							</div><!-- /Ad Conditions-->
+
+							<div class="form-group post-writers-container" style="display: none;">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Writer', 'outfit-standalone') ?> : </label>
+								<div class="col-sm-9">
+									<select id="brand" name="postWriter[]" class="form-control form-control-md" multiple>
+										<option value=""><?php esc_html_e('Select Writers', 'outfit-standalone'); ?></option>
+										<?php
+										foreach ($writers as $c): ?>
+											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div><!-- /Ad Book Writers-->
+
+							<div class="form-group post-characters-container" style="display: none;">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> : </label>
+								<div class="col-sm-9">
+									<select id="brand" name="postCharacter[]" class="form-control form-control-md" multiple>
+										<option value=""><?php esc_html_e('Select Characters', 'outfit-standalone'); ?></option>
+										<?php
+										foreach ($characters as $c): ?>
+											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div><!-- /Ad Characters-->
 
 							<div class="form-group">
 								<label class="col-sm-3 text-left flip" for="description"><?php esc_html_e('Ad description', 'outfit-standalone') ?> : <span>*</span></label>

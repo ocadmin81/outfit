@@ -349,6 +349,8 @@ jQuery(document).ready(function(jQuery){
     jQuery('.post-colors-container').hide();
     jQuery('.post-conditions-container').hide();
     jQuery('.post-brands-container').hide();
+    jQuery('.post-writers-container').hide();
+    jQuery('.post-characters-container').hide();
     var mainCatText;
     jQuery(".post-cat-container select").on('change', function (event){
         event.preventDefault();
@@ -357,6 +359,8 @@ jQuery(document).ready(function(jQuery){
         jQuery('.post-colors-container').hide();
         jQuery('.post-conditions-container').hide();
         jQuery('.post-brands-container').hide();
+        jQuery('.post-writers-container').hide();
+        jQuery('.post-characters-container').hide();
         var selected = jQuery(this).find(":selected");
         var mainCatId = selected.val();
         var ageFilter = selected.attr('data-age-enabled');
@@ -370,6 +374,15 @@ jQuery(document).ready(function(jQuery){
         var conditionFilter = selected.attr('data-condition-enabled');
         if (conditionFilter == '1') {
             jQuery('.post-conditions-container').show();
+        }
+        var brandFilter = selected.attr('data-brand-enabled');
+        var writerFilter = selected.attr('data-writer-enabled');
+        if (writerFilter == '1') {
+            jQuery('.post-writer-container').show();
+        }
+        var characterFilter = selected.attr('data-character-enabled');
+        if (characterFilter == '1') {
+            jQuery('.post-character-container').show();
         }
 
         mainCatText = selected.text();
@@ -391,7 +404,9 @@ jQuery(document).ready(function(jQuery){
         jQuery.post(ajaxurl, data1, function(response){
             jQuery('.post-brands-container select').html(response);
             if(response){
-                jQuery('.post-brands-container').show();
+                if (brandFilter == '1') {
+                    jQuery('.post-brands-container').show();
+                }
             }
         });
 
@@ -437,12 +452,12 @@ jQuery(document).ready(function(jQuery){
 	//Featured Image Count
 	jQuery(document).on('click', '.my-image', function(){ 
 		var count = jQuery(this).parent().parent().parent().index();
-		jQuery('#classiera_featured_img').val(count);
+		jQuery('#outfit_featured_img').val(count);
 	});
 	//Featured Image Count
 	jQuery(document).on('click', '.page-template-template-edit-post img.edit-post-image', function(){ 		
 		var IMGID = jQuery(this).parent().attr('id');
-		jQuery('#classiera_featured_img').val(IMGID);
+		jQuery('#outfit_featured_img').val(IMGID);
 	});
 	jQuery(document).on('click', '.classiera-image-preview', function(){ 
 		if(jQuery('.classiera-upload-box').hasClass('classiera_featured_box')){
