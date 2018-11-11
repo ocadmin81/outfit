@@ -700,7 +700,7 @@ html[lang="he-IL"] .home-blog-title h2{color: #6e6e6e;font-size: 26px;font-famil
 .twentyseventeen-front-page article:not(.has-post-thumbnail):not(:first-child){border-top: none;}
 .top-blog{background: #f5f5f6;padding: 35px 0;text-align: center;}
 .top-blog .page-title{font-size: 22px;font-weight: 600;margin: 0;margin-bottom: 10px;border: none;padding: 0;}
-.top-blog .taxonomy-description{max-width: 320px;margin: 0 auto;}
+.top-blog .taxonomy-description{margin: 0 auto;}
 .top-blog p{margin: 0;font-size: 17px;}
 .top-blog .widget{    padding-bottom: 0;}
 .archive .site-main > article{margin-bottom: 20px;}
@@ -732,6 +732,7 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .post-share ul li a:hover{color: #323131;}
 .related-posts .home-blog-title{margin-bottom: 25px;}
 .slick-list{overflow: hidden;margin: 0;}
+.user-pages{padding: 0;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
 }
@@ -755,7 +756,7 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 	.site-footer .widget-column.footer-widget-1 section:first-child{width: 20%;}
 	.site-footer .widget-column.footer-widget-1 section:last-child{width: 20%;}
 	.has-sidebar:not(.error404) #primary.full{width: 100%;}
-	.site-content{padding: 0;}
+	.page:not(.home) #content.site-content,.site-content{padding: 0;}
 	.blog .site-main > article, .archive .site-main > article, .search .site-main > article {
 		padding-bottom: 4em;
 		border: none;

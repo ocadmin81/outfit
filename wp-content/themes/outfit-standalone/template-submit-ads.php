@@ -29,7 +29,7 @@ $userID = $current_user->ID;
 $cUserCheck = current_user_can( 'administrator' );
 $role = $current_user->roles;
 $currentRole = $role[0];
-$imageLimit = 5;
+$imageLimit = 1;
 
 $categories = outfit_get_main_cats(true);
 $ageGroups = outfit_get_list_of_age_groups();
@@ -217,18 +217,14 @@ get_header(); ?>
 	$page = get_post($post->ID);
 	$current_page_id = $page->ID;
 ?>
-<section class="user-pages section-gray-bg">
+<section class="user-pages">
+	<div class="top-blog">		
+		<h1 class="page-title"><?php esc_html_e('Start Selling', 'outfit-standalone') ?></h1>
+		<div class="taxonomy-description"><?php echo do_shortcode("[do_widget id=text-20]"); ?></div>		
+	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
-				<h4 class="text-uppercase border-bottom"><?php esc_html_e('MAKE NEW AD', 'outfit-standalone') ?></h4>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-lg-3 col-md-4">
-				<p>some stuff</p>
-			</div><!--col-lg-3 col-md-4-->
-			<div class="col-lg-9 col-md-8 user-content-height">
+			<div class="col-lg-12 col-md-12 user-content-height">
 
 				<div class="submit-post section-bg-white">
 					<form class="form-horizontal" action="" role="form" id="primaryPostForm" method="POST" data-toggle="validator" enctype="multipart/form-data">
@@ -237,8 +233,8 @@ get_header(); ?>
 						<div class="form-main-section media-detail">
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Photos for your ad', 'outfit-standalone') ?> : <span>*</span></label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Photos for your ad', 'outfit-standalone') ?> : <span>*</span></label>
+								<div class="item">
 									<div class="classiera-dropzone-heading">
 										<i class="classiera-dropzone-heading-text fa fa-cloud-upload-alt" aria-hidden="true"></i>
 										<div class="classiera-dropzone-heading-text">
@@ -277,24 +273,24 @@ get_header(); ?>
 						<div class="form-main-section post-detail">
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip" for="title"><?php esc_html_e('Ad title', 'outfit-standalone') ?> : <span>*</span></label>
-								<div class="col-sm-9">
+								<label class="text-left flip" for="title"><?php esc_html_e('Ad title', 'outfit-standalone') ?> : <span>*</span></label>
+								<div class="item">
 									<input id="title" data-minlength="5" name="postTitle" type="text" class="form-control form-control-md" placeholder="<?php esc_html_e('Ad Title Goes here', 'outfit-standalone') ?>" required>
 
 								</div>
 							</div><!-- /Ad title-->
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip" for="title"><?php esc_html_e('Price', 'outfit-standalone') ?> : <span>*</span></label>
-								<div class="col-sm-9">
+								<label class="text-left flip" for="title"><?php esc_html_e('Price', 'outfit-standalone') ?> : <span>*</span></label>
+								<div class="item">
 									<input id="price" data-minlength="1" name="postPrice" type="text" class="form-control form-control-md" placeholder="<?php esc_html_e('Price', 'outfit-standalone') ?>" required>
 
 								</div>
 							</div><!-- /Ad price-->
 
 							<div class="form-group post-cat-container">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Category', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Category', 'outfit-standalone') ?> : <span>*</span> </label>
+								<div class="item">
 									<select id="category" name="postCategory" class="form-control form-control-md category-select" required>
 										<option value="" selected><?php esc_html_e('Select Category', 'outfit-standalone'); ?></option>
 										<?php
@@ -314,8 +310,8 @@ get_header(); ?>
 							</div><!-- /Ad Category-->
 
 							<div class="form-group post-sub-cat-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Sub Category', 'outfit-standalone') ?> : </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Sub Category', 'outfit-standalone') ?> : </label>
+								<div class="item">
 									<select id="subcategory" name="postSubcategory" class="form-control form-control-md">
 										<option value=""><?php esc_html_e('Select Sub Category', 'outfit-standalone'); ?></option>
 
@@ -324,8 +320,8 @@ get_header(); ?>
 							</div><!-- /Ad Sub Category-->
 
 							<div class="form-group post-colors-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Color', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Color', 'outfit-standalone') ?> : <span>*</span> </label>
+								<div class="item">
 									<select id="color" name="postColor[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Colors', 'outfit-standalone'); ?></option>
 										<?php
@@ -337,8 +333,8 @@ get_header(); ?>
 							</div><!-- /Ad Colors-->
 
 							<div class="form-group post-age-groups-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Age Group', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Age Group', 'outfit-standalone') ?> : <span>*</span> </label>
+								<div class="item">
 									<select id="ageGroup" name="postAgeGroup[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Age Groups', 'outfit-standalone'); ?></option>
 										<?php
@@ -350,8 +346,8 @@ get_header(); ?>
 							</div><!-- /Ad Age Groups-->
 
 							<div class="form-group post-brands-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Brand', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Brand', 'outfit-standalone') ?> : <span>*</span> </label>
+								<div class="item">
 									<select id="brand" name="postBrand[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Brands', 'outfit-standalone'); ?></option>
 										<?php
@@ -363,8 +359,8 @@ get_header(); ?>
 							</div><!-- /Ad Brands-->
 
 							<div class="form-group post-conditions-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Condition', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Condition', 'outfit-standalone') ?> : <span>*</span> </label>
+								<div class="item">
 									<select id="condition" name="postCondition" class="form-control form-control-md">
 										<option value=""><?php esc_html_e('Select Condition', 'outfit-standalone'); ?></option>
 										<?php
@@ -376,8 +372,8 @@ get_header(); ?>
 							</div><!-- /Ad Conditions-->
 
 							<div class="form-group post-writers-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Writer', 'outfit-standalone') ?> : </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Writer', 'outfit-standalone') ?> : </label>
+								<div class="item">
 									<select id="writer" name="postWriter[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Writers', 'outfit-standalone'); ?></option>
 										<?php
@@ -389,8 +385,8 @@ get_header(); ?>
 							</div><!-- /Ad Book Writers-->
 
 							<div class="form-group post-characters-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> : </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> : </label>
+								<div class="item">
 									<select id="character" name="postCharacter[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Characters', 'outfit-standalone'); ?></option>
 										<?php
@@ -402,8 +398,8 @@ get_header(); ?>
 							</div><!-- /Ad Characters-->
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip" for="description"><?php esc_html_e('Ad description', 'outfit-standalone') ?> : </label>
-								<div class="col-sm-9">
+								<label class="text-left flip" for="description"><?php esc_html_e('Ad description', 'outfit-standalone') ?> : </label>
+								<div class="item">
 									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('Write description', 'outfit-standalone') ?>"></textarea>
 									<div class="help-block with-errors"></div>
 								</div>
@@ -411,8 +407,8 @@ get_header(); ?>
 
 							<!--Address-->
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Primary address', 'classiera'); ?> : <span>*</span></label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Primary address', 'classiera'); ?> : <span>*</span></label>
+								<div class="item">
 									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude">
 									<input class="longitude" type="hidden" id="longitude" name="longitude">
@@ -424,8 +420,8 @@ get_header(); ?>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Secondary address', 'classiera'); ?> : </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Secondary address', 'classiera'); ?> : </label>
+								<div class="item">
 									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2">
@@ -439,15 +435,15 @@ get_header(); ?>
 							<!--/Address-->
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Your Phone/Mobile', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Your Phone/Mobile', 'outfit-standalone') ?> : <span>*</span> </label>
+								<div class="item">
 									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>" required>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Preferred hours', 'outfit-standalone') ?> :</label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('Preferred hours', 'outfit-standalone') ?> :</label>
+								<div class="item">
 									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
 								</div>
 							</div>
@@ -456,7 +452,7 @@ get_header(); ?>
 
 
 						<div class="row">
-                            <div class="col-sm-9">
+                            <div class="item">
 								<div class="form-check">
 									<input type="checkbox" class="form-check-input" name="postSavePrefs" id="postSavePrefs">
 									<label class="form-check-label" for="postSavePrefs">
@@ -466,7 +462,7 @@ get_header(); ?>
                             </div>
                         </div>
 						<div class="row">
-							<div class="col-sm-9">
+							<div class="item">
 								<div class="form-check">
 									<input type="checkbox" class="form-check-input" name="postAgreeToTerms" id="postAgreeToTerms" required>
 									<label class="form-check-label" for="postAgreeToTerms">
@@ -476,7 +472,7 @@ get_header(); ?>
 							</div>
 						</div>
 						<div class="form-main-section">
-                            <div class="col-sm-4">
+                            <div class="item">
 								<?php wp_nonce_field('post_nonce', 'post_nonce_field'); ?>
 								<input type="hidden" name="submitted" id="submitted" value="true">
                                 <button class="post-submit btn btn-primary sharp btn-md btn-style-one btn-block" type="submit" name="op" value="Publish Ad"><?php esc_html_e('Publish Ad', 'outfit-standalone') ?></button>
