@@ -154,3 +154,13 @@ function setPostTerms($postId, $termIds, $taxonomy) {
 
     wp_set_object_terms($postId, toArrayOfInts($termIds), $taxonomy);
 }
+
+function setPostWriters($postId, $termIds) {
+
+    setPostTerms($postId, $termIds, 'writers');
+}
+
+function setPostCharacters($postId, $termIds) {
+
+    setPostTerms($postId, $termIds, 'characters');
+}

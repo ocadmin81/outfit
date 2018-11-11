@@ -39,7 +39,20 @@
 }( document, window, 0 ));
 
 
+(function ( $ ) {
 
+    $.fn.toggleRequired = function( required ) {
+
+        var showAndRequired = (required? true : false);
+        if (this.get(0).tagName.toLowerCase() == 'div') {
+            this.find('select, input[type="text"], textarea').prop('required', showAndRequired);
+            return (showAndRequired? this.show() : this.hide());
+        }
+        return this.prop('required', (required? true : false));
+
+    };
+
+}( jQuery ));
 
 jQuery.fn.textlimit = function(limit)
 {
@@ -344,46 +357,46 @@ jQuery(document).ready(function(jQuery){
 		This function will show sub categories
 		list When click on main category.
 	======================================*/
-	jQuery('.post-sub-cat-container').hide();
-    jQuery('.post-sub-age-groups-container').hide();
-    jQuery('.post-colors-container').hide();
-    jQuery('.post-conditions-container').hide();
-    jQuery('.post-brands-container').hide();
-    jQuery('.post-writers-container').hide();
-    jQuery('.post-characters-container').hide();
+    jQuery('.post-sub-cat-container').toggleRequired(0);
+    jQuery('.post-age-groups-container').toggleRequired(0);
+    jQuery('.post-colors-container').toggleRequired(0);
+    jQuery('.post-conditions-container').toggleRequired(0);
+    jQuery('.post-brands-container').toggleRequired(0);
+    jQuery('.post-writers-container').toggleRequired(0);
+    jQuery('.post-characters-container').toggleRequired(0);
     var mainCatText;
     jQuery(".post-cat-container select").on('change', function (event){
         event.preventDefault();
-		jQuery('.post-sub-cat-container').hide();
-        jQuery('.post-sub-age-groups-container').hide();
-        jQuery('.post-colors-container').hide();
-        jQuery('.post-conditions-container').hide();
-        jQuery('.post-brands-container').hide();
-        jQuery('.post-writers-container').hide();
-        jQuery('.post-characters-container').hide();
+		jQuery('.post-sub-cat-container').toggleRequired(0);
+        jQuery('.post-age-groups-container').toggleRequired(0);
+        jQuery('.post-colors-container').toggleRequired(0);
+        jQuery('.post-conditions-container').toggleRequired(0);
+        jQuery('.post-brands-container').toggleRequired(0);
+        jQuery('.post-writers-container').toggleRequired(0);
+        jQuery('.post-characters-container').toggleRequired(0);
         var selected = jQuery(this).find(":selected");
         var mainCatId = selected.val();
         var ageFilter = selected.attr('data-age-enabled');
         if (ageFilter == '1') {
-            jQuery('.post-age-groups-container').show();
+            jQuery('.post-age-groups-container').toggleRequired(1);
         }
         var colorFilter = selected.attr('data-color-enabled');
         if (colorFilter == '1') {
-            jQuery('.post-colors-container').show();
+            jQuery('.post-colors-container').toggleRequired(1);
         }
         var conditionFilter = selected.attr('data-condition-enabled');
         if (conditionFilter == '1') {
-            jQuery('.post-conditions-container').show();
+            jQuery('.post-conditions-container').toggleRequired(1);
         }
         var brandFilter = selected.attr('data-brand-enabled');
         var writerFilter = selected.attr('data-writer-enabled');
         if (writerFilter == '1') {
-            jQuery('.post-writer-container').show();
+            jQuery('.post-writers-container').toggleRequired(1);
         }
         var characterFilter = selected.attr('data-character-enabled');
         if (characterFilter == '1') {
-            jQuery('.post-character-container').show();
-        }
+            jQuery('.post-characters-container').toggleRequired(1);
+    }
 
         mainCatText = selected.text();
 		var data = {
@@ -405,7 +418,7 @@ jQuery(document).ready(function(jQuery){
             jQuery('.post-brands-container select').html(response);
             if(response){
                 if (brandFilter == '1') {
-                    jQuery('.post-brands-container').show();
+                    jQuery('.post-brands-container').toggleRequired(1);
                 }
             }
         });

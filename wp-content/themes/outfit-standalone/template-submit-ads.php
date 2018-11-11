@@ -121,6 +121,7 @@ if(isset( $_POST['postTitle'] )) {
 			// post location
 			$postPrice = trim(getPostInput('postPrice'));
 			$postPhone = trim(getPostInput('postPhone'));
+			$postPreferredHours = trim(getPostInput('postPreferredHours'));
 			$postAddress = trim(getPostInput('address'));
 			$postLatitude = getPostInput('latitude');
 			$postLongitude = getPostInput('longitude');
@@ -146,17 +147,34 @@ if(isset( $_POST['postTitle'] )) {
 			//post phone
 			update_post_meta($postId, POST_META_PRICE, $postPrice);
 
+			//post preferred hours
+			update_post_meta($postId, POST_META_PREFERRED_HOURS, $postPreferredHours);
+
 			// post color
 			$postColor = getPostMultiple('postColor');
+			setPostColors($postId, $postColor);
 
 			// post age group
 			$postAgeGroup = getPostMultiple('postAgeGroup');
+			setPostAgeGroups($postId, $postAgeGroup);
 
 			// post brand
 			$postBrand = getPostMultiple('postBrand');
+			setPostBrands($postId, $postBrand);
 
 			// post condition
 			$postCondition = getPostInput('postCondition');
+			if (!empty($postCondition)) {
+				setPostCondition($postId, $postCondition);
+			}
+
+			// post writers
+			$postWriter = getPostMultiple('postWriter');
+			setPostWriters($postId, $postWriter);
+
+			// post characters
+			$postCharacter = getPostMultiple('postCharacter');
+			setPostCharacters($postId, $postCharacter);
 
 			//If Its posting featured image//
 			if ( isset($_FILES['upload_attachment']) ) {
@@ -185,7 +203,10 @@ if(isset( $_POST['postTitle'] )) {
                     }
                 }
             }
+			if (isset($_POST['postSavePrefs'])) {
 
+				// save user prefs
+			}
 		}
 	}
 }
@@ -216,7 +237,7 @@ get_header(); ?>
 						<div class="form-main-section media-detail">
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Photos for your ad', 'outfit-standalone') ?> :</label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Photos for your ad', 'outfit-standalone') ?> : <span>*</span></label>
 								<div class="col-sm-9">
 									<div class="classiera-dropzone-heading">
 										<i class="classiera-dropzone-heading-text fa fa-cloud-upload-alt" aria-hidden="true"></i>
@@ -272,9 +293,9 @@ get_header(); ?>
 							</div><!-- /Ad price-->
 
 							<div class="form-group post-cat-container">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Category', 'outfit-standalone') ?> : </label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Category', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
-									<select id="category" name="postCategory" class="form-control form-control-md category-select">
+									<select id="category" name="postCategory" class="form-control form-control-md category-select" required>
 										<option value="" selected><?php esc_html_e('Select Category', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($categories as $c): ?>
@@ -303,7 +324,7 @@ get_header(); ?>
 							</div><!-- /Ad Sub Category-->
 
 							<div class="form-group post-colors-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Color', 'outfit-standalone') ?> : </label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Color', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
 									<select id="color" name="postColor[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Colors', 'outfit-standalone'); ?></option>
@@ -316,7 +337,7 @@ get_header(); ?>
 							</div><!-- /Ad Colors-->
 
 							<div class="form-group post-age-groups-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Age Group', 'outfit-standalone') ?> : </label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Age Group', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
 									<select id="ageGroup" name="postAgeGroup[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Age Groups', 'outfit-standalone'); ?></option>
@@ -329,7 +350,7 @@ get_header(); ?>
 							</div><!-- /Ad Age Groups-->
 
 							<div class="form-group post-brands-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Brand', 'outfit-standalone') ?> : </label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Brand', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
 									<select id="brand" name="postBrand[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Brands', 'outfit-standalone'); ?></option>
@@ -342,7 +363,7 @@ get_header(); ?>
 							</div><!-- /Ad Brands-->
 
 							<div class="form-group post-conditions-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Condition', 'outfit-standalone') ?> : </label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Condition', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
 									<select id="condition" name="postCondition" class="form-control form-control-md">
 										<option value=""><?php esc_html_e('Select Condition', 'outfit-standalone'); ?></option>
@@ -357,7 +378,7 @@ get_header(); ?>
 							<div class="form-group post-writers-container" style="display: none;">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Writer', 'outfit-standalone') ?> : </label>
 								<div class="col-sm-9">
-									<select id="brand" name="postWriter[]" class="form-control form-control-md" multiple>
+									<select id="writer" name="postWriter[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Writers', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($writers as $c): ?>
@@ -370,7 +391,7 @@ get_header(); ?>
 							<div class="form-group post-characters-container" style="display: none;">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> : </label>
 								<div class="col-sm-9">
-									<select id="brand" name="postCharacter[]" class="form-control form-control-md" multiple>
+									<select id="character" name="postCharacter[]" class="form-control form-control-md" multiple>
 										<option value=""><?php esc_html_e('Select Characters', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($characters as $c): ?>
@@ -381,20 +402,12 @@ get_header(); ?>
 							</div><!-- /Ad Characters-->
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip" for="description"><?php esc_html_e('Ad description', 'outfit-standalone') ?> : <span>*</span></label>
+								<label class="col-sm-3 text-left flip" for="description"><?php esc_html_e('Ad description', 'outfit-standalone') ?> : </label>
 								<div class="col-sm-9">
-									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('Write description', 'outfit-standalone') ?>" required></textarea>
+									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('Write description', 'outfit-standalone') ?>"></textarea>
 									<div class="help-block with-errors"></div>
 								</div>
 							</div><!--Ad description-->
-
-							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Your Phone/Mobile', 'outfit-standalone') ?> :</label>
-								<div class="col-sm-9">
-									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>">
-								</div>
-							</div>
-
 
 							<!--Address-->
 							<div class="form-group">
@@ -411,9 +424,9 @@ get_header(); ?>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Secondary address', 'classiera'); ?> : <span>*</span></label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Secondary address', 'classiera'); ?> : </label>
 								<div class="col-sm-9">
-									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>" required>
+									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2">
 									<input class="locality" type="hidden" id="locality_2" name="locality_2">
@@ -425,17 +438,43 @@ get_header(); ?>
 
 							<!--/Address-->
 
-						</div><!---form-main-section post-detail-->
+							<div class="form-group">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Your Phone/Mobile', 'outfit-standalone') ?> : <span>*</span> </label>
+								<div class="col-sm-9">
+									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>" required>
+								</div>
+							</div>
 
+							<div class="form-group">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Preferred hours', 'outfit-standalone') ?> :</label>
+								<div class="col-sm-9">
+									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
+								</div>
+							</div>
+
+						</div><!---form-main-section post-detail-->
 
 
 						<div class="row">
                             <div class="col-sm-9">
-                                <div class="help-block terms-use">
-                                    <?php esc_html_e('By clicking "Publish Ad", you agree to our', 'outfit-standalone') ?> <a href="<?php echo esc_url($termsandcondition); ?>" target="_blank"><?php esc_html_e('Terms of Use', 'outfit-standalone') ?></a> <?php esc_html_e('and acknowledge that you are the rightful owner of this item', 'outfit-standalone') ?>
-                                </div>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" name="postSavePrefs" id="postSavePrefs">
+									<label class="form-check-label" for="postSavePrefs">
+										<?php esc_html_e('Save preferences for future use', 'outfit-standalone') ?>
+									</label>
+								</div>
                             </div>
                         </div>
+						<div class="row">
+							<div class="col-sm-9">
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" name="postAgreeToTerms" id="postAgreeToTerms" required>
+									<label class="form-check-label" for="postAgreeToTerms">
+										<?php esc_html_e('I agree to terms', 'outfit-standalone') ?>
+									</label>
+								</div>
+							</div>
+						</div>
 						<div class="form-main-section">
                             <div class="col-sm-4">
 								<?php wp_nonce_field('post_nonce', 'post_nonce_field'); ?>

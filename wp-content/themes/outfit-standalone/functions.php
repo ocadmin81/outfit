@@ -13,6 +13,7 @@ define('OUTFIT_AD_POST_TYPE', 'outfit_ad');
 /*==========================
  Requried some Files.
  ===========================*/
+require get_template_directory() . '/inc/constants.php';
 require get_template_directory() . '/inc/theme-support.php';
 require get_template_directory() . '/inc/enque-styles-script.php';
 require get_template_directory() . '/inc/user_status.php';

@@ -12,3 +12,4 @@ define('USER_META_ABOUT', 'outfit_about');
 define('POST_META_PHONE', 'outfit_post_phone');
 define('POST_META_LOCATION', 'outfit_post_location');
 define('POST_META_PRICE', 'outfit_post_price');
+define('POST_META_PREFERRED_HOURS', 'outfit_post_preferred_hours');
