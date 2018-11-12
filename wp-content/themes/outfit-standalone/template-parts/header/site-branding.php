@@ -12,14 +12,14 @@
 <div class="site-branding">
 	<div class="wrap">
 		<div class="right header-right">
-			<div class="publish"><a href="<?php echo get_site_url(); ?>/submit_ad"><?php _e( "פרסום מודעה", 'outfit-standalone' ); ?></a></div>
+			<div class="publish"><a href="<?php echo get_site_url(); ?>/submit_ad"><?php _e( "Ad advertising", 'outfit-standalone' ); ?></a></div>
 			<div class="favourites hidden-xs">
 				<a href="#">
 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/heart.png" />
 					<span class="count">0</span>
 				</a>
 			</div>
-			<div class="login hidden-xs"><a href="<?php echo get_site_url(); ?>/login"><?php _e( "היי, התחבר/י", 'outfit-standalone' ); ?></a></div>
+			<div class="login hidden-xs"><a href="<?php echo get_site_url(); ?>/login"><?php _e( "Hi, Login", 'outfit-standalone' ); ?></a></div>
 		</div>
 		<?php the_custom_logo(); ?>
 		<div class="left header-left"><?php get_search_form(); ?></div>

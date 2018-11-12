@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Outfit Standalone\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-16 12:46+0000\n"
-"PO-Revision-Date: 2018-10-24 12:50+0000\n"
+"PO-Revision-Date: 2018-11-11 14:08+0000\n"
 "Last-Translator: outfitsu_admin <eran@originalconcepts.co.il>\n"
 "Language-Team: עִבְרִית\n"
 "Language: he_IL\n"
@@ -245,7 +245,7 @@ msgstr ""
 
 #: template-login-signup.php:162
 msgid "Registration successful"
-msgstr ""
+msgstr "נרשמת בהצלחה"
 
 #: template-login-signup.php:109
 msgid "Registration successful."
@@ -354,15 +354,3 @@ msgstr ""
 #: template-login-signup.php:252
 msgid "Your Username"
 msgstr "שם משתמש"
-
-msgid "Email"
-msgstr "אימייל"
-
-msgid "Password"
-msgstr "סיסמה"
-
-msgid "Confirm Password"
-msgstr "שוב סיסמה"
-
-msgid "Show Article"
-msgstr "הצג כתבה"
