@@ -700,7 +700,7 @@ html[lang="he-IL"] .home-blog-title h2{color: #6e6e6e;font-size: 26px;font-famil
 .twentyseventeen-front-page article:not(.has-post-thumbnail):not(:first-child){border-top: none;}
 .top-blog{background: #f5f5f6;padding: 35px 0;text-align: center;}
 .top-blog .page-title{font-size: 22px;font-weight: 600;margin: 0;margin-bottom: 10px;border: none;padding: 0;}
-.top-blog .taxonomy-description{max-width: 320px;margin: 0 auto;}
+.top-blog .taxonomy-description{margin: 0 auto;}
 .top-blog p{margin: 0;font-size: 17px;}
 .top-blog .widget{    padding-bottom: 0;}
 .archive .site-main > article{margin-bottom: 20px;}
@@ -732,6 +732,24 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .post-share ul li a:hover{color: #323131;}
 .related-posts .home-blog-title{margin-bottom: 25px;}
 .slick-list{overflow: hidden;margin: 0;}
+.user-pages{padding: 0;}
+.submit-post form .form-group label{color: #191919;font-weight: 600;padding-top: 7px;font-size: 18px;margin-bottom: 10px;}
+.ad-tips{float: left;}
+.ad-tips .form-group.reg-text{padding: 0;padding-right: 30px;padding-top: 80px;}
+.ad-form{padding-left: 90px;padding-top: 50px;}
+.submit-post form .form-main-section .classiera-image-upload .classiera-image-box{float: right;padding: 0 5px 10px;}
+.submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box{height: 120px;border: 1px solid #f3f3f3;margin-bottom: 0;}
+.submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box .classiera-input-file + label{padding-top: 30px;padding-bottom: 0;margin: 0;background: none;}
+.submit-post form .form-main-section .classiera-image-upload{border: none;background: #fff;padding: 0;}
+.submit-post form .form-group{margin: 0;margin-bottom: 20px;}
+.submit-post form .form-group.media{    margin: 0;}
+.ad-tips .form-group.reg-text strong{font-size: 18px;font-weight: 600;}
+.submit-post form .form-group .form-control{color: #191919;border-radius: 0;border-color: #e2e2e4;}
+.submit-post form .form-group select.form-control.reg{background: url(assets/images/select-arrow.png) 18px 18px no-repeat;}
+/*.ad-categories{border-top: 1px solid #e2e2e4;margin: 20px 0;padding: 20px 0;border-bottom: 1px solid #e2e2e4;}*/
+.submit-post form .form-main-section {margin-bottom: 20px;border-bottom: 1px solid #e2e2e4;padding-bottom: 15px;}
+.submit-post form input[type='checkbox'] + label:before, .submit-post form input[type='radio'] + label:before{padding-right: 15px;margin-left: 7px;position: relative;top: 1px;}
+html[lang="he-IL"] button.btn-primary{    margin-top: 15px;width: 250px;color: #191919;font-size: 19px;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
 }
@@ -755,7 +773,7 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 	.site-footer .widget-column.footer-widget-1 section:first-child{width: 20%;}
 	.site-footer .widget-column.footer-widget-1 section:last-child{width: 20%;}
 	.has-sidebar:not(.error404) #primary.full{width: 100%;}
-	.site-content{padding: 0;}
+	.page:not(.home) #content.site-content,.site-content{padding: 0;}
 	.blog .site-main > article, .archive .site-main > article, .search .site-main > article {
 		padding-bottom: 4em;
 		border: none;
@@ -789,6 +807,10 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 	.top-pad-50.login-page{margin-top: -2.5em;padding-top: 0;padding-bottom: 0;}
 	.inner-page-content .login-register form .form-group, .forgot-title,.form-group.reg-text{padding: 0 20px;}
 	.about-features ul li{width: 49%;}
+	.ad-form{padding:0;}
+	.ad-tips{float: none;display: inline-block;width: 100%;margin-top: 30px;}
+	.ad-tips .form-group.reg-text{padding: 0;}
+	.ad-page .row{margin:0;}
 }
 @media screen and (max-width: 767px){
 	header.site-header{border-bottom: 1px solid #f3f3f3;}
@@ -833,4 +855,5 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 	body.page-two-column:not(.archive) #primary .entry-header .widget{padding-bottom: 15px;}
 	body.page-two-column:not(.archive) #primary .entry-header .textwidget ul li{width: 100%;}
 	.wrap.related-posts{padding: 0;}
+	.submit-post,.ad-tips{padding: 0;}
 }
