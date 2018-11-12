@@ -1,6 +1,6 @@
 <?php
 /**
- * Template name: Submit Ad
+ * Template name: Edit Ad
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
@@ -14,6 +14,41 @@ if ( !is_user_logged_in() ) {
 	$login = $redux_demo['login'];
 	wp_redirect( $login ); exit;
 }
+
+$current_user = wp_get_current_user();
+$userId = $current_user->ID;
+
+$authorized = false;
+$postFound = false;
+$postAuthorId = 0;
+
+if ( isset( $_GET['post'] ) )
+	$postId = (int) $_GET['post'];
+elseif ( isset( $_POST['post_ID'] ) )
+	$postId = (int) $_POST['post_ID'];
+else
+	$postId = 0;
+
+$post = null;
+
+if ( $postId ) {
+	$post = get_post( $postId );
+	if ( $post ) {
+		if ($post->post_type == OUTFIT_AD_POST_TYPE) {
+			$postFound = true;
+		}
+	}
+}
+if (!$postFound) {
+	wp_redirect( home_url() ); exit;
+}
+$postAuthorId = get_post_field('post_author', $postId);
+if(current_user_can('administrator') || $postAuthorId == $userId) {
+	$authorized = true;
+}
+if (!$authorized) {
+	wp_redirect( home_url() ); exit;
+}
 $postTitleError = '';
 $postPriceError = '';
 $catError = '';
@@ -24,8 +59,6 @@ $allowed = '';
 global $redux_demo;
 global $wpdb;
 
-$current_user = wp_get_current_user();
-$userID = $current_user->ID;
 $cUserCheck = current_user_can( 'administrator' );
 $role = $current_user->roles;
 $currentRole = $role[0];
@@ -39,6 +72,38 @@ $conditions = outfit_get_list_of_conditions();
 $writers = outfit_get_list_of_writers();
 $characters = outfit_get_list_of_characters();
 
+/*
+ * post data
+ * */
+$postTitle = $post->post_title;
+$postContent = $post->post_content;
+$postCategories = get_the_category($postId);
+$postCategoryId = (count($postCategories)? $postCategories[0]->cat_ID : 0);
+$postStatus = get_post_status($postId);
+$postPhone = get_post_meta($post->ID, POST_META_PHONE, true);
+$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
+$postPreferredHours = get_post_meta($post->ID, POST_META_PREFERRED_HOURS, true);
+$postLocation = json_decode(get_post_meta($post->ID, POST_META_LOCATION, true), true);
+$postAddress = '';
+$postLatitude = '';
+$postLongitude = '';
+$postLocality = $postArea1 = $postArea2 = $postArea3 = '';
+if (null !== $postLocation && isset($postLocation['address'])) {
+	$postAddress = $postLocation['address'];
+	$postLatitude = $postLocation['latitude'];
+	$postLongitude = $postLocation['longitude'];
+	$postLocality = $postLocation['locality'];
+	$postArea1 = $postLocation['aal1'];
+	$postArea2 = $postLocation['aal2'];
+	$postArea3 = $postLocation['aal3'];
+}
+$postColor = getPostColors($postId);
+$postAgeGroup = getPostAgeGroups($postId);
+$postBrand = getPostBrands($postId);
+$postConditions = getPostConditions($postId);
+$postCondition = (isset($postConditions[0])? $postConditions[0] : '');
+$postWriter = getPostWriters($postId);
+$postCharacter = getPostCharacters($postId);
 /*
  * upload_attachment[]
  * postTitle
@@ -281,7 +346,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="col-sm-3 text-left flip" for="title"><?php esc_html_e('Ad title', 'outfit-standalone') ?> : <span>*</span></label>
 								<div class="col-sm-9">
-									<input id="title" data-minlength="5" name="postTitle" type="text" class="form-control form-control-md" placeholder="<?php esc_html_e('Ad Title Goes here', 'outfit-standalone') ?>" required>
+									<input id="title" data-minlength="5" name="postTitle" type="text" class="form-control form-control-md" value="<?php echo esc_html($postTitle); ?>" placeholder="<?php esc_html_e('Ad Title Goes here', 'outfit-standalone') ?>" required>
 
 								</div>
 							</div><!-- /Ad title-->
@@ -289,7 +354,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="col-sm-3 text-left flip" for="title"><?php esc_html_e('Price', 'outfit-standalone') ?> : <span>*</span></label>
 								<div class="col-sm-9">
-									<input id="price" data-minlength="1" name="postPrice" type="text" class="form-control form-control-md" placeholder="<?php esc_html_e('Price', 'outfit-standalone') ?>" required>
+									<input id="price" data-minlength="1" name="postPrice" type="text" class="form-control form-control-md" value="<?php echo esc_html($postPrice); ?>" placeholder="<?php esc_html_e('Price', 'outfit-standalone') ?>" required>
 
 								</div>
 							</div><!-- /Ad price-->
@@ -406,7 +471,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="col-sm-3 text-left flip" for="description"><?php esc_html_e('Ad description', 'outfit-standalone') ?> : </label>
 								<div class="col-sm-9">
-									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('Write description', 'outfit-standalone') ?>"></textarea>
+									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('Write description', 'outfit-standalone') ?>"><?php echo esc_html($postContent);?></textarea>
 									<div class="help-block with-errors"></div>
 								</div>
 							</div><!--Ad description-->
@@ -415,13 +480,13 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Primary address', 'classiera'); ?> : <span>*</span></label>
 								<div class="col-sm-9">
-									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>" required>
-									<input class="latitude" type="hidden" id="latitude" name="latitude">
-									<input class="longitude" type="hidden" id="longitude" name="longitude">
-									<input class="locality" type="hidden" id="locality" name="locality">
-									<input class="aal3" type="hidden" id="aal3" name="aal3">
-									<input class="aal2" type="hidden" id="aal2" name="aal2">
-									<input class="aal1" type="hidden" id="aal1" name="aal1">
+									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>" required>
+									<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
+									<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
+									<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
+									<input class="aal3" type="hidden" id="aal3" name="aal3" value="<?php echo esc_html($postArea3); ?>">
+									<input class="aal2" type="hidden" id="aal2" name="aal2" value="<?php echo esc_html($postArea2); ?>">
+									<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
 								</div>
 							</div>
 
@@ -443,14 +508,14 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Your Phone/Mobile', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
-									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>" required>
+									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" value="<?php echo esc_html($postPhone); ?>" placeholder="<?php esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Preferred hours', 'outfit-standalone') ?> :</label>
 								<div class="col-sm-9">
-									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
+									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" value="<?php echo esc_html($postPreferredHours); ?>" placeholder="<?php esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
 								</div>
 							</div>
 

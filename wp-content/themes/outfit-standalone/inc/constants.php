@@ -11,5 +11,6 @@ define('USER_META_FAVORITE_BRANDS', 'outfit_favorite_brands');
 define('USER_META_ABOUT', 'outfit_about');
 define('POST_META_PHONE', 'outfit_post_phone');
 define('POST_META_LOCATION', 'outfit_post_location');
+define('POST_META_LOCATION_2', 'outfit_post_location_2');
 define('POST_META_PRICE', 'outfit_post_price');
 define('POST_META_PREFERRED_HOURS', 'outfit_post_preferred_hours');

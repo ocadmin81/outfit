@@ -164,3 +164,36 @@ function setPostCharacters($postId, $termIds) {
 
     setPostTerms($postId, $termIds, 'characters');
 }
+
+function getPostTermIds($postId, $taxonomy) {
+    $terms = wp_get_post_terms( $postId, $taxonomy );
+    $res = array();
+    foreach ($terms as $term) {
+        $res[] = $term->term_id;
+    }
+    return $res;
+}
+
+function getPostColors($postId) {
+    return getPostTermIds($postId, 'colors');
+}
+
+function getPostAgeGroups($postId) {
+    return getPostTermIds($postId, 'age_groups');
+}
+
+function getPostBrands($postId) {
+    return getPostTermIds($postId, 'brands');
+}
+
+function getPostConditions($postId) {
+    return getPostTermIds($postId, 'conditions');
+}
+
+function getPostWriters($postId) {
+    return getPostTermIds($postId, 'writers');
+}
+
+function getPostCharacters($postId) {
+    return getPostTermIds($postId, 'characters');
+}

@@ -12,36 +12,109 @@
 
 get_header(); ?>
 
-<div class="wrap single-post-page">
-	<div id="primary" class="content-area full">
-		<main id="main" class="site-main" role="main">
+<?php while ( have_posts() ) : the_post(); ?>
+
+	<section class="inner-page-content single-post-page">
+		<div class="container">
 
 			<?php
-			/* Start the Loop */
-			while ( have_posts() ) : the_post();
-
-				get_template_part( 'template-parts/post/content', get_post_format() );
-
-				// If comments are open or we have at least one comment, load up the comment template.
-				if ( comments_open() || get_comments_number() ) :
-					comments_template();
-				endif;
-
-				the_post_navigation( array(
-					'prev_text' => '<span class="screen-reader-text">' . __( 'Previous Post', 'twentyseventeen' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Previous', 'twentyseventeen' ) . '</span> <span class="nav-title"><span class="nav-title-icon-wrapper">' . twentyseventeen_get_svg( array( 'icon' => 'arrow-left' ) ) . '</span>%title</span>',
-					'next_text' => '<span class="screen-reader-text">' . __( 'Next Post', 'twentyseventeen' ) . '</span><span aria-hidden="true" class="nav-subtitle">' . __( 'Next', 'twentyseventeen' ) . '</span> <span class="nav-title">%title<span class="nav-title-icon-wrapper">' . twentyseventeen_get_svg( array( 'icon' => 'arrow-right' ) ) . '</span></span>',
-				) );
-
-			endwhile; // End of the loop.
+			$postPhone = get_post_meta($post->ID, POST_META_PHONE, true);
+			$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
+			$postPreferredHours = get_post_meta($post->ID, POST_META_PREFERRED_HOURS, true);
+			$postLocation = json_decode(get_post_meta($post->ID, POST_META_LOCATION, true), true);
+			$postAddress = '';
+			if (null !== $postLocation && isset($postLocation['address'])) {
+				$postAddress = $postLocation['address'];
+			}
 			?>
+			<?php if ( get_post_status ( $post->ID ) == 'pending' ) {?>
+				<div class="alert alert-info" role="alert">
+					<p>
+						<strong><?php esc_html_e('Congratulation!', 'outfit-standalone') ?></strong> <?php esc_html_e('Your Ad has submitted and pending for review.', 'outfit-standalone') ?>
+					</p>
+				</div>
+			<?php } ?>
+			<div class="row">
+				<div class="col-md-5 col-sm-12">
+					<!-- single post carousel-->
+					<?php
+					$attachments = get_children(array('post_parent' => $post->ID,
+							'post_status' => 'inherit',
+							'post_type' => 'attachment',
+							'post_mime_type' => 'image',
+							'order' => 'ASC',
+							'orderby' => 'menu_order ID'
+						)
+					);
+					?>
+					<?php if ( has_post_thumbnail() || !empty($attachments)){?>
+						<div id="single-post-carousel" class="carousel slide single-carousel" data-ride="carousel" data-interval="3000">
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
-	<?php //get_sidebar(); ?>
-</div><!-- .wrap -->
-<div class="wrap related-posts">
-	<div class="home-blog-content">
-		<?php wp_related_posts()?>
-	</div>
-</div>
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner" role="listbox">
+								<?php
+								if(empty($attachments)){
+									if ( has_post_thumbnail()){
+										$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+										?>
+										<div class="item active">
+											<img class="img-responsive" src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
+										</div>
+										<?php
+									}else{
+										$image = get_template_directory_uri().'/assets/images/nothumb.png';
+										?>
+										<div class="item active">
+											<img class="img-responsive" src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>">
+										</div>
+										<?php
+									}
+								}else{
+									$count = 1;
+									foreach($attachments as $att_id => $attachment){
+										$full_img_url = wp_get_attachment_url($attachment->ID);
+										?>
+										<div class="item <?php if($count == 1){ echo "active"; }?>">
+											<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
+										</div>
+										<?php
+										$count++;
+									}
+								}
+								?>
+							</div>
+							<!-- slides number -->
+							<div class="num">
+								<i class="fa fa-camera"></i>
+								<span class="init-num"><?php esc_html_e('1', 'classiera') ?></span>
+								<span><?php esc_html_e('of', 'classiera') ?></span>
+								<span class="total-num"></span>
+							</div>
+							<!-- Left and right controls -->
+							<div class="single-post-carousel-controls">
+								<a class="left carousel-control" href="#single-post-carousel" role="button" data-slide="prev">
+									<span class="fa fa-chevron-left" aria-hidden="true"></span>
+									<span class="sr-only"><?php esc_html_e('Previous', 'classiera') ?></span>
+								</a>
+								<a class="right carousel-control" href="#single-post-carousel" role="button" data-slide="next">
+									<span class="fa fa-chevron-right" aria-hidden="true"></span>
+									<span class="sr-only"><?php esc_html_e('Next', 'classiera') ?></span>
+								</a>
+							</div>
+							<!-- Left and right controls -->
+						</div>
+					<?php } ?>
+					<!-- single post carousel-->
+				</div>
+				<div class="col-md-4 col-sm-12">
+
+				</div>
+				<div class="col-md-3 col-sm-12">
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+<?php endwhile; ?>
 <?php get_footer();
