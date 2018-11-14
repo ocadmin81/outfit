@@ -330,9 +330,39 @@ get_header(); ?>
 									</div>
 									<!-- HTML heavily inspired by http://blueimp.github.io/jQuery-File-Upload/ -->
 									<div id="mydropzone" class="classiera-image-upload clearfix" data-maxfile="<?php echo esc_attr( $imageLimit ); ?>">
+										<!--PreviousImages-->
+										<?php
+										$imageCount = 0;
+										$imgargs = array(
+											'post_parent' => $current_post,
+											'post_status' => 'inherit',
+											'post_type'   => 'attachment',
+											'post_mime_type'   => 'image',
+											'order' => 'ASC',
+											'orderby' => 'menu_order ID',
+										);
+										$attachments = get_children($imgargs);
+										if($attachments){
+											foreach($attachments as $att_id => $attachment){
+												$attachment_ID = $attachment->ID;
+												$full_img_url = wp_get_attachment_url($attachment->ID);
+												?>
+												<div id="<?php echo esc_attr($attachment_ID); ?>" class="edit-post-image-block">
+													<img class="edit-post-image" src="<?php echo esc_url($full_img_url);?>" />
+													<div class="remove-edit-post-image">
+														<i class="fas fa-minus-square"></i>
+														<span class="remImage"><?php esc_html_e('Remove', 'classiera');?></span>
+														<input type="hidden" name="" value="<?php echo esc_attr($attachment_ID); ?>">
+													</div><!--remove-edit-post-image-->
+												</div>
+												<?php $imageCount++;?>
+											<?php }?>
+										<?php }?>
+										<!--PreviousImages-->
 										<!--Imageloop-->
 										<?php
-										for ($i = 0; $i < $imageLimit; $i++){
+										$imageCounter = $imageLimit-$imageCount;
+										for ($i = 0; $i < $imageCounter; $i++){
 											?>
 											<div class="classiera-image-box">
 												<div class="classiera-upload-box">
