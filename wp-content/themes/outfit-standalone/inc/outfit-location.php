@@ -156,8 +156,12 @@ class OutfitLocation {
         return true;
     }
 
-    public function toJSON() {
+    public function toString() {
 
-        return json_encode(get_object_vars($this), 256);
+        $arr = (array) get_object_vars($this);
+        foreach ($arr as $k => $v) {
+            //$arr[$k] = urlencode($v);
+        }
+        return json_encode($arr, JSON_UNESCAPED_UNICODE);
     }
 }

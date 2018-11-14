@@ -118,10 +118,11 @@ if(isset( $_POST['postTitle'] )) {
 
 			$postId = wp_insert_post($postInfo);
 
-			// post location
 			$postPrice = trim(getPostInput('postPrice'));
 			$postPhone = trim(getPostInput('postPhone'));
 			$postPreferredHours = trim(getPostInput('postPreferredHours'));
+
+			// post primary location
 			$postAddress = trim(getPostInput('address'));
 			$postLatitude = getPostInput('latitude');
 			$postLongitude = getPostInput('longitude');
@@ -138,7 +139,29 @@ if(isset( $_POST['postTitle'] )) {
 			]);
 
 			if ($location->isValid()) {
-				update_post_meta($postId, POST_META_LOCATION, $location->toJSON());
+				update_post_meta($postId, POST_META_LOCATION, $location->toString());
+			}
+
+			// post secondary location
+			$postSecAddress = trim(getPostInput('address_2'));
+			$postSecLatitude = getPostInput('latitude_2');
+			$postSecLongitude = getPostInput('longitude_2');
+			$postSecLocality = getPostInput('locality_2');
+			$postSecArea1 = getPostInput('aal1_2');
+			$postSecArea2 = getPostInput('aal2_2');
+			$postSecArea3 = getPostInput('aal3_2');
+
+			if ($postSecAddress) {
+				$location2 = new OutfitLocation($postSecAddress, $postSecLongitude, $postSecLatitude, [
+					'locality' => $postSecLocality,
+					'aal3' => $postSecArea3,
+					'aal2' => $postSecArea2,
+					'aal1' => $postSecArea1
+				]);
+
+				if ($location2->isValid()) {
+					update_post_meta($postId, POST_META_LOCATION_2, $location2->toString());
+				}
 			}
 
 			// post price
@@ -402,9 +425,9 @@ get_header(); ?>
 
 							<!--Address-->
 							<div class="form-group">
-								<label class="text-left flip"><?php esc_html_e('Main collection point', 'classiera'); ?> <span>*</span></label>
+								<label class="text-left flip"><?php esc_html_e('Main collection point', 'outfit-standalone'); ?> <span>*</span></label>
 								<div class="item">
-									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>" required>
+									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude">
 									<input class="longitude" type="hidden" id="longitude" name="longitude">
 									<input class="locality" type="hidden" id="locality" name="locality">
@@ -415,9 +438,9 @@ get_header(); ?>
 							</div>
 
 							<div class="form-group">
-								<label class="text-left flip"><?php esc_html_e('Additional collection point (Optional)', 'classiera'); ?> </label>
+								<label class="text-left flip"><?php esc_html_e('Additional collection point (Optional)', 'outfit-standalone'); ?> </label>
 								<div class="item">
-									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>">
+									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2">
 									<input class="locality" type="hidden" id="locality_2" name="locality_2">

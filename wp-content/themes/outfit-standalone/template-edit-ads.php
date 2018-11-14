@@ -96,19 +96,35 @@ $postStatus = get_post_status($postId);
 $postPhone = get_post_meta($post->ID, POST_META_PHONE, true);
 $postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 $postPreferredHours = get_post_meta($post->ID, POST_META_PREFERRED_HOURS, true);
+// post location
 $postLocation = json_decode(get_post_meta($post->ID, POST_META_LOCATION, true), true);
 $postAddress = '';
 $postLatitude = '';
 $postLongitude = '';
 $postLocality = $postArea1 = $postArea2 = $postArea3 = '';
 if (null !== $postLocation && isset($postLocation['address'])) {
-	$postAddress = $postLocation['address'];
+	$postAddress = urldecode($postLocation['address']);
 	$postLatitude = $postLocation['latitude'];
 	$postLongitude = $postLocation['longitude'];
 	$postLocality = $postLocation['locality'];
 	$postArea1 = $postLocation['aal1'];
 	$postArea2 = $postLocation['aal2'];
 	$postArea3 = $postLocation['aal3'];
+}
+// post secondary location
+$postLocation2 = json_decode(get_post_meta($post->ID, POST_META_LOCATION_2, true), true);
+$postSecAddress = '';
+$postSecLatitude = '';
+$postSecLongitude = '';
+$postSecLocality = $postSecArea1 = $postSecArea2 = $postSecArea3 = '';
+if (null !== $postLocation2 && isset($postLocation2['address'])) {
+	$postSecAddress = urldecode($postLocation2['address']);
+	$postSecLatitude = $postLocation2['latitude'];
+	$postSecLongitude = $postLocation2['longitude'];
+	$postSecLocality = $postLocation2['locality'];
+	$postSecArea1 = $postLocation2['aal1'];
+	$postSecArea2 = $postLocation2['aal2'];
+	$postSecArea3 = $postLocation2['aal3'];
 }
 $postColor = getPostColors($postId);
 $postAgeGroup = getPostAgeGroups($postId);
@@ -217,7 +233,29 @@ if(isset( $_POST['postTitle'] )) {
 			]);
 
 			if ($location->isValid()) {
-				update_post_meta($postId, POST_META_LOCATION, $location->toJSON());
+				update_post_meta($postId, POST_META_LOCATION, $location->toString());
+			}
+
+			// post secondary location
+			$postSecAddress = trim(getPostInput('address_2'));
+			$postSecLatitude = getPostInput('latitude_2');
+			$postSecLongitude = getPostInput('longitude_2');
+			$postSecLocality = getPostInput('locality_2');
+			$postSecArea1 = getPostInput('aal1_2');
+			$postSecArea2 = getPostInput('aal2_2');
+			$postSecArea3 = getPostInput('aal3_2');
+
+			if ($postSecAddress) {
+				$location2 = new OutfitLocation($postSecAddress, $postSecLongitude, $postSecLatitude, [
+					'locality' => $postSecLocality,
+					'aal3' => $postSecArea3,
+					'aal2' => $postSecArea2,
+					'aal1' => $postSecArea1
+				]);
+
+				if ($location2->isValid()) {
+					update_post_meta($postId, POST_META_LOCATION_2, $location2->toString());
+				}
 			}
 
 			// post price
@@ -351,7 +389,7 @@ get_header(); ?>
 													<img class="edit-post-image" src="<?php echo esc_url($full_img_url);?>" />
 													<div class="remove-edit-post-image">
 														<i class="fas fa-minus-square"></i>
-														<span class="remImage"><?php esc_html_e('Remove', 'classiera');?></span>
+														<span class="remImage"><?php esc_html_e('Remove', 'outfit-standalone');?></span>
 														<input type="hidden" name="" value="<?php echo esc_attr($attachment_ID); ?>">
 													</div><!--remove-edit-post-image-->
 												</div>
@@ -556,9 +594,10 @@ get_header(); ?>
 
 							<!--Address-->
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Primary address', 'classiera'); ?> : <span>*</span></label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Primary address', 'outfit-standalone'); ?> : <span>*</span></label>
 								<div class="col-sm-9">
-									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>" required>
+									<p><?php var_dump($postLocation) ?></p>
+									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
 									<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
@@ -569,15 +608,16 @@ get_header(); ?>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Secondary address', 'classiera'); ?> : </label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Secondary address', 'outfit-standalone'); ?> : </label>
 								<div class="col-sm-9">
-									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'classiera') ?>">
-									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2">
-									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2">
-									<input class="locality" type="hidden" id="locality_2" name="locality_2">
-									<input class="aal3" type="hidden" id="aal3_2" name="aal3_2">
-									<input class="aal2" type="hidden" id="aal2_2" name="aal2_2">
-									<input class="aal1" type="hidden" id="aal1_2" name="aal1_2">
+
+									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
+									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2" value="<?php echo esc_html($postSecLatitude); ?>">
+									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2" value="<?php echo esc_html($postSecLongitude); ?>">
+									<input class="locality" type="hidden" id="locality_2" name="locality_2" value="<?php echo esc_html($postSecLocality); ?>">
+									<input class="aal3" type="hidden" id="aal3_2" name="aal3_2" value="<?php echo esc_html($postSecArea3); ?>">
+									<input class="aal2" type="hidden" id="aal2_2" name="aal2_2" value="<?php echo esc_html($postSecArea2); ?>">
+									<input class="aal1" type="hidden" id="aal1_2" name="aal1_2" value="<?php echo esc_html($postSecArea1); ?>">
 								</div>
 							</div>
 
