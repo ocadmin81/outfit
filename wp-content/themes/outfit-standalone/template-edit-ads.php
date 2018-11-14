@@ -594,6 +594,7 @@ get_header(); ?>
                             <div class="col-sm-4">
 								<?php wp_nonce_field('post_nonce', 'post_nonce_field'); ?>
 								<input type="hidden" name="submitted" id="submitted" value="true">
+								<input type="hidden" name="post_ID" id="post_ID" value="<?php esc_html($postId); ?>">
                                 <button class="post-submit btn btn-primary sharp btn-md btn-style-one btn-block" type="submit" name="op" value="Publish Ad"><?php esc_html_e('Publish Ad', 'outfit-standalone') ?></button>
                             </div>
                         </div>
