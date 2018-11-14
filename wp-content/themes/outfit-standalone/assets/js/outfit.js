@@ -1375,7 +1375,10 @@ jQuery(document).ready(function(jQuery){
 			slidesToShow: 1,
 			rtl: true,
 			arrows: false		
-		});		
+		});
+		jQuery('.ad-tips .form-group.reg-text').click(function() {
+			jQuery(this).toggleClass('active');
+		});
 	}
 });
 jQuery(window).on('load', function () {	
