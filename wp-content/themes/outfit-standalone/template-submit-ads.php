@@ -367,7 +367,7 @@ get_header(); ?>
 								</div><!-- /Ad Conditions-->
 
 								<div class="form-group post-writers-container" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('Writer', 'outfit-standalone') ?> </label>
+									<label class="text-left flip"><?php esc_html_e('Writer', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="writer" name="postWriter[]" class="form-control form-control-md" multiple>
 											<option value=""><?php esc_html_e('Select Writers', 'outfit-standalone'); ?></option>
@@ -380,7 +380,7 @@ get_header(); ?>
 								</div><!-- /Ad Book Writers-->
 
 								<div class="form-group post-characters-container" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> </label>
+									<label class="text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="character" name="postCharacter[]" class="form-control form-control-md" multiple>
 											<option value=""><?php esc_html_e('Select Characters', 'outfit-standalone'); ?></option>

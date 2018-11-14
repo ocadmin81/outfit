@@ -40,7 +40,8 @@ if ( $postId ) {
 	}
 }
 if (!$postFound) {
-	wp_redirect( home_url() ); exit;
+	wp_redirect( home_url() );
+	exit;
 }
 $postAuthorId = get_post_field('post_author', $postId);
 if(current_user_can('administrator') || $postAuthorId == $userId) {
@@ -77,8 +78,20 @@ $characters = outfit_get_list_of_characters();
  * */
 $postTitle = $post->post_title;
 $postContent = $post->post_content;
-$postCategories = get_the_category($postId);
-$postCategoryId = (count($postCategories)? $postCategories[0]->cat_ID : 0);
+/*
+ * categories
+ */
+$postCategories = getCategoryPath($postId);
+$outfitMainCat = (isset($postCategories[0])? $postCategories[0] : 0);
+$outfitSubCat = (isset($postCategories[1])? $postCategories[1] : 0);
+$outfitSubSubCat = (isset($postCategories[2])? $postCategories[2] : 0);
+$subCategories = array();
+if ($outfitMainCat) {
+	$subCategories = getSubCategories($outfitMainCat);
+	$brands = getBrandsByCategory($outfitMainCat);
+}
+$filterBy = null;
+
 $postStatus = get_post_status($postId);
 $postPhone = get_post_meta($post->ID, POST_META_PHONE, true);
 $postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
@@ -172,6 +185,7 @@ if(isset( $_POST['postTitle'] )) {
 
 			//Setup Post Data//
 			$postInfo = array(
+				'ID' => $postId,
 				'post_title' => esc_attr(strip_tags($_POST['postTitle'])),
 				'post_content' => strip_tags(getPostInput('postContent'), '<h1><h2><h3><strong><b><ul><ol><li><i><a><blockquote><center><embed><iframe><pre><table><tbody><tr><td><video><br>'),
 				'post_type' => OUTFIT_AD_POST_TYPE,
@@ -374,95 +388,129 @@ get_header(); ?>
 													data-character-enabled="<?php echo ($c->catFilterByCharacter? '1' : '0'); ?>"
 													data-age-enabled="<?php echo ($c->catFilterByAge? '1' : '0'); ?>"
 													data-condition-enabled="<?php echo ($c->catFilterByCondition? '1' : '0'); ?>"
+													<?php if ($outfitMainCat && $c->term_id == $outfitMainCat) {
+														$filterBy = $c;
+														echo 'selected';
+													} ?>
 												><?php esc_html_e($c->name); ?></option>
 										<?php endforeach; ?>
 									</select>
 								</div>
 							</div><!-- /Ad Category-->
 
-							<div class="form-group post-sub-cat-container" style="display: none;">
+							<div class="form-group post-sub-cat-container" style="<?php echo (count($subCategories)? '' : 'display: none;'); ?>">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Sub Category', 'outfit-standalone') ?> : </label>
 								<div class="col-sm-9">
 									<select id="subcategory" name="postSubcategory" class="form-control form-control-md">
 										<option value=""><?php esc_html_e('Select Sub Category', 'outfit-standalone'); ?></option>
-
+										<?php foreach ($subCategories as $c): ?>
+											<option value="<?php echo $c->term_id; ?>"
+												<?php if ($outfitSubCat && $c->term_id == $outfitSubCat) {
+													echo 'selected';
+												} ?>
+												><?php esc_html_e($c->name); ?></option>
+										<?php endforeach; ?>
 									</select>
 								</div>
 							</div><!-- /Ad Sub Category-->
 
-							<div class="form-group post-colors-container" style="display: none;">
+							<div class="form-group post-colors-container"
+								style="<?php echo (($filterBy && $filterBy->catFilterByColor)? '' : 'display: none;'); ?>">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Color', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
-									<select id="color" name="postColor[]" class="form-control form-control-md" multiple>
+									<select id="color" name="postColor[]" class="form-control form-control-md" multiple
+										<?php echo (($filterBy && $filterBy->catFilterByColor)? 'required' : ''); ?>>
 										<option value=""><?php esc_html_e('Select Colors', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($colors as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+											<option value="<?php echo $c->term_id; ?>"
+												<?php echo (in_array($c->term_id, $postColor)? 'selected' : ''); ?>>
+												<?php esc_html_e($c->name); ?></option>
 										<?php endforeach; ?>
 									</select>
 								</div>
 							</div><!-- /Ad Colors-->
 
-							<div class="form-group post-age-groups-container" style="display: none;">
+							<div class="form-group post-age-groups-container"
+								 style="<?php echo (($filterBy && $filterBy->catFilterByAge)? '' : 'display: none;'); ?>">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Age Group', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
-									<select id="ageGroup" name="postAgeGroup[]" class="form-control form-control-md" multiple>
+									<select id="ageGroup" name="postAgeGroup[]" class="form-control form-control-md" multiple
+										<?php echo (($filterBy && $filterBy->catFilterByAge)? 'required' : ''); ?>>
 										<option value=""><?php esc_html_e('Select Age Groups', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($ageGroups as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+											<option value="<?php echo $c->term_id; ?>"
+												<?php echo (in_array($c->term_id, $postAgeGroup)? 'selected' : ''); ?>>
+												<?php esc_html_e($c->name); ?></option>
 										<?php endforeach; ?>
 									</select>
 								</div>
 							</div><!-- /Ad Age Groups-->
 
-							<div class="form-group post-brands-container" style="display: none;">
+							<div class="form-group post-brands-container"
+								 style="<?php echo (($filterBy && $filterBy->catFilterByBrand)? '' : 'display: none;'); ?>">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Brand', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
-									<select id="brand" name="postBrand[]" class="form-control form-control-md" multiple>
+									<select id="brand" name="postBrand[]" class="form-control form-control-md" multiple
+										<?php echo (($filterBy && $filterBy->catFilterByBrand)? 'required' : ''); ?>>
 										<option value=""><?php esc_html_e('Select Brands', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($brands as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+											<option value="<?php echo $c->term_id; ?>"
+												<?php echo (in_array($c->term_id, $postBrand)? 'selected' : ''); ?>>
+												<?php esc_html_e($c->name); ?></option>
 										<?php endforeach; ?>
 									</select>
 								</div>
 							</div><!-- /Ad Brands-->
 
-							<div class="form-group post-conditions-container" style="display: none;">
+							<div class="form-group post-conditions-container"
+								 style="<?php echo (($filterBy && $filterBy->catFilterByCondition)? '' : 'display: none;'); ?>">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Condition', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
-									<select id="condition" name="postCondition" class="form-control form-control-md">
+									<select id="condition" name="postCondition" class="form-control form-control-md"
+										<?php echo (($filterBy && $filterBy->catFilterByCondition)? 'required' : ''); ?>>
 										<option value=""><?php esc_html_e('Select Condition', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($conditions as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+											<option value="<?php echo $c->term_id; ?>"
+												<?php echo ($c->term_id == $postCondition? 'selected' : ''); ?>>
+												<?php esc_html_e($c->name); ?></option>
 										<?php endforeach; ?>
 									</select>
 								</div>
 							</div><!-- /Ad Conditions-->
 
-							<div class="form-group post-writers-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Writer', 'outfit-standalone') ?> : </label>
+							<div class="form-group post-writers-container"
+								 style="<?php echo (($filterBy && $filterBy->catFilterByWriter)? '' : 'display: none;'); ?>">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Writer', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
-									<select id="writer" name="postWriter[]" class="form-control form-control-md" multiple>
+									<select id="writer" name="postWriter[]" class="form-control form-control-md" multiple
+										<?php echo (($filterBy && $filterBy->catFilterByWriter)? 'required' : ''); ?>>
 										<option value=""><?php esc_html_e('Select Writers', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($writers as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+											<option value="<?php echo $c->term_id; ?>"
+												<?php echo (in_array($c->term_id, $postWriter)? 'selected' : ''); ?>>
+												<?php esc_html_e($c->name); ?></option>
 										<?php endforeach; ?>
 									</select>
 								</div>
 							</div><!-- /Ad Book Writers-->
 
-							<div class="form-group post-characters-container" style="display: none;">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> : </label>
+							<div class="form-group post-characters-container"
+								 style="<?php echo (($filterBy && $filterBy->catFilterByCharacter)? '' : 'display: none;'); ?>">
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="col-sm-9">
-									<select id="character" name="postCharacter[]" class="form-control form-control-md" multiple>
+									<select id="character" name="postCharacter[]" class="form-control form-control-md" multiple
+										<?php echo (($filterBy && $filterBy->catFilterByCharacter)? 'required' : ''); ?>>
 										<option value=""><?php esc_html_e('Select Characters', 'outfit-standalone'); ?></option>
 										<?php
 										foreach ($characters as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
+											<option value="<?php echo $c->term_id; ?>"
+												<?php echo (in_array($c->term_id, $postCharacter)? 'selected' : ''); ?>>
+												<?php esc_html_e($c->name); ?></option>
 										<?php endforeach; ?>
 									</select>
 								</div>

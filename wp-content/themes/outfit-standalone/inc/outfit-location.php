@@ -158,6 +158,6 @@ class OutfitLocation {
 
     public function toJSON() {
 
-        return json_encode(get_object_vars($this));
+        return json_encode(get_object_vars($this), 256);
     }
 }

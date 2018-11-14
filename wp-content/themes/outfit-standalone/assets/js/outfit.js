@@ -356,13 +356,13 @@ jQuery(document).ready(function(jQuery){
 		This function will show sub categories
 		list When click on main category.
 	======================================*/
-    jQuery('.post-sub-cat-container').toggleRequired(0);
-    jQuery('.post-age-groups-container').toggleRequired(0);
-    jQuery('.post-colors-container').toggleRequired(0);
-    jQuery('.post-conditions-container').toggleRequired(0);
-    jQuery('.post-brands-container').toggleRequired(0);
-    jQuery('.post-writers-container').toggleRequired(0);
-    jQuery('.post-characters-container').toggleRequired(0);
+    //jQuery('.post-sub-cat-container').toggleRequired(0);
+    //jQuery('.post-age-groups-container').toggleRequired(0);
+    //jQuery('.post-colors-container').toggleRequired(0);
+    //jQuery('.post-conditions-container').toggleRequired(0);
+    //jQuery('.post-brands-container').toggleRequired(0);
+    //jQuery('.post-writers-container').toggleRequired(0);
+    //jQuery('.post-characters-container').toggleRequired(0);
     var mainCatText;
     jQuery(".post-cat-container select").on('change', function (event){
         event.preventDefault();
@@ -1240,7 +1240,7 @@ jQuery(document).ready(function(jQuery){
 		};
 		
 	};
-	setInterval(function(){classiera_get_user_message_status();}, 300000);
+	//setInterval(function(){classiera_get_user_message_status();}, 300000);
 	/*=====================================
 	Classiera 3.0.5: Hide Price Section
 	For specific categories.

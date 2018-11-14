@@ -197,3 +197,47 @@ function getPostWriters($postId) {
 function getPostCharacters($postId) {
     return getPostTermIds($postId, 'characters');
 }
+
+function getCategoryPath($postId) {
+
+    $terms = get_the_category($postId);
+    $res = array();
+
+    foreach ($terms as $term) {
+        if ($term->parent == 0) {
+            $res[0] = $term->term_id;
+            break;
+        }
+    }
+    if (isset($res[0])) {
+        foreach ($terms as $term) {
+            if ($term->parent == $res[0]) {
+                $res[1] = $term->term_id;
+                break;
+            }
+        }
+    }
+    if (isset($res[1])) {
+        foreach ($terms as $term) {
+            if ($term->parent == $res[1]) {
+                $res[2] = $term->term_id;
+                break;
+            }
+        }
+    }
+    return $res;
+}
+
+function getSubCategories($catId) {
+    if (!outfit_category_exists($catId)) {
+        return array();
+    }
+    return get_categories('child_of='.$catId.'&hide_empty=0');
+}
+
+function getBrandsByCategory($catId) {
+    if (!outfit_category_exists($catId)) {
+        return array();
+    }
+    return outfit_get_list_of_brands($catId);
+}
