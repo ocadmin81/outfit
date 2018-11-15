@@ -1044,3 +1044,23 @@ function outfitEncodeUnicodeString($value)
 
 	return $ascii;
 }
+
+/*==========================
+ Get Template URL with template name.
+ Mostly Used for WPML
+ ===========================*/
+if (!function_exists('outfit_get_template_url')) {
+	function outfit_get_template_url($templatename){
+		$url = '';
+		$archive_page = get_pages(
+			array(
+				'meta_key' => '_wp_page_template',
+				'meta_value' => $templatename,
+				'suppress_filters' => true,
+			)
+		);
+		$pageID = $archive_page[0]->ID;
+		$url = get_permalink($pageID);
+		return $url;
+	}
+}

@@ -174,6 +174,15 @@ function getPostTermIds($postId, $taxonomy) {
     return $res;
 }
 
+function getPostTermNames($postId, $taxonomy) {
+    $terms = wp_get_post_terms( $postId, $taxonomy );
+    $res = array();
+    foreach ($terms as $term) {
+        $res[] = $term->name;
+    }
+    return $res;
+}
+
 function getPostColors($postId) {
     return getPostTermIds($postId, 'colors');
 }

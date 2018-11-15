@@ -11,6 +11,23 @@
  * @version 1.0
  */
 
+global $redux_demo;
+global $post;
+$postId = '';
+$currentUser = wp_get_current_user();
+$editPostUrl = $redux_demo['edit_post'];
+if(function_exists('icl_object_id')) {
+	$templateEditAd = 'template-edit-ads.php';
+	$editPostUrl = outfit_get_template_url($templateEditAd);
+}
+$postId = $post->ID;
+global $wp_rewrite;
+if ($wp_rewrite->permalink_structure == ''){
+	$editPostUrl .= "&post=".$postId;
+}else{
+	$editPostUrl .= "?post=".$postId;
+}
+
 get_header(); ?>
 
 <?php while ( have_posts() ) : the_post(); ?>
@@ -19,14 +36,54 @@ get_header(); ?>
 		<div class="container">
 
 			<?php
+			/*
+			 * categories
+			 */
+			$postCategories = getCategoryPath($post->ID);
+			$outfitMainCat = (isset($postCategories[0])? $postCategories[0] : 0);
+			$outfitSubCat = (isset($postCategories[1])? $postCategories[1] : 0);
+			$outfitSubSubCat = (isset($postCategories[2])? $postCategories[2] : 0);
+			$postStatus = get_post_status($post->ID);
 			$postPhone = get_post_meta($post->ID, POST_META_PHONE, true);
 			$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 			$postPreferredHours = get_post_meta($post->ID, POST_META_PREFERRED_HOURS, true);
-			$postLocation = json_decode(get_post_meta($post->ID, POST_META_LOCATION, true), true);
+			// post location
+			$postLocation = OutfitLocation::toAssoc(get_post_meta($post->ID, POST_META_LOCATION, true));
 			$postAddress = '';
+			$postLatitude = '';
+			$postLongitude = '';
+			$postLocality = $postArea1 = $postArea2 = $postArea3 = '';
 			if (null !== $postLocation && isset($postLocation['address'])) {
 				$postAddress = $postLocation['address'];
+				$postLatitude = $postLocation['latitude'];
+				$postLongitude = $postLocation['longitude'];
+				$postLocality = $postLocation['locality'];
+				$postArea1 = $postLocation['aal1'];
+				$postArea2 = $postLocation['aal2'];
+				$postArea3 = $postLocation['aal3'];
 			}
+			// post secondary location
+			$postLocation2 = OutfitLocation::toAssoc(get_post_meta($post->ID, POST_META_LOCATION_2, true));
+			$postSecAddress = '';
+			$postSecLatitude = '';
+			$postSecLongitude = '';
+			$postSecLocality = $postSecArea1 = $postSecArea2 = $postSecArea3 = '';
+			if (null !== $postLocation2 && isset($postLocation2['address'])) {
+				$postSecAddress = $postLocation2['address'];
+				$postSecLatitude = $postLocation2['latitude'];
+				$postSecLongitude = $postLocation2['longitude'];
+				$postSecLocality = $postLocation2['locality'];
+				$postSecArea1 = $postLocation2['aal1'];
+				$postSecArea2 = $postLocation2['aal2'];
+				$postSecArea3 = $postLocation2['aal3'];
+			}
+			$postColor = getPostTermNames($post->ID, 'colors');
+			$postAgeGroup = getPostTermNames($post->ID, 'age_groups');
+			$postBrand = getPostTermNames($post->ID, 'brands');
+			$postConditions = getPostTermNames($post->ID, 'conditions');
+			$postCondition = (isset($postConditions[0])? $postConditions[0] : '');
+			$postWriter = getPostTermNames($post->ID, 'writers');
+			$postCharacter = getPostTermNames($post->ID, 'characters');
 			?>
 			<?php if ( get_post_status ( $post->ID ) == 'pending' ) {?>
 				<div class="alert alert-info" role="alert">
@@ -44,13 +101,13 @@ get_header(); ?>
 						<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 						<?php
 						if (
-						($post->post_author == $current_user->ID && get_post_status ( $post->ID ) == 'publish') ||
+						($post->post_author == $currentUser->ID && get_post_status ( $post->ID ) == 'publish') ||
 						current_user_can('administrator')
 						):
 						?>
-							<a href="<?php echo esc_url($edit_post); ?>" class="edit-post btn btn-sm btn-default">
+							<a href="<?php echo esc_url($editPostUrl); ?>" class="edit-post btn btn-sm btn-default">
 								<i class="far fa-edit"></i>
-								<?php esc_html_e( 'Edit Post', 'classiera' ); ?>
+								<?php esc_html_e( 'Edit Post', 'outfit-standalone' ); ?>
 							</a>
 						<?php
 						endif;
@@ -67,6 +124,65 @@ get_header(); ?>
 							}
 							?>
 						</h4>
+					</div>
+					<div><?php echo the_content(); ?></div>
+					<div class="post-details">
+						<ul class="list-unstyled clearfix">
+							<?php if(!empty( $postBrand )): ?>
+								<li>
+									<p><?php esc_html_e( 'Brand', 'outfit-standalone' ); ?>:
+									<span class="pull-right flip">
+										<?php echo esc_attr(join(',', $postBrand)); ?>
+									</span>
+									</p>
+								</li>
+							<?php endif; ?>
+							<?php if(!empty( $postAgeGroup )): ?>
+								<li>
+									<p><?php esc_html_e( 'Age Group', 'outfit-standalone' ); ?>:
+									<span class="pull-right flip">
+										<?php echo esc_attr(join(',', $postAgeGroup)); ?>
+									</span>
+									</p>
+								</li>
+							<?php endif; ?>
+							<?php if(!empty( $postColor )): ?>
+								<li>
+									<p><?php esc_html_e( 'Color', 'outfit-standalone' ); ?>:
+									<span class="pull-right flip">
+										<?php echo esc_attr(join(',', $postColor)); ?>
+									</span>
+									</p>
+								</li>
+							<?php endif; ?>
+							<?php if(!empty( $postWriter )): ?>
+								<li>
+									<p><?php esc_html_e( 'Writer', 'outfit-standalone' ); ?>:
+									<span class="pull-right flip">
+										<?php echo esc_attr(join(',', $postWriter)); ?>
+									</span>
+									</p>
+								</li>
+							<?php endif; ?>
+							<?php if(!empty( $postCharacter )): ?>
+								<li>
+									<p><?php esc_html_e( 'Character', 'outfit-standalone' ); ?>:
+									<span class="pull-right flip">
+										<?php echo esc_attr(join(',', $postCharacter)); ?>
+									</span>
+									</p>
+								</li>
+							<?php endif; ?>
+							<?php if(!empty( $postCondition )): ?>
+								<li>
+									<p><?php esc_html_e( 'Condition', 'outfit-standalone' ); ?>:
+									<span class="pull-right flip">
+										<?php echo esc_attr($postCondition); ?>
+									</span>
+									</p>
+								</li>
+							<?php endif; ?>
+						</ul>
 					</div>
 				</div>
 				<div class="col-md-5 col-sm-12">
