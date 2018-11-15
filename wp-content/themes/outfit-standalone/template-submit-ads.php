@@ -416,18 +416,18 @@ get_header(); ?>
 								</div><!-- /Ad Characters-->
 							</div>
 							<div class="form-group">
-								<label class="text-left flip" for="description"><?php esc_html_e('Item description', 'outfit-standalone') ?> </label>
+								<label class="text-left flip" for="description"><?php esc_html_e('????? ?????', 'outfit-standalone') ?> </label>
 								<div class="item">
-									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('Write description', 'outfit-standalone') ?>"></textarea>
+									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('?? ????? ?????', 'outfit-standalone') ?>"></textarea>
 									<div class="help-block with-errors"></div>
 								</div>
 							</div><!--Ad description-->
 
 							<!--Address-->
 							<div class="form-group">
-								<label class="text-left flip"><?php esc_html_e('Main collection point', 'outfit-standalone'); ?> <span>*</span></label>
+								<label class="text-left flip"><?php esc_html_e('????? ????? ??????', 'classiera'); ?> <span>*</span></label>
 								<div class="item">
-									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>" required>
+									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('????? ?? ???', 'classiera') ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude">
 									<input class="longitude" type="hidden" id="longitude" name="longitude">
 									<input class="locality" type="hidden" id="locality" name="locality">
@@ -438,9 +438,9 @@ get_header(); ?>
 							</div>
 
 							<div class="form-group">
-								<label class="text-left flip"><?php esc_html_e('Additional collection point (Optional)', 'outfit-standalone'); ?> </label>
+								<label class="text-left flip"><?php esc_html_e('????? ????? ????? (?? ????)', 'classiera'); ?> </label>
 								<div class="item">
-									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
+									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('????? ?? ???', 'classiera') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2">
 									<input class="locality" type="hidden" id="locality_2" name="locality_2">

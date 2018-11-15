@@ -567,6 +567,7 @@ html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, ht
 html[lang="he-IL"] *,html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{font-family:   "Assistant",sans-serif;}
 body, button, input, select, textarea, a,h1, h2, h3, h4, h5, h6{color: #191919;}
 body{font-size:16px;}
+.dropdown-toggle{left: 0;}
 .no-border{    border-bottom: none;}
 html[lang="he-IL"] button.btn-primary{width: 100%;text-align: center;color: #3d3d3d;font-size: 18px;background: #fed3d6;font-weight: 500;opacity: 1;}
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn{opacity: 1;}
@@ -677,6 +678,9 @@ form.wpcf7-form input[type="submit"]{padding: 0;width: 160px;height: 45px;text-a
 .social-login-or:after{content:"";background:#f1efef;width:100%;height:2px;display:block;position: absolute;top: 12px;}
 .social-login-or span{color: #bab8b9;font-weight: 600;font-size: 18px;display: inline-block;background: #fff;padding: 0 40px;position: relative;z-index: 2;}
 .inner-page-content .login-register form .form-group,.forgot-title{padding: 0 65px;}
+.inner-page-content .login-register form .form-group button{width: 100%;	}
+input[type='checkbox'] + label:before, input[type='radio'] + label:before{padding-right: 0;width: 18px;position: relative;top: 1px;}
+.radio label, .checkbox label{padding-right: 0;}
 .inner-page-content .login-register form .form-group .help-block{right: auto;left: 10px;}
 .inner-page-content .login-register form .form-group .form-control {border-radius: 0;width: 100%;padding-left: 0;text-transform: none;color: #191919;font-size: 16px}
 .form-group-forgot a{text-decoration: underline;}
@@ -744,11 +748,12 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .submit-post form .form-group{margin: 0;margin-bottom: 20px;}
 .submit-post form .form-group.media{    margin: 0;}
 .ad-tips .form-group.reg-text strong{font-size: 18px;font-weight: 600;}
+.ad-tips .form-group.reg-text em{text-transform: uppercase;font-size: 35px;font-family: 'vogueregular';font-weight: 500;font-style: normal;margin-top: 20px;display: block;}
 .submit-post form .form-group .form-control{color: #191919;border-radius: 0;border-color: #e2e2e4;}
 .submit-post form .form-group select.form-control.reg{background: url(assets/images/select-arrow.png) 18px 18px no-repeat;}
 /*.ad-categories{border-top: 1px solid #e2e2e4;margin: 20px 0;padding: 20px 0;border-bottom: 1px solid #e2e2e4;}*/
 .submit-post form .form-main-section {margin-bottom: 20px;border-bottom: 1px solid #e2e2e4;padding-bottom: 15px;}
-.submit-post form input[type='checkbox'] + label:before, .submit-post form input[type='radio'] + label:before{padding-right: 15px;margin-left: 7px;position: relative;top: 1px;}
+.submit-post form input[type='checkbox'] + label:before, .submit-post form input[type='radio'] + label:before{padding-right: 15px;margin-left: 15px;position: relative;top: 1px;}
 html[lang="he-IL"] button.btn-primary{    margin-top: 15px;width: 250px;color: #191919;font-size: 19px;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
@@ -813,6 +818,7 @@ html[lang="he-IL"] button.btn-primary{    margin-top: 15px;width: 250px;color: #
 	.ad-page .row{margin:0;}
 }
 @media screen and (max-width: 767px){
+	.site-content{padding: 15px 0 0;}
 	header.site-header{border-bottom: 1px solid #f3f3f3;}
 	a.custom-logo-link{margin-top: 5px;}
 	.header-right .publish a{    font-size: 14px;}
@@ -856,4 +862,14 @@ html[lang="he-IL"] button.btn-primary{    margin-top: 15px;width: 250px;color: #
 	body.page-two-column:not(.archive) #primary .entry-header .textwidget ul li{width: 100%;}
 	.wrap.related-posts{padding: 0;}
 	.submit-post,.ad-tips{padding: 0;}
+	.ad-tips ul{display:none;padding: 15px;}	
+	.ad-tips .form-group.reg-text.active ul{display:block;}
+	.ad-tips p{ margin: 0;display: inline-block;vertical-align:top;margin-right: 15px;    cursor: pointer;}
+	.ad-tips p:first-child{margin: 0;margin-right: 5px;}
+	.ad-tips .form-group.reg-text strong{display: block;margin-top: 15px;}
+	.ad-tips p img{max-width: 50px;}
+	.ad-tips .form-group.reg-text{background: #f4f5f5;padding: 5px 0;}
+	.ad-tips .form-group.reg-text .widget_text{padding-bottom: 0;}
+	html[lang="he-IL"] .ad-form .form-main-btn button.btn-primary{width: 100%;}
+	.submit-post form input[type='checkbox'] + label:before, .submit-post form input[type='radio'] + label:before{padding-right: 0;margin-left: 0px;}
 }
