@@ -14,3 +14,7 @@ define('POST_META_LOCATION', 'outfit_post_location');
 define('POST_META_LOCATION_2', 'outfit_post_location_2');
 define('POST_META_PRICE', 'outfit_post_price');
 define('POST_META_PREFERRED_HOURS', 'outfit_post_preferred_hours');
+define('POST_META_LOCALITY_TAG', 'outfit_post_locality_tag');
+define('POST_META_AREA1_TAG', 'outfit_post_area1_tag');
+define('POST_META_AREA2_TAG', 'outfit_post_area2_tag');
+define('POST_META_AREA3_TAG', 'outfit_post_area3_tag');

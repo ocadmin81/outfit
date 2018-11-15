@@ -158,10 +158,28 @@ class OutfitLocation {
 
     public function toString() {
 
+        //????????? ????
         $arr = (array) get_object_vars($this);
         foreach ($arr as $k => $v) {
-            //$arr[$k] = urlencode($v);
+            if ($k != 'latitude' && $k != 'longitude') {
+                $arr[$k] = outfitEncodeUnicodeString($v);
+            }
         }
-        return json_encode($arr, JSON_UNESCAPED_UNICODE);
+        //return json_encode($arr);
+        return json_encode($arr, JSON_HEX_APOS);
+    }
+
+    public static function toAssoc($jsonString) {
+
+        $json = json_decode($jsonString, true);
+        if (!$json) return array();
+
+        foreach ($json as $k => $v) {
+            if ($k != 'latitude' && $k != 'longitude') {
+                $json[$k] = outfitDecodeUnicodeString($v);
+            }
+        }
+
+        return $json;
     }
 }

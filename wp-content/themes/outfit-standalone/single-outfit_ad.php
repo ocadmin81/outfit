@@ -1,8 +1,7 @@
 <?php
 /**
- * Template name: Single Ad
  *
- * The template for displaying all single posts
+ * The template for displaying all single outfit ads
  *
  * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
  *
@@ -37,6 +36,39 @@ get_header(); ?>
 				</div>
 			<?php } ?>
 			<div class="row">
+				<div class="col-md-3 col-sm-12">
+
+				</div>
+				<div class="col-md-4 col-sm-12">
+					<h4 class="text-uppercase">
+						<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+						<?php
+						if (
+						($post->post_author == $current_user->ID && get_post_status ( $post->ID ) == 'publish') ||
+						current_user_can('administrator')
+						):
+						?>
+							<a href="<?php echo esc_url($edit_post); ?>" class="edit-post btn btn-sm btn-default">
+								<i class="far fa-edit"></i>
+								<?php esc_html_e( 'Edit Post', 'classiera' ); ?>
+							</a>
+						<?php
+						endif;
+						?>
+						<!--Edit Ads Button-->
+					</h4>
+					<div class="post-price">
+						<h4>
+							<?php
+							if(is_numeric($postPrice)){
+								echo '&#8362; ' . $postPrice;
+							} else {
+								echo esc_attr($postPrice);
+							}
+							?>
+						</h4>
+					</div>
+				</div>
 				<div class="col-md-5 col-sm-12">
 					<!-- single post carousel-->
 					<?php
@@ -107,12 +139,6 @@ get_header(); ?>
 						</div>
 					<?php } ?>
 					<!-- single post carousel-->
-				</div>
-				<div class="col-md-4 col-sm-12">
-
-				</div>
-				<div class="col-md-3 col-sm-12">
-
 				</div>
 			</div>
 		</div>

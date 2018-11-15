@@ -97,13 +97,13 @@ $postPhone = get_post_meta($post->ID, POST_META_PHONE, true);
 $postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 $postPreferredHours = get_post_meta($post->ID, POST_META_PREFERRED_HOURS, true);
 // post location
-$postLocation = json_decode(get_post_meta($post->ID, POST_META_LOCATION, true), true);
+$postLocation = OutfitLocation::toAssoc(get_post_meta($post->ID, POST_META_LOCATION, true));
 $postAddress = '';
 $postLatitude = '';
 $postLongitude = '';
 $postLocality = $postArea1 = $postArea2 = $postArea3 = '';
 if (null !== $postLocation && isset($postLocation['address'])) {
-	$postAddress = urldecode($postLocation['address']);
+	$postAddress = $postLocation['address'];
 	$postLatitude = $postLocation['latitude'];
 	$postLongitude = $postLocation['longitude'];
 	$postLocality = $postLocation['locality'];
@@ -112,13 +112,13 @@ if (null !== $postLocation && isset($postLocation['address'])) {
 	$postArea3 = $postLocation['aal3'];
 }
 // post secondary location
-$postLocation2 = json_decode(get_post_meta($post->ID, POST_META_LOCATION_2, true), true);
+$postLocation2 = OutfitLocation::toAssoc(get_post_meta($post->ID, POST_META_LOCATION_2, true));
 $postSecAddress = '';
 $postSecLatitude = '';
 $postSecLongitude = '';
 $postSecLocality = $postSecArea1 = $postSecArea2 = $postSecArea3 = '';
 if (null !== $postLocation2 && isset($postLocation2['address'])) {
-	$postSecAddress = urldecode($postLocation2['address']);
+	$postSecAddress = $postLocation2['address'];
 	$postSecLatitude = $postLocation2['latitude'];
 	$postSecLongitude = $postLocation2['longitude'];
 	$postSecLocality = $postLocation2['locality'];
@@ -213,10 +213,18 @@ if(isset( $_POST['postTitle'] )) {
 
 			$postId = wp_insert_post($postInfo);
 
-			// post location
 			$postPrice = trim(getPostInput('postPrice'));
 			$postPhone = trim(getPostInput('postPhone'));
 			$postPreferredHours = trim(getPostInput('postPreferredHours'));
+
+			// post location
+			delete_post_meta($postId, POST_META_LOCATION);
+			delete_post_meta($postId, POST_META_LOCATION_2);
+			delete_post_meta($postId, POST_META_LOCALITY_TAG);
+			delete_post_meta($postId, POST_META_AREA1_TAG);
+			delete_post_meta($postId, POST_META_AREA2_TAG);
+			delete_post_meta($postId, POST_META_AREA3_TAG);
+
 			$postAddress = trim(getPostInput('address'));
 			$postLatitude = getPostInput('latitude');
 			$postLongitude = getPostInput('longitude');
@@ -233,7 +241,12 @@ if(isset( $_POST['postTitle'] )) {
 			]);
 
 			if ($location->isValid()) {
-				update_post_meta($postId, POST_META_LOCATION, $location->toString());
+
+				add_post_meta($postId, POST_META_LOCATION, $location->toString());
+				add_post_meta($postId, POST_META_LOCALITY_TAG, $postLocality);
+				add_post_meta($postId, POST_META_AREA1_TAG, $postArea1);
+				add_post_meta($postId, POST_META_AREA2_TAG, $postArea2);
+				add_post_meta($postId, POST_META_AREA3_TAG, $postArea3);
 			}
 
 			// post secondary location
@@ -254,7 +267,12 @@ if(isset( $_POST['postTitle'] )) {
 				]);
 
 				if ($location2->isValid()) {
-					update_post_meta($postId, POST_META_LOCATION_2, $location2->toString());
+
+					add_post_meta($postId, POST_META_LOCATION_2, $location2->toString());
+					add_post_meta($postId, POST_META_LOCALITY_TAG, $postSecLocality);
+					add_post_meta($postId, POST_META_AREA1_TAG, $postSecArea1);
+					add_post_meta($postId, POST_META_AREA2_TAG, $postSecArea2);
+					add_post_meta($postId, POST_META_AREA3_TAG, $postSecArea3);
 				}
 			}
 
@@ -372,7 +390,7 @@ get_header(); ?>
 										<?php
 										$imageCount = 0;
 										$imgargs = array(
-											'post_parent' => $current_post,
+											'post_parent' => $postId,
 											'post_status' => 'inherit',
 											'post_type'   => 'attachment',
 											'post_mime_type'   => 'image',
@@ -596,7 +614,6 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="col-sm-3 text-left flip"><?php esc_html_e('Primary address', 'outfit-standalone'); ?> : <span>*</span></label>
 								<div class="col-sm-9">
-									<p><?php var_dump($postLocation) ?></p>
 									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
