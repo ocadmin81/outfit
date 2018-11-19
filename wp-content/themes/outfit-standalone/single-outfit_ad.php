@@ -66,8 +66,8 @@ get_header(); ?>
 
 	?>
 
-	<section class="inner-page-content single-post-page">
-		<div class="container">
+	<section class="inner-page-content single-post-page single-post-ad">
+		<div class="wrap">
 
 			<?php
 			/*
@@ -138,83 +138,80 @@ get_header(); ?>
 			<?php if ( get_post_status ( $post->ID ) == 'pending' ) {?>
 				<div class="alert alert-info" role="alert">
 					<p>
-						<strong><?php esc_html_e('Congratulation!', 'outfit-standalone') ?></strong> <?php esc_html_e('Your Ad has submitted and pending for review.', 'outfit-standalone') ?>
+						<strong><?php esc_html_e('ברכות!', 'outfit-standalone') ?></strong> <?php esc_html_e('המודעה שלך הועלתה ומחכה לאישור', 'outfit-standalone') ?>
 					</p>
 				</div>
 			<?php } ?>
 			<div class="row">
-				<div class="col-md-3 col-sm-12">
-					<div class="widget-box">
-						<div class="widget-content widget-content-post">
-							<div class="author-info border-bottom widget-content-post-area">
+				<div class="col-md-5 col-sm-12">
+					<!-- single post carousel-->
+					<?php
+					$attachments = get_children(array('post_parent' => $post->ID,
+							'post_status' => 'inherit',
+							'post_type' => 'attachment',
+							'post_mime_type' => 'image',
+							'order' => 'ASC',
+							'orderby' => 'menu_order ID'
+						)
+					);
+					?>
+					<?php if ( has_post_thumbnail() || !empty($attachments)){?>
+						<div id="single-post-carousel" class="slide img-box">
 
-								<div class="media">
-									<div class="media-left">
-										<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
-									</div><!--media-left-->
-									<div class="media-body">
-										<h5 class="media-heading text-uppercase">
-											<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php echo esc_attr($postAuthorName); ?></a>
-										</h5>
-										<?php if (!empty($userId) && $userId != $postAuthorId) { ?>
-											<form method="post" class="classiera_follow_user">
-												<input type="hidden" name="author_id" value="<?php echo esc_attr($author_id); ?>"/>
-												<?php if (!outfit_is_favorite_author($postAuthorId, $userId)) { ?>
-													<input type="submit" name="follow" value="<?php esc_html_e( 'Follow', 'outfit-standalone' ); ?>" />
-												<?php } else { ?>
-													<input type="submit" name="unfollow" value="<?php esc_html_e( 'Remove from favorites', 'outfit-standalone' ); ?>" />
-												<?php } ?>
-												</form>
-											<div class="clearfix"></div>
-
-										<?php } ?>
-									</div><!--media-body-->
-								</div><!--media-->
-
-
-							</div><!--author-info-->
-						</div>
-						<div class="widget-content widget-content-post">
-							<div class="contact-details widget-content-post-area">
-								<h5 class="text-uppercase"><?php esc_html_e('Collect points', 'outfit-standalone') ?> :</h5>
-								<ul class="list-unstyled fa-ul c-detail">
-									<li>
-										<span>
-											<?php if (!empty($postAddress)) { ?>
-												<?php echo esc_html($postAddress);?>
-											<?php } ?>
-										</span><br>
-										<span>
-											<?php if (!empty($postSecAddress)) { ?>
-												<?php echo esc_html($postSecAddress);?>
-											<?php } ?>
-										</span>
-									</li>
-								</ul>
+							<!-- Wrapper for slides -->
+							<div class="img-inner" role="listbox">
+								<?php
+								if(empty($attachments)){
+									if ( has_post_thumbnail()){
+										$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+										?>
+										<div class="item active">
+											<img class="img-responsive" src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
+										</div>
+										<?php
+									}else{
+										$image = get_template_directory_uri().'/assets/images/nothumb.png';
+										?>
+										<div class="item active">
+											<img class="img-responsive" src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>">
+										</div>
+										<?php
+									}
+								}else{
+									$count = 1;
+									foreach($attachments as $att_id => $attachment){
+										$full_img_url = wp_get_attachment_url($attachment->ID);
+										?>
+										<div class="item <?php if($count == 1){ echo "active"; }?>">
+											<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
+										</div>
+										<?php
+										$count++;
+									}
+								}
+								?>
 							</div>
-						</div><!--widget-content-->
-						<div class="widget-content widget-content-post">
-							<div class="contact-details widget-content-post-area">
-								<h5 class="text-uppercase"><?php esc_html_e('Contact Details', 'outfit-standalone') ?> :</h5>
-								<ul class="list-unstyled fa-ul c-detail">
-									<?php if(!empty($authorPhone)){?>
-										<li>
-											<span class=""><?php echo esc_html($authorPhone);?></span>
-										</li>
-									<?php } ?>
-									<?php if(!empty($authorPreferredHours)){?>
-										<li>
-											<span><?php esc_html_e('Best time to call', 'outfit-standalone') ?>:</span>
-											<span>
-												<?php echo esc_html($authorPreferredHours);?>
-											</span>
-										</li>
-									<?php } ?>
-								</ul>
-							</div><!--contact-details-->
-						</div><!--widget-content-->
+						</div>
+					<?php } ?>
+					<!-- single post carousel-->
+					<div>
+
+						<?php if (!empty($userId)): ?>
+						<form method="post" class="fav-form clearfix">
+							<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
+							<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
+								<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase">
+									<i class="fas fa-heart"></i><?php esc_html_e( 'Add to wishlist', 'outfit-standalone' ); ?>
+								</button>
+							<?php } else { ?>
+								<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
+									<i class="fas fa-heart unfavorite-i"></i><?php esc_html_e( 'Remove from wishlist', 'outfit-standalone' ); ?>
+								</button>
+							<?php } ?>
+						</form>
+						<?php endif; ?>
 					</div>
-				</div>
+				</div>			
 				<div class="col-md-4 col-sm-12">
 					<h4 class="text-uppercase">
 						<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
@@ -304,94 +301,78 @@ get_header(); ?>
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-5 col-sm-12">
-					<!-- single post carousel-->
-					<?php
-					$attachments = get_children(array('post_parent' => $post->ID,
-							'post_status' => 'inherit',
-							'post_type' => 'attachment',
-							'post_mime_type' => 'image',
-							'order' => 'ASC',
-							'orderby' => 'menu_order ID'
-						)
-					);
-					?>
-					<?php if ( has_post_thumbnail() || !empty($attachments)){?>
-						<div id="single-post-carousel" class="carousel slide single-carousel" data-ride="carousel" data-interval="3000">
+				<div class="col-md-3 col-sm-12">
+					<div class="widget-box">
+						<div class="widget-content widget-content-post">
+							<div class="author-info border-bottom widget-content-post-area">
 
-							<!-- Wrapper for slides -->
-							<div class="carousel-inner" role="listbox">
-								<?php
-								if(empty($attachments)){
-									if ( has_post_thumbnail()){
-										$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-										?>
-										<div class="item active">
-											<img class="img-responsive" src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
-										</div>
-										<?php
-									}else{
-										$image = get_template_directory_uri().'/assets/images/nothumb.png';
-										?>
-										<div class="item active">
-											<img class="img-responsive" src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>">
-										</div>
-										<?php
-									}
-								}else{
-									$count = 1;
-									foreach($attachments as $att_id => $attachment){
-										$full_img_url = wp_get_attachment_url($attachment->ID);
-										?>
-										<div class="item <?php if($count == 1){ echo "active"; }?>">
-											<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
-										</div>
-										<?php
-										$count++;
-									}
-								}
-								?>
-							</div>
-							<!-- slides number -->
-							<div class="num">
-								<i class="fa fa-camera"></i>
-								<span class="init-num"><?php esc_html_e('1', 'classiera') ?></span>
-								<span><?php esc_html_e('of', 'classiera') ?></span>
-								<span class="total-num"></span>
-							</div>
-							<!-- Left and right controls -->
-							<div class="single-post-carousel-controls">
-								<a class="left carousel-control" href="#single-post-carousel" role="button" data-slide="prev">
-									<span class="fa fa-chevron-left" aria-hidden="true"></span>
-									<span class="sr-only"><?php esc_html_e('Previous', 'classiera') ?></span>
-								</a>
-								<a class="right carousel-control" href="#single-post-carousel" role="button" data-slide="next">
-									<span class="fa fa-chevron-right" aria-hidden="true"></span>
-									<span class="sr-only"><?php esc_html_e('Next', 'classiera') ?></span>
-								</a>
-							</div>
-							<!-- Left and right controls -->
+								<div class="media">
+									<div class="media-left">
+										<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
+									</div><!--media-left-->
+									<div class="media-body">
+										<h5 class="media-heading text-uppercase">
+											<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php echo esc_attr($postAuthorName); ?></a>
+										</h5>
+										<?php if (!empty($userId) && $userId != $postAuthorId) { ?>
+											<form method="post" class="classiera_follow_user">
+												<input type="hidden" name="author_id" value="<?php echo esc_attr($author_id); ?>"/>
+												<?php if (!outfit_is_favorite_author($postAuthorId, $userId)) { ?>
+													<input type="submit" name="follow" value="<?php esc_html_e( 'Follow', 'outfit-standalone' ); ?>" />
+												<?php } else { ?>
+													<input type="submit" name="unfollow" value="<?php esc_html_e( 'Remove from favorites', 'outfit-standalone' ); ?>" />
+												<?php } ?>
+												</form>
+											<div class="clearfix"></div>
+
+										<?php } ?>
+									</div><!--media-body-->
+								</div><!--media-->
+
+
+							</div><!--author-info-->
 						</div>
-					<?php } ?>
-					<!-- single post carousel-->
-					<div>
-
-						<?php if (!empty($userId)): ?>
-						<form method="post" class="fav-form clearfix">
-							<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
-							<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
-								<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase">
-									<i class="fas fa-heart"></i><?php esc_html_e( 'Add to wishlist', 'outfit-standalone' ); ?>
-								</button>
-							<?php } else { ?>
-								<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
-									<i class="fas fa-heart unfavorite-i"></i><?php esc_html_e( 'Remove from wishlist', 'outfit-standalone' ); ?>
-								</button>
-							<?php } ?>
-						</form>
-						<?php endif; ?>
+						<div class="widget-content widget-content-post">
+							<div class="contact-details widget-content-post-area">
+								<h5 class="text-uppercase"><?php esc_html_e('Collect points', 'outfit-standalone') ?> :</h5>
+								<ul class="list-unstyled fa-ul c-detail">
+									<li>
+										<span>
+											<?php if (!empty($postAddress)) { ?>
+												<?php echo esc_html($postAddress);?>
+											<?php } ?>
+										</span><br>
+										<span>
+											<?php if (!empty($postSecAddress)) { ?>
+												<?php echo esc_html($postSecAddress);?>
+											<?php } ?>
+										</span>
+									</li>
+								</ul>
+							</div>
+						</div><!--widget-content-->
+						<div class="widget-content widget-content-post">
+							<div class="contact-details widget-content-post-area">
+								<h5 class="text-uppercase"><?php esc_html_e('Contact Details', 'outfit-standalone') ?> :</h5>
+								<ul class="list-unstyled fa-ul c-detail">
+									<?php if(!empty($authorPhone)){?>
+										<li>
+											<span class=""><?php echo esc_html($authorPhone);?></span>
+										</li>
+									<?php } ?>
+									<?php if(!empty($authorPreferredHours)){?>
+										<li>
+											<span><?php esc_html_e('Best time to call', 'outfit-standalone') ?>:</span>
+											<span>
+												<?php echo esc_html($authorPreferredHours);?>
+											</span>
+										</li>
+									<?php } ?>
+								</ul>
+							</div><!--contact-details-->
+						</div><!--widget-content-->
 					</div>
-				</div>
+				</div>				
 			</div>
 		</div>
 	</section>

@@ -66,18 +66,18 @@ if(isset( $_POST['postTitle'] )) {
 		// this is a submitted form
 		$postTitle = trim($_POST['postTitle']);
 		if (empty($postTitle)) {
-			$postTitleError =  esc_html__( 'Please enter a title.', 'outfit-standalone' );
+			$postTitleError =  esc_html__( 'נא להכניס כותרת', 'outfit-standalone' );
 			$hasError = true;
 		}
 		if (empty($_POST['postCategory'])) {
-			$catError = esc_html__( 'Please select a category', 'outfit-standalone' );
+			$catError = esc_html__( 'נא לבחור קטגוריה', 'outfit-standalone' );
 			$hasError = true;
 		}
 		//Image Count check//
 		$files = $_FILES['upload_attachment'];
 		$count = count($files['name']);
 		if($count == 0){
-			$imageError = esc_html__( 'Please, upload at least one image', 'outfit-standalone' );
+			$imageError = esc_html__( 'יש לעלות תמונה אחת לפחות', 'outfit-standalone' );
 			$hasError = true;
 		}
 		//Image Count check//
@@ -252,7 +252,7 @@ get_header(); ?>
 ?>
 <section class="user-pages">
 	<div class="top-blog">		
-		<h1 class="page-title"><?php esc_html_e('Start Selling', 'outfit-standalone') ?></h1>
+		<h1 class="page-title"><?php esc_html_e('התחילו למכור', 'outfit-standalone') ?></h1>
 		<div class="taxonomy-description"><?php echo do_shortcode("[do_widget id=text-20]"); ?></div>		
 	</div>
 	<div class="container ad-page">
@@ -269,7 +269,7 @@ get_header(); ?>
 						<div class="form-main-section post-detail">
 						<!-- add photos and media -->
 							<div class="form-group media">
-								<label class="text-left flip"><?php esc_html_e('Add your photos', 'outfit-standalone') ?> <span>*</span></label>
+								<label class="text-left flip"><?php esc_html_e('הוסיפו תמונה(ות)', 'outfit-standalone') ?> <span>*</span></label>
 								<div class="item">
 									<!-- HTML heavily inspired by http://blueimp.github.io/jQuery-File-Upload/ -->
 									<div id="mydropzone" class="classiera-image-upload clearfix" data-maxfile="<?php echo esc_attr( $imageLimit ); ?>">
@@ -284,7 +284,7 @@ get_header(); ?>
 													<label class="img-label" for="imgInp<?php echo esc_attr( $i ); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/upload-icon.png" /></label>
 													<div class="classiera-image-preview">
 														<img class="my-image" src=""/>
-														<span class="remove-img"><i class="fas fa-times-circle"></i></span>
+														<span class="remove-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
 													</div>
 												</div>
 											</div>
@@ -298,7 +298,7 @@ get_header(); ?>
 						<!-- add photos and media -->						
 
 							<div class="form-group">
-								<label class="text-left flip" for="title"><?php esc_html_e('What are you selling?', 'outfit-standalone') ?> <span>*</span></label>
+								<label class="text-left flip" for="title"><?php esc_html_e('מה אתם מוכרים?', 'outfit-standalone') ?> <span>*</span></label>
 								<div class="item">
 									<input id="title" data-minlength="5" name="postTitle" type="text" class="form-control form-control-md" required>
 
@@ -306,7 +306,7 @@ get_header(); ?>
 							</div><!-- /Ad title-->
 
 							<div class="form-group">
-								<label class="text-left flip" for="title"><?php esc_html_e('Requested price', 'outfit-standalone') ?> <span>*</span></label>
+								<label class="text-left flip" for="title"><?php esc_html_e('מחיר מבוקש', 'outfit-standalone') ?> <span>*</span></label>
 								<div class="item">
 									<input id="price" data-minlength="1" name="postPrice" type="text" class="form-control form-control-md" required>
 
@@ -315,10 +315,10 @@ get_header(); ?>
 							
 							<div class="ad-categories">
 								<div class="form-group post-cat-container">
-									<label class="text-left flip"><?php esc_html_e('Category', 'outfit-standalone') ?> <span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('קטגוריה', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="category" name="postCategory" class="reg form-control form-control-md category-select" required>
-											<option value="" selected><?php esc_html_e('Select Category', 'outfit-standalone'); ?></option>
+											<option value="" selected><?php esc_html_e('בחירת קטגוריה', 'outfit-standalone'); ?></option>
 											<?php
 											foreach ($categories as $c): ?>
 												<?php $c = fetch_category_custom_fields($c); ?>
@@ -336,20 +336,16 @@ get_header(); ?>
 								</div><!-- /Ad Category-->
 
 								<div class="form-group post-sub-cat-container" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('Sub Category', 'outfit-standalone') ?> </label>
+									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?> </label>
 									<div class="item">
-										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md">
-											<option value=""><?php esc_html_e('Select Sub Category', 'outfit-standalone'); ?></option>
-
-										</select>
+										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md"></select>
 									</div>
 								</div><!-- /Ad Sub Category-->
 
 								<div class="form-group post-colors-container" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('Color', 'outfit-standalone') ?> <span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('צבע', 'outfit-standalone') ?> <span>*</span></label>
 									<div class="item">
-										<select id="color" name="postColor[]" class="form-control form-control-md" multiple>
-											<option value=""><?php esc_html_e('Select Colors', 'outfit-standalone'); ?></option>
+										<select id="color" name="postColor[]" class="form-control form-control-md" multiple>											
 											<?php
 											foreach ($colors as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -359,10 +355,9 @@ get_header(); ?>
 								</div><!-- /Ad Colors-->
 
 								<div class="form-group post-age-groups-container" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('Age Group', 'outfit-standalone') ?> <span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="ageGroup" name="postAgeGroup[]" class="form-control form-control-md" multiple>
-											<option value=""><?php esc_html_e('Select Age Groups', 'outfit-standalone'); ?></option>
+										<select id="ageGroup" name="postAgeGroup[]" class="form-control form-control-md" multiple>											
 											<?php
 											foreach ($ageGroups as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -372,10 +367,9 @@ get_header(); ?>
 								</div><!-- /Ad Age Groups-->
 
 								<div class="form-group post-brands-container" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('Brand', 'outfit-standalone') ?> <span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('מותג', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="brand" name="postBrand[]" class="form-control form-control-md" multiple>
-											<option value=""><?php esc_html_e('Select Brands', 'outfit-standalone'); ?></option>
+										<select id="brand" name="postBrand[]" class="form-control form-control-md" multiple>											
 											<?php
 											foreach ($brands as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -385,10 +379,9 @@ get_header(); ?>
 								</div><!-- /Ad Brands-->
 
 								<div class="form-group post-conditions-container" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('Condition', 'outfit-standalone') ?> <span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('מצב הפריט', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="condition" name="postCondition" class="reg form-control form-control-md">
-											<option value=""><?php esc_html_e('Select Condition', 'outfit-standalone'); ?></option>
+										<select id="condition" name="postCondition" class="reg form-control form-control-md">											
 											<?php
 											foreach ($conditions as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -398,10 +391,9 @@ get_header(); ?>
 								</div><!-- /Ad Conditions-->
 
 								<div class="form-group post-writers-container" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('Writer', 'outfit-standalone') ?> <span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('כותכ', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="writer" name="postWriter[]" class="form-control form-control-md" multiple>
-											<option value=""><?php esc_html_e('Select Writers', 'outfit-standalone'); ?></option>
+										<select id="writer" name="postWriter[]" class="form-control form-control-md" multiple>											
 											<?php
 											foreach ($writers as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -413,8 +405,7 @@ get_header(); ?>
 								<div class="form-group post-characters-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="character" name="postCharacter[]" class="form-control form-control-md" multiple>
-											<option value=""><?php esc_html_e('Select Characters', 'outfit-standalone'); ?></option>
+										<select id="character" name="postCharacter[]" class="form-control form-control-md" multiple>											
 											<?php
 											foreach ($characters as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -424,18 +415,18 @@ get_header(); ?>
 								</div><!-- /Ad Characters-->
 							</div>
 							<div class="form-group">
-								<label class="text-left flip" for="description"><?php esc_html_e('Item description', 'outfit-standalone') ?> </label>
+								<label class="text-left flip" for="description"><?php esc_html_e('תיאור הפריט', 'outfit-standalone') ?> </label>
 								<div class="item">
-									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('Write description', 'outfit-standalone') ?>"></textarea>
+									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('תיאור הפריט', 'outfit-standalone') ?>"></textarea>
 									<div class="help-block with-errors"></div>
 								</div>
 							</div><!--Ad description-->
 
 							<!--Address-->
 							<div class="form-group">
-								<label class="text-left flip"><?php esc_html_e('Main collection point', 'outfit-standalone'); ?> <span>*</span></label>
+								<label class="text-left flip"><?php esc_html_e('נקודת איסוף עיקרית', 'outfit-standalone'); ?> <span>*</span></label>
 								<div class="item">
-									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>" required>
+									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude">
 									<input class="longitude" type="hidden" id="longitude" name="longitude">
 									<input class="locality" type="hidden" id="locality" name="locality">
@@ -446,9 +437,9 @@ get_header(); ?>
 							</div>
 
 							<div class="form-group">
-								<label class="text-left flip"><?php esc_html_e('Additional collection point (Optional)', 'outfit-standalone'); ?> </label>
+								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> </label>
 								<div class="item">
-									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
+									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2">
 									<input class="locality" type="hidden" id="locality_2" name="locality_2">
@@ -461,16 +452,16 @@ get_header(); ?>
 							<!--/Address-->
 
 							<div class="form-group">
-								<label class="text-left flip"><?php esc_html_e('Contact phone number', 'outfit-standalone') ?> <span>*</span> </label>
+								<label class="text-left flip"><?php esc_html_e('טלפון ליצירת קשר', 'outfit-standalone') ?> <span>*</span> </label>
 								<div class="item">
-									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>" required>
+									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" placeholder="<?php //esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>" required>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label class="text-left flip"><?php esc_html_e('Appropriate time for the call', 'outfit-standalone') ?> :</label>
+								<label class="text-left flip"><?php esc_html_e('שעה נוחה להתקשרות', 'outfit-standalone') ?></label>
 								<div class="item">
-									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" placeholder="<?php esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
+									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" placeholder="<?php //esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
 								</div>
 							</div>						
 
@@ -480,7 +471,7 @@ get_header(); ?>
 									<div class="form-check">
 										<input type="checkbox" class="form-check-input" name="postSavePrefs" id="postSavePrefs">
 										<label class="form-check-label" for="postSavePrefs">
-											<?php esc_html_e('Save preferences for future use', 'outfit-standalone') ?>
+											<?php esc_html_e('שמרו את הפרטים שלי באתר לפעמים הבאות', 'outfit-standalone') ?>
 										</label>
 									</div>
 								</div>
@@ -491,7 +482,7 @@ get_header(); ?>
 								<div class="form-check">
 									<input type="checkbox" class="form-check-input" name="postAgreeToTerms" id="postAgreeToTerms" required>
 									<label class="form-check-label" for="postAgreeToTerms">
-										<?php esc_html_e("I'v read and agree to terms", 'outfit-standalone') ?>
+										<?php esc_html_e("קראתי ואני מסיכמ/ה לתנאי האתר", 'outfit-standalone') ?>
 									</label>
 								</div>
 							</div>
@@ -500,7 +491,7 @@ get_header(); ?>
                             <div class="item">
 								<?php wp_nonce_field('post_nonce', 'post_nonce_field'); ?>
 								<input type="hidden" name="submitted" id="submitted" value="true">
-                                <button class="post-submit btn btn-primary sharp btn-md btn-style-one btn-block" type="submit" name="op" value="Publish Ad"><?php esc_html_e('Send', 'outfit-standalone') ?></button>
+                                <button class="post-submit btn btn-primary sharp btn-md btn-style-one btn-block" type="submit" name="op" value="Publish Ad"><?php esc_html_e('שליחה', 'outfit-standalone') ?></button>
                             </div>
                         </div>
 					</form>
