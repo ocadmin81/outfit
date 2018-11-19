@@ -1015,7 +1015,7 @@ function outfitEncodeUnicodeString($value)
 					ord($value[$i + 1]),
 					ord($value[$i + 2]));
 				$i += 2;
-				$utf16 = self::_utf82utf16($char);
+				$utf16 = mb_convert_encoding($char, 'UTF-16', 'UTF-8');
 				$ascii .= sprintf('\u%04s', bin2hex($utf16));
 				break;
 
@@ -1027,7 +1027,7 @@ function outfitEncodeUnicodeString($value)
 					ord($value[$i + 2]),
 					ord($value[$i + 3]));
 				$i += 3;
-				$utf16 = self::_utf82utf16($char);
+				$utf16 = mb_convert_encoding($char, 'UTF-16', 'UTF-8');
 				$ascii .= sprintf('\u%04s', bin2hex($utf16));
 				break;
 
@@ -1040,7 +1040,7 @@ function outfitEncodeUnicodeString($value)
 					ord($value[$i + 3]),
 					ord($value[$i + 4]));
 				$i += 4;
-				$utf16 = self::_utf82utf16($char);
+				$utf16 = mb_convert_encoding($char, 'UTF-16', 'UTF-8');
 				$ascii .= sprintf('\u%04s', bin2hex($utf16));
 				break;
 
@@ -1054,7 +1054,7 @@ function outfitEncodeUnicodeString($value)
 					ord($value[$i + 4]),
 					ord($value[$i + 5]));
 				$i += 5;
-				$utf16 = self::_utf82utf16($char);
+				$utf16 = mb_convert_encoding($char, 'UTF-16', 'UTF-8');
 				$ascii .= sprintf('\u%04s', bin2hex($utf16));
 				break;
 		}
