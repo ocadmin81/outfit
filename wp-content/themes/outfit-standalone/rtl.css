@@ -569,6 +569,7 @@ body, button, input, select, textarea, a,h1, h2, h3, h4, h5, h6{color: #191919;}
 body{font-size:16px;}
 .dropdown-toggle{left: 0;}
 .no-border{    border-bottom: none;}
+.alert-info{color: #3d3d3d;background-color: #fed3d6;border-color: #fed3d6;}
 html[lang="he-IL"] button.btn-primary{width: 100%;text-align: center;color: #3d3d3d;font-size: 18px;background: #fed3d6;font-weight: 500;opacity: 1;}
 .btn.disabled, .btn[disabled], fieldset[disabled] .btn{opacity: 1;}
 .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled.focus, .btn-primary[disabled].focus, fieldset[disabled] .btn-primary.focus{background: #fed3d6;border-color: #fed3d6;}
@@ -742,7 +743,7 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .ad-tips .form-group.reg-text{padding: 0;padding-right: 30px;padding-top: 80px;}
 .ad-form{padding-left: 90px;padding-top: 50px;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box{float: right;padding: 0 5px 10px;}
-.submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box{height: 120px;border: 1px solid #f3f3f3;margin-bottom: 0;}
+.submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box{height: 120px;border: 1px solid #f3f3f3!important;margin-bottom: 0;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box .classiera-input-file + label{padding-top: 30px;padding-bottom: 0;margin: 0;background: none;}
 .submit-post form .form-main-section .classiera-image-upload{border: none;background: #fff;padding: 0;}
 .submit-post form .form-group{margin: 0;margin-bottom: 20px;}
@@ -755,6 +756,11 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .submit-post form .form-main-section {margin-bottom: 20px;border-bottom: 1px solid #e2e2e4;padding-bottom: 15px;}
 .submit-post form input[type='checkbox'] + label:before, .submit-post form input[type='radio'] + label:before{padding-right: 15px;margin-left: 15px;position: relative;top: 1px;}
 html[lang="he-IL"] button.btn-primary{    margin-top: 15px;width: 250px;color: #191919;font-size: 19px;}
+.submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box .classiera-image-preview span{width: 31px;height: 31px;top: -13px;right: -6px;}
+.post-241 .entry-header{display:none;}
+body.page-two-column:not(.archive) #primary .post-241 .entry-content{width: 100%;}
+.post-241 .entry-title{display:none;}
+.single-post-ad{margin-top: 30px;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
 }
@@ -771,7 +777,7 @@ html[lang="he-IL"] button.btn-primary{    margin-top: 15px;width: 250px;color: #
 		text-align: center;
 		width: 100%;
 	}	
-	.main-navigation a{padding: 0.5em 1.25em;}
+	.main-navigation a{padding: 0.5em 35px;}
 	.panel-content .wrap{padding-top: 0;}
 	.site-footer .widget-column.footer-widget-1{width: 100%;}
 	.site-footer .widget-column.footer-widget-1 section{float: right;width: 60%;padding: 0;}
