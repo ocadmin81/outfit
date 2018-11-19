@@ -687,6 +687,24 @@ function outfit_delete_author_favorite($author_id, $post_id) {
 	$wpdb->query($author_del);
 }
 
+function outfit_is_favorite_post($author_id, $post_id) {
+	global $wpdb;
+	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}author_favorite WHERE post_id = $post_id AND author_id = $author_id", OBJECT );
+	if (empty($results)) {
+		return false;
+	}
+	return true;
+}
+
+function outfit_is_favorite_author($author_id, $follower_id) {
+	global $wpdb;
+	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}author_followers WHERE follower_id = $follower_id AND author_id = $author_id", OBJECT );
+	if (empty($results)) {
+		return false;
+	}
+	return true;
+}
+
 /*==========================
  Outfit : Create tables
  @since classiera 1.0

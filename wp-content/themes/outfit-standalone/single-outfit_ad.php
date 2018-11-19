@@ -14,23 +14,57 @@
 global $redux_demo;
 global $post;
 $postId = '';
-$currentUser = wp_get_current_user();
+$userId = '';
+$currentUser = null;
+
+if ( is_user_logged_in() ) {
+	$currentUser = wp_get_current_user();
+	$userId = $currentUser->ID;
+}
+
 $editPostUrl = $redux_demo['edit_post'];
 if(function_exists('icl_object_id')) {
 	$templateEditAd = 'template-edit-ads.php';
 	$editPostUrl = outfit_get_template_url($templateEditAd);
 }
-$postId = $post->ID;
-global $wp_rewrite;
-if ($wp_rewrite->permalink_structure == ''){
-	$editPostUrl .= "&post=".$postId;
-}else{
-	$editPostUrl .= "?post=".$postId;
-}
+
 
 get_header(); ?>
 
 <?php while ( have_posts() ) : the_post(); ?>
+
+	<?php
+	$postId = $post->ID;
+	global $wp_rewrite;
+	if ($wp_rewrite->permalink_structure == ''){
+	$editPostUrl .= "&post=".$postId;
+	}else{
+	$editPostUrl .= "?post=".$postId;
+	}
+
+	if (isset($_POST['favorite'])) {
+		if (!empty($userId)) {
+			outfit_insert_author_favorite($userId, $_POST['post_id']);
+		}
+	}
+	else if (isset($_POST['unfavorite'])) {
+		if (!empty($userId)) {
+			outfit_delete_author_favorite($userId, $_POST['post_id']);
+		}
+	}
+
+	if (isset($_POST['follow'])) {
+		if (!empty($userId)) {
+			outfit_insert_author_follower($_POST['author_id'], $userId);
+		}
+	}
+	else if (isset($_POST['unfavorite'])) {
+		if (!empty($userId)) {
+			outfit_delete_author_follower($_POST['author_id'], $userId);
+		}
+	}
+
+	?>
 
 	<section class="inner-page-content single-post-page">
 		<div class="container">
@@ -84,6 +118,22 @@ get_header(); ?>
 			$postCondition = (isset($postConditions[0])? $postConditions[0] : '');
 			$postWriter = getPostTermNames($post->ID, 'writers');
 			$postCharacter = getPostTermNames($post->ID, 'characters');
+
+			/* post author */
+			$postAuthorId = $post->post_author;
+			$postAuthorName = get_the_author_meta('display_name', $postAuthorId );
+			if (empty($postAuthorName)) {
+				$postAuthorName = get_the_author_meta('user_nicename', $postAuthorId );
+			}
+			if (empty($postAuthorName)) {
+				$postAuthorName = get_the_author_meta('user_login', $postAuthorId );
+			}
+			$authorAvatarUrl = get_user_meta($postAuthorId, USER_META_AVATAR_URL, true);
+			$authorAvatarUrl = outfit_get_profile_img($authorAvatarUrl);
+			$authorEmail = get_the_author_meta(USER_META_EMAIL, $postAuthorId);
+			$authorPhone = get_the_author_meta(USER_META_PHONE, $postAuthorId);
+			$authorPreferredHours = get_the_author_meta(USER_META_PREFERRED_HOURS, $postAuthorId);
+
 			?>
 			<?php if ( get_post_status ( $post->ID ) == 'pending' ) {?>
 				<div class="alert alert-info" role="alert">
@@ -94,7 +144,76 @@ get_header(); ?>
 			<?php } ?>
 			<div class="row">
 				<div class="col-md-3 col-sm-12">
+					<div class="widget-box">
+						<div class="widget-content widget-content-post">
+							<div class="author-info border-bottom widget-content-post-area">
 
+								<div class="media">
+									<div class="media-left">
+										<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
+									</div><!--media-left-->
+									<div class="media-body">
+										<h5 class="media-heading text-uppercase">
+											<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php echo esc_attr($postAuthorName); ?></a>
+										</h5>
+										<?php if (!empty($userId) && $userId != $postAuthorId) { ?>
+											<form method="post" class="classiera_follow_user">
+												<input type="hidden" name="author_id" value="<?php echo esc_attr($author_id); ?>"/>
+												<?php if (!outfit_is_favorite_author($postAuthorId, $userId)) { ?>
+													<input type="submit" name="follow" value="<?php esc_html_e( 'Follow', 'outfit-standalone' ); ?>" />
+												<?php } else { ?>
+													<input type="submit" name="unfollow" value="<?php esc_html_e( 'Remove from favorites', 'outfit-standalone' ); ?>" />
+												<?php } ?>
+												</form>
+											<div class="clearfix"></div>
+
+										<?php } ?>
+									</div><!--media-body-->
+								</div><!--media-->
+
+
+							</div><!--author-info-->
+						</div>
+						<div class="widget-content widget-content-post">
+							<div class="contact-details widget-content-post-area">
+								<h5 class="text-uppercase"><?php esc_html_e('Collect points', 'outfit-standalone') ?> :</h5>
+								<ul class="list-unstyled fa-ul c-detail">
+									<li>
+										<span>
+											<?php if (!empty($postAddress)) { ?>
+												<?php echo esc_html($postAddress);?>
+											<?php } ?>
+										</span><br>
+										<span>
+											<?php if (!empty($postSecAddress)) { ?>
+												<?php echo esc_html($postSecAddress);?>
+											<?php } ?>
+										</span>
+									</li>
+								</ul>
+							</div>
+						</div><!--widget-content-->
+						<div class="widget-content widget-content-post">
+							<div class="contact-details widget-content-post-area">
+								<h5 class="text-uppercase"><?php esc_html_e('Contact Details', 'outfit-standalone') ?> :</h5>
+								<ul class="list-unstyled fa-ul c-detail">
+									<?php if(!empty($authorPhone)){?>
+										<li>
+											<span class=""><?php echo esc_html($authorPhone);?></span>
+										</li>
+									<?php } ?>
+									<?php if(!empty($authorPreferredHours)){?>
+										<li>
+											<span><?php esc_html_e('Best time to call', 'outfit-standalone') ?>:</span>
+											<span>
+												<?php echo esc_html($authorPreferredHours);?>
+											</span>
+										</li>
+									<?php } ?>
+								</ul>
+							</div><!--contact-details-->
+						</div><!--widget-content-->
+					</div>
 				</div>
 				<div class="col-md-4 col-sm-12">
 					<h4 class="text-uppercase">
@@ -255,6 +374,23 @@ get_header(); ?>
 						</div>
 					<?php } ?>
 					<!-- single post carousel-->
+					<div>
+
+						<?php if (!empty($userId)): ?>
+						<form method="post" class="fav-form clearfix">
+							<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
+							<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
+								<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase">
+									<i class="fas fa-heart"></i><?php esc_html_e( 'Add to wishlist', 'outfit-standalone' ); ?>
+								</button>
+							<?php } else { ?>
+								<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
+									<i class="fas fa-heart unfavorite-i"></i><?php esc_html_e( 'Remove from wishlist', 'outfit-standalone' ); ?>
+								</button>
+							<?php } ?>
+						</form>
+						<?php endif; ?>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -3,6 +3,8 @@
 define('USER_META_PHONE', 'outfit_user_phone');
 define('USER_META_FIRSTNAME', 'outfit_first_name');
 define('USER_META_LASTNAME', 'outfit_last_name');
+define('USER_META_EMAIL', 'outfit_user_email');
+define('USER_META_AVATAR_URL', 'outfit_user_avatar_url');
 define('USER_META_PREFERRED_HOURS', 'outfit_preferred_hours');
 define('USER_META_PRIMARY_ADDRESS', 'outfit_primary_address');
 define('USER_META_SECONDARY_ADDRESSES', 'outfit_secondary_addresses');
