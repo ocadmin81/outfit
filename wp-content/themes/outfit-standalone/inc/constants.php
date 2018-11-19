@@ -7,7 +7,7 @@ define('USER_META_EMAIL', 'outfit_user_email');
 define('USER_META_AVATAR_URL', 'outfit_user_avatar_url');
 define('USER_META_PREFERRED_HOURS', 'outfit_preferred_hours');
 define('USER_META_PRIMARY_ADDRESS', 'outfit_primary_address');
-define('USER_META_SECONDARY_ADDRESSES', 'outfit_secondary_addresses');
+define('USER_META_SECONDARY_ADDRESS', 'outfit_secondary_address');
 define('USER_META_KIDS_BIRTHDAYS', 'outfit_kids_birthdays');
 define('USER_META_FAVORITE_BRANDS', 'outfit_favorite_brands');
 define('USER_META_ABOUT', 'outfit_about');

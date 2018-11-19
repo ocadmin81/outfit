@@ -8,114 +8,56 @@
  * @subpackage classiera
  * @since classiera
  */
-
-global $user_ID;
-$author = get_user_by( 'slug', get_query_var( 'author_name' ) ); $user_ID = $author->ID;
-$user_info = get_userdata($user_ID);
-get_header(); 
-	
 global $redux_demo;
-$currentUser_ID = '';
-global $current_user; wp_get_current_user(); $currentUser_ID == $current_user->ID;
-$contact_email = get_the_author_meta( 'user_email', $currentUser_ID );
-$classieraContactEmailError = $redux_demo['contact-email-error'];
-$classieraContactNameError = $redux_demo['contact-name-error'];
-$classieraConMsgError = $redux_demo['contact-message-error'];
-$classieraContactThankyou = $redux_demo['contact-thankyou-message'];
-$classieraAuthorStyle = $redux_demo['classiera_author_page_style'];
-$classieraCurrencyTag = $redux_demo['classierapostcurrency'];
-$classieraIconsStyle = $redux_demo['classiera_cat_icon_img'];
-$classieraAuthorInfo = $redux_demo['classiera_author_contact_info'];
-$classieraAdsView = $redux_demo['home-ads-view'];
-$classieraItemClass = "item-grid";
-if($classieraAdsView == 'list'){
-	$classieraItemClass = "item-list";
+global $current_user;
+$currentUserId = '';
+$author = (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
+wp_get_current_user();
+$currentUserId = $current_user->ID;
+$authorId = $author->ID;
+$authorName = get_the_author_meta('display_name', $authorId );
+if (empty($authorName)) {
+	$authorName = get_the_author_meta('user_nicename', $authorId );
 }
-$classieraOnlineCheck = classiera_user_last_online($user_ID);
-$UserRegistered = $current_user->user_registered;
-$dateFormat = get_option( 'date_format' );
-$classieraRegDate = date_i18n($dateFormat,  strtotime($UserRegistered));
+if (empty($authorName)) {
+	$authorName = get_the_author_meta('user_login', $authorId );
+}
+$authorAvatarUrl = get_user_meta($authorId, USER_META_AVATAR_URL, true);
+$authorAvatarUrl = outfit_get_profile_img($authorAvatarUrl);
+if (empty($authorAvatarUrl)) {
+	outfit_get_avatar_url($authorId, 150);
+}
+$authorEmail = get_the_author_meta(USER_META_EMAIL, $authorId);
+$authorPhone = get_the_author_meta(USER_META_PHONE, $authorId);
+$authorAbout = get_the_author_meta(USER_META_ABOUT, $authorId);
+$authorPreferredHours = get_the_author_meta(USER_META_PREFERRED_HOURS, $postAuthorId);
 
-global $nameError;
-global $emailError;
-global $commentError;
-global $subjectError;
-global $humanTestError;
-$caticoncolor="";
-$category_icon_code ="";
-$category_icon="";
-$category_icon_color="";
+// post location
+$postLocation = OutfitLocation::toAssoc(get_the_author_meta($authorId, USER_META_PRIMARY_ADDRESS, true));
+$postAddress = '';
+if (null !== $postLocation && isset($postLocation['address'])) {
+	$postAddress = $postLocation['address'];
+}
+// post secondary location
+$postLocation2 = OutfitLocation::toAssoc(get_post_meta($authorId, USER_META_SECONDARY_ADDRESS, true));
+$postSecAddress = '';
+if (null !== $postLocation2 && isset($postLocation2['address'])) {
+	$postSecAddress = $postLocation2['address'];
+}
 
-//If the form is submitted
-if(isset($_POST['submitted'])) {
-	
-		//Check to make sure that the name field is not empty
-		if(trim($_POST['contactName']) === '') {
-			$nameError = $classieraContactNameError;
-			$hasError = true;
-		} elseif(trim($_POST['contactName']) === 'Name*') {
-			$nameError = $classieraContactNameError;
-			$hasError = true;
-		}	else {
-			$name = trim($_POST['contactName']);
-		}
-
-		//Check to make sure that the subject field is not empty
-		if(trim($_POST['subject']) === '') {
-			$subjectError = $classiera_contact_subject_error;
-			$hasError = true;
-		} elseif(trim($_POST['subject']) === 'Subject*') {
-			$subjectError = $classiera_contact_subject_error;
-			$hasError = true;
-		}	else {
-			$subject = trim($_POST['subject']);
-		}
-		
-		//Check to make sure sure that a valid email address is submitted
-		if(trim($_POST['email']) === '')  {
-			$emailError = $classieraContactEmailError;
-			$hasError = true;
-		} else if (!eregi("^[A-Z0-9._%-]+@[A-Z0-9._%-]+\.[A-Z]{2,4}$", trim($_POST['email']))) {
-			$emailError = $classieraContactEmailError;
-			$hasError = true;
-		} else {
-			$email = trim($_POST['email']);
-		}
-			
-		//Check to make sure comments were entered	
-		if(trim($_POST['comments']) === '') {
-			$commentError = $classieraConMsgError;
-			$hasError = true;
-		} else {
-			if(function_exists('stripslashes')) {
-				$comments = stripslashes(trim($_POST['comments']));
-			} else {
-				$comments = trim($_POST['comments']);
-			}
-		}
-
-		//Check to make sure that the human test field is not empty
-		if(trim($_POST['humanTest']) != '8') {
-			$humanTestError = "Not Human :(";
-			$hasError = true;
-		} else {
-
-		}
-			
-		//If there is no error, send the email
-		if(!isset($hasError)) {
-
-			$emailTo = $contact_email;
-			$subject = $subject;	
-			$body = "Name: $name \n\nEmail: $email \n\nMessage: $comments";
-			$headers = 'From <'.$emailTo.'>' . "\r\n" . 'Reply-To: ' . $email;			
-			if ( function_exists('classiera_send_mail_with_headers')) {
-				classiera_send_mail_with_headers($emailTo, $subject, $body, $headers);
-			}
-			$emailSent = true;
-
+if (isset($_POST['follow'])) {
+	if (!empty($currentUserId)) {
+		outfit_insert_author_follower($_POST['author_id'], $currentUserId);
 	}
 }
+else if (isset($_POST['unfavorite'])) {
+	if (!empty($currentUserId)) {
+		outfit_delete_author_follower($_POST['author_id'], $currentUserId);
+	}
+}
+
+get_header();
+
 
 ?>
 <section class="author-box">
@@ -127,172 +69,124 @@ if(isset($_POST['submitted'])) {
 						<div class="author-info">
 							<div class="media">
 								<div class="media-left">
-									<?php 
-									$classieraAuthorIMGURL = get_user_meta($user_ID, "classify_author_avatar_url", true);
-									$classieraAuthorIMGURL = classiera_get_profile_img($classieraAuthorIMGURL);
-									$author_verified = get_the_author_meta('author_verified', $user_ID);
-									if(empty($classieraAuthorIMGURL)){
-										$author_id = get_the_author_meta('user_email', $user_ID);
-										$classieraAuthorIMGURL = classiera_get_avatar_url ($author_id, $size = '150' );
-									}
-									?>
-									<img class="media-object" src="<?php echo esc_url($classieraAuthorIMGURL); ?>" alt="<?php echo get_the_author_meta('display_name', $user_ID ); ?>">
+									<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo get_the_author_meta('display_name', $userId ); ?>">
 								</div><!--media-left-->
 								<div class="media-body">
 									<h5 class="media-heading text-uppercase">
-										<?php echo the_author_posts_link(); ?>
-										<?php echo classiera_author_verified($user_ID);?>
+										<?php echo esc_attr($authorName); ?>
 									</h5>
-									<p>
-										<?php esc_html_e('Member Since', 'classiera') ?>&nbsp;
-										<?php echo esc_html( $classieraRegDate ); ?>
-									</p>
-									<?php if($classieraOnlineCheck == false){?>
-									<span class="offline"><i class="fa fa-circle"></i><?php esc_html_e('Offline', 'classiera') ?></span>
-									<?php }else{ ?>
-									<span><i class="fa fa-circle"></i><?php esc_html_e('Online', 'classiera') ?></span>
-									<?php } ?>
+									<div><?php echo esc_html($authorAbout); ?></div>
+									<div>
+										<?php if (!empty($userId) && $userId != $authorId) { ?>
+											<form method="post" class="classiera_follow_user">
+												<input type="hidden" name="author_id" value="<?php echo esc_attr($author_id); ?>"/>
+												<?php if (!outfit_is_favorite_author($authorId, $userId)) { ?>
+													<input type="submit" name="follow" value="<?php esc_html_e( 'Follow', 'outfit-standalone' ); ?>" />
+												<?php } else { ?>
+													<input type="submit" name="unfollow" value="<?php esc_html_e( 'Remove from favorites', 'outfit-standalone' ); ?>" />
+												<?php } ?>
+											</form>
+											<div class="clearfix"></div>
+
+										<?php } ?>
+									</div>
 								</div><!--media-body-->
 							</div><!--media-->
 						</div><!--author-info-->
 					</div><!--col-lg-7-->
 					<div class="col-lg-5 col-sm-5">
-						<?php if($classieraAuthorInfo == 1){?>
-						<div class="author-social">
-							<h5 class="text-uppercase"><?php esc_html_e('Social profile Links', 'classiera') ?></h5>
-							<div class="author-social-icons">
-								<ul class="list-unstyled list-inline">
-									<?php 
-									$userFacebook = $user_info->facebook;
-									$usertwitter = $user_info->twitter;
-									$usergoogleplus = $user_info->googleplus;
-									$userpinterest = $user_info->pinterest; 
-									$userlinkedin = $user_info->linkedin;
-									$userEmail = $user_info->user_email; 
-									$userInsta = $user_info->instagram;	
-									?>
-									<?php if(!empty($userFacebook)){?>
-									<li>
-										<a href="<?php echo esc_url($userFacebook); ?>">
-											<i class="fab fa-facebook-f"></i>
-										</a>
-									</li>
-									<?php } ?>
-									<?php if(!empty($usertwitter)){?>
-									<li>
-										<a href="<?php echo esc_url($usertwitter); ?>">
-											<i class="fab fa-twitter"></i>
-										</a>
-									</li>
-									<?php } ?>
-									<?php if(!empty($usergoogleplus)){?>
-									<li>
-										<a href="<?php echo esc_url($usergoogleplus); ?>">
-											<i class="fab fa-google-plus-g"></i>
-										</a>
-									</li>
-									<?php } ?>
-									<?php if(!empty($userpinterest)){?>
-									<li>
-										<a href="<?php echo esc_url($userpinterest); ?>">
-											<i class="fab fa-pinterest-p"></i>
-										</a>
-									</li>
-									<?php } ?>
-									<?php if(!empty($userlinkedin)){?>
-									<li>
-										<a href="<?php echo esc_url($userlinkedin); ?>">
-											<i class="fab fa-linkedin"></i>
-										</a>
-									</li>
-									<?php } ?>
-									<?php if(!empty($userInsta)){?>
-									<li>
-										<a href="<?php echo esc_url($userInsta); ?>">
-											<i class="fab fa-instagram"></i>
-										</a>
-									</li>
-									<?php } ?>
-									<?php if(!empty($userEmail)){?>
-									<li>
-										<a href="mailto:<?php echo get_the_author_meta('user_email', $user_ID); ?>">
-											<i class="fa fa-envelope"></i>
-										</a>
-									</li>
-									<?php } ?>									
-								</ul><!--list-unstyled-->
-							</div><!--author-social-icons-->
-						</div><!--author-social-->
-						<?php }else{ ?>
-							&nbsp;
-						<?php } ?>
-					</div><!--col-lg-5 col-sm-5-->
-				</div><!--row-->
-				<div class="row no-gutter removeMargin author-second-row">
-					<div class="col-lg-7">
-                        <div class="author-desc">
-                            <p>
-								<?php echo get_the_author_meta('description', $user_ID); ?>
-							</p>
-                        </div><!--author-desc-->
-                    </div><!--col-lg-7-->
-					<div class="col-lg-5">
-						<?php if($classieraAuthorInfo == 1){?>
+						<div class="author-contact-details">
+							<div class="row">
+								<div class="col-md-6 col-sm-12">
+									<h5 class="text-uppercase"><?php esc_html_e('Contact Details', 'outfit-standalone') ?> :</h5>
+									<ul class="list-unstyled fa-ul c-detail">
+										<?php if(!empty($authorPhone)){?>
+											<li>
+												<span class=""><?php echo esc_html($authorPhone);?></span>
+											</li>
+										<?php } ?>
+										<?php if(!empty($authorPreferredHours)){?>
+											<li>
+												<span><?php esc_html_e('Best time to call', 'outfit-standalone') ?>:</span>
+											<span>
+												<?php echo esc_html($authorPreferredHours);?>
+											</span>
+											</li>
+										<?php } ?>
+									</ul>
+								</div>
+								<div class="col-md-6 col-sm-12">
+									<h5 class="text-uppercase"><?php esc_html_e('Collect points', 'outfit-standalone') ?> :</h5>
+									<ul class="list-unstyled fa-ul c-detail">
+										<li>
+										<span>
+											<?php if (!empty($postAddress)) { ?>
+												<?php echo esc_html($postAddress);?>
+											<?php } ?>
+										</span><br>
+										<span>
+											<?php if (!empty($postSecAddress)) { ?>
+												<?php echo esc_html($postSecAddress);?>
+											<?php } ?>
+										</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
 						<div class="author-contact-details">
 							<h5 class="text-uppercase"><?php esc_html_e('Contact Details', 'classiera') ?></h5>
 							<div class="contact-detail-row">
 								<div class="contact-detail-col">
 									<?php $userPhone = get_the_author_meta('phone', $user_ID); ?>
 									<?php if(!empty($userPhone)){?>
-                                    <span>
+										<span>
                                         <i class="fa fa-phone-square"></i>
                                         <a href="tel:<?php echo esc_html($userPhone); ?>">
 											<?php echo esc_html($userPhone); ?>
 										</a>
                                     </span>
 									<?php } ?>
-                                </div><!--contact-detail-col-->
+								</div><!--contact-detail-col-->
 								<div class="contact-detail-col">
 									<?php $userWebsite = get_the_author_meta('user_url', $user_ID); ?>
 									<?php if(!empty($userWebsite)){?>
-                                    <span>
+										<span>
                                         <i class="fa fa-globe"></i>
                                         <a href="<?php echo esc_url($userWebsite); ?>">
 											<?php echo esc_url($userWebsite); ?>
 										</a>
                                     </span>
 									<?php } ?>
-                                </div><!--contact-detail-col-->
+								</div><!--contact-detail-col-->
 							</div><!--contact-detail-row-->
 							<div class="contact-detail-row">
-                                <div class="contact-detail-col">
+								<div class="contact-detail-col">
 									<?php $userMobile = get_the_author_meta('phone2', $user_ID); ?>
 									<?php if(!empty($userMobile)){ ?>
-                                    <span>
-                                        <i class="fa fa-mobile-alt"></i>                                        
+										<span>
+                                        <i class="fa fa-mobile-alt"></i>
 										<a href="tel:<?php echo esc_html($userMobile); ?>">
 											<?php echo esc_html($userMobile); ?>
 										</a>
                                     </span>
 									<?php } ?>
-                                </div><!--contact-detail-col-->
-                                <div class="contact-detail-col">
+								</div><!--contact-detail-col-->
+								<div class="contact-detail-col">
 									<?php if(!empty($userEmail)){?>
-                                    <span>
+										<span>
                                         <i class="fa fa-envelope"></i>
                                         <a href="mailto:<?php echo sanitize_email($userEmail); ?>">
 											<?php echo sanitize_email($userEmail); ?>
 										</a>
                                     </span>
 									<?php } ?>
-                                </div><!--contact-detail-col-->
-                            </div><!--contact-detail-row-->
+								</div><!--contact-detail-col-->
+							</div><!--contact-detail-row-->
 						</div><!--author-contact-details-->
-						<?php }else{ ?>
-							&nbsp;
-						<?php } ?>
-					</div><!--col-lg-5-->
-				</div><!--row no-gutter removeMargin author-second-row-->
+
+					</div><!--col-lg-5 col-sm-5-->
+				</div><!--row-->
 			</div><!--col-lg-12-->
 		</div><!--row-->
 	</div><!--container border author-box-bg-->
