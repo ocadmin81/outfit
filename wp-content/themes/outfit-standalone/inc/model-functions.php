@@ -250,3 +250,45 @@ function getBrandsByCategory($catId) {
     }
     return outfit_get_list_of_brands($catId);
 }
+
+function getOutfitAdsByAuthor($authorId, $paged, $perPage = 5) {
+
+    $args = array(
+        'paged' => $paged,
+        'posts_per_page' => $perPage,
+        'post_type' => array( OUTFIT_AD_POST_TYPE ),
+        'author' => $authorId,
+        'post_status' => 'publish',
+        'order'                  => 'DESC',
+        'orderby'                => 'modified',
+        /*'meta_query'             => array(
+            array(
+                'key'     => POST_META_OUTFIT_STATUS,
+                'value'   => OUTFIT_AD_STATUS_ACTIVE,
+                'compare' => '='
+            )
+        )*/
+    );
+
+    return get_posts( $args );
+}
+
+function getUserKidsBirthdays($userId) {
+
+    $userKidsBirthdays = get_user_meta($userId, USER_META_KIDS_BIRTHDAYS, true);
+    if (empty($userKidsBirthdays)) {
+        return array();
+    }
+    $userKidsBirthdays = explode('||', $userKidsBirthdays);
+    return $userKidsBirthdays;
+}
+
+function getUserFavoriteBrands($userId) {
+
+    $brands = get_user_meta($userId, USER_META_FAVORITE_BRANDS, true);
+    if (empty($brands)) {
+        return array();
+    }
+    $brands = explode('||', $brands);
+    return $brands;
+}

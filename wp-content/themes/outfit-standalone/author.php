@@ -25,7 +25,7 @@ if (empty($authorName)) {
 $authorAvatarUrl = get_user_meta($authorId, USER_META_AVATAR_URL, true);
 $authorAvatarUrl = outfit_get_profile_img($authorAvatarUrl);
 if (empty($authorAvatarUrl)) {
-	outfit_get_avatar_url($authorId, 150);
+	$authorAvatarUrl = outfit_get_avatar_url($authorId, 150);
 }
 $authorEmail = get_the_author_meta(USER_META_EMAIL, $authorId);
 $authorPhone = get_the_author_meta(USER_META_PHONE, $authorId);
@@ -55,6 +55,13 @@ else if (isset($_POST['unfavorite'])) {
 		outfit_delete_author_follower($_POST['author_id'], $currentUserId);
 	}
 }
+
+global $paged;
+global $post;
+$paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+$perPage = 10;
+
+$authorPosts = getOutfitAdsByAuthor($authorId, $paged, $perPage);
 
 get_header();
 
@@ -191,164 +198,39 @@ get_header();
 		</div><!--row-->
 	</div><!--container border author-box-bg-->
 </section><!--author-box-->
-<?php if($classieraAuthorStyle == 'fullwidth'){?>
+
 <section class="inner-page-content border-bottom">
 	<section class="classiera-advertisement advertisement-v1">
-		<div class="tab-divs section-light-bg">
+		<div class="section-light-bg">
 			<div class="view-head">
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-6 col-sm-6 col-xs-6">
-                            <div class="total-post">
-                                <p><?php esc_html_e( 'Total ads', 'classiera' ); ?>: 
-									<span>
-									<?php echo count_user_posts($user_ID);?>&nbsp;
-									<?php esc_html_e( 'Ads Posted', 'classiera' ); ?>
-									</span>
-								</p>
-                            </div><!--total-post-->
-                        </div><!--col-lg-6 col-sm-6 col-xs-6-->
-						<div class="col-lg-6 col-sm-6 col-xs-6">
-                            <div class="view-as text-right flip">
-                                <span><?php esc_html_e( 'View As', 'classiera' ); ?>:</span>
-                                <a id="grid" class="grid btn btn-sm sharp outline <?php if($classieraAdsView == 'grid'){ echo "active"; }?>" href="#"><i class="fa fa-th"></i></a>
-                                <a id="list" class="list btn btn-sm sharp outline <?php if($classieraAdsView == 'list'){ echo "active"; }?>" href="#"><i class="fa fa-bars"></i></a>
-                            </div><!--view-as text-right flip-->
-                        </div><!--col-lg-6 col-sm-6 col-xs-6-->
+						<div class="col-md-12">
+                            <h5><?php esc_html_e( 'Products', 'outfit-standalone' ); ?></h5>
+                        </div>
 					</div><!--row-->
 				</div><!--container-->
 			</div><!--view-head-->
 			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane fade in active" id="all">
-					<div class="container">
-						<div class="row">
-						<?php 
-							global $paged, $wp_query, $wp;
-							$args = wp_parse_args($wp->matched_query);
-							if ( !empty ( $args['paged'] ) && 0 == $paged ){
-								$wp_query->set('paged', $args['paged']);
-								$paged = $args['paged'];
-							}
-							$cat_id = get_cat_ID(single_cat_title('', false));
-							$temp = $wp_query;
-							$wp_query= null;
-							$wp_query = new WP_Query();
-							$wp_query->query('post_type=post&posts_per_page=12&paged='.$paged.'&cat='.$cat_id.'&author='.$user_ID);
-						while ($wp_query->have_posts()) : $wp_query->the_post();
-							get_template_part( 'templates/classiera-loops/loop-lime');
-						endwhile; 
-						?>
-						</div><!--row-->
-						<?php
-						if( function_exists('classiera_pagination') ){
-							classiera_pagination();
-						  }
-						?>
-					</div><!--container-->
+				<div class="container">
+					<div class="row">
+					<?php foreach ( $authorPosts as $post ) : setup_postdata( $post ); ?>
+						<?php get_template_part('templates/loops/product'); ?>
+					<?php
+					endforeach;
+					wp_reset_postdata();
+					?>
+					</div><!--row-->
+
+				</div><!--container-->
 					
-				</div><!--tabpanel-->
+
 				
 				<?php wp_reset_query(); ?>
 			</div><!--tab-content-->
 		</div><!--tab-divs section-light-bg-->
 	</section><!--classiera-advertisement advertisement-v1-->
 </section><!--inner-page-content-->
-<?php }elseif($classieraAuthorStyle == 'sidebar'){?>
-<section class="inner-page-content border-bottom top-pad-50">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8 col-lg-9">
-				<section class="classiera-advertisement advertisement-v1">
-					<div class="tab-divs section-light-bg">
-						<div class="view-head">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-lg-6 col-sm-6 col-xs-6">
-                                        <div class="total-post">
-                                            <p><?php esc_html_e( 'Total ads', 'classiera' ); ?>: 
-												<span>
-												<?php echo count_user_posts($user_ID);?>&nbsp;
-												<?php esc_html_e( 'Ads Posted', 'classiera' ); ?>
-												</span>
-											</p>
-                                        </div><!--total-post-->
-                                    </div><!--col-lg-6 col-sm-6 col-xs-6-->
-                                    <div class="col-lg-6 col-sm-6 col-xs-6">
-                                        <div class="view-as text-right flip">
-                                            <span><?php esc_html_e( 'View As', 'classiera' ); ?>:</span>
-                                            <a id="grid" class="grid btn btn-sm sharp outline <?php if($classieraAdsView == 'grid'){ echo "active"; }?>" href="#"><i class="fa fa-th"></i></a>
-                                            <a id="list" class="list btn btn-sm sharp outline <?php if($classieraAdsView == 'list'){ echo "active"; }?>" href="#"><i class="fa fa-bars"></i></a>
-                                        </div><!--view-as text-right flip-->
-                                    </div><!--col-lg-6 col-sm-6 col-xs-6-->
-                                </div><!--row-->
-                            </div><!--container-->
-                        </div><!--view-head-->
-						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane fade in active" id="all">
-								<div class="container">
-									<div class="row">
-									<?php 
-									global $paged, $wp_query, $wp;
-									$args = wp_parse_args($wp->matched_query);
-									if ( !empty ( $args['paged'] ) && 0 == $paged ){
-										$wp_query->set('paged', $args['paged']);
-										$paged = $args['paged'];
-									}
-									$cat_id = get_cat_ID(single_cat_title('', false));
-									$temp = $wp_query;
-									$wp_query= null;
-									$wp_query = new WP_Query();
-									$wp_query->query('post_type=post&posts_per_page=12&paged='.$paged.'&cat='.$cat_id.'&author='.$user_ID);
-									while ($wp_query->have_posts()) : $wp_query->the_post();
-										get_template_part( 'templates/classiera-loops/loop-lime');
-									endwhile; 
-									?>
-									</div><!--row-->
-								</div><!--container-->
-							</div><!--tabpanel-->
-						</div><!--tab-content-->
-					</div><!--tab-divs section-light-bg-->
-				</section><!--classiera-advertisement advertisement-v1-->
-				<?php
-				  if ( function_exists('classiera_pagination') ){
-					classiera_pagination();
-				  }
-				?>
-				<?php wp_reset_query(); ?>
-			</div><!--col-md-8 col-lg-9-->
-			<!--Sidebar-->
-			<div class="col-md-4 col-lg-3">
-				<aside class="sidebar">
-					<div class="row">
-						<?php get_sidebar('pages'); ?>
-					</div>
-				</aside>
-			</div>
-			<!--Sidebar-->
-		</div><!--row-->
-	</div><!--container-->
-</section>
-<?php } ?>
-<!-- Company Section Start-->
-<?php 
-	global $redux_demo; 
-	$classieraCompany = $redux_demo['partners-on'];
-	$classieraPartnersStyle = $redux_demo['classiera_partners_style'];
-	if($classieraCompany == 1){
-		if($classieraPartnersStyle == 1){
-			get_template_part('templates/members/memberv1');
-		}elseif($classieraPartnersStyle == 2){
-			get_template_part('templates/members/memberv2');
-		}elseif($classieraPartnersStyle == 3){
-			get_template_part('templates/members/memberv3');
-		}elseif($classieraPartnersStyle == 4){
-			get_template_part('templates/members/memberv4');
-		}elseif($classieraPartnersStyle == 5){
-			get_template_part('templates/members/memberv5');
-		}elseif($classieraPartnersStyle == 6){
-			get_template_part('templates/members/memberv6');
-		}
-	}
-?>
-<!-- Company Section End-->	
+
+
 <?php get_footer(); ?>

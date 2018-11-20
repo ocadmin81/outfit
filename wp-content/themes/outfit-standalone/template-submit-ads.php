@@ -172,6 +172,9 @@ if(isset( $_POST['postTitle'] )) {
 				}
 			}
 
+			// outfit post status
+			update_post_meta($postId, POST_META_OUTFIT_STATUS, OUTFIT_AD_STATUS_ACTIVE);
+
 			// post price
 			update_post_meta($postId, POST_META_PHONE, $postPhone);
 

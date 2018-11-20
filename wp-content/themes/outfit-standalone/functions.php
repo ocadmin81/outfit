@@ -10,6 +10,8 @@
  */
 
 define('OUTFIT_AD_POST_TYPE', 'outfit_ad');
+define('OUTFIT_AD_STATUS_ACTIVE', 'outfit_active');
+define('OUTFIT_AD_STATUS_SOLD', 'outfit_sold');
 /*==========================
  Requried some Files.
  ===========================*/

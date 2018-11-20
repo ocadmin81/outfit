@@ -20,3 +20,4 @@ define('POST_META_LOCALITY_TAG', 'outfit_post_locality_tag');
 define('POST_META_AREA1_TAG', 'outfit_post_area1_tag');
 define('POST_META_AREA2_TAG', 'outfit_post_area2_tag');
 define('POST_META_AREA3_TAG', 'outfit_post_area3_tag');
+define('POST_META_OUTFIT_STATUS', 'outfit_post_status');
