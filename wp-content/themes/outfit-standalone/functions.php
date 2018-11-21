@@ -651,6 +651,15 @@ function outfit_get_avatar_url($author_id, $size){
 	return ( $matches[2] );
 }
 
+function outfit_get_user_picture($userId, $size=150) {
+	$profileImgId = get_user_meta($userId, USER_META_AVATAR_URL, true);
+	$profileImg = outfit_get_profile_img($profileImgId);
+	if (empty($profileImg)) {
+		$profileImg = outfit_get_avatar_url($userId, $size);
+	}
+	return $profileImg;
+}
+
 /*========================================
  Outfit : Get User Favorite Posts IDs
  =========================================*/

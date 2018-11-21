@@ -1,6 +1,7 @@
 <?php 
 	global $redux_demo;
 	global $post;
+	global $currentUserFavoriteAds;
 
 	$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 	$postAuthorId = $post->post_author;
@@ -11,6 +12,10 @@
 	if (empty($postAuthorName)) {
 		$postAuthorName = get_the_author_meta('user_login', $postAuthorId );
 	}
+	$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
+	$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
+
+	$isFavorite = in_array($post->ID, $currentUserFavoriteAds);
 ?>
 <div class="col-lg-4 col-md-4 col-sm-6 match-height item">
 	<div class="classiera-box-div classiera-box-div-v1">
@@ -34,9 +39,19 @@
 
 			</div><!--premium-img-->
 			<div>
+				<?php if ($isFavorite) { ?>
+					<i class="fa fa-heart" aria-hidden="true"></i>
+				<?php } else { ?>
+					<i class="fa fa-heart-o" aria-hidden="true"></i>
+				<?php } ?>
+			</div>
+			<div>
+				<?php echo esc_attr($postBrand); ?>
+			</div>
+			<div>
 				<?php if(!empty($postPrice)){?>
-				<span class="">
-					<span class="price-text">
+				<div class="">
+					<span class="">
 						<?php
 						if(is_numeric($postPrice)){
 							echo '&#8362; ' .  $postPrice;
@@ -45,10 +60,10 @@
 						}
 						?>
 					</span>
-				</span>
+				</div>
 				<?php } ?>
 				<span>
-					<img class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
+					<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
 				</span>
 				<span><a href="<?php echo get_author_posts_url( $postAuthorId ); ?>"><?php echo esc_attr($postAuthorName); ?></a></span>
 			</div>

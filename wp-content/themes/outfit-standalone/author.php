@@ -22,24 +22,21 @@ if (empty($authorName)) {
 if (empty($authorName)) {
 	$authorName = get_the_author_meta('user_login', $authorId );
 }
-$authorAvatarUrl = get_user_meta($authorId, USER_META_AVATAR_URL, true);
-$authorAvatarUrl = outfit_get_profile_img($authorAvatarUrl);
-if (empty($authorAvatarUrl)) {
-	$authorAvatarUrl = outfit_get_avatar_url($authorId, 150);
-}
-$authorEmail = get_the_author_meta(USER_META_EMAIL, $authorId);
+$authorAvatarUrl = outfit_get_user_picture($authorId, 130);
+
+$authorEmail = get_the_author_meta('user_email', $authorId);
 $authorPhone = get_the_author_meta(USER_META_PHONE, $authorId);
 $authorAbout = get_the_author_meta(USER_META_ABOUT, $authorId);
-$authorPreferredHours = get_the_author_meta(USER_META_PREFERRED_HOURS, $postAuthorId);
+$authorPreferredHours = get_the_author_meta(USER_META_PREFERRED_HOURS, $authorId);
 
 // post location
-$postLocation = OutfitLocation::toAssoc(get_the_author_meta($authorId, USER_META_PRIMARY_ADDRESS, true));
+$postLocation = OutfitLocation::toAssoc(get_the_author_meta(USER_META_PRIMARY_ADDRESS, $authorId));
 $postAddress = '';
 if (null !== $postLocation && isset($postLocation['address'])) {
 	$postAddress = $postLocation['address'];
 }
 // post secondary location
-$postLocation2 = OutfitLocation::toAssoc(get_post_meta($authorId, USER_META_SECONDARY_ADDRESS, true));
+$postLocation2 = OutfitLocation::toAssoc(get_post_meta(USER_META_SECONDARY_ADDRESS, $authorId));
 $postSecAddress = '';
 if (null !== $postLocation2 && isset($postLocation2['address'])) {
 	$postSecAddress = $postLocation2['address'];
@@ -61,6 +58,9 @@ global $post;
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $perPage = 10;
 
+global $currentUserFavoriteAds;
+$currentUserFavoriteAds = outfit_authors_all_favorite($currentUserId);
+
 $authorPosts = getOutfitAdsByAuthor($authorId, $paged, $perPage);
 
 get_header();
@@ -75,9 +75,9 @@ get_header();
 					<div class="col-lg-7 col-sm-7">
 						<div class="author-info">
 							<div class="media">
-								<div class="media-left">
+								<div class="">
 									<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo get_the_author_meta('display_name', $userId ); ?>">
-								</div><!--media-left-->
+								</div><!---->
 								<div class="media-body">
 									<h5 class="media-heading text-uppercase">
 										<?php echo esc_attr($authorName); ?>
@@ -141,56 +141,7 @@ get_header();
 								</div>
 							</div>
 						</div>
-						<div class="author-contact-details">
-							<h5 class="text-uppercase"><?php esc_html_e('Contact Details', 'classiera') ?></h5>
-							<div class="contact-detail-row">
-								<div class="contact-detail-col">
-									<?php $userPhone = get_the_author_meta('phone', $user_ID); ?>
-									<?php if(!empty($userPhone)){?>
-										<span>
-                                        <i class="fa fa-phone-square"></i>
-                                        <a href="tel:<?php echo esc_html($userPhone); ?>">
-											<?php echo esc_html($userPhone); ?>
-										</a>
-                                    </span>
-									<?php } ?>
-								</div><!--contact-detail-col-->
-								<div class="contact-detail-col">
-									<?php $userWebsite = get_the_author_meta('user_url', $user_ID); ?>
-									<?php if(!empty($userWebsite)){?>
-										<span>
-                                        <i class="fa fa-globe"></i>
-                                        <a href="<?php echo esc_url($userWebsite); ?>">
-											<?php echo esc_url($userWebsite); ?>
-										</a>
-                                    </span>
-									<?php } ?>
-								</div><!--contact-detail-col-->
-							</div><!--contact-detail-row-->
-							<div class="contact-detail-row">
-								<div class="contact-detail-col">
-									<?php $userMobile = get_the_author_meta('phone2', $user_ID); ?>
-									<?php if(!empty($userMobile)){ ?>
-										<span>
-                                        <i class="fa fa-mobile-alt"></i>
-										<a href="tel:<?php echo esc_html($userMobile); ?>">
-											<?php echo esc_html($userMobile); ?>
-										</a>
-                                    </span>
-									<?php } ?>
-								</div><!--contact-detail-col-->
-								<div class="contact-detail-col">
-									<?php if(!empty($userEmail)){?>
-										<span>
-                                        <i class="fa fa-envelope"></i>
-                                        <a href="mailto:<?php echo sanitize_email($userEmail); ?>">
-											<?php echo sanitize_email($userEmail); ?>
-										</a>
-                                    </span>
-									<?php } ?>
-								</div><!--contact-detail-col-->
-							</div><!--contact-detail-row-->
-						</div><!--author-contact-details-->
+
 
 					</div><!--col-lg-5 col-sm-5-->
 				</div><!--row-->

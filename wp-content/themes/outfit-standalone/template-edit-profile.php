@@ -22,18 +22,15 @@ $currentUser = wp_get_current_user();
 $userId = $currentUser->ID;
 $userInfo = get_userdata($userId);
 
-$outfitAuthorThumb = get_user_meta($userId, USER_META_AVATAR_URL, true);
-$outfitAuthorThumb = outfit_get_profile_img($outfitAuthorThumb);
-if (empty($outfitAuthorThumb)) {
-	$outfitAuthorThumb = outfit_get_avatar_url($userId, 150);
-}
+$outfitAuthorThumb = outfit_get_user_picture($userId, 130);
 
 $userName = $userInfo->display_name;
 
 $userFirstName = get_user_meta($userId, USER_META_FIRSTNAME, true);
 $userLastName = get_user_meta($userId, USER_META_LASTNAME, true);
 
-$userEmail = get_user_meta($userId, USER_META_EMAIL, true);
+//$userEmail = get_user_meta($userId, USER_META_EMAIL, true);
+$userEmail = $userInfo->user_email;
 $userPhone = get_user_meta($userId, USER_META_PHONE, true);
 $userAbout = get_user_meta($userId, USER_META_ABOUT, true);
 $userPreferredHours = get_user_meta($userId, USER_META_PREFERRED_HOURS, true);
@@ -245,8 +242,8 @@ get_header();
 								<?php esc_html_e("Basic Information", 'outfit-standalone') ?>
 							</h4>
 							<div class="media">
-								<div class="media-left uploadImage">
-									<img class="media-object img-circle author-avatar" src="<?php echo esc_url( $outfitAuthorThumb ); ?>" alt="<?php echo esc_attr( $authorName ); ?>">
+								<div class="uploadImage">
+									<img class="media-object img-circle author-avatar" src="<?php echo esc_url( $outfitAuthorThumb ); ?>" alt="<?php echo esc_attr( $userName ); ?>">
 									<input class="criteria-image-url" id="your_image_url" type="text" size="36" name="your_author_image_url" style="display: none;" value="" />
 								</div>
 								<div class="media-body">
@@ -320,9 +317,9 @@ get_header();
 							<!--Address-->
 							<div class="form-inline row form-inline-margin">
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Primary address', 'outfit-standalone'); ?> : <span>*</span></label>
+								<label class="col-sm-3 text-left flip"><?php esc_html_e('Primary address', 'outfit-standalone'); ?></label>
 								<div class="col-sm-9">
-									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>" required>
+									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
 									<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
@@ -358,7 +355,7 @@ get_header();
 										   class="form-control form-control-sm"
 										   id="birthday1"
 										   name="birthdays[]"
-										   value="<?php esc_attr($birthday1); ?>"
+										   value="<?php echo esc_attr($birthday1); ?>"
 										   title="Please use DD.MM.YYYY as the date format."
 										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
@@ -367,7 +364,7 @@ get_header();
 										   class="form-control form-control-sm"
 										   id="birthday2"
 										   name="birthdays[]"
-										   value="<?php esc_attr($birthday2); ?>"
+										   value="<?php echo esc_attr($birthday2); ?>"
 										   title="Please use DD.MM.YYYY as the date format."
 										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
@@ -376,7 +373,7 @@ get_header();
 										   class="form-control form-control-sm"
 										   id="birthday3"
 										   name="birthdays[]"
-										   value="<?php esc_attr($birthday3); ?>"
+										   value="<?php echo esc_attr($birthday3); ?>"
 										   title="Please use DD.MM.YYYY as the date format."
 										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
