@@ -348,7 +348,7 @@ get_header(); ?>
 								<div class="form-group post-colors-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('צבע', 'outfit-standalone') ?> <span>*</span></label>
 									<div class="item">
-										<select id="color" name="postColor[]" class="form-control form-control-md" multiple>											
+										<select id="color" name="postColor[]" class="reg form-control form-control-md">											
 											<?php
 											foreach ($colors as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -360,7 +360,7 @@ get_header(); ?>
 								<div class="form-group post-age-groups-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="ageGroup" name="postAgeGroup[]" class="form-control form-control-md" multiple>											
+										<select id="ageGroup" name="postAgeGroup[]" class="reg form-control form-control-md">											
 											<?php
 											foreach ($ageGroups as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -372,7 +372,7 @@ get_header(); ?>
 								<div class="form-group post-brands-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('מותג', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="brand" name="postBrand[]" class="form-control form-control-md" multiple>											
+										<select id="brand" name="postBrand[]" class="reg form-control form-control-md">											
 											<?php
 											foreach ($brands as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -396,7 +396,7 @@ get_header(); ?>
 								<div class="form-group post-writers-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('כותכ', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="writer" name="postWriter[]" class="form-control form-control-md" multiple>											
+										<select id="writer" name="postWriter[]" class="reg form-control form-control-md">											
 											<?php
 											foreach ($writers as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -408,7 +408,7 @@ get_header(); ?>
 								<div class="form-group post-characters-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="character" name="postCharacter[]" class="form-control form-control-md" multiple>											
+										<select id="character" name="postCharacter[]" class="reg form-control form-control-md">											
 											<?php
 											foreach ($characters as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -429,7 +429,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף עיקרית', 'outfit-standalone'); ?> <span>*</span></label>
 								<div class="item">
-									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>" required>
+									<input class="address form-control form-control-md" id="address" type="text" name="address" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude">
 									<input class="longitude" type="hidden" id="longitude" name="longitude">
 									<input class="locality" type="hidden" id="locality" name="locality">
@@ -442,7 +442,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> </label>
 								<div class="item">
-									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>">
+									<input class="address form-control form-control-md" id="address_2" type="text" name="address_2" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2">
 									<input class="locality" type="hidden" id="locality_2" name="locality_2">

@@ -1380,6 +1380,11 @@ jQuery(document).ready(function(jQuery){
 			jQuery(this).toggleClass('active');
 		});
 	}
+	//ad page image switch on click
+	jQuery( '.single-post-ad .img-box .thumbs-img .item img' ).click(function() {
+		var img = jQuery(this).attr('src');
+		jQuery('.single-post-ad .img-box .main-img img').attr('src',img);
+	});
 });
 jQuery(window).on('load', function () {	
     var mqxs = window.matchMedia( "(max-width: 1024px)" );

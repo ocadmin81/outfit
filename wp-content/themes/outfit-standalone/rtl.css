@@ -746,7 +746,12 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box{height: 120px;border: 1px solid #f3f3f3!important;margin-bottom: 0;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box .classiera-input-file + label{padding-top: 30px;padding-bottom: 0;margin: 0;background: none;}
 .submit-post form .form-main-section .classiera-image-upload{border: none;background: #fff;padding: 0;}
-.submit-post form .form-group{margin: 0;margin-bottom: 20px;}
+.submit-post form .form-group{margin: 0;margin-bottom: 20px;position: relative;}
+.has-error .form-control{box-shadow: none;}
+.submit-post form .ad-categories .form-group label{position: absolute;margin: 0;padding: 0;top: 13px;right: 0;}
+.submit-post form .ad-categories .form-group select{    border: none;border-bottom: 1px solid #e2e2e4;padding-right: 90px;}
+.submit-post form .ad-categories{border-top: 1px solid #e2e2e4;margin-top: 40px;}
+.form-control:focus{box-shadow: none;}
 .submit-post form .form-group.media{    margin: 0;}
 .ad-tips .form-group.reg-text strong{font-size: 18px;font-weight: 600;}
 .ad-tips .form-group.reg-text em{text-transform: uppercase;font-size: 35px;font-family: 'vogueregular';font-weight: 500;font-style: normal;margin-top: 20px;display: block;}
@@ -761,6 +766,26 @@ html[lang="he-IL"] button.btn-primary{    margin-top: 15px;width: 250px;color: #
 body.page-two-column:not(.archive) #primary .post-241 .entry-content{width: 100%;}
 .post-241 .entry-title{display:none;}
 .single-post-ad{margin-top: 30px;}
+.single-post-ad .img-box .main-img img{width: 100%;}
+.single-post-ad .img-box .thumbs-img .item{margin-bottom: 15px;cursor:pointer;}
+.single-post-ad .img-box .thumbs-img{padding-left: 0;}
+.wish-share button{background: url(assets/images/add-to-wish.png) right 12px no-repeat;font-size: 16px;padding-right: 41px;}
+.wish-share{margin-top: 10px;}
+.middle-ad-column h1{margin: 0;font-weight: 500;font-size: 20px;line-height: 20px;}
+.middle-ad-column .post-price{font-weight: 600;font-size: 20px;    margin-top: 10px;border-bottom: 1px solid #f3f3f3;padding-bottom: 10px;margin-bottom: 10px;}
+.middle-ad-column .post-desc{border-bottom: 1px solid #f3f3f3;padding-bottom: 0;margin-bottom: 15px;}
+.middle-ad-column .post-details li{border-bottom: 1px solid #f3f3f3;padding: 10px 0;}
+.middle-ad-column .post-details li:first-child{padding-top:0;}
+.middle-ad-column .post-details li strong{font-weight: 600;}
+.single-post-ad .post-left{background: #f5f5f6;text-align: center;padding: 30px;}
+.single-post-ad .post-left .user-img img{margin: 0 auto 15px;border-radius: 0;}
+.single-post-ad .author-info .media-heading{    font-weight: 600;font-size: 16px;}
+.single-post-ad .author-info .media-heading a:hover{color:#191919}
+html[lang="he-IL"] .single-post-ad .classiera_follow_user button{background: url(assets/images/add-to-seller.png) right 10px top 5px no-repeat;border: 1px solid #dadada;padding: 0px 20px;color: #191919;font-size: 16px;height: 45px;width: 100%;text-align: center;}
+.single-post-ad .author-info{    margin-bottom: 25px;}
+.single-post-ad .collect-points h5{font-weight: 600;font-size: 16px;}
+.single-post-ad .collect-points ul{text-align: right;}
+.single-post-ad .collect-points li span{background: url(assets/images/addr.png) right 0 no-repeat;    display: inline-block;padding-right: 24px;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
 }
