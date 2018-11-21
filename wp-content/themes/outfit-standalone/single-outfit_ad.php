@@ -157,63 +157,53 @@ get_header(); ?>
 					?>
 					<?php if ( has_post_thumbnail() || !empty($attachments)){?>
 						<div id="single-post-carousel" class="slide img-box">
-
-							<!-- Wrapper for slides -->
-							<div class="img-inner" role="listbox">
-								<?php
-								if(empty($attachments)){
-									if ( has_post_thumbnail()){
-										$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+							<div class="row">
+								<!-- Wrapper for slides -->
+									<?php if(!empty($attachments)){ ?>
+										<div class="col-md-2 col-sm-12 thumbs-img">
+										<?php
+										$count = 1;
+										foreach($attachments as $att_id => $attachment){
+											$full_img_url = wp_get_attachment_url($attachment->ID);
+											?>
+											<div class="item <?php if($count == 1){ echo "active"; }?>">
+												<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
+											</div>
+											<?php
+											$count++;
+										}
 										?>
-										<div class="item active">
+										</div>										
+									<?php } ?>
+									<div class="col-md-10 col-sm-12 main-img" role="listbox">
+									<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
+										<div class="item">
 											<img class="img-responsive" src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
-										</div>
-										<?php
-									}else{
-										$image = get_template_directory_uri().'/assets/images/nothumb.png';
-										?>
-										<div class="item active">
-											<img class="img-responsive" src="<?php echo esc_url($image); ?>" alt="<?php the_title(); ?>">
-										</div>
-										<?php
-									}
-								}else{
-									$count = 1;
-									foreach($attachments as $att_id => $attachment){
-										$full_img_url = wp_get_attachment_url($attachment->ID);
-										?>
-										<div class="item <?php if($count == 1){ echo "active"; }?>">
-											<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
-										</div>
-										<?php
-										$count++;
-									}
-								}
-								?>
+										</div>	
+										<div class="wish-share">
+											<?php if (!empty($userId)): ?>
+											<form method="post" class="fav-form clearfix">
+												<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
+												<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
+													<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase">
+														<?php esc_html_e( 'הוסף ל- WISHLIST', 'outfit-standalone' ); ?>
+													</button>
+												<?php } else { ?>
+													<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
+														<?php esc_html_e( 'הסרה מה- WISHLIST', 'outfit-standalone' ); ?>
+													</button>
+												<?php } ?>
+											</form>
+											<?php endif; ?>
+										</div>										
+									</div>									
 							</div>
-						</div>
+						</div>						
 					<?php } ?>
 					<!-- single post carousel-->
-					<div>
-
-						<?php if (!empty($userId)): ?>
-						<form method="post" class="fav-form clearfix">
-							<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
-							<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
-								<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase">
-									<i class="fas fa-heart"></i><?php esc_html_e( 'Add to wishlist', 'outfit-standalone' ); ?>
-								</button>
-							<?php } else { ?>
-								<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
-									<i class="fas fa-heart unfavorite-i"></i><?php esc_html_e( 'Remove from wishlist', 'outfit-standalone' ); ?>
-								</button>
-							<?php } ?>
-						</form>
-						<?php endif; ?>
-					</div>
 				</div>			
-				<div class="col-md-4 col-sm-12">
-					<h4 class="text-uppercase">
+				<div class="col-md-4 col-sm-12 middle-ad-column">
+					<h1 class="text-uppercase">
 						<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 						<?php
 						if (
@@ -221,7 +211,7 @@ get_header(); ?>
 						current_user_can('administrator')
 						):
 						?>
-							<a href="<?php echo esc_url($editPostUrl); ?>" class="edit-post btn btn-sm btn-default">
+							<a href="<?php echo esc_url($editPostUrl); ?>" class="edit-post btn btn-sm btn-default" style="padding:0;">
 								<i class="far fa-edit"></i>
 								<?php esc_html_e( 'Edit Post', 'outfit-standalone' ); ?>
 							</a>
@@ -229,148 +219,139 @@ get_header(); ?>
 						endif;
 						?>
 						<!--Edit Ads Button-->
-					</h4>
+					</h1>
 					<div class="post-price">
-						<h4>
 							<?php
 							if(is_numeric($postPrice)){
-								echo '&#8362; ' . $postPrice;
+								echo  number_format((float)$postPrice, 2, '.', '').' &#8362';
 							} else {
 								echo esc_attr($postPrice);
 							}
 							?>
-						</h4>
 					</div>
-					<div><?php echo the_content(); ?></div>
+					<div class="post-desc"><?php echo the_content(); ?></div>
 					<div class="post-details">
 						<ul class="list-unstyled clearfix">
 							<?php if(!empty( $postBrand )): ?>
 								<li>
-									<p><?php esc_html_e( 'Brand', 'outfit-standalone' ); ?>:
+									<strong><?php esc_html_e( 'מותג', 'outfit-standalone' ); ?></strong>									
 									<span class="pull-right flip">
 										<?php echo esc_attr(join(',', $postBrand)); ?>
 									</span>
-									</p>
 								</li>
 							<?php endif; ?>
 							<?php if(!empty( $postAgeGroup )): ?>
 								<li>
-									<p><?php esc_html_e( 'Age Group', 'outfit-standalone' ); ?>:
+									<strong><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php echo esc_attr(join(',', $postAgeGroup)); ?>
 									</span>
-									</p>
 								</li>
 							<?php endif; ?>
 							<?php if(!empty( $postColor )): ?>
 								<li>
-									<p><?php esc_html_e( 'Color', 'outfit-standalone' ); ?>:
+									<strong><?php esc_html_e( 'צבע', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php echo esc_attr(join(',', $postColor)); ?>
 									</span>
-									</p>
 								</li>
 							<?php endif; ?>
 							<?php if(!empty( $postWriter )): ?>
 								<li>
-									<p><?php esc_html_e( 'Writer', 'outfit-standalone' ); ?>:
+									<strong><?php esc_html_e( 'Writer', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php echo esc_attr(join(',', $postWriter)); ?>
 									</span>
-									</p>
 								</li>
 							<?php endif; ?>
 							<?php if(!empty( $postCharacter )): ?>
 								<li>
-									<p><?php esc_html_e( 'Character', 'outfit-standalone' ); ?>:
+									<strong><?php esc_html_e( 'Character', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php echo esc_attr(join(',', $postCharacter)); ?>
 									</span>
-									</p>
 								</li>
 							<?php endif; ?>
 							<?php if(!empty( $postCondition )): ?>
 								<li>
-									<p><?php esc_html_e( 'Condition', 'outfit-standalone' ); ?>:
+									<strong><?php esc_html_e( 'מצב הפריט', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php echo esc_attr($postCondition); ?>
 									</span>
-									</p>
 								</li>
 							<?php endif; ?>
 						</ul>
 					</div>
 				</div>
 				<div class="col-md-3 col-sm-12">
-					<div class="widget-box">
-						<div class="widget-content widget-content-post">
-							<div class="author-info border-bottom widget-content-post-area">
+					<div class="post-left">
+						<div class="widget-box">
+							<div class="widget-content widget-content-post">
+								<div class="author-info widget-content-post-area">
+									<div class="media">
+										<div class="user-img">
+											<?php if($authorAvatarUrl): ?>
+												<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
+											<?php else: ?>
+												<img class="media-object" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/user-placeholder.png" alt="<?php echo esc_attr($postAuthorName); ?>">
+											<?php endif; ?>
+										</div><!--media-left-->
+										<div class="media-body">
+											<h5 class="media-heading text-uppercase">
+												<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php echo esc_attr($postAuthorName); ?></a>
+											</h5>
+											<?php if (!empty($userId) && $userId != $postAuthorId) { ?>
+												<form method="post" class="classiera_follow_user">
+													<input type="hidden" name="author_id" value="<?php echo esc_attr($author_id); ?>"/>
+													<?php if (!outfit_is_favorite_author($postAuthorId, $userId)) { ?>
+														<button type="submit" name="follow"><?php esc_html_e( 'הוספה למוכרים אהובים', 'outfit-standalone' ); ?></button>
+													<?php } else { ?>
+														<button type="submit" name="unfollow"><?php esc_html_e( 'הסרה ממוכרים אהובים', 'outfit-standalone' ); ?></button>
+													<?php } ?>
+													</form>
+												<div class="clearfix"></div>
 
-								<div class="media">
-									<div class="media-left">
-										<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
-									</div><!--media-left-->
-									<div class="media-body">
-										<h5 class="media-heading text-uppercase">
-											<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php echo esc_attr($postAuthorName); ?></a>
-										</h5>
-										<?php if (!empty($userId) && $userId != $postAuthorId) { ?>
-											<form method="post" class="classiera_follow_user">
-												<input type="hidden" name="author_id" value="<?php echo esc_attr($author_id); ?>"/>
-												<?php if (!outfit_is_favorite_author($postAuthorId, $userId)) { ?>
-													<input type="submit" name="follow" value="<?php esc_html_e( 'Follow', 'outfit-standalone' ); ?>" />
-												<?php } else { ?>
-													<input type="submit" name="unfollow" value="<?php esc_html_e( 'Remove from favorites', 'outfit-standalone' ); ?>" />
-												<?php } ?>
-												</form>
-											<div class="clearfix"></div>
-
-										<?php } ?>
-									</div><!--media-body-->
-								</div><!--media-->
-
-
-							</div><!--author-info-->
-						</div>
-						<div class="widget-content widget-content-post">
-							<div class="contact-details widget-content-post-area">
-								<h5 class="text-uppercase"><?php esc_html_e('Collect points', 'outfit-standalone') ?> :</h5>
-								<ul class="list-unstyled fa-ul c-detail">
-									<li>
-										<span>
-											<?php if (!empty($postAddress)) { ?>
-												<?php echo esc_html($postAddress);?>
 											<?php } ?>
-										</span><br>
-										<span>
-											<?php if (!empty($postSecAddress)) { ?>
-												<?php echo esc_html($postSecAddress);?>
-											<?php } ?>
-										</span>
-									</li>
-								</ul>
+										</div><!--media-body-->
+									</div><!--media-->
+
+
+								</div><!--author-info-->
 							</div>
-						</div><!--widget-content-->
-						<div class="widget-content widget-content-post">
-							<div class="contact-details widget-content-post-area">
-								<h5 class="text-uppercase"><?php esc_html_e('Contact Details', 'outfit-standalone') ?> :</h5>
-								<ul class="list-unstyled fa-ul c-detail">
-									<?php if(!empty($authorPhone)){?>
-										<li>
-											<span class=""><?php echo esc_html($authorPhone);?></span>
-										</li>
-									<?php } ?>
-									<?php if(!empty($authorPreferredHours)){?>
-										<li>
-											<span><?php esc_html_e('Best time to call', 'outfit-standalone') ?>:</span>
-											<span>
-												<?php echo esc_html($authorPreferredHours);?>
-											</span>
-										</li>
-									<?php } ?>
-								</ul>
-							</div><!--contact-details-->
-						</div><!--widget-content-->
+							<div class="widget-content widget-content-post collect-points">
+								<div class="contact-details widget-content-post-area">
+									<h5 class="text-uppercase"><?php esc_html_e('נקודות איסוף', 'outfit-standalone') ?></h5>
+									<ul class="list-unstyled c-detail">
+										<?php if (!empty($postAddress)) { ?>
+											<li><span><?php echo esc_html($postAddress);?></span></li>
+										<?php } ?>
+										<?php if (!empty($postSecAddress)) { ?>
+											<li><span><?php echo esc_html($postSecAddress);?></span></li>
+										<?php } ?>
+									</ul>
+								</div>
+							</div><!--widget-content-->
+							<div class="widget-content widget-content-post">
+								<div class="contact-details widget-content-post-area">
+									<h5 class="text-uppercase"><?php esc_html_e('Contact Details', 'outfit-standalone') ?> :</h5>
+									<ul class="list-unstyled fa-ul c-detail">
+										<?php if(!empty($authorPhone)){?>
+											<li>
+												<span class=""><?php echo esc_html($authorPhone);?></span>
+											</li>
+										<?php } ?>
+										<?php if(!empty($authorPreferredHours)){?>
+											<li>
+												<span><?php esc_html_e('Best time to call', 'outfit-standalone') ?>:</span>
+												<span>
+													<?php echo esc_html($authorPreferredHours);?>
+												</span>
+											</li>
+										<?php } ?>
+									</ul>
+								</div><!--contact-details-->
+							</div><!--widget-content-->
+						</div>
 					</div>
 				</div>				
 			</div>
