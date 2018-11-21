@@ -620,6 +620,17 @@ require get_parent_theme_file_path( '/inc/customizer.php' );
 require get_parent_theme_file_path( '/inc/icon-functions.php' );
 
 
+/*==========================
+ Upload User Profile Image and return attachment ID
+ ===========================*/
+function outfit_insert_userIMG($file_handler){
+	if ($_FILES[$file_handler]['error'] !== UPLOAD_ERR_OK) __return_false();
+	require_once(ABSPATH . "wp-admin" . '/includes/image.php');
+	require_once(ABSPATH . "wp-admin" . '/includes/file.php');
+	require_once(ABSPATH . "wp-admin" . '/includes/media.php');
+	$attach_id = media_handle_upload($file_handler, $post_id = null);
+	return $attach_id;
+}
 
 /*==========================
  Outfit : Get Profile URL from attachment ID

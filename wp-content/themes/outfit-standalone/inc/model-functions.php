@@ -283,6 +283,10 @@ function getUserKidsBirthdays($userId) {
     return $userKidsBirthdays;
 }
 
+function updateUserKidsBirthdays($userId, $birthdays) {
+    update_user_meta($userId, USER_META_KIDS_BIRTHDAYS, implode('||', $birthdays));
+}
+
 function getUserFavoriteBrands($userId) {
 
     $brands = get_user_meta($userId, USER_META_FAVORITE_BRANDS, true);
@@ -291,4 +295,23 @@ function getUserFavoriteBrands($userId) {
     }
     $brands = explode('||', $brands);
     return $brands;
+}
+
+function updateUserFavoriteBrands($userId, $brands) {
+    update_user_meta($userId, USER_META_FAVORITE_BRANDS, implode('||', $brands));
+}
+
+function getListOfAllBrands() {
+    $bs = get_terms('brands', array(
+            'hide_empty' => 0,
+            'parent' => 0
+        )
+    );
+    return $bs;
+}
+
+function validateDateInput($input) {
+    $format = 'Y-m-d';
+    $date = DateTime::createFromFormat($format, $input);
+    return $date && DateTime::getLastErrors()['warning_count'] == 0 && DateTime::getLastErrors()['error_count'] == 0;
 }

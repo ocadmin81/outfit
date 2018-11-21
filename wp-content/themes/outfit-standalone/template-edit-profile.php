@@ -74,6 +74,8 @@ if (null !== $postLocation2 && isset($postLocation2['address'])) {
 	$postSecArea3 = $postLocation2['aal3'];
 }
 
+$brands = getListOfAllBrands();
+
 $page = get_page($post->ID);
 $currentPageId = $page->ID;
 
@@ -91,6 +93,133 @@ $currentPageId = $page->ID;
  * favorite brands
  * password change
  */
+
+if ($userId) {
+	if ($_POST) {
+		$message =  esc_html__( 'Your profile updated successfully.', 'outfit-standalone' );
+
+		$userFirstName = $_POST['first_name'];
+		$userLastName = $_POST['last_name'];
+		$userPhone = $_POST['phone'];
+		$userEmail = $_POST['email'];
+		$userPreferredHours = $_POST['preferredhours'];
+		$userAbout = $_POST['desc'];
+
+		update_user_meta($userId, USER_META_FIRSTNAME, $userFirstName);
+		update_user_meta($userId, USER_META_LASTNAME, $userLastName);
+		update_user_meta($userId, USER_META_PHONE, $userPhone);
+		update_user_meta($userId, USER_META_EMAIL, $userEmail);
+		update_user_meta($userId, USER_META_PREFERRED_HOURS, $userPreferredHours);
+		update_user_meta($userId, USER_META_ABOUT, $userAbout);
+
+		$postAddress = trim(getPostInput('address'));
+		$postLatitude = getPostInput('latitude');
+		$postLongitude = getPostInput('longitude');
+		$postLocality = getPostInput('locality');
+		$postArea1 = getPostInput('aal1');
+		$postArea2 = getPostInput('aal2');
+		$postArea3 = getPostInput('aal3');
+
+		$location = new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
+			'locality' => $postLocality,
+			'aal3' => $postArea3,
+			'aal2' => $postArea2,
+			'aal1' => $postArea1
+		]);
+
+		if ($location->isValid()) {
+
+			update_user_meta($userId, USER_META_PRIMARY_ADDRESS, $location->toString());
+		}
+
+		// post secondary location
+		$postSecAddress = trim(getPostInput('address_2'));
+		$postSecLatitude = getPostInput('latitude_2');
+		$postSecLongitude = getPostInput('longitude_2');
+		$postSecLocality = getPostInput('locality_2');
+		$postSecArea1 = getPostInput('aal1_2');
+		$postSecArea2 = getPostInput('aal2_2');
+		$postSecArea3 = getPostInput('aal3_2');
+
+		if ($postSecAddress) {
+			$location2 = new OutfitLocation($postSecAddress, $postSecLongitude, $postSecLatitude, [
+				'locality' => $postSecLocality,
+				'aal3' => $postSecArea3,
+				'aal2' => $postSecArea2,
+				'aal1' => $postSecArea1
+			]);
+
+			if ($location2->isValid()) {
+
+				update_user_meta($userId, USER_META_SECONDARY_ADDRESS, $location2->toString());
+			}
+		}
+
+		$birthdays = getPostMultiple('birthdays');
+		$validBirthdays = array();
+
+		foreach ($birthdays as $b) {
+			if (validateDateInput($b)) {
+				$validBirthdays[] = $b;
+			}
+		}
+		updateUserKidsBirthdays($userId, $validBirthdays);
+
+		// user brands
+		$userFavBrands = getPostMultiple('favbrands');
+		updateUserFavoriteBrands($userId, $userFavBrands);
+
+		$password = $_POST['pwd'];
+		$confirm_password = $_POST['confirm'];
+
+		if($password){
+
+			if (strlen($password) < 5 || strlen($password) > 25) {
+				$message =  esc_html__( 'Password must be 5 to 25 characters in length.', 'outfit-standalone' );
+			}
+
+			//elseif( $password == $confirm_password ) {
+			$confirmPWD = $_POST['confirm'];
+			$confirmPWD2 = $_POST['confirm2'];
+			if(isset($confirmPWD) && $confirmPWD != $confirmPWD2) {
+
+				$message =  esc_html__( 'Password Mismatch', 'outfit-standalone' );
+
+			} elseif ( isset($confirmPWD) && !empty($password) ) {
+
+				wp_set_password( $confirmPWD, $userId );
+				$message =  esc_html__( 'Your profile updated successfully.', 'outfit-standalone' );
+
+			}
+		}
+	}
+
+	/*ImageUploading*/
+	if ( isset($_FILES['upload_attachment']) ) {
+		$count = '0';
+		$files = $_FILES['upload_attachment'];
+		foreach ($files['name'] as $key => $value) {
+			if ($files['name'][$key]) {
+				$file = array(
+					'name'     => $files['name'][$key],
+					'type'     => $files['type'][$key],
+					'tmp_name' => $files['tmp_name'][$key],
+					'error'    => $files['error'][$key],
+					'size'     => $files['size'][$key]
+				);
+				$_FILES = array("upload_attachment" => $file);
+				foreach ($_FILES as $file => $array) {
+					$newupload = outfit_insert_userIMG($file);
+					$count++;
+					$profileImage = $newupload;
+					if(!empty($profileImage )){
+						update_user_meta( $userId, USER_META_AVATAR_URL, $profileImage );
+					}
+				}
+			}
+		}/*Foreach*/
+	}
+}
 
 get_header();
 
@@ -231,7 +360,7 @@ get_header();
 										   name="birthdays[]"
 										   value="<?php esc_attr($birthday1); ?>"
 										   title="Please use DD.MM.YYYY as the date format."
-										   pattern="(3[01]|[21][0-9]|0[1-9]).(1[0-2]|0[1-9]).(19[0-9][0-9]|20[0-9][0-9])">
+										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
 								<div class="form-group col-sm-4">
 									<input type="date"
@@ -240,7 +369,7 @@ get_header();
 										   name="birthdays[]"
 										   value="<?php esc_attr($birthday2); ?>"
 										   title="Please use DD.MM.YYYY as the date format."
-										   pattern="(3[01]|[21][0-9]|0[1-9]).(1[0-2]|0[1-9]).(19[0-9][0-9]|20[0-9][0-9])">
+										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
 								<div class="form-group col-sm-4">
 									<input type="date"
@@ -249,7 +378,7 @@ get_header();
 										   name="birthdays[]"
 										   value="<?php esc_attr($birthday3); ?>"
 										   title="Please use DD.MM.YYYY as the date format."
-										   pattern="(3[01]|[21][0-9]|0[1-9]).(1[0-2]|0[1-9]).(19[0-9][0-9]|20[0-9][0-9])">
+										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
 							</div>
 							<!-- Kids Birthdays -->
@@ -266,6 +395,21 @@ get_header();
 										<textarea name="desc" id="bio" placeholder="<?php esc_html_e( 'enter your short info.', 'outfit-standalone' ); ?>"><?php echo esc_html( $userAbout ); ?></textarea>
 									</div>
 								</div><!--biography-->
+
+								<div class="form-group col-sm-12">
+									<label for="favbrands"><?php esc_html_e('Favorite brands', 'outfit-standalone') ?> </label>
+									<div class="">
+										<select id="favbrands" name="favbrands[]" class="form-control form-control-md" multiple>
+											<option value=""><?php esc_html_e('Select Brands', 'outfit-standalone'); ?></option>
+											<?php
+											foreach ($brands as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $userFavBrands)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Brands-->
 							</div>
 							<!-- About me -->
 
