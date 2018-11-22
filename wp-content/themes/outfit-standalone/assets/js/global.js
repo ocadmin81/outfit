@@ -87,6 +87,7 @@
 
 	// Set margins of branding in header.
 	function adjustHeaderHeight() {
+		return;
 		if ( 'none' === $menuToggle.css( 'display' ) ) {
 
 			// The margin should be applied to different elements on front-page or home vs interior pages.
