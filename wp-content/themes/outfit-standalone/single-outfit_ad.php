@@ -16,7 +16,8 @@ global $post;
 $postId = '';
 $userId = '';
 $currentUser = null;
-
+require_once 'Mobile_Detect.php';
+$detect = new Mobile_Detect;
 if ( is_user_logged_in() ) {
 	$currentUser = wp_get_current_user();
 	$userId = $currentUser->ID;
@@ -143,7 +144,7 @@ get_header(); ?>
 				</div>
 			<?php } ?>
 			<div class="row">
-				<div class="col-md-5 col-sm-12">
+				<div class="col-md-5 col-sm-6 media-box">
 					<!-- single post carousel-->
 					<?php
 					$attachments = get_children(array('post_parent' => $post->ID,
@@ -159,8 +160,9 @@ get_header(); ?>
 						<div id="single-post-carousel" class="slide img-box">
 							<div class="row">
 								<!-- Wrapper for slides -->
+								<?php if (!$detect->isMobile() || $detect->isTablet()): ?>
 									<?php if(!empty($attachments)){ ?>
-										<div class="col-md-2 col-sm-12 thumbs-img">
+										<div class="col-md-2 col-sm-2 thumbs-img">
 										<?php
 										$count = 1;
 										foreach($attachments as $att_id => $attachment){
@@ -175,7 +177,7 @@ get_header(); ?>
 										?>
 										</div>										
 									<?php } ?>
-									<div class="col-md-10 col-sm-12 main-img" role="listbox">
+									<div class="col-md-10 col-sm-10 main-img" role="listbox">
 									<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
 										<div class="item">
 											<img class="img-responsive" src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
@@ -195,14 +197,35 @@ get_header(); ?>
 												<?php } ?>
 											</form>
 											<?php endif; ?>
+											<div class="share">
+												
+											</div>
 										</div>										
-									</div>									
+									</div>
+								<?php else: ?>
+									<?php if(!empty($attachments)){ ?>
+										<div class="thumbs-img-m">
+										<?php
+										$count = 1;
+										foreach($attachments as $att_id => $attachment){
+											$full_img_url = wp_get_attachment_url($attachment->ID);
+											?>
+											<div class="item <?php if($count == 1){ echo "active"; }?>">
+												<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
+											</div>
+											<?php
+											$count++;
+										}
+										?>
+										</div>										
+									<?php } ?>									
+								<?php endif; ?>
 							</div>
 						</div>						
 					<?php } ?>
 					<!-- single post carousel-->
 				</div>			
-				<div class="col-md-4 col-sm-12 middle-ad-column">
+				<div class="col-md-4 col-sm-6 middle-ad-column">
 					<h1 class="text-uppercase">
 						<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 						<?php
@@ -283,7 +306,7 @@ get_header(); ?>
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-3 col-sm-12">
+				<div class="col-md-3 col-sm-12 post-left-side">
 					<div class="post-left">
 						<div class="widget-box">
 							<div class="widget-content widget-content-post">
@@ -304,9 +327,9 @@ get_header(); ?>
 												<form method="post" class="classiera_follow_user">
 													<input type="hidden" name="author_id" value="<?php echo esc_attr($author_id); ?>"/>
 													<?php if (!outfit_is_favorite_author($postAuthorId, $userId)) { ?>
-														<button type="submit" name="follow"><?php esc_html_e( 'הוספה למוכרים אהובים', 'outfit-standalone' ); ?></button>
+														<button type="submit" name="follow"><span><?php esc_html_e( 'הוספה למוכרים אהובים', 'outfit-standalone' ); ?></span></button>
 													<?php } else { ?>
-														<button type="submit" name="unfollow"><?php esc_html_e( 'הסרה ממוכרים אהובים', 'outfit-standalone' ); ?></button>
+														<button type="submit" name="unfollow"><span><?php esc_html_e( 'הסרה ממוכרים אהובים', 'outfit-standalone' ); ?></span></button>
 													<?php } ?>
 													</form>
 												<div class="clearfix"></div>
@@ -331,18 +354,18 @@ get_header(); ?>
 									</ul>
 								</div>
 							</div><!--widget-content-->
-							<div class="widget-content widget-content-post">
+							<div class="widget-content widget-content-post collect-details">
 								<div class="contact-details widget-content-post-area">
-									<h5 class="text-uppercase"><?php esc_html_e('Contact Details', 'outfit-standalone') ?> :</h5>
-									<ul class="list-unstyled fa-ul c-detail">
+									<h5 class="text-uppercase"><?php esc_html_e('ליצירת קשר עם המוכר/ת', 'outfit-standalone') ?></h5>
+									<ul class="list-unstyled c-detail">
 										<?php if(!empty($authorPhone)){?>
-											<li>
-												<span class=""><?php echo esc_html($authorPhone);?></span>
+											<li class="authorPhone">
+												<a href="tel:<?php echo esc_html($authorPhone); ?>"><span class=""><?php echo esc_html($authorPhone);?></a></span>
 											</li>
 										<?php } ?>
 										<?php if(!empty($authorPreferredHours)){?>
-											<li>
-												<span><?php esc_html_e('Best time to call', 'outfit-standalone') ?>:</span>
+											<li class="PreferredHours">
+												<span class="title"><?php esc_html_e('*שעה נוחה להתקשרות', 'outfit-standalone') ?>:</span>
 												<span>
 													<?php echo esc_html($authorPreferredHours);?>
 												</span>

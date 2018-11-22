@@ -1385,6 +1385,14 @@ jQuery(document).ready(function(jQuery){
 		var img = jQuery(this).attr('src');
 		jQuery('.single-post-ad .img-box .main-img img').attr('src',img);
 	});
+	//ad page mobile image carousel
+	jQuery(".thumbs-img-m").slick({
+		centerMode: false,
+		centerPadding: '50px',
+		slidesToShow: 1,
+		rtl: true,
+		arrows: false		
+	});	
 });
 jQuery(window).on('load', function () {	
     var mqxs = window.matchMedia( "(max-width: 1024px)" );
