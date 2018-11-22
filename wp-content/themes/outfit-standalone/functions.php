@@ -16,6 +16,7 @@ define('OUTFIT_AD_STATUS_SOLD', 'outfit_sold');
  Requried some Files.
  ===========================*/
 require get_template_directory() . '/inc/constants.php';
+require get_template_directory() . '/inc/outfit_init.php';
 require get_template_directory() . '/inc/theme-support.php';
 require get_template_directory() . '/inc/enque-styles-script.php';
 require get_template_directory() . '/inc/user_status.php';
@@ -732,7 +733,7 @@ function outfit_is_favorite_author($author_id, $follower_id) {
  @since classiera 1.0
  ===========================*/
 function outfit_authors_tbl_create() {
-	global $wpdb;
+	/*global $wpdb;
 	$sql2 = ("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}author_follower (
 
         id int(11) NOT NULL AUTO_INCREMENT,
@@ -757,9 +758,14 @@ function outfit_authors_tbl_create() {
 
     ) ENGINE=InnoDB AUTO_INCREMENT=1;");
 
-	$wpdb->query($sql);
+	$wpdb->query($sql);*/
 }
-add_action( 'init', 'outfit_authors_tbl_create', 1 );
+
+function outfit_init() {
+	OutfitInit::init();
+}
+
+add_action( 'init', 'outfit_init', 1 );
 
 // Category new fields (the form)
 add_filter('add_category_form', 'outfit_my_category_fields');
