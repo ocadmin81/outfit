@@ -14,8 +14,9 @@ get_header();
 <?php
 global $redux_demo;
 global $allowed_html;
-global $cat_id;
+global $catId;
 global $paged, $wp_query, $wp, $post;
+global $outfitMainCat;
 
 $catId = get_queried_object_id();
 $thisCategory = get_category($catId);
@@ -31,8 +32,18 @@ $args = array(
 	'post_status' => 'publish',
 	'posts_per_page' => $perPage,
 	'paged' => $paged,
-	'cat' => $cat_id
+	'cat' => $catId
 );
+
+$outfitMainCat = outfit_get_cat_ancestors($catId);
+
+if (false === $outfitMainCat) {
+	$outfitMainCat = $catId;
+}
+else {
+	$outfitMainCat = end($outfitMainCat);
+}
+$subCategories = getSubCategories($outfitMainCat);
 
 ?>
 
@@ -103,66 +114,24 @@ $args = array(
 				<aside class="sidebar">
 					<div class="row">
 						<!--subcategory-->
-						<?php 
-						$cat_term_ID = $this_category->term_id;
-						$cat_child = get_term_children( $cat_term_ID, 'category' );
-						if (!empty($cat_child)) {
-							$args = array(
-								'type' => 'post',								
-								'parent' => $cat_id,
-								'orderby' => 'name',
-								'order' => 'ASC',
-								'hide_empty' => 0,
-								'depth' => 1,
-								'hierarchical' => 1,
-								'taxonomy' => 'category',
-								'pad_counts' => true 
-							);
-							$category = get_categories($args);
-							if($category[0]->category_parent == 0){
-									$tag = $category[0]->cat_ID;
-									$category_icon_code = "";
-									$category_icon_color = "";
-									$your_image_url = "";
-									$tag_extra_fields = get_option(MY_CATEGORY_FIELDS);
-									if (isset($tag_extra_fields[$tag])) {
-										$category_icon_code = $tag_extra_fields[$tag]['category_icon_code'];
-										$category_icon_color = $tag_extra_fields[$tag]['category_icon_color'];
-									}
-								}else{
-									$tag = $category[0]->category_parent;
-									$tag_extra_fields = get_option(MY_CATEGORY_FIELDS);
-									if (isset($tag_extra_fields[$tag])) {
-										$category_icon_code = $tag_extra_fields[$tag]['category_icon_code'];
-										$category_icon_color = $tag_extra_fields[$tag]['category_icon_color'];
-									}
-								}
-								$category_icon = stripslashes($category_icon_code);
-						?>
 						<div class="col-lg-12 col-md-12 col-sm-6 match-height">
 							<div class="widget-box">
 								<div class="widget-title">
 									<h4>
-										<i class="<?php echo esc_html($category_icon); ?>" style="color:<?php echo esc_html($category_icon_color); ?>;"></i>
-										<?php echo esc_html($catName); ?>
+										<i class="" style=""></i>
+										<?php echo esc_html($thisCategory->name); ?>
 									</h4>
 								</div>
 								<div class="widget-content">
 									<ul class="category">
 									<?php
-										foreach($category as $category) { 
+										foreach($subCategories as $sub) {
 									?>
 										<li>
-                                            <a href="<?php echo esc_url(get_category_link( $category->term_id ));?>">
+                                            <a href="<?php echo esc_url(get_category_link( $sub->term_id ));?>">
                                                 <i class="fa fa-angle-right"></i>
-                                                <?php echo esc_html($category->name); ?>
-                                                <span class="pull-right flip">
-												<?php if($classieraPostCount == 1){?>
-													(<?php echo esc_attr($category->count); ?>)
-												<?php }else{ ?>
-													&nbsp;
-												<?php } ?>
-												</span>
+                                                <?php echo esc_html($sub->name); ?>
+
                                             </a>
                                         </li>
 									<?php } ?>
@@ -170,10 +139,14 @@ $args = array(
 								</div>
 							</div>
 						</div>
-						<?php } ?>
+
 						<!--subcategory-->
 
-
+						<div class="col-lg-12 col-md-12 col-sm-6 match-height">
+							<div class="widget-box">
+								<?php get_template_part( 'templates/outfit-adv-search' );?>
+							</div>
+						</div>
 					</div><!--row-->
 				</aside>
 			</div><!--row-->

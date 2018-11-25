@@ -16,6 +16,20 @@ function outfit_get_main_cats($excludeDefault = false) {
     return $categories;
 }
 
+function outfit_get_cat_ancestors($childId) {
+
+    $ancestors = array();
+    $term = get_term($childId, 'category');
+    while ( ! is_wp_error($term) && ! empty( $term->parent ) && ! in_array( $term->parent, $ancestors ) ) {
+        $ancestors[] = (int) $term->parent;
+        $term = get_term($term->parent, 'category');
+    }
+    if (empty($ancestors)) {
+        return false;
+    }
+    return $ancestors;
+}
+
 function fetch_category_custom_fields($category) {
 
     $extraFields = get_option(MY_CATEGORY_FIELDS);
