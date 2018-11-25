@@ -258,7 +258,7 @@ get_header(); ?>
 		<h1 class="page-title"><?php esc_html_e('התחילו למכור', 'outfit-standalone') ?></h1>
 		<div class="taxonomy-description"><?php echo do_shortcode("[do_widget id=text-20]"); ?></div>		
 	</div>
-	<div class="container ad-page">
+	<div class="wrap ad-page">
 		<div class="row">
 			<div class="col-lg-5 col-md-5 col-sm-12 ad-tips">
 				<div class="form-group reg-text">

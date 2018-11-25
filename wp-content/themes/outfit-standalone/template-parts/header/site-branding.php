@@ -7,7 +7,6 @@
  * @since 1.0
  * @version 1.0
  */
-
 ?>
 <div class="site-branding">
 	<div class="wrap">
@@ -19,7 +18,13 @@
 					<span class="count">0</span>
 				</a>
 			</div>
-			<div class="login hidden-xs"><a href="<?php echo get_site_url(); ?>/login"><?php _e( "היי, התחבר/י", 'outfit-standalone' ); ?></a></div>
+			<div class="login hidden-xs">
+				<?php if(is_user_logged_in()): ?>					
+					<a href="<?php echo get_site_url(); ?>/profile_settings"><?php _e( "החשבון שלי", 'outfit-standalone' ); ?></a>
+				<?php else: ?>
+					<a href="<?php echo get_site_url(); ?>/login"><?php _e( "היי, התחבר/י", 'outfit-standalone' ); ?></a>					
+				<?php endif; ?>
+			</div>
 		</div>
 		<?php the_custom_logo(); ?>
 		<div class="left header-left"><?php get_search_form(); ?></div>

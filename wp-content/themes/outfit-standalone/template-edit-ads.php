@@ -63,7 +63,7 @@ global $wpdb;
 $cUserCheck = current_user_can( 'administrator' );
 $role = $current_user->roles;
 $currentRole = $role[0];
-$imageLimit = 5;
+$imageLimit = 4;
 
 $categories = outfit_get_main_cats(true);
 $ageGroups = outfit_get_list_of_age_groups();
@@ -160,18 +160,18 @@ if(isset( $_POST['postTitle'] )) {
 		// this is a submitted form
 		$postTitle = trim($_POST['postTitle']);
 		if (empty($postTitle)) {
-			$postTitleError =  esc_html__( 'Please enter a title.', 'outfit-standalone' );
+			$postTitleError =  esc_html__( 'נא להכניס כותרת', 'outfit-standalone' );
 			$hasError = true;
 		}
 		if (empty($_POST['postCategory'])) {
-			$catError = esc_html__( 'Please select a category', 'outfit-standalone' );
+			$catError = esc_html__( 'נא לבחור קטגוריה', 'outfit-standalone' );
 			$hasError = true;
 		}
 		//Image Count check//
 		$files = $_FILES['upload_attachment'];
 		$count = count($files['name']);
 		if($count == 0){
-			$imageError = esc_html__( 'Please, upload at least one image', 'outfit-standalone' );
+			$imageError = esc_html__( 'יש לעלות תמונה אחת לפחות', 'outfit-standalone' );
 			$hasError = true;
 		}
 		//Image Count check//
@@ -358,35 +358,28 @@ get_header(); ?>
 	$current_page_id = $page->ID;
 ?>
 <section class="user-pages section-gray-bg">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<h4 class="text-uppercase border-bottom"><?php esc_html_e('MAKE NEW AD', 'outfit-standalone') ?></h4>
-			</div>
-		</div>
+	<span class="hidden" id="removeImg"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
+	<span class="hidden" id="addImg"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/upload-icon.png" /></span>
+	<div class="wrap ad-page">
 		<div class="row">
 			<div class="col-lg-3 col-md-4">
 				<p>some stuff</p>
 			</div><!--col-lg-3 col-md-4-->
-			<div class="col-lg-9 col-md-8 user-content-height">
-
+			<div class="col-lg-9 col-md-8 ad-form user-content-height edit">
 				<div class="submit-post section-bg-white">
+					<div class="row">
+						<div class="col-md-12 ad-form">
+							<h1 class="text-uppercase border-bottom"><?php esc_html_e('עריכת מודעה', 'outfit-standalone') ?></h1>
+						</div>
+					</div>				
 					<form class="form-horizontal" action="" role="form" id="primaryPostForm" method="POST" data-toggle="validator" enctype="multipart/form-data">
 
 						<!-- add photos and media -->
 						<div class="form-main-section media-detail">
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Photos for your ad', 'outfit-standalone') ?> : <span>*</span></label>
-								<div class="col-sm-9">
-									<div class="classiera-dropzone-heading">
-										<i class="classiera-dropzone-heading-text fa fa-cloud-upload-alt" aria-hidden="true"></i>
-										<div class="classiera-dropzone-heading-text">
-											<p><?php esc_html_e('Select files to Upload', 'outfit-standalone') ?></p>
-											<p><?php esc_html_e('You can add multiple images. Ads With photo get 50% more Responses', 'outfit-standalone') ?></p>
-											<p class="limitIMG"><?php esc_html_e('You can upload', 'outfit-standalone') ?>&nbsp;<?php echo esc_attr( $imageLimit ); ?>&nbsp;<?php esc_html_e('Images maximum.', 'outfit-standalone') ?></p>
-										</div>
-									</div>
+								<label class="text-left flip"><?php esc_html_e('הוסיפו תמונה(ות)', 'outfit-standalone') ?> : <span>*</span></label>
+								<div class="item">
 									<!-- HTML heavily inspired by http://blueimp.github.io/jQuery-File-Upload/ -->
 									<div id="mydropzone" class="classiera-image-upload clearfix" data-maxfile="<?php echo esc_attr( $imageLimit ); ?>">
 										<!--PreviousImages-->
@@ -406,13 +399,16 @@ get_header(); ?>
 												$attachment_ID = $attachment->ID;
 												$full_img_url = wp_get_attachment_url($attachment->ID);
 												?>
-												<div id="<?php echo esc_attr($attachment_ID); ?>" class="edit-post-image-block">
-													<img class="edit-post-image" src="<?php echo esc_url($full_img_url);?>" />
-													<div class="remove-edit-post-image">
-														<i class="fas fa-minus-square"></i>
-														<span class="remImage"><?php esc_html_e('Remove', 'outfit-standalone');?></span>
-														<input type="hidden" name="" value="<?php echo esc_attr($attachment_ID); ?>">
-													</div><!--remove-edit-post-image-->
+												<div id="<?php echo esc_attr($attachment_ID); ?>" class="edit-post-image-block classiera-image-box edit">
+													<div class="classiera-upload-box">
+														<div class="classiera-image-preview" style="display:block;">
+															<img class="edit-post-image" src="<?php echo esc_url($full_img_url);?>" />
+															<div class="remove-edit-post-image">
+																<span class="remove-img remImage"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>															
+																<input type="hidden" name="" value="<?php echo esc_attr($attachment_ID); ?>">
+															</div><!--remove-edit-post-image-->
+														</div>
+													</div>
 												</div>
 												<?php $imageCount++;?>
 											<?php }?>
@@ -423,14 +419,14 @@ get_header(); ?>
 										$imageCounter = $imageLimit-$imageCount;
 										for ($i = 0; $i < $imageCounter; $i++){
 											?>
-											<div class="classiera-image-box">
+											<div class="classiera-image-box edit">
 												<div class="classiera-upload-box">
 													<input name="image-count" type="hidden" value="<?php echo esc_attr( $imageLimit ); ?>" />
 													<input class="classiera-input-file imgInp" id="imgInp<?php echo esc_attr( $i ); ?>" type="file" name="upload_attachment[]">
-													<label class="img-label" for="imgInp<?php echo esc_attr( $i ); ?>"><i class="fas fa-plus-square"></i></label>
+													<label class="img-label" for="imgInp<?php echo esc_attr( $i ); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/upload-icon.png" /></label>
 													<div class="classiera-image-preview">
 														<img class="my-image" src=""/>
-														<span class="remove-img"><i class="fas fa-times-circle"></i></span>
+														<span class="remove-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
 													</div>
 												</div>
 											</div>
@@ -441,173 +437,165 @@ get_header(); ?>
 
 								</div>
 							</div>
-						</div>
 						<!-- add photos and media -->
 
-						<div class="form-main-section post-detail">
-
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip" for="title"><?php esc_html_e('Ad title', 'outfit-standalone') ?> : <span>*</span></label>
-								<div class="col-sm-9">
+								<label class="text-left flip" for="title"><?php esc_html_e('מה אתם מוכרים?', 'outfit-standalone') ?><span>*</span></label>
+								<div class="item">
 									<input id="title" data-minlength="5" name="postTitle" type="text" class="form-control form-control-md" value="<?php echo esc_html($postTitle); ?>" placeholder="<?php esc_html_e('Ad Title Goes here', 'outfit-standalone') ?>" required>
 
 								</div>
 							</div><!-- /Ad title-->
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip" for="title"><?php esc_html_e('Price', 'outfit-standalone') ?> : <span>*</span></label>
-								<div class="col-sm-9">
+								<label class="text-left flip" for="title"><?php esc_html_e('מחיר מבוקש', 'outfit-standalone') ?><span>*</span></label>
+								<div class="item">
 									<input id="price" data-minlength="1" name="postPrice" type="text" class="form-control form-control-md" value="<?php echo esc_html($postPrice); ?>" placeholder="<?php esc_html_e('Price', 'outfit-standalone') ?>" required>
 
 								</div>
 							</div><!-- /Ad price-->
+							<div class="ad-categories">
+								<div class="form-group post-cat-container">
+									<label class="text-left flip"><?php esc_html_e('קטגוריה', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="category" name="postCategory" class="reg form-control form-control-md category-select" required>
+											<option value="" selected><?php esc_html_e('בחירת קטגוריה', 'outfit-standalone'); ?></option>
+											<?php
+											foreach ($categories as $c): ?>
+												<?php $c = fetch_category_custom_fields($c); ?>
+												<option value="<?php echo $c->term_id; ?>"
+														data-color-enabled="<?php echo ($c->catFilterByColor? '1' : '0'); ?>"
+														data-brand-enabled="<?php echo ($c->catFilterByBrand? '1' : '0'); ?>"
+														data-writer-enabled="<?php echo ($c->catFilterByWriter? '1' : '0'); ?>"
+														data-character-enabled="<?php echo ($c->catFilterByCharacter? '1' : '0'); ?>"
+														data-age-enabled="<?php echo ($c->catFilterByAge? '1' : '0'); ?>"
+														data-condition-enabled="<?php echo ($c->catFilterByCondition? '1' : '0'); ?>"
+														<?php if ($outfitMainCat && $c->term_id == $outfitMainCat) {
+															$filterBy = $c;
+															echo 'selected';
+														} ?>
+													><?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Category-->
 
-							<div class="form-group post-cat-container">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Category', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
-									<select id="category" name="postCategory" class="form-control form-control-md category-select" required>
-										<option value="" selected><?php esc_html_e('Select Category', 'outfit-standalone'); ?></option>
-										<?php
-										foreach ($categories as $c): ?>
-											<?php $c = fetch_category_custom_fields($c); ?>
-											<option value="<?php echo $c->term_id; ?>"
-													data-color-enabled="<?php echo ($c->catFilterByColor? '1' : '0'); ?>"
-													data-brand-enabled="<?php echo ($c->catFilterByBrand? '1' : '0'); ?>"
-													data-writer-enabled="<?php echo ($c->catFilterByWriter? '1' : '0'); ?>"
-													data-character-enabled="<?php echo ($c->catFilterByCharacter? '1' : '0'); ?>"
-													data-age-enabled="<?php echo ($c->catFilterByAge? '1' : '0'); ?>"
-													data-condition-enabled="<?php echo ($c->catFilterByCondition? '1' : '0'); ?>"
-													<?php if ($outfitMainCat && $c->term_id == $outfitMainCat) {
-														$filterBy = $c;
+								<div class="form-group post-sub-cat-container" style="<?php echo (count($subCategories)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?></label>
+									<div class="item">
+										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md">
+											<option value=""><?php esc_html_e('בחירת תת קטגוריה', 'outfit-standalone'); ?></option>
+											<?php foreach ($subCategories as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php if ($outfitSubCat && $c->term_id == $outfitSubCat) {
 														echo 'selected';
 													} ?>
-												><?php esc_html_e($c->name); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div><!-- /Ad Category-->
+													><?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Sub Category-->
 
-							<div class="form-group post-sub-cat-container" style="<?php echo (count($subCategories)? '' : 'display: none;'); ?>">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Sub Category', 'outfit-standalone') ?> : </label>
-								<div class="col-sm-9">
-									<select id="subcategory" name="postSubcategory" class="form-control form-control-md">
-										<option value=""><?php esc_html_e('Select Sub Category', 'outfit-standalone'); ?></option>
-										<?php foreach ($subCategories as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"
-												<?php if ($outfitSubCat && $c->term_id == $outfitSubCat) {
-													echo 'selected';
-												} ?>
-												><?php esc_html_e($c->name); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div><!-- /Ad Sub Category-->
+								<div class="form-group post-colors-container"
+									style="<?php echo (($filterBy && $filterBy->catFilterByColor)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('צבע', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="color" name="postColor[]" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByColor)? 'required' : ''); ?>>											
+											<?php
+											foreach ($colors as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $postColor)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Colors-->
 
-							<div class="form-group post-colors-container"
-								style="<?php echo (($filterBy && $filterBy->catFilterByColor)? '' : 'display: none;'); ?>">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Color', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
-									<select id="color" name="postColor[]" class="form-control form-control-md" multiple
-										<?php echo (($filterBy && $filterBy->catFilterByColor)? 'required' : ''); ?>>
-										<option value=""><?php esc_html_e('Select Colors', 'outfit-standalone'); ?></option>
-										<?php
-										foreach ($colors as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"
-												<?php echo (in_array($c->term_id, $postColor)? 'selected' : ''); ?>>
-												<?php esc_html_e($c->name); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div><!-- /Ad Colors-->
+								<div class="form-group post-age-groups-container"
+									 style="<?php echo (($filterBy && $filterBy->catFilterByAge)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="ageGroup" name="postAgeGroup[]" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByAge)? 'required' : ''); ?>>
+											<?php
+											foreach ($ageGroups as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $postAgeGroup)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Age Groups-->
 
-							<div class="form-group post-age-groups-container"
-								 style="<?php echo (($filterBy && $filterBy->catFilterByAge)? '' : 'display: none;'); ?>">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Age Group', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
-									<select id="ageGroup" name="postAgeGroup[]" class="form-control form-control-md" multiple
-										<?php echo (($filterBy && $filterBy->catFilterByAge)? 'required' : ''); ?>>
-										<option value=""><?php esc_html_e('Select Age Groups', 'outfit-standalone'); ?></option>
-										<?php
-										foreach ($ageGroups as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"
-												<?php echo (in_array($c->term_id, $postAgeGroup)? 'selected' : ''); ?>>
-												<?php esc_html_e($c->name); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div><!-- /Ad Age Groups-->
+								<div class="form-group post-brands-container"
+									 style="<?php echo (($filterBy && $filterBy->catFilterByBrand)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('מותג', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="brand" name="postBrand[]" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByBrand)? 'required' : ''); ?>>
+											<?php
+											foreach ($brands as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $postBrand)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Brands-->
 
-							<div class="form-group post-brands-container"
-								 style="<?php echo (($filterBy && $filterBy->catFilterByBrand)? '' : 'display: none;'); ?>">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Brand', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
-									<select id="brand" name="postBrand[]" class="form-control form-control-md" multiple
-										<?php echo (($filterBy && $filterBy->catFilterByBrand)? 'required' : ''); ?>>
-										<option value=""><?php esc_html_e('Select Brands', 'outfit-standalone'); ?></option>
-										<?php
-										foreach ($brands as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"
-												<?php echo (in_array($c->term_id, $postBrand)? 'selected' : ''); ?>>
-												<?php esc_html_e($c->name); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div><!-- /Ad Brands-->
+								<div class="form-group post-conditions-container"
+									 style="<?php echo (($filterBy && $filterBy->catFilterByCondition)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('מצב הפריט', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="condition" name="postCondition" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByCondition)? 'required' : ''); ?>>
+											<?php
+											foreach ($conditions as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo ($c->term_id == $postCondition? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Conditions-->
 
-							<div class="form-group post-conditions-container"
-								 style="<?php echo (($filterBy && $filterBy->catFilterByCondition)? '' : 'display: none;'); ?>">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Condition', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
-									<select id="condition" name="postCondition" class="form-control form-control-md"
-										<?php echo (($filterBy && $filterBy->catFilterByCondition)? 'required' : ''); ?>>
-										<option value=""><?php esc_html_e('Select Condition', 'outfit-standalone'); ?></option>
-										<?php
-										foreach ($conditions as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"
-												<?php echo ($c->term_id == $postCondition? 'selected' : ''); ?>>
-												<?php esc_html_e($c->name); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div><!-- /Ad Conditions-->
+								<div class="form-group post-writers-container"
+									 style="<?php echo (($filterBy && $filterBy->catFilterByWriter)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('כותכ', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="writer" name="postWriter[]" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByWriter)? 'required' : ''); ?>>											
+											<?php
+											foreach ($writers as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $postWriter)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Book Writers-->
 
-							<div class="form-group post-writers-container"
-								 style="<?php echo (($filterBy && $filterBy->catFilterByWriter)? '' : 'display: none;'); ?>">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Writer', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
-									<select id="writer" name="postWriter[]" class="form-control form-control-md" multiple
-										<?php echo (($filterBy && $filterBy->catFilterByWriter)? 'required' : ''); ?>>
-										<option value=""><?php esc_html_e('Select Writers', 'outfit-standalone'); ?></option>
-										<?php
-										foreach ($writers as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"
-												<?php echo (in_array($c->term_id, $postWriter)? 'selected' : ''); ?>>
-												<?php esc_html_e($c->name); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div><!-- /Ad Book Writers-->
-
-							<div class="form-group post-characters-container"
-								 style="<?php echo (($filterBy && $filterBy->catFilterByCharacter)? '' : 'display: none;'); ?>">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
-									<select id="character" name="postCharacter[]" class="form-control form-control-md" multiple
-										<?php echo (($filterBy && $filterBy->catFilterByCharacter)? 'required' : ''); ?>>
-										<option value=""><?php esc_html_e('Select Characters', 'outfit-standalone'); ?></option>
-										<?php
-										foreach ($characters as $c): ?>
-											<option value="<?php echo $c->term_id; ?>"
-												<?php echo (in_array($c->term_id, $postCharacter)? 'selected' : ''); ?>>
-												<?php esc_html_e($c->name); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div><!-- /Ad Characters-->
-
+								<div class="form-group post-characters-container"
+									 style="<?php echo (($filterBy && $filterBy->catFilterByCharacter)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="character" name="postCharacter[]" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByCharacter)? 'required' : ''); ?>>
+											<option value=""><?php esc_html_e('Select Characters', 'outfit-standalone'); ?></option>
+											<?php
+											foreach ($characters as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $postCharacter)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Characters-->
+							</div>
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip" for="description"><?php esc_html_e('Ad description', 'outfit-standalone') ?> : </label>
-								<div class="col-sm-9">
+								<label class="text-left flip" for="description"><?php esc_html_e('תיאור הפריט', 'outfit-standalone') ?> : </label>
+								<div class="item">
 									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('Write description', 'outfit-standalone') ?>"><?php echo esc_html($postContent);?></textarea>
 									<div class="help-block with-errors"></div>
 								</div>
@@ -615,9 +603,9 @@ get_header(); ?>
 
 							<!--Address-->
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Primary address', 'outfit-standalone'); ?> : <span>*</span></label>
-								<div class="col-sm-9">
-									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>" required>
+								<label class="text-left flip"><?php esc_html_e('נקודת איסוף עיקרית', 'outfit-standalone'); ?><span>*</span></label>
+								<div class="item">
+									<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
 									<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
@@ -628,10 +616,9 @@ get_header(); ?>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Secondary address', 'outfit-standalone'); ?> : </label>
-								<div class="col-sm-9">
-
-									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
+								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> : </label>
+								<div class="item">
+									<input id="address_2" type="text" name="address_2" class="address form-control form-control-md" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2" value="<?php echo esc_html($postSecLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2" value="<?php echo esc_html($postSecLongitude); ?>">
 									<input class="locality" type="hidden" id="locality_2" name="locality_2" value="<?php echo esc_html($postSecLocality); ?>">
@@ -644,48 +631,47 @@ get_header(); ?>
 							<!--/Address-->
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Your Phone/Mobile', 'outfit-standalone') ?> : <span>*</span> </label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('טלפון ליצירת קשר', 'outfit-standalone') ?> : <span>*</span> </label>
+								<div class="item">
 									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" value="<?php echo esc_html($postPhone); ?>" placeholder="<?php esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>" required>
 								</div>
 							</div>
 
 							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Preferred hours', 'outfit-standalone') ?> :</label>
-								<div class="col-sm-9">
+								<label class="text-left flip"><?php esc_html_e('שעה נוחה להתקשרות', 'outfit-standalone') ?> :</label>
+								<div class="item">
 									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" value="<?php echo esc_html($postPreferredHours); ?>" placeholder="<?php esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
 								</div>
-							</div>
-
-						</div><!---form-main-section post-detail-->
+							</div>						
 
 
-						<div class="row">
-                            <div class="col-sm-9">
-								<div class="form-check">
-									<input type="checkbox" class="form-check-input" name="postSavePrefs" id="postSavePrefs">
-									<label class="form-check-label" for="postSavePrefs">
-										<?php esc_html_e('Save preferences for future use', 'outfit-standalone') ?>
-									</label>
+							<div class="row">
+								<div class="item">
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" name="postSavePrefs" id="postSavePrefs">
+										<label class="form-check-label" for="postSavePrefs">
+											<?php esc_html_e('שמרו את הפרטים שלי באתר לפעמים הבאות', 'outfit-standalone') ?>
+										</label>
+									</div>
 								</div>
-                            </div>
-                        </div>
+							</div>
+						</div><!---form-main-section post-detail-->
 						<div class="row">
-							<div class="col-sm-9">
+							<div class="item">
 								<div class="form-check">
 									<input type="checkbox" class="form-check-input" name="postAgreeToTerms" id="postAgreeToTerms" required>
 									<label class="form-check-label" for="postAgreeToTerms">
-										<?php esc_html_e('I agree to terms', 'outfit-standalone') ?>
+										<?php esc_html_e('קראתי ואני מסיכמ/ה לתנאי האתר', 'outfit-standalone') ?>
 									</label>
 								</div>
 							</div>
 						</div>
-						<div class="form-main-section">
-                            <div class="col-sm-4">
+						<div class="form-main-btn">
+                            <div class="item">
 								<?php wp_nonce_field('post_nonce', 'post_nonce_field'); ?>
 								<input type="hidden" name="submitted" id="submitted" value="true">
 								<input type="hidden" name="post_ID" id="post_ID" value="<?php esc_html($postId); ?>">
-                                <button class="post-submit btn btn-primary sharp btn-md btn-style-one btn-block" type="submit" name="op" value="Publish Ad"><?php esc_html_e('Publish Ad', 'outfit-standalone') ?></button>
+                                <button class="post-submit btn btn-primary sharp btn-md btn-style-one btn-block" type="submit" name="op" value="Publish Ad"><?php esc_html_e('שליחה', 'outfit-standalone') ?></button>
                             </div>
                         </div>
 					</form>
