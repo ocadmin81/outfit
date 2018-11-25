@@ -862,8 +862,10 @@ jQuery(document).ready(function(jQuery){
 		jQuery(this).parent().parent().hide();
 		jQuery(this).parent().find('input').attr('name', 'att_remove[]' );
 		var lableNo = Math.floor((Math.random() * 10) + 1);
+		var removeSrc = jQuery('#removeImg').html();
+		var addSrc = jQuery('#addImg').html();
 		//var lableNo = Math.random();
-		var myHTML = '<div class="classiera-image-box"><div class="classiera-upload-box"><input class="classiera-input-file imgInp" id="imgInp'+ lableNo +'" type="file" name="upload_attachment[]"><label class="img-label" for="imgInp'+ lableNo +'"><i class="fa fa-plus-square-o"></i></label><div class="classiera-image-preview"><img class="my-image" src=""><span class="remove-img"><i class="fa fa-times-circle"></i></span></div></div></div>';
+		var myHTML = '<div class="classiera-image-box-new"><div class="classiera-upload-box"><input class="classiera-input-file imgInp" id="imgInp'+ lableNo +'" type="file" name="upload_attachment[]"><label class="img-label" for="imgInp'+ lableNo +'">'+ addSrc +'</label><div class="classiera-image-preview"><img class="my-image" src=""><span class="remove-img">'+removeSrc+'</span></div></div></div>';
 		jQuery(this).parent().parent().parent().append(myHTML);
 	});
 	//Get Custom Fields//
@@ -965,101 +967,101 @@ jQuery(document).ready(function(jQuery){
 	//Classiera Locations Dropdown.
 	jQuery("#classiera__loc").select2();
 	//owl carousel
-	setInterval(function(){ 
-		jQuery('.owl-carousel').each(function(){
-			var owl = jQuery(this);
-			jQuery(".related-blog-post-section .navText .prev").on('click', function () {
-				jQuery(this).parent().parent().parent().next().find('.owl-carousel').trigger('prev.owl.carousel');
-			});
-			jQuery(".related-blog-post-section .navText .next").on('click', function () {
-				jQuery(this).parent().parent().parent().next().find('.owl-carousel').trigger('next.owl.carousel');
-			});
-			jQuery(".prev").on('click', function () {
-				jQuery(this).parent().prev().children().trigger('prev.owl.carousel');
-			});
+	//setInterval(function(){ 
+	//	jQuery('.owl-carousel').each(function(){
+	//		var owl = jQuery(this);
+	//		jQuery(".related-blog-post-section .navText .prev").on('click', function () {
+	//			jQuery(this).parent().parent().parent().next().find('.owl-carousel').trigger('prev.owl.carousel');
+	//		});
+	//		jQuery(".related-blog-post-section .navText .next").on('click', function () {
+	//			jQuery(this).parent().parent().parent().next().find('.owl-carousel').trigger('next.owl.carousel');
+	//		});
+	//		jQuery(".prev").on('click', function () {
+	//			jQuery(this).parent().prev().children().trigger('prev.owl.carousel');
+	//		});
 
-			jQuery(".next").on('click', function () {
-				jQuery(this).parent().prev().children().trigger('next.owl.carousel');
-			});
+	//		jQuery(".next").on('click', function () {
+	//			jQuery(this).parent().prev().children().trigger('next.owl.carousel');
+	//		});
 
 			//number from single post page carousel
-			var loopLength = owl.data('car-length');
-			var divLength = jQuery(this).find("div.item").length;
-			if(divLength > loopLength){
-				owl.owlCarousel({
-					rtl: owl.data("right"),
-					nav : owl.data("nav"),
-					dots : owl.data("dots"),
-					items: owl.data("items"),
-					slideBy : owl.data("slideby"),
-					rewind: owl.data("rewind"),
-					center : owl.data("center"),
-					loop : owl.data("loop"),
-					margin : owl.data("margin"),
-					autoplay : owl.data("autoplay"),
-					autoplayTimeout : owl.data("autoplay-timeout"),
-					autoplayHoverPause : owl.data("autoplay-hover"),
-					autoWidth:owl.data("auto-width"),
-					autoHeight:owl.data("auto-Height"),
-					responsiveClass: true,
-					merge: owl.data("merge"),
-					responsive:{
-						0:{
-							items:owl.data("responsive-small"),
-							nav:false,
-							dots : false
-						},
-						600:{
-							items:owl.data("responsive-medium"),
-							nav:false,
-							dots : false
-						},
-						1000:{
-							items:owl.data("responsive-large"),
-							nav:false
-						},
-						1900:{
-							items:owl.data("responsive-xlarge"),
-							nav:false
-						}
-					}
-				});
-
-			}else{
-				owl.owlCarousel({
-					rtl: owl.data("right"),
-					nav : owl.data("nav"),
-					dots : owl.data("dots"),
-					items: owl.data("items"),
-					loop: false,
-					margin: owl.data("margin"),
-					autoplay:false,
-					autoplayHoverPause:true,				
-					responsiveClass:true,
-					autoWidth:owl.data("auto-width"),
-					autoHeight:owl.data("auto-Height"),
-					responsive:{
-						0:{
-							items:owl.data("responsive-small"),
-							nav:false
-						},
-						600:{
-							items:owl.data("responsive-medium"),
-							nav:false
-						},
-						1000:{
-							items:owl.data("responsive-large"),
-							nav:false
-						},
-						1900:{
-							items:owl.data("responsive-xlarge"),
-							nav:false
-						}
-					}
-				});
-			}
-		});
-	},1500);
+	//		var loopLength = owl.data('car-length');
+	//		var divLength = jQuery(this).find("div.item").length;
+	//		if(divLength > loopLength){
+	//			owl.owlCarousel({
+	//				rtl: owl.data("right"),
+	//				nav : owl.data("nav"),
+	//				dots : owl.data("dots"),
+	//				items: owl.data("items"),
+	//				slideBy : owl.data("slideby"),
+	//				rewind: owl.data("rewind"),
+	//				center : owl.data("center"),
+	//				loop : owl.data("loop"),
+	//				margin : owl.data("margin"),
+	//				autoplay : owl.data("autoplay"),
+	//				autoplayTimeout : owl.data("autoplay-timeout"),
+	//				autoplayHoverPause : owl.data("autoplay-hover"),
+	//				autoWidth:owl.data("auto-width"),
+	//				autoHeight:owl.data("auto-Height"),
+	//				responsiveClass: true,
+	//				merge: owl.data("merge"),
+	//				responsive:{
+	//					0:{
+	//						items:owl.data("responsive-small"),
+	//						nav:false,
+	//						dots : false
+	//					},
+	//					600:{
+	//						items:owl.data("responsive-medium"),
+	//						nav:false,
+	//						dots : false
+	//					},
+	//					1000:{
+	//						items:owl.data("responsive-large"),
+	//						nav:false
+	//					},
+	//					1900:{
+	//						items:owl.data("responsive-xlarge"),
+	//						nav:false
+	//					}
+	//				}
+	//			});
+	//
+	//		}else{
+	//			owl.owlCarousel({
+	//				rtl: owl.data("right"),
+	//				nav : owl.data("nav"),
+	//				dots : owl.data("dots"),
+	//				items: owl.data("items"),
+	//				loop: false,
+	//				margin: owl.data("margin"),
+	//				autoplay:false,
+	//				autoplayHoverPause:true,				
+	//				responsiveClass:true,
+	//				autoWidth:owl.data("auto-width"),
+	//				autoHeight:owl.data("auto-Height"),
+	//				responsive:{
+	//					0:{
+	//						items:owl.data("responsive-small"),
+	//						nav:false
+	//					},
+	//					600:{
+	//						items:owl.data("responsive-medium"),
+	//						nav:false
+	//					},
+	//					1000:{
+	//						items:owl.data("responsive-large"),
+	//						nav:false
+	//					},
+	//					1900:{
+	//						items:owl.data("responsive-xlarge"),
+	//						nav:false
+	//					}
+	//				}
+	//			});
+	//		}
+	//	});
+	//},1500);
 	// map search
 	jQuery('.classiera_map_search .classiera_map_search_btn').on('click', function() {
 		jQuery(this).children().toggleClass('fa-caret-right fa-caret-left');
@@ -1386,12 +1388,28 @@ jQuery(document).ready(function(jQuery){
 		jQuery('.single-post-ad .img-box .main-img img').attr('src',img);
 	});
 	//ad page mobile image carousel
-	jQuery(".thumbs-img-m").slick({
-		centerMode: false,
-		centerPadding: '50px',
-		slidesToShow: 1,
-		rtl: true,
-		arrows: false		
+	jQuery(".thumbs-img-m").owlCarousel({
+		nav:false,
+		autoplay : false,
+		autoplayHoverPause : true,
+		singleItem:true,
+		pagination:true,
+		dot:true,
+		navigation:false,
+		lazyLoad : false,
+		rtl:true,
+		loop:true,
+		responsive:{
+			0:{
+				items:1
+			},
+			600:{
+				items:1
+			},
+			1000:{
+				items:1
+			}
+		}		
 	});	
 });
 jQuery(window).on('load', function () {	

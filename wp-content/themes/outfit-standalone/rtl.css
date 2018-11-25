@@ -567,6 +567,10 @@ html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, ht
 html[lang="he-IL"] *,html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{font-family:   "Assistant",sans-serif;}
 body, button, input, select, textarea, a,h1, h2, h3, h4, h5, h6{color: #191919;}
 body{font-size:16px;}
+.owl-carousel .owl-stage-outer{overflow: hidden!important;}
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span{    background: #fed3d6;}
+.owl-theme .owl-dots .owl-dot span{width: 13px;height: 13px;  margin: 0 4px;background: #fff;border: 1px solid #cac2c3;}
+.owl-theme .owl-dots{    position: absolute;bottom: 10px;left: 0;right: 0;}
 .dropdown-toggle{left: 0;}
 .no-border{    border-bottom: none;}
 .alert-info{color: #3d3d3d;background-color: #fed3d6;border-color: #fed3d6;}
@@ -742,6 +746,7 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .ad-tips{float: left;}
 .ad-tips .form-group.reg-text{padding: 0;padding-right: 30px;padding-top: 80px;}
 .ad-form{padding-left: 90px;padding-top: 50px;}
+.edit.ad-form,.edit .ad-form{padding-left: 15px;padding-top: 0;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box{float: right;padding: 0 5px 10px;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box{height: 120px;border: 1px solid #f3f3f3!important;margin-bottom: 0;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box .classiera-input-file + label{padding-top: 30px;padding-bottom: 0;margin: 0;background: none;}
@@ -769,7 +774,8 @@ body.page-two-column:not(.archive) #primary .post-241 .entry-content{width: 100%
 .single-post-ad .img-box .main-img img{width: 100%;}
 .single-post-ad .img-box .thumbs-img .item{margin-bottom: 15px;cursor:pointer;}
 .single-post-ad .img-box .thumbs-img{padding-left: 0;}
-.wish-share button{background: url(assets/images/add-to-wish.png) right 12px no-repeat;font-size: 16px;padding-right: 41px;}
+.wish-share button{font-size: 16px;padding-right: 0;background: transparent;}
+.wish-share button span{background: url(assets/images/add-to-wish.png) right 0 no-repeat;padding-right: 40px;    height: 20px;display: block;}
 .wish-share{margin-top: 10px;}
 .middle-ad-column h1{margin: 0;font-weight: 500;font-size: 20px;line-height: 20px;}
 .middle-ad-column .post-price{font-weight: 600;font-size: 20px;    margin-top: 10px;border-bottom: 1px solid #f3f3f3;padding-bottom: 10px;margin-bottom: 10px;}
@@ -793,6 +799,21 @@ html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background
 .single-post-ad .collect-details li.authorPhone span{background: url(assets/images/phone.png) right 2px no-repeat;letter-spacing: 1px!important;    padding-right: 25px;}
 .single-post-ad .collect-details li.PreferredHours span{display:block;}
 .single-post-ad .wish-share form{float: right;}
+.single-post-ad .wish-share .share{float: left;}
+.single-post-ad .wish-share .share ul{list-style: none;margin: 0;}
+.single-post-ad .wish-share .share ul li{float: left;margin-right: 10px;margin-top: 15px;}
+.single-post-ad .wish-share.mobile form{width: 100%;}
+.single-post-ad .wish-share.mobile button{border: 1px solid #f3f3f3;padding-right: 0;    padding-left: 0;width: 100%;text-align: center;}
+.single-post-ad .wish-share.mobile button span{display: inline-block;}
+.single-post-ad .whatsapp-share{float: right;width: 100%;margin-top: 20px;}
+.single-post-ad .whatsapp-share a{display: block;border: 1px solid #f3f3f3;height: 50px;line-height: 50px;text-align: center;}
+.single-post-ad .whatsapp-share a span{background: url(assets/images/whatsapp.png) right 12px no-repeat;display: inline-block;padding-right: 33px;background-size: 23px;;}
+.single-post-ad .wish-share.mobile .share ul li{float: none;display: inline-block;}
+.single-post-ad .wish-share.mobile .share{margin-bottom: 15px;text-align: center;width: 100%;}
+html[lang="he-IL"] .user-pages h1{font-weight: 600;font-size: 20px;padding-bottom: 10px;}
+.user-pages.section-gray-bg{padding:50px 0;}
+.submit-post.section-bg-white{padding: 7px 30px 35px;}
+.submit-post form .form-main-section .classiera-image-upload .classiera-image-box.edit{width:20%;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
 }
@@ -858,7 +879,7 @@ html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background
 	.top-pad-50.login-page{margin-top: -2.5em;padding-top: 0;padding-bottom: 0;}
 	.inner-page-content .login-register form .form-group, .forgot-title,.form-group.reg-text{padding: 0 20px;}
 	.about-features ul li{width: 49%;}
-	.ad-form{padding:0;}
+	.ad-form,.edit.ad-form, .edit .ad-form{padding:0;}
 	.ad-tips{float: none;display: inline-block;width: 100%;margin-top: 30px;}
 	.ad-tips .form-group.reg-text{padding: 0;}
 	.ad-page .row{margin:0;}
@@ -923,4 +944,10 @@ html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background
 	.single-post-ad .img-box .thumbs-img,.single-post-ad .main-img,.single-post-ad .middle-ad-column,.single-post-ad .post-left-side,.single-post-ad .media-box{padding: 0;}
 	.single-post-ad .row{margin: 0;}
 	.single-post-ad{    margin-top: 15px;}
+	.post-left-side{float: right;width: 100%;}
+	.single-post-ad .post-left{padding: 30px 30px 15px;}
+	html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background-position: right 0 top -2px;padding-right: 40px;display: inline-block;}
+	.submit-post.section-bg-white{padding: 7px 0 35px;}
+	.edit .submit-post.section-bg-white{padding: 7px 15px 35px;}
+	.submit-post form .form-main-section .classiera-image-upload .classiera-image-box.edit,.submit-post form .form-main-section .classiera-image-upload .classiera-image-box{    width: 50%;}
 }

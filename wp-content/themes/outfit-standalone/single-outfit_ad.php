@@ -188,35 +188,40 @@ get_header(); ?>
 												<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
 												<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
 													<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase">
-														<?php esc_html_e( 'הוסף ל- WISHLIST', 'outfit-standalone' ); ?>
+														<span><?php esc_html_e( 'הוסף ל- WISHLIST', 'outfit-standalone' ); ?></span>
 													</button>
 												<?php } else { ?>
 													<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
-														<?php esc_html_e( 'הסרה מה- WISHLIST', 'outfit-standalone' ); ?>
+														<span><?php esc_html_e( 'הסרה מה- WISHLIST', 'outfit-standalone' ); ?></span>
 													</button>
 												<?php } ?>
 											</form>
 											<?php endif; ?>
 											<div class="share">
-												
+												<ul>
+													<li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo get_permalink(); ?>" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+													<li><a href="https://twitter.com/home?status=<?php echo get_permalink(); ?>" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+													<li><a href="http://pinterest.com/pin/create/button/?url=<?php echo get_permalink(); ?>" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+													<li><a href="mailto:enteryour@addresshere.com?subject=<?php echo the_title(); ?>&body=<?php echo get_permalink(); ?>" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+												</ul>
 											</div>
 										</div>										
 									</div>
 								<?php else: ?>
 									<?php if(!empty($attachments)){ ?>
-										<div class="thumbs-img-m">
-										<?php
-										$count = 1;
-										foreach($attachments as $att_id => $attachment){
-											$full_img_url = wp_get_attachment_url($attachment->ID);
-											?>
-											<div class="item <?php if($count == 1){ echo "active"; }?>">
-												<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
-											</div>
+										<div class="thumbs-img-m owl-carousel">
 											<?php
-											$count++;
-										}
-										?>
+											$count = 1;
+											foreach($attachments as $att_id => $attachment){
+												$full_img_url = wp_get_attachment_url($attachment->ID);
+												?>
+												<div class="item <?php if($count == 1){ echo "active"; }?>">
+													<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
+												</div>
+												<?php
+												$count++;
+											}
+											?>
 										</div>										
 									<?php } ?>									
 								<?php endif; ?>
@@ -305,6 +310,35 @@ get_header(); ?>
 							<?php endif; ?>
 						</ul>
 					</div>
+					<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
+						<div class="wish-share mobile">
+							<?php if (!empty($userId)): ?>
+								<form method="post" class="fav-form clearfix">
+									<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
+									<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
+									<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase">
+										<span><?php esc_html_e( 'הוסף ל- WISHLIST', 'outfit-standalone' ); ?></span>
+									</button>
+									<?php } else { ?>
+									<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
+										<span><?php esc_html_e( 'הסרה מה- WISHLIST', 'outfit-standalone' ); ?></span>
+									</button>
+									<?php } ?>
+								</form>
+							<?php endif; ?>
+							<div class="whatsapp-share">
+								<a title="<?php echo the_title(); ?>" class="whatsapp-share-image" href="whatsapp://send?text=<?php //echo $watsappmessage; ?> » <?php echo the_title(); ?> » <?php echo get_permalink(); ?>"><span><?php esc_html_e( 'שיתוף ב- WhatsApp', 'outfit-standalone' ); ?></span></a>
+							</div>							
+							<div class="share">
+								<ul>
+									<li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo get_permalink(); ?>" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+									<li><a href="https://twitter.com/home?status=<?php echo get_permalink(); ?>" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+									<li><a href="http://pinterest.com/pin/create/button/?url=<?php echo get_permalink(); ?>" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+									<li><a href="mailto:enteryour@addresshere.com?subject=<?php echo the_title(); ?>&body=<?php echo get_permalink(); ?>" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+								</ul>
+							</div>
+						</div>	
+					<?php endif; ?>
 				</div>
 				<div class="col-md-3 col-sm-12 post-left-side">
 					<div class="post-left">

@@ -859,9 +859,6 @@
     height: 68px;
   }  
 }
-@media only screen and (max-width: 767px) {
-	.owl-dots{display:none !important;}
-}
 .modal-open .modal{
   z-index: 999999;
 }
