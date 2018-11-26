@@ -1111,3 +1111,41 @@ if (!function_exists('outfit_get_template_url')) {
 		return $url;
 	}
 }
+
+function outfit_format_price_range_label($priceRanges, $i, $currencyAfter = true) {
+	$currency = '&#8362';
+	$res = '';
+	$count = count($priceRanges);
+	if ($i+1 > $count) return $res;
+	if ($i+1 < $count) {
+		$res .= ($currencyAfter? $priceRanges[$i]['min'].$currency : $currency.$priceRanges[$i]['min']);
+		$res .= '-'.($currencyAfter? $priceRanges[$i]['max'].$currency : $currency.$priceRanges[$i]['max']);
+	}
+	else {
+		$res .= translate('Above').' '.($currencyAfter? $priceRanges[$i]['min'].$currency : $currency.$priceRanges[$i]['min']);
+	}
+	return $res;
+}
+
+function outfit_format_post_price($price, $currencyAfter = true) {
+	$currency = '&#8362';
+	$res = '';
+	if(!empty($price)) {
+		if(is_numeric($price)){
+			$res = ($currencyAfter? $price.' '.$currency : $currency.' '.$price);
+		}else{
+			$res = esc_attr( $price );
+		}
+	}
+	return $res;
+}
+
+function outfit_get_post_thumb_url($postId) {
+	if( has_post_thumbnail($postId)){
+		$img = wp_get_attachment_image_src( get_post_thumbnail_id($postId));
+		$url = $img[0];
+	}else{
+		$url = get_template_directory_uri() . '/assets/images/nothumb.png';
+	}
+	return $url;
+}

@@ -182,4 +182,31 @@ class OutfitLocation {
 
         return $json;
     }
+
+    public static function createFromJSON($jsonString) {
+
+        $json = json_decode($jsonString, true);
+        if (!$json) return null;
+
+        foreach ($json as $k => $v) {
+            if ($k != 'latitude' && $k != 'longitude') {
+                $json[$k] = outfitDecodeUnicodeString($v);
+            }
+        }
+        $postAddress = (isset($json['address'])? $json['address'] : '');
+        $postLatitude = (isset($json['latitude'])? $json['latitude'] : '');
+        $postLongitude = (isset($json['longitude'])? $json['longitude'] : '');
+
+        $postLocality = (isset($json['locality'])? $json['locality'] : '');
+        $postArea1 = (isset($json['aal1'])? $json['aal1'] : '');
+        $postArea2 = (isset($json['aal2'])? $json['aal2'] : '');
+        $postArea3 = (isset($json['aal3'])? $json['aal3'] : '');
+
+        return new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
+            'locality' => $postLocality,
+            'aal3' => $postArea3,
+            'aal2' => $postArea2,
+            'aal1' => $postArea1
+        ]);
+    }
 }

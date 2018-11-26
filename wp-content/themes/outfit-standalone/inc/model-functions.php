@@ -66,7 +66,8 @@ function outfit_get_list_of_colors() {
 
     $colors = get_terms('colors', array(
             'hide_empty' => 0,
-            'parent' => 0
+            'parent' => 0,
+            'meta_key' => 'color'
         )
     );
     return $colors;
@@ -328,4 +329,21 @@ function validateDateInput($input) {
     $format = 'Y-m-d';
     $date = DateTime::createFromFormat($format, $input);
     return $date && DateTime::getLastErrors()['warning_count'] == 0 && DateTime::getLastErrors()['error_count'] == 0;
+}
+
+function getAuthorFullName($postAuthorId) {
+
+    $firstName = get_the_author_meta(USER_META_FIRSTNAME, $postAuthorId);
+    $lastName = get_the_author_meta(USER_META_LASTNAME, $postAuthorId);
+    if (!empty($firstName) && !empty($lastName)) {
+        return ($firstName . ' ' . $lastName);
+    }
+    $postAuthorName = get_the_author_meta('display_name', $postAuthorId );
+    if (empty($postAuthorName)) {
+        $postAuthorName = get_the_author_meta('user_nicename', $postAuthorId);
+    }
+    if (empty($postAuthorName)) {
+        $postAuthorName = get_the_author_meta('user_login', $postAuthorId );
+    }
+    return $postAuthorName;
 }
