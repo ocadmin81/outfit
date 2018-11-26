@@ -93,7 +93,7 @@ $currentPageId = $page->ID;
 
 if ($userId) {
 	if ($_POST) {
-		$message =  esc_html__( 'Your profile updated successfully.', 'outfit-standalone' );
+		$message =  esc_html__( 'הפרופיל שלך עודכן בהצלחה.', 'outfit-standalone' );
 
 		$userFirstName = $_POST['first_name'];
 		$userLastName = $_POST['last_name'];
@@ -172,7 +172,7 @@ if ($userId) {
 		if($password){
 
 			if (strlen($password) < 5 || strlen($password) > 25) {
-				$message =  esc_html__( 'Password must be 5 to 25 characters in length.', 'outfit-standalone' );
+				$message =  esc_html__( 'סיסמא חייבת להיות בין 5-20 תווים.', 'outfit-standalone' );
 			}
 
 			//elseif( $password == $confirm_password ) {
@@ -180,12 +180,12 @@ if ($userId) {
 			$confirmPWD2 = $_POST['confirm2'];
 			if(isset($confirmPWD) && $confirmPWD != $confirmPWD2) {
 
-				$message =  esc_html__( 'Password Mismatch', 'outfit-standalone' );
+				$message =  esc_html__( 'הסיסמאות לא שוות', 'outfit-standalone' );
 
 			} elseif ( isset($confirmPWD) && !empty($password) ) {
 
 				wp_set_password( $confirmPWD, $userId );
-				$message =  esc_html__( 'Your profile updated successfully.', 'outfit-standalone' );
+				$message =  esc_html__( 'הפרופיל שלך עודכן בהצלחה.', 'outfit-standalone' );
 
 			}
 		}
@@ -223,7 +223,7 @@ get_header();
 ?>
 <!-- user pages -->
 <section class="user-pages section-gray-bg">
-	<div class="container">
+	<div class="wrap ad-page user-page">
 		<div class="row">
 			<div class="col-lg-3 col-md-4">
 				<?php get_template_part( 'templates/profile/profile-sidebar' );?>
@@ -237,42 +237,41 @@ get_header();
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads user-profile-settings">
 						<form data-toggle="validator" role="form" method="POST" id="primaryPostForm" action="" enctype="multipart/form-data">
-							<!-- upload avatar -->
-							<h4 class="user-detail-section-heading text-uppercase">
-								<?php esc_html_e("Basic Information", 'outfit-standalone') ?>
-							</h4>
+							<!-- upload avatar -->								
+							<h1 class="user-detail-section-heading text-uppercase border-bottom"><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></h1>
 							<div class="media">
 								<div class="uploadImage">
 									<img class="media-object img-circle author-avatar" src="<?php echo esc_url( $outfitAuthorThumb ); ?>" alt="<?php echo esc_attr( $userName ); ?>">
 									<input class="criteria-image-url" id="your_image_url" type="text" size="36" name="your_author_image_url" style="display: none;" value="" />
 								</div>
-								<div class="media-body">
+								<div class="media-upload">
 									<h5 class="media-heading text-uppercase">
-										<?php esc_html_e( 'Update your Profile Photo', 'outfit-standalone' ); ?>
+										<?php esc_html_e( 'עדכנו תמונת פרופיל', 'outfit-standalone' ); ?>
 									</h5>
 									<div class="choose-image">
 										<input type="file" id="file-1" name="upload_attachment[]" class="inputfile inputfile-1 author-UP" data-multiple-caption="{count} files selected" multiple />
-										<label for="file-1" class="upload-author-image"><i class="fa fa-camera"></i>
-											<span><?php esc_html_e( 'Upload photo', 'outfit-standalone' ); ?></span>
+										<label for="file-1" class="upload-author-image">
+											<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/camera-small.png" />
+											<span><?php esc_html_e( 'עדכן תמונה', 'outfit-standalone' ); ?></span>
 										</label>
 
 									</div>
 								</div>
 							</div><!-- /.upload avatar -->
-							<div class="form-inline row form-inline-margin">
-								<div class="form-group col-sm-5">
-									<label for="first-name"><?php esc_html_e( 'First Name', 'outfit-standalone' ); ?></label>
+							<div class="form-inline row">
+								<div class="form-group col-sm-6">
+									<label for="first-name"><?php esc_html_e( 'שם פרטי', 'outfit-standalone' ); ?></label>
 									<div class="inner-addon">
-										<input type="text" id="first-name" name="first_name" class="form-control form-control-sm"
-											   placeholder="<?php esc_html_e( 'Update first Name..', 'outfit-standalone' ); ?>"
+										<input type="text" id="first-name" name="first_name" class="form-control form-control-md"
+											   placeholder="<?php esc_html_e( 'עדכן שם פרטי', 'outfit-standalone' ); ?>"
 											   value="<?php echo esc_attr( $userFirstName ); ?>">
 									</div>
 								</div><!--Firstname-->
-								<div class="form-group col-sm-5">
-									<label for="last-name"><?php esc_html_e( 'Last Name', 'outfit-standalone' ); ?></label>
+								<div class="form-group col-sm-6">
+									<label for="last-name"><?php esc_html_e( 'שם משפחה', 'outfit-standalone' ); ?></label>
 									<div class="inner-addon">
 										<input type="text" id="last-name" name="last_name" class="form-control form-control-sm"
-											   placeholder="<?php esc_html_e( 'update last Name', 'outfit-standalone' ); ?>"
+											   placeholder="<?php esc_html_e( 'עדכן שם משפחה', 'outfit-standalone' ); ?>"
 											   value="<?php echo esc_attr( $userLastName); ?>">
 									</div>
 								</div><!--Last name-->
@@ -280,31 +279,30 @@ get_header();
 							<!-- user basic information -->
 							<!-- Contact Details -->
 							<h4 class="user-detail-section-heading text-uppercase">
-								<?php esc_html_e( 'Contact Details', 'outfit-standalone' ); ?>
+								<?php esc_html_e( 'פרטי התקשרות', 'outfit-standalone' ); ?>
 							</h4>
-							<div class="form-inline row form-inline-margin">
-								<div class="form-group col-sm-5">
-									<label for="phone"><?php esc_html_e( 'Phone Number', 'outfit-standalone' ); ?></label>
-									<div class="inner-addon">
-										<input type="tel" id="phone" class="form-control form-control-sm"
-											   placeholder="<?php esc_html_e( 'Your Phone No', 'outfit-standalone' ); ?>"
-											   name="phone" value="<?php echo esc_html( $userPhone ); ?>">
-									</div>
-								</div><!--Phone Number-->
-								<div class="form-group col-sm-5">
-									<label for="email"><?php esc_html_e( 'Your Email', 'outfit-standalone' ); ?></label>
+							<div class="form-inline row">
+								<div class="form-group col-sm-6">
+									<label for="email"><?php esc_html_e( 'אימייל', 'outfit-standalone' ); ?></label>
 									<div class="inner-addon">
 										<input type="text" id="email" name="email" class="form-control form-control-sm"
-											   placeholder="<?php esc_html_e( 'enter your email address', 'outfit-standalone' ); ?>"
+											   placeholder="<?php esc_html_e( '', 'outfit-standalone' ); ?>"
 											   value="<?php echo sanitize_email( $userEmail ); ?>">
 										<input type="hidden" name="current_email" value="<?php echo sanitize_email( $userEmail ); ?>">
 									</div>
-								</div><!--Your Email-->
-								<div class="form-group col-sm-12">
-									<label for="preferredhours"><?php esc_html_e( 'Preferred time to call', 'outfit-standalone' ); ?></label>
+								</div><!--Your Email-->							
+								<div class="form-group col-sm-6">
+									<label for="phone"><?php esc_html_e( 'טלפון', 'outfit-standalone' ); ?></label>
 									<div class="inner-addon">
-										<textarea name="preferredhours" id="preferredhours"
-												  placeholder="<?php esc_html_e( 'enter your preferred time.', 'outfit-standalone' ); ?>"><?php echo esc_html( $userPreferredHours ); ?></textarea>
+										<input type="tel" id="phone" class="form-control form-control-sm"
+											   placeholder="<?php esc_html_e( '', 'outfit-standalone' ); ?>"
+											   name="phone" value="<?php echo esc_html( $userPhone ); ?>">
+									</div>
+								</div><!--Phone Number-->
+								<div class="form-group col-sm-12">
+									<label for="preferredhours"><?php esc_html_e( 'שעות מועדפות ליצירת קשר', 'outfit-standalone' ); ?></label>
+									<div class="inner-addon">
+										<input type="text" name="preferredhours" id="preferredhours" class="form-control form-control-sm" value="<?php echo esc_html( $userPreferredHours ); ?>" placeholder="<?php esc_html_e( '', 'outfit-standalone' ); ?>">
 									</div>
 								</div><!-- preferred time -->
 							</div>
@@ -312,14 +310,15 @@ get_header();
 
 							<!-- Addresses -->
 							<h4 class="user-detail-section-heading text-uppercase">
-								<?php esc_html_e( 'Collect points', 'outfit-standalone' ); ?>
+								<?php esc_html_e( 'אזורי הגעה', 'outfit-standalone' ); ?>
 							</h4>
+							<div class="ex"><?php echo do_shortcode("[do_widget id=text-22]"); ?></div>
 							<!--Address-->
-							<div class="form-inline row form-inline-margin">
-							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Primary address', 'outfit-standalone'); ?></label>
-								<div class="col-sm-9">
-									<input class="address" id="address" type="text" name="address" class="form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
+							<div class="form-inline row">
+							<div class="form-group col-sm-6">
+								<label class="text-left flip"><?php esc_html_e('אזור עיקרי', 'outfit-standalone'); ?></label>
+								<div class="inner-addon">
+									<input id="address" type="text" name="address" class="form-control form-control-sm address" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
 									<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
@@ -329,11 +328,11 @@ get_header();
 								</div>
 							</div>
 
-							<div class="form-group">
-								<label class="col-sm-3 text-left flip"><?php esc_html_e('Secondary address', 'outfit-standalone'); ?> : </label>
-								<div class="col-sm-9">
+							<div class="form-group col-sm-6">
+								<label class="text-left flip"><?php esc_html_e('איזורי הגעה נוספים ( לא חובה)', 'outfit-standalone'); ?> : </label>
+								<div class="inner-addon">
 
-									<input class="address" id="address_2" type="text" name="address_2" class="form-control form-control-md" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
+									<input id="address_2" type="text" name="address_2" class="address form-control form-control-sm" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2" value="<?php echo esc_html($postSecLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2" value="<?php echo esc_html($postSecLongitude); ?>">
 									<input class="locality" type="hidden" id="locality_2" name="locality_2" value="<?php echo esc_html($postSecLocality); ?>">
@@ -347,34 +346,34 @@ get_header();
 
 							<!-- Kids Birthdays -->
 							<h4 class="user-detail-section-heading text-uppercase">
-								<?php esc_html_e( 'Kids birthdays', 'outfit-standalone' ); ?>
+								<?php esc_html_e( 'תאריך לידה של הילדים', 'outfit-standalone' ); ?>
 							</h4>
-							<div class="form-inline row form-inline-margin">
-								<div class="form-group col-sm-4">
+							<div class="form-inline form-group row">
+								<div class="inner-addon col-sm-4">
 									<input type="date"
 										   class="form-control form-control-sm"
 										   id="birthday1"
 										   name="birthdays[]"
 										   value="<?php echo esc_attr($birthday1); ?>"
-										   title="Please use DD.MM.YYYY as the date format."
+										   title="יש להשתמש בפורמט תאריך DD.MM.YYYY"
 										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
-								<div class="form-group col-sm-4">
+								<div class="inner-addon col-sm-4">
 									<input type="date"
 										   class="form-control form-control-sm"
 										   id="birthday2"
 										   name="birthdays[]"
 										   value="<?php echo esc_attr($birthday2); ?>"
-										   title="Please use DD.MM.YYYY as the date format."
+										   title="יש להשתמש בפורמט תאריך DD.MM.YYYY"
 										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
-								<div class="form-group col-sm-4">
+								<div class="inner-addon col-sm-4">
 									<input type="date"
 										   class="form-control form-control-sm"
 										   id="birthday3"
 										   name="birthdays[]"
 										   value="<?php echo esc_attr($birthday3); ?>"
-										   title="Please use DD.MM.YYYY as the date format."
+										   title="יש להשתמש בפורמט תאריך DD.MM.YYYY"
 										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
 							</div>
@@ -382,22 +381,14 @@ get_header();
 
 							<!-- About me -->
 							<h4 class="user-detail-section-heading text-uppercase">
-								<?php esc_html_e( 'About me', 'outfit-standalone' ); ?>
+								<?php esc_html_e( 'תספרו לנו עליכם', 'outfit-standalone' ); ?>
 							</h4>
-							<div class="form-inline row form-inline-margin">
-
-								<div class="form-group col-sm-12">
-									<label for="bio"><?php esc_html_e( 'Biography', 'outfit-standalone' ); ?></label>
-									<div class="inner-addon">
-										<textarea name="desc" id="bio" placeholder="<?php esc_html_e( 'enter your short info.', 'outfit-standalone' ); ?>"><?php echo esc_html( $userAbout ); ?></textarea>
-									</div>
-								</div><!--biography-->
-
-								<div class="form-group col-sm-12">
-									<label for="favbrands"><?php esc_html_e('Favorite brands', 'outfit-standalone') ?> </label>
+							<div class="form-inline row">
+								<div class="form-group col-sm-6">
+									<label for="favbrands"><?php esc_html_e('מותגים אהובים', 'outfit-standalone') ?> </label>
 									<div class="">
 										<select id="favbrands" name="favbrands[]" class="form-control form-control-md" multiple>
-											<option value=""><?php esc_html_e('Select Brands', 'outfit-standalone'); ?></option>
+											<option value=""><?php esc_html_e('בחרו מותגים מהרשימה', 'outfit-standalone'); ?></option>
 											<?php
 											foreach ($brands as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"
@@ -407,12 +398,19 @@ get_header();
 										</select>
 									</div>
 								</div><!-- /Ad Brands-->
+								<div class="form-group col-sm-12">
+									<label for="bio"><?php esc_html_e( 'כמה מילים עליי', 'outfit-standalone' ); ?></label>
+									<div class="inner-addon">
+										<textarea name="desc" id="bio" placeholder="<?php esc_html_e( 'אני אמא לשניים, אוהבת עיצוב...', 'outfit-standalone' ); ?>"><?php echo esc_html( $userAbout ); ?></textarea>
+									</div>
+								</div><!--biography-->
 							</div>
 							<!-- About me -->
 
 							<!-- Update your Password -->
-							<h4 class="user-detail-section-heading text-uppercase"><?php esc_html_e( 'Update your Password', 'outfit-standalone' ); ?></h4>
-							<div class="form-inline row">
+							<h4 class="user-detail-section-heading text-uppercase"><?php esc_html_e( 'שינוי סיסמא', 'outfit-standalone' ); ?></h4>
+							<div class="ex"><p><?php esc_html_e( 'אם ברצונך לשנות סיסמא הכנס חדשה, אחרת אשאר ריק', 'outfit-standalone' ); ?></p></div>
+							<div class="form-inline row" style="display:none;">
 								<div class="form-group col-sm-5">
 									<label for="current-pass">
 										<?php esc_html_e( 'Enter Current Password', 'outfit-standalone' ); ?>
@@ -423,33 +421,30 @@ get_header();
 								</div>
 							</div><!--currentpass-->
 							<div class="form-inline row">
-								<div class="form-group col-sm-5">
+								<div class="form-group col-sm-6">
 									<label for="new-pass">
-										<?php esc_html_e( 'Enter New Password', 'outfit-standalone' ); ?>
+										<?php esc_html_e( 'סיסמא חדשה', 'outfit-standalone' ); ?>
 									</label>
 									<div class="inner-addon">
-										<input type="password" name="confirm" data-minlength="5" class="form-control form-control-sm" placeholder="<?php esc_html_e( 'Enter Password', 'outfit-standalone' ); ?>" id="new-pass" data-error="<?php esc_html_e( 'Password required', 'outfit-standalone' ); ?>">
+										<input type="password" name="confirm" data-minlength="5" class="form-control form-control-sm" placeholder="<?php esc_html_e( '', 'outfit-standalone' ); ?>" id="new-pass" data-error="<?php esc_html_e( 'סיסמא חובה', 'outfit-standalone' ); ?>">
 										<div class="help-block">
-											<?php esc_html_e( 'Minimum of 5 characters', 'outfit-standalone' ); ?>
+											<?php esc_html_e( '5 תווים מינימום', 'outfit-standalone' ); ?>
 										</div>
 									</div>
 								</div>
-							</div><!--Enter New Password-->
-							<div class="form-inline row">
-								<div class="form-group col-sm-5">
+								<div class="form-group col-sm-6">
 									<label for="re-enter">
-										<?php esc_html_e( 'Re-enter New Password', 'outfit-standalone' ); ?>
+										<?php esc_html_e( 'הקדלת סיסמא שוב', 'outfit-standalone' ); ?>
 									</label>
 									<div class="inner-addon">
-										<input type="password" id="re-enter" name="confirm2" class="form-control form-control-sm sharp-edge" placeholder="<?php esc_html_e( 'Re-enter New Password', 'outfit-standalone' ); ?>" data-match="#new-pass" data-match-error="<?php esc_html_e( 'Whoops, these dont match', 'outfit-standalone' ); ?>">
+										<input type="password" id="re-enter" name="confirm2" class="form-control form-control-sm sharp-edge" placeholder="<?php esc_html_e( '', 'outfit-standalone' ); ?>" data-match="#new-pass" data-match-error="<?php esc_html_e( 'אופס, זה לא מתאים', 'outfit-standalone' ); ?>">
 										<div class="help-block with-errors"></div>
 									</div>
-								</div>
-							</div><!--Enter New Password-->
-							<p><?php esc_html_e( 'If you would like to change the password type a new one. Otherwise leave this blank.', 'outfit-standalone' ); ?></p>
+								</div>								
+							</div><!--Enter New Password-->							
 							<?php wp_nonce_field('post_nonce', 'post_nonce_field'); ?>
 							<input type="hidden" name="submitted" id="submitted" value="true" />
-							<button type="submit" name="op" value="update_profile" class="btn btn-primary sharp btn-sm btn-style-one"><?php esc_html_e('Update Now', 'outfit-standalone') ?></button>
+							<button type="submit" name="op" value="update_profile" class="btn btn-primary sharp btn-sm btn-style-one"><?php esc_html_e('שמירת שינויים', 'outfit-standalone') ?></button>
 							<!-- Update your Password -->
 						</form>
 					</div><!--user-ads user-profile-settings-->

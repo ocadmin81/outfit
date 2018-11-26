@@ -572,6 +572,8 @@ body{font-size:16px;}
 .owl-theme .owl-dots .owl-dot span{width: 13px;height: 13px;  margin: 0 4px;background: #fff;border: 1px solid #cac2c3;}
 .owl-theme .owl-dots{    position: absolute;bottom: 10px;left: 0;right: 0;}
 .dropdown-toggle{left: 0;}
+.form-inline select.form-control{background: url(assets/images/select-arrow.png) 18px 18px no-repeat;width: 100%;font-size: 16px;color: #191919;border-radius: 0;height: 45px;border-color: #e2e2e4;}
+.form-inline select.form-control[multiple]{background:none;height: auto;}
 .no-border{    border-bottom: none;}
 .alert-info{color: #3d3d3d;background-color: #fed3d6;border-color: #fed3d6;}
 html[lang="he-IL"] button.btn-primary{width: 100%;text-align: center;color: #3d3d3d;font-size: 18px;background: #fed3d6;font-weight: 500;opacity: 1;}
@@ -720,6 +722,9 @@ html[lang="he-IL"] .home-blog-title h2{color: #6e6e6e;font-size: 26px;font-famil
 .archive .site-main > article .post-thumbnail{margin-bottom: 0;}
 .archive .site-main > article .entry-content{    max-height: 42px;overflow: hidden;}
 .archive .site-main > article .entry-content p{line-height: 20px;}
+#comments{background: #fbfbfb;padding-top: 20px;margin-top: 50px;float: right;width: 100%;}
+.comment-respond{text-align: center;}
+html[lang="he-IL"] .comment-respond h3{font-weight: 500;font-size: 22px;margin-top: 0;}
 .has-sidebar:not(.error404) #primary.full{    margin-top: 50px;}
 .archive .site-main > article .to-article a{display: block;width: 150px;height: 40px;line-height: 40px;border: 1px solid #efefef;text-align: center;background:  url(assets/images/arrow-left.png) 20px 15px no-repeat;margin-top: 20px;color: #6e6e6e;font-size: 15px;}
 .single-post-page .entry-title{font-size: 22px;font-weight: 500;}
@@ -810,10 +815,47 @@ html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background
 .single-post-ad .whatsapp-share a span{background: url(assets/images/whatsapp.png) right 12px no-repeat;display: inline-block;padding-right: 33px;background-size: 23px;;}
 .single-post-ad .wish-share.mobile .share ul li{float: none;display: inline-block;}
 .single-post-ad .wish-share.mobile .share{margin-bottom: 15px;text-align: center;width: 100%;}
-html[lang="he-IL"] .user-pages h1{font-weight: 600;font-size: 20px;padding-bottom: 10px;}
+html[lang="he-IL"] .user-pages h1,.user-pages .user-detail-section .user-detail-section-heading{font-weight: 600;font-size: 20px;padding-bottom: 10px;margin-bottom: 10px;margin-top: 20px;}
 .user-pages.section-gray-bg{padding:50px 0;}
 .submit-post.section-bg-white{padding: 7px 30px 35px;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box.edit{width:20%;}
+.user-pages aside .user-page-list li a{padding-right: 27px;padding-top: 1px;}
+.user-pages aside .user-page-list li a span{color: #191919;font-size: 17px;}
+.user-pages aside .user-page-list li.active a span{transform: none;    color: #191919;}
+.user-pages aside .user-page-list li.active a{background:transparent;}
+.user-pages aside .user-page-list li.active,.user-pages aside .user-page-list li:hover{background: #fed3d6;}
+.user-pages aside .user-page-list{padding: 0 15px;margin-bottom: 150px;padding-top: 25px;}
+.user-pages aside .user-page-list li a:hover span{transform: none;color: #191919;}
+.user-pages aside .user-page-list li a:hover{background: transparent;color: #191919;}
+.user-pages aside .user-page-list li{border-bottom: 1px solid #f3f3f3;padding: 12px 15px;}
+.user-pages aside .user-page-list li.user a{background: url(assets/images/user-menu-user-icon.png) right 0 no-repeat;}
+.user-pages aside .user-page-list li.ads a{background: url(assets/images/user-menu-ads-icon.png) right 0 no-repeat;}
+.user-pages aside .user-page-list li.wish a{background: url(assets/images/user-menu-wish-icon.png) right 0 no-repeat;}
+.user-pages aside .user-page-list li.seller a{background: url(assets/images/user-menu-seller-icon.png) right 0 no-repeat;}
+.user-pages aside .user-page-list li.logout a{background: url(assets/images/user-menu-logout-icon.png) right 0 no-repeat;}
+.user-pages .user-detail-section{padding: 7px 30px 35px;}
+.user-page .uploadImage,.user-page .media-upload{display: inline-block;vertical-align: top;margin-left: 15px;}
+.user-pages .user-detail-section .user-profile-settings form .media .media-object{    width: 115px;height: 115px;object-fit: cover;-o-object-fit: cover;border-radius: 0;}
+.user-pages .user-detail-section .user-profile-settings form .media .media-heading{color: #191919;font-weight: 600!important;font-size: 18px;margin-bottom: 10px;}
+.user-page .upload-author-image{width: 160px;height: 40px;background: #e9e9e9!important;color: #191919;font-size: 16px;max-width: 100%;}
+.user-page .upload-author-image span{display: inline-block;margin: 0px 5px;position: relative;top: 2px;}
+.user-pages .user-detail-section .user-profile-settings form .media{margin-bottom: 0;}
+.user-pages .user-detail-section .user-profile-settings form .form-group label{color: #191919;font-weight: 500;padding-top: 7px;font-size: 18px;margin-bottom: 10px;}
+.user-pages .user-detail-section .user-profile-settings form .form-group .inner-addon .form-control, .user-pages .user-detail-section .user-profile-settings form .form-group .inner-addon textarea{border-radius: 0;color: #191919;}
+.user-pages .user-detail-section .user-profile-settings form .form-group .inner-addon textarea{padding: 0.7em;font-size: 16px;height: 55px;}
+.user-pages .user-detail-section .user-profile-settings form .form-group .inner-addon .form-control{    font-size: 16px;color: #191919;border-radius: 0;height: 45px;border-color: #e2e2e4;}
+.user-pages .user-detail-section .user-profile-settings form .form-group .inner-addon{margin-bottom: 0;}
+.user-pages .user-detail-section h4.user-detail-section-heading{margin-top: 0;margin-bottom: 20px;}
+.user-page .ex p{    margin: 0;}
+.user-pages input[type="date"]{background: url(assets/images/calendar-small.png) 15px 50% no-repeat;}
+.user-pages aside.mobile-user-menu{display:none;    margin-top: -20px;    margin-bottom: 20px;}
+.user-pages aside.mobile-user-menu.active{display:block;}
+.user-menu-heading{background: #fff url(assets/images/select-arrow.png) 18px 50% no-repeat;margin-bottom: 20px;height: 55px;line-height: 55px;text-align: right;padding-right: 18px;font-size: 25px;}
+.user-menu-heading .user{background: url(assets/images/user-menu-user-icon.png) right 5px no-repeat;}
+.user-menu-heading .ads{background: url(assets/images/user-menu-ads-icon.png) right 5px no-repeat;}
+.user-menu-heading .wish{background: url(assets/images/user-menu-wish-icon.png) right 5px no-repeat;}
+.user-menu-heading .seller{background: url(assets/images/user-menu-seller-icon.png) right 5px no-repeat;}
+.user-menu-heading span{    padding-right: 30px;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
 }
@@ -846,7 +888,8 @@ html[lang="he-IL"] .user-pages h1{font-weight: 600;font-size: 20px;padding-botto
 		width: 33.333%;
 		padding: 0 10px;
 	}	
-	.navigation-top nav{border-bottom: 1px solid #f3f3f3;margin-bottom: 15px;}
+	.navigation-top nav{border-bottom: 1px solid #f3f3f3;margin-bottom: 15px;    margin-left: 0;}
+	.form-inline .form-group{margin-bottom: 20px;}
 }
 @media screen and (min-width: 67em){
 	.navigation-top .wrap{max-width: 1300px;padding: 0;}	
@@ -860,8 +903,12 @@ html[lang="he-IL"] .user-pages h1{font-weight: 600;font-size: 20px;padding-botto
 	.single-post-ad .post-left{padding: 30px 10px 15px;}
 	html[lang="he-IL"] .single-post-ad .classiera_follow_user button{padding: 0;}
 }
+@media only screen and (min-width: 1024px){
+	.user-pages #sideBarAffix.affix{position: static;width: 100%;}
+}
 @media screen and (max-width: 1024px){
 	.start-selling-text{height: 100%;top: 50px;right: 150px;}
+	.navigation-top nav{    margin-bottom: 0;}
 }
 @media screen and (max-width: 991px) and (min-width: 768px){
 	html[lang="he-IL"] .single-post-ad .classiera_follow_user button{padding: 0px 20px;width: auto;text-align: right;}
@@ -884,6 +931,10 @@ html[lang="he-IL"] .user-pages h1{font-weight: 600;font-size: 20px;padding-botto
 	.ad-tips .form-group.reg-text{padding: 0;}
 	.ad-page .row{margin:0;}
 	.custom-header{padding-bottom: 20px;}
+	.user-pages.section-gray-bg{padding: 35px 0;}
+	.user-pages aside .user-page-list{margin-bottom: 0;}
+	.user-pages .col-md-4,.user-pages .col-md-8,.user-pages .col-md-6,.user-pages .col-sm-6,.user-pages .col-sm-4,.user-pages .col-sm-12{padding:0;}
+	.user-pages .user-detail-section{padding: 7px 15px 35px;}
 }
 @media screen and (max-width: 767px){
 	.site-content{padding: 15px 0 0;}
@@ -949,5 +1000,7 @@ html[lang="he-IL"] .user-pages h1{font-weight: 600;font-size: 20px;padding-botto
 	html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background-position: right 0 top -2px;padding-right: 40px;display: inline-block;}
 	.submit-post.section-bg-white{padding: 7px 0 35px;}
 	.edit .submit-post.section-bg-white{padding: 7px 15px 35px;}
-	.submit-post form .form-main-section .classiera-image-upload .classiera-image-box.edit,.submit-post form .form-main-section .classiera-image-upload .classiera-image-box{    width: 50%;}
+	.submit-post form .form-main-section .classiera-image-upload .classiera-image-box.edit,.submit-post form .form-main-section .classiera-image-upload .classiera-image-box{    width: 50%;}	
+	.top-blog .taxonomy-description{margin: 0 15px;}
+	.user-pages .user-detail-section .user-profile-settings form .form-group .inner-addon.col-sm-4{margin-bottom:15px;}
 }

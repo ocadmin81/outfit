@@ -1411,6 +1411,10 @@ jQuery(document).ready(function(jQuery){
 			}
 		}		
 	});	
+	//user menu in mobile
+	jQuery('.user-menu-heading').click(function() {
+		jQuery('.user-pages aside').toggleClass('active');
+	});
 });
 jQuery(window).on('load', function () {	
     var mqxs = window.matchMedia( "(max-width: 1024px)" );
