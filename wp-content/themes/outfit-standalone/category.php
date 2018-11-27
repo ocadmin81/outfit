@@ -146,16 +146,25 @@ $products = array();
 												$postLocations[] = array($loc2->getLatitude(), $loc2->getLongitude());
 											}
 
+											$pThumb = esc_url(outfit_get_post_thumb_url($post->ID));
+											$pPrice = outfit_format_post_price(get_post_meta($post->ID, POST_META_PRICE, true));
+											$pBrand = esc_attr(implode(', ', getPostTermNames($post->ID, 'brands')));
 											$products[] = array(
 												'id' => $post->ID,
 												'author_id' => $post->post_author,
 												'author_name' => esc_attr(getAuthorFullName($postAuthorId)),
 												'title' => get_the_title(),
-												'price' => outfit_format_post_price(get_post_meta($post->ID, POST_META_PRICE, true)),
-												'thumb_img_url' => esc_url(outfit_get_post_thumb_url($post->ID)),
+												'price' => $pPrice,
+												'thumb_img_url' => $pThumb,
 												'author_img_url' => esc_url(outfit_get_user_picture($postAuthorId, 50)),
-												'brand' => esc_attr(implode(', ', getPostTermNames($post->ID, 'brands'))),
-												'locations' => $postLocations
+												'brand' => $pBrand,
+												'locations' => $postLocations,
+												'content' => '<a class="classiera_map_div" href="'.get_the_permalink().'">'
+													.'<img class="classiera_map_div__img" src="'.$pThumb.'" alt="images">'
+													.'<div class="classiera_map_div__body">'
+													.'<p class="classiera_map_div__price">'.__( "Price", 'outfit-standalone').' : <span>'.$pPrice.'</span></p>'
+													.'<h5 class="classiera_map_div__heading">'.get_the_title().'</h5>'
+													.'<p class="classiera_map_div__cat">'.__( "Brand", 'outfit-standalone').' : '.$pBrand.'</p></div></a>'
 											);
 										endwhile;
 										?>
@@ -178,19 +187,37 @@ $products = array();
 												var map;
 												function initMap(lat, long) {
 													var point = {lat: lat, lng: long};
-													// The map, centered at Uluru
+
 													map = new google.maps.Map(
-														document.getElementById('outfit_main_map'), {zoom: 8, center: point});
-													var addressPoints = jQuery.parseJSON(jQuery('#current-address-points').text());
-													var markerArray = [];
-													for (var i = 0; i < addressPoints.length; i++){
-														var a = addressPoints[i];
+														document.getElementById('outfit_main_map'), {zoom: 7, center: point});
+
+													loadAddressPoints();
+
+												}
+
+												function loadAddressPoints() {
+													var products = jQuery.parseJSON(jQuery('#current-address-points').text());
+													var markers = [];
+													for (var i = 0; i < products.length; i++){
+														var a = products[i];
+														var infowindow = new google.maps.InfoWindow({
+															content: a.content
+														});
 														for (var j = 0; j < a.locations.length; j++) {
 															var coords = a.locations[j];
 															var position = {lat: parseFloat(coords[0]), lng: parseFloat(coords[1])};
-															var marker = new google.maps.Marker({position: position, map: map});
+															var marker = new google.maps.Marker({position: position, map: map, title: a.title});
+															marker.addListener('click', function() {
+																infowindow.open(map, marker);
+															});
+															//markers.push(marker);
 														}
 													}
+													//var bounds = new google.maps.LatLngBounds();
+													//for (i = 0; i < markers.length; i++) {
+													//	bounds.extend(markers[i].getPosition());
+													//}
+													//map.fitBounds(bounds);
 												}
 
 												jQuery(document).ready(function() {

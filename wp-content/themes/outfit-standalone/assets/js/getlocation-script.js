@@ -60,7 +60,7 @@ jQuery(document).ready(function(){
         select: function(event, ui) {
           var parent = jQuery(this).parent();
           parent.find(".latitude").val(ui.item.latitude);
-          parent.find(".longitude").val(ui.item.latitude);
+          parent.find(".longitude").val(ui.item.longitude);
           parent.find(".locality").val(ui.item.hash.locality);
           parent.find(".aal3").val(ui.item.hash.aal3);
           parent.find(".aal2").val(ui.item.hash.aal2);

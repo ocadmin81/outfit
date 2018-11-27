@@ -28,7 +28,7 @@ function outfit_scripts_styles(){
 	wp_enqueue_script('jquery-ui', get_template_directory_uri() . '/assets/js/jquery-ui.min.js', 'jquery', '', true);
 	wp_enqueue_script('outfit-map', get_template_directory_uri() . '/assets/js/outfit-map.js', 'jquery', '', true);
 
-	wp_enqueue_script( 'outfit-google-maps-script', 'https://maps.googleapis.com/maps/api/js?key='.$googleApiKey.'&language='.$mapLang.'&region='.$mapRegion.'&v=3.exp'.'&callback=initMap', array( 'jquery' ), '2014-07-18', true );
+	wp_enqueue_script( 'outfit-google-maps-script', 'https://maps.googleapis.com/maps/api/js?key='.$googleApiKey.'&language='.$mapLang.'&region='.$mapRegion.'', array( 'jquery' ), '', true );
 	if( is_page_template('template-submit-ads.php') ||
 		is_page_template('template-edit-ads.php') ||
 		is_page_template('template-edit-profile.php') ||
