@@ -220,3 +220,12 @@ $postCharacter = '';
 	</div><!--search-form-->
 </form>
 <!--SearchForm-->
+
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+
+		jQuery('.inner-search-box').on("change", "input, select", function(){
+			jQuery(this).closest('form').submit();
+		});
+	});
+</script>
