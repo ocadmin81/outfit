@@ -363,15 +363,11 @@ get_header(); ?>
 	<div class="wrap ad-page">
 		<div class="row">
 			<div class="col-lg-3 col-md-4">
-				<p>some stuff</p>
+				<?php get_template_part( 'templates/profile/profile-sidebar' );?>
 			</div><!--col-lg-3 col-md-4-->
 			<div class="col-lg-9 col-md-8 ad-form user-content-height edit">
 				<div class="submit-post section-bg-white">
-					<div class="row">
-						<div class="col-md-12 ad-form">
-							<h1 class="text-uppercase border-bottom"><?php esc_html_e('עריכת מודעה', 'outfit-standalone') ?></h1>
-						</div>
-					</div>				
+					<h1 class="text-uppercase border-bottom"><?php esc_html_e('עריכת מודעה', 'outfit-standalone') ?></h1>		
 					<form class="form-horizontal" action="" role="form" id="primaryPostForm" method="POST" data-toggle="validator" enctype="multipart/form-data">
 
 						<!-- add photos and media -->

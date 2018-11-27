@@ -1343,6 +1343,13 @@ jQuery(document).ready(function(jQuery){
 	jQuery( '.m-search' ).click(function() {
 		jQuery('.header-left').addClass('active');
 	});	
+	//menu overlay
+	jQuery(".main-navigation .menu > li.menu-item-has-children").hover(function () {
+		jQuery('.overlay-nav').toggleClass("overlay-active");
+	});	
+	jQuery( ".navbar-nav.desktop-nav li.parent" ).mouseleave(function() {
+		jQuery( ".overlay-nav" ).removeClass("overlay-active");
+	});		
 	//login-page-tabs
 	jQuery( '.form-group-forgot' ).click(function() {
 		jQuery('.reg-section,.login-section').removeClass('active');
@@ -1411,6 +1418,13 @@ jQuery(document).ready(function(jQuery){
 			}
 		}		
 	});	
+	//user menu in mobile
+	jQuery('.user-menu-heading').click(function() {
+		jQuery('.user-pages aside').toggleClass('active');
+	});
+	//Text under comment form title
+	jQuery('.comment-form-desc').insertAfter('.comment-respond h3');	
+	jQuery('.comment-form-comment textarea').attr('placeholder',jQuery('.text-placeholder').text());	
 });
 jQuery(window).on('load', function () {	
     var mqxs = window.matchMedia( "(max-width: 1024px)" );

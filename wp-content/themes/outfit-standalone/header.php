@@ -39,6 +39,6 @@
 		<?php endif; ?>
 
 	</header><!-- #masthead -->
-
+	<div class="overlay-nav"></div>
 	<div class="site-content-contain">
 		<div id="content" class="site-content">

@@ -51,8 +51,48 @@ $products = array();
 
 <!-- page content -->
 <section class="inner-page-content border-bottom top-pad-50">
-	<div class="container">
+	<div class="wrap">
 		<div class="row">
+			<div class="col-md-4 col-lg-3">
+				<aside class="sidebar">
+					<div class="row">
+						<!--subcategory-->
+						<div class="col-lg-12 col-md-12 col-sm-6 match-height">
+							<div class="widget-box">
+								<div class="widget-title">
+									<h4>
+										<i class="" style=""></i>
+										<?php echo esc_html($thisCategory->name); ?>
+									</h4>
+								</div>
+								<div class="widget-content">
+									<ul class="category">
+									<?php
+										foreach($subCategories as $sub) {
+									?>
+										<li>
+                                            <a href="<?php echo esc_url(get_category_link( $sub->term_id ));?>">
+                                                <i class="fa fa-angle-right"></i>
+                                                <?php echo esc_html($sub->name); ?>
+
+                                            </a>
+                                        </li>
+									<?php } ?>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!--subcategory-->
+
+						<div class="col-lg-12 col-md-12 col-sm-6 match-height">
+							<div class="widget-box">
+								<?php get_template_part( 'templates/outfit-adv-search' );?>
+							</div>
+						</div>
+					</div><!--row-->
+				</aside>
+			</div><!--row-->		
 			<div class="col-md-8 col-lg-9">
 				<!-- advertisement -->
 				<section class="classiera-advertisement advertisement-v7 section-pad border-bottom">
@@ -172,46 +212,6 @@ $products = array();
 				</section>
 				<!-- advertisement -->
 			</div><!--col-md-8-->
-			<div class="col-md-4 col-lg-3">
-				<aside class="sidebar">
-					<div class="row">
-						<!--subcategory-->
-						<div class="col-lg-12 col-md-12 col-sm-6 match-height">
-							<div class="widget-box">
-								<div class="widget-title">
-									<h4>
-										<i class="" style=""></i>
-										<?php echo esc_html($thisCategory->name); ?>
-									</h4>
-								</div>
-								<div class="widget-content">
-									<ul class="category">
-									<?php
-										foreach($subCategories as $sub) {
-									?>
-										<li>
-                                            <a href="<?php echo esc_url(get_category_link( $sub->term_id ));?>">
-                                                <i class="fa fa-angle-right"></i>
-                                                <?php echo esc_html($sub->name); ?>
-
-                                            </a>
-                                        </li>
-									<?php } ?>
-									</ul>
-								</div>
-							</div>
-						</div>
-
-						<!--subcategory-->
-
-						<div class="col-lg-12 col-md-12 col-sm-6 match-height">
-							<div class="widget-box">
-								<?php get_template_part( 'templates/outfit-adv-search' );?>
-							</div>
-						</div>
-					</div><!--row-->
-				</aside>
-			</div><!--row-->
 		</div><!--row-->
 	</div><!--container-->
 </section>	

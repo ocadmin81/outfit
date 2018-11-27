@@ -27,55 +27,49 @@
 	$outfitPostAds = $redux_demo['new_post'];
 	$outfitFollowerPage = $redux_demo['outfit_user_follow'];
 	$outfitUserFavourite = $redux_demo['all-favourite'];
+	require_once 'Mobile_Detect_side.php';
+	$detect = new Mobile_Detect_side;
 ?>
-<aside id="sideBarAffix" class="section-bg-white affix-top">
+<?php if ($detect->isMobile()): ?>
+	<div class="user-menu-heading">
+		<?php if(is_page_template( 'template-edit-profile.php' )): ?>
+			<span class="user"><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></span>
+		<?php elseif(is_page_template( 'template-user-all-ads.php' )): ?>
+			<span class="ads"><?php esc_html_e("המודעות שלי", 'outfit-standalone') ?></span>
+		<?php elseif(is_page_template( 'template-favorite.php' )): ?>
+			<span class="wish"><?php esc_html_e("WISHLIST", 'outfit-standalone') ?></span>
+		<?php elseif(is_page_template( 'template-follow.php' )): ?>
+			<span class="seller"><?php esc_html_e("מוכרים אהובים", 'outfit-standalone') ?></span>
+		<?php else: ?>
+			<span class="user"><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></span>
+		<?php endif; ?>
+	</div>
+<?php endif; ?>
+<aside id="sideBarAffix" class="section-bg-white affix-top <?php if ($detect->isMobile()): ?>mobile-user-menu<?php endif; ?>">
 	<ul class="user-page-list list-unstyled">
-		<li class="<?php if(is_page_template( 'template-edit-profile.php' )){echo "active";}?>">
+		<li class="user <?php if(is_page_template( 'template-edit-profile.php' )){echo "active";}?>">
 			<a href="<?php echo esc_url( $outfitProfile ); ?>">
-				<span>
-					<i class="fa fa-user"></i>
-					<?php esc_html_e("About Me", 'outfit-standalone') ?>
-				</span>
+				<span><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></span>
 			</a>
 		</li><!--About-->
-		<li class="<?php if(is_page_template( 'template-user-all-ads.php' )){echo "active";}?>">
+		<li class="ads <?php if(is_page_template( 'template-user-all-ads.php' )){echo "active";}?>">
 			<a href="<?php echo esc_url( $outfitAllAds ); ?>">
-				<span><i class="fa fa-suitcase"></i><?php esc_html_e("My Ads", 'outfit-standalone') ?></span>
-				<span class="in-count pull-right flip"><?php echo count_user_posts($userId);?></span>
+				<span><?php esc_html_e("המודעות שלי", 'outfit-standalone') ?></span>				
 			</a>
 		</li><!--My Ads-->
-		<li class="<?php if(is_page_template( 'template-favorite.php' )){echo "active";}?>">
+		<li class="wish <?php if(is_page_template( 'template-favorite.php' )){echo "active";}?>">
 			<a href="<?php echo esc_url( $outfitUserFavourite ); ?>">
-				<span><i class="fa fa-heart"></i><?php esc_html_e("Watch later Ads", 'outfit-standalone') ?></span>
-				<span class="in-count pull-right flip">
-					<?php
-						$myarray = outfit_authors_all_favorite($userId);
-						if(!empty($myarray)){
-							$args = array(
-							   'post_type' => 'post',
-							   'post__in'      => $myarray
-							);
-						$wp_query = new WP_Query( $args );
-						$favCount = 0;
-						while ($wp_query->have_posts()) : $wp_query->the_post(); $favCount++;
-						endwhile;						
-						echo esc_attr( $favCount );
-						wp_reset_query();
-						}else{
-							echo "0";
-						}
-					?>
-				</span>
+				<?php esc_html_e("WISHLIST", 'outfit-standalone') ?></span>
 			</a>
 		</li><!-- Wishlist -->
-		<li class="<?php if(is_page_template( 'template-follow.php' )){echo "active";}?>">
+		<li class="seller <?php if(is_page_template( 'template-follow.php' )){echo "active";}?>">
 			<a href="<?php echo esc_url( $outfitFollowerPage ); ?>">
-				<span><i class="fa fa-users"></i><?php esc_html_e("Follower", 'outfit-standalone') ?></span>
+				<span><?php esc_html_e("מוכרים אהובים", 'outfit-standalone') ?></span>
 			</a>
 		</li><!--Follower-->
-		<li>
+		<li class="logout">
 			<a href="<?php echo wp_logout_url(get_option('siteurl')); ?>">
-				<span><i class="fas fa-sign-out-alt"></i><?php esc_html_e("Logout", 'outfit-standalone') ?></span>
+				<span><?php esc_html_e("התנתק", 'outfit-standalone') ?></span>
 			</a>
 		</li><!--Logout-->
 	</ul><!--user-page-list-->

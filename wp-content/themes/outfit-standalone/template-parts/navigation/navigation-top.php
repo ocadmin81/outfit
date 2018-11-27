@@ -21,7 +21,13 @@
 				<span class="count">0</span>
 			</a>
 		</div>
-		<div class="login"><a href="<?php echo get_site_url(); ?>/login"><?php _e( "היי, התחבר/י", 'twentyseventeen' ); ?></a></div>	
+		<div class="login">
+			<?php if(is_user_logged_in()): ?>	
+				<a href="<?php echo get_site_url(); ?>/profile_settings"><?php _e( "החשבון שלי", 'outfit-standalone' ); ?></a>
+			<?php else: ?>
+				<a href="<?php echo get_site_url(); ?>/login"><?php _e( "היי, התחבר/י", 'twentyseventeen' ); ?></a>
+			<?php endif; ?>
+		</div>	
 	</div>
 	<?php wp_nav_menu( array(
 		'theme_location' => 'top',

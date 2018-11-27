@@ -24,11 +24,11 @@ if ( post_password_required() ) {
 ?>
 
 <div id="comments" class="comments-area">
-
+	<?php comment_form(); ?>
 	<?php
 	// You can start editing here -- including this comment!
 	if ( have_comments() ) : ?>
-		<h2 class="comments-title">
+		<div class="comments-title">
 			<?php
 			$comments_number = get_comments_number();
 			if ( '1' === $comments_number ) {
@@ -38,8 +38,8 @@ if ( post_password_required() ) {
 				printf(
 					/* translators: 1: number of comments, 2: post title */
 					_nx(
-						'%1$s Reply to &ldquo;%2$s&rdquo;',
-						'%1$s Replies to &ldquo;%2$s&rdquo;',
+						'%1$s תגובה לפוסט זה',
+						'%1$s תגובות לפוסט זה',
 						$comments_number,
 						'comments title',
 						'twentyseventeen'
@@ -49,7 +49,7 @@ if ( post_password_required() ) {
 				);
 			}
 			?>
-		</h2>
+		</div>
 
 		<ol class="comment-list">
 			<?php
@@ -57,7 +57,7 @@ if ( post_password_required() ) {
 					'avatar_size' => 100,
 					'style'       => 'ol',
 					'short_ping'  => true,
-					'reply_text'  => twentyseventeen_get_svg( array( 'icon' => 'mail-reply' ) ) . __( 'Reply', 'twentyseventeen' ),
+					'reply_text'  => twentyseventeen_get_svg( array( 'icon' => 'mail-reply' ) ) . __( 'הגב/י', 'twentyseventeen' ),
 				) );
 			?>
 		</ol>
@@ -74,9 +74,9 @@ if ( post_password_required() ) {
 
 		<p class="no-comments"><?php _e( 'Comments are closed.', 'twentyseventeen' ); ?></p>
 	<?php
-	endif;
-
-	comment_form();
+	endif;	
 	?>
 
 </div><!-- #comments -->
+<div class="comment-form-desc"><?php echo do_shortcode("[do_widget id=text-23]"); ?></div>
+<div class="text-placeholder" style="display:none;"><?php _e( "התגובה שלך על הפוסט", 'outfit-standalone' ); ?></div>

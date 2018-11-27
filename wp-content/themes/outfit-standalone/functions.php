@@ -776,6 +776,9 @@ add_filter('edit_category_form', 'outfit_my_category_fields');
 add_action( 'edited_category', 'outfit_update_my_category_fields', 10, 2 );
 add_action( 'create_category', 'outfit_update_my_category_fields', 10, 2 );
 
+// change comment form buttin text
+add_filter('comment_form_defaults', 'wpsites_change_comment_form_submit_label');
+
 /*==========================
  Function to display extra info on category admin
  ===========================*/
@@ -1148,4 +1151,9 @@ function outfit_get_post_thumb_url($postId) {
 		$url = get_template_directory_uri() . '/assets/images/nothumb.png';
 	}
 	return $url;
+}
+
+function wpsites_change_comment_form_submit_label($arg) {
+	$arg['label_submit'] = 'השארת תגובה';
+	return $arg;
 }
