@@ -10,9 +10,8 @@
  */
 
 if ( !is_user_logged_in() ) {
-    global $redux_demo;
-    $login = '/login';//$redux_demo['login'];
-    wp_redirect( $login ); exit;
+    wp_redirect( outfit_get_page_url('login') );
+    exit;
 }
 
 get_header();

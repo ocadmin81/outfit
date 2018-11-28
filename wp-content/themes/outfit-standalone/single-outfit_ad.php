@@ -23,13 +23,6 @@ if ( is_user_logged_in() ) {
 	$userId = $currentUser->ID;
 }
 
-$editPostUrl = $redux_demo['edit_post'];
-if(function_exists('icl_object_id')) {
-	$templateEditAd = 'template-edit-ads.php';
-	$editPostUrl = outfit_get_template_url($templateEditAd);
-}
-
-
 get_header(); ?>
 
 <?php while ( have_posts() ) : the_post(); ?>
@@ -37,11 +30,7 @@ get_header(); ?>
 	<?php
 	$postId = $post->ID;
 	global $wp_rewrite;
-	if ($wp_rewrite->permalink_structure == ''){
-	$editPostUrl .= "&post=".$postId;
-	}else{
-	$editPostUrl .= "?post=".$postId;
-	}
+	$editPostUrl = outfit_edit_ad_url($postId);
 
 	if (isset($_POST['favorite'])) {
 		if (!empty($userId)) {
@@ -59,7 +48,7 @@ get_header(); ?>
 			outfit_insert_author_follower($_POST['author_id'], $userId);
 		}
 	}
-	else if (isset($_POST['unfavorite'])) {
+	else if (isset($_POST['unfollow'])) {
 		if (!empty($userId)) {
 			outfit_delete_author_follower($_POST['author_id'], $userId);
 		}

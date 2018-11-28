@@ -1115,6 +1115,27 @@ if (!function_exists('outfit_get_template_url')) {
 	}
 }
 
+function outfit_get_page_url($outfit_page_name) {
+	$url = '';
+	$pages = OutfitInit::get_pages();
+	if (isset($pages[$outfit_page_name])) {
+		$page = $pages[$outfit_page_name];
+		$url = outfit_get_template_url($page['template']);
+	}
+	return $url;
+}
+
+function outfit_edit_ad_url($postId) {
+	$editPostUrl = outfit_get_page_url('edit_ad');
+	global $wp_rewrite;
+	if ($wp_rewrite->permalink_structure == ''){
+		$editPostUrl .= "&post=".$postId;
+	}else{
+		$editPostUrl .= "?post=".$postId;
+	}
+	return $editPostUrl;
+}
+
 function outfit_format_price_range_label($priceRanges, $i, $currencyAfter = true) {
 	$currency = '&#8362';
 	$res = '';
@@ -1164,3 +1185,17 @@ function posts_in_category($query){
 	}	
 }
 add_filter('pre_get_posts', 'posts_in_category');
+add_filter( 'template_include', 'outfit_template_check', 99 );
+function outfit_template_check( $template ) {
+	if ( is_category() ){
+
+		if ( isset($_GET['outfit_ad']) ){
+			$new_template = get_template_directory() . '/custom-category.php';
+			if ( !empty( $new_template ) ) {
+				return $new_template;
+			}
+		}
+	}
+	return $template;
+
+}

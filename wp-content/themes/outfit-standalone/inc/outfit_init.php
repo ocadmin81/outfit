@@ -52,7 +52,7 @@ class OutfitInit
         }
     }
 
-    private static function get_pages() {
+    public static function get_pages() {
 
         $pages = array(
 
@@ -72,6 +72,22 @@ class OutfitInit
                 'slug' => 'edit_ad',
                 'template' => 'template-edit-ads.php'
             ),
+            'favorite_ads' => array(
+                'slug' => 'favorite_ads',
+                'template' => 'template-favorite.php'
+            ),
+            /*'follow' => array(
+                'slug' => 'follow',
+                'template' => 'template-follow.php'
+            ),*/
+            'user_all_ads' => array(
+                'slug' => 'user_all_ads',
+                'template' => 'template-user-all-ads.php'
+            ),
+            /*'' => array(
+                'slug' => '',
+                'template' => ''
+            )*/
         );
         return $pages;
     }

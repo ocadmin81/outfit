@@ -5,13 +5,8 @@
 
 	$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 	$postAuthorId = $post->post_author;
-	$postAuthorName = get_the_author_meta('display_name', $postAuthorId );
-	if (empty($postAuthorName)) {
-		$postAuthorName = get_the_author_meta('user_nicename', $postAuthorId );
-	}
-	if (empty($postAuthorName)) {
-		$postAuthorName = get_the_author_meta('user_login', $postAuthorId );
-	}
+	$postAuthorName = getAuthorFullName($postAuthorId);
+
 	$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
 	$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
 

@@ -46,7 +46,7 @@ if(isset($_POST['op_outfit']) ){
 	}
 }	
 global $redux_demo; 
-$login = $redux_demo['login'];
+$login = outfit_get_page_url('login');
 $outfitSocialLogin = $redux_demo['outfit_social_login'];
 $termsandcondition = $redux_demo['termsandcondition'];
 $outfitEmailVerify = $redux_demo['registor-email-verify'];
