@@ -17,7 +17,7 @@
 
 	$isFavorite = in_array($post->ID, $currentUserFavoriteAds);
 ?>
-<div class="col-lg-4 col-md-4 col-sm-6 match-height item">
+<div class="col-lg-3 col-md-4 col-sm-6 col-sms-6 item">
 	<div class="classiera-box-div classiera-box-div-v1">
 		<figure class="clearfix">
 			<div class="premium-img">
@@ -36,36 +36,48 @@
 					}
 					?>
 				</a>
-
+				<div class="cat-wish-brand">
+					<div class="cat-wish">
+						<?php //if ($isFavorite) { ?>
+							<!--<i class="fa fa-heart" aria-hidden="true"></i>-->
+						<?php //} else { ?>
+							<!--<i class="fa fa-heart-o" aria-hidden="true"></i>-->
+						<?php //} ?>
+					
+						<?php //if (!empty($userId)): ?>
+							<form method="post" class="fav-form clearfix">
+								<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
+								<?php if (isFavorite) { ?>
+									<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase"><span></span></button>
+								<?php } else { ?>
+									<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase in-wish"><span></span></button>
+								<?php } ?>
+							</form>
+						<?php //endif; ?>	
+					</div>				
+					<div class="cat-brand"><a href=""><?php echo esc_attr($postBrand); ?></a></div>
+				</div>
 			</div><!--premium-img-->
-			<div>
-				<?php if ($isFavorite) { ?>
-					<i class="fa fa-heart" aria-hidden="true"></i>
-				<?php } else { ?>
-					<i class="fa fa-heart-o" aria-hidden="true"></i>
-				<?php } ?>
-			</div>
-			<div>
-				<?php echo esc_attr($postBrand); ?>
-			</div>
-			<div>
-				<?php if(!empty($postPrice)){?>
-				<div class="">
-					<span class="">
+			<div class="au-price">
+				<div class="au">
+					<a href="<?php echo get_author_posts_url( $postAuthorId ); ?>">
+						<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
+						<?php echo esc_attr($postAuthorName); ?>
+					</a>
+				</div>				
+				<?php //if(!empty($postPrice)){?>
+				<div class="price">
+					<span class="">						
 						<?php
 						if(is_numeric($postPrice)){
-							echo '&#8362; ' .  $postPrice;
+							echo $postPrice.' &#8362;';
 						}else{
 							echo esc_attr( $postPrice );
 						}
 						?>
 					</span>
 				</div>
-				<?php } ?>
-				<span>
-					<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
-				</span>
-				<span><a href="<?php echo get_author_posts_url( $postAuthorId ); ?>"><?php echo esc_attr($postAuthorName); ?></a></span>
+				<?php //} ?>				
 			</div>
 
 		</figure>

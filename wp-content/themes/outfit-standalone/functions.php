@@ -1157,3 +1157,10 @@ function wpsites_change_comment_form_submit_label($arg) {
 	$arg['label_submit'] = 'השארת תגובה';
 	return $arg;
 }
+
+function posts_in_category($query){
+	if ($query->is_category) {
+		 $query->set('posts_per_archive_page', 20);
+	}	
+}
+add_filter('pre_get_posts', 'posts_in_category');
