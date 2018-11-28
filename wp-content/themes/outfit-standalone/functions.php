@@ -1115,6 +1115,16 @@ if (!function_exists('outfit_get_template_url')) {
 	}
 }
 
+function outfit_get_page_url($outfit_page_name) {
+	$url = '';
+	$pages = OutfitInit::get_pages();
+	if (isset($pages[$outfit_page_name])) {
+		$page = $pages[$outfit_page_name];
+		$url = outfit_get_template_url($page['template']);
+	}
+	return $url;
+}
+
 function outfit_format_price_range_label($priceRanges, $i, $currencyAfter = true) {
 	$currency = '&#8362';
 	$res = '';
@@ -1156,4 +1166,18 @@ function outfit_get_post_thumb_url($postId) {
 function wpsites_change_comment_form_submit_label($arg) {
 	$arg['label_submit'] = 'השארת תגובה';
 	return $arg;
+}
+
+add_filter( 'template_include', 'outfit_template_check' );
+function outfit_template_check( $template ) {
+	if ( is_category() ){
+
+		// Get category information
+		$v = get_query_var( 'outfit_ad' );
+		if ( !empty($v) ){
+			//return get_stylesheet_directory() . '/template-category.php';
+		}
+	}
+	return $template;
+
 }

@@ -59,7 +59,7 @@ get_header(); ?>
 			outfit_insert_author_follower($_POST['author_id'], $userId);
 		}
 	}
-	else if (isset($_POST['unfavorite'])) {
+	else if (isset($_POST['unfollow'])) {
 		if (!empty($userId)) {
 			outfit_delete_author_follower($_POST['author_id'], $userId);
 		}

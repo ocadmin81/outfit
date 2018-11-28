@@ -1,32 +1,9 @@
 <?php 
-	global $redux_demo;
 
-	$outfitAuthorName = '';
-	$currentUser = wp_get_current_user();
-	$userId = $currentUser->ID;
-	$outfitAuthorEmail = $currentUser->user_email;
-	$outfitAuthorName = $currentUser->display_name;
-	if(empty($outfitAuthorName)){
-		$outfitAuthorName = $currentUser->user_nicename;
-	}
-	if(empty($outfitAuthorName)){
-		$outfitAuthorName = $currentUser->user_login;
-	}
-	$outfitAuthorThumb = get_user_meta($userId, "outfit_author_avatar_url", true);
-	$outfitAuthorThumb = outfit_get_profile_img($outfitAuthorThumb);
-	if(empty($outfitAuthorThumb)){
-		$outfitAuthorThumb = outfit_get_avatar_url ($outfitAuthorEmail, $size = '150' );
-	}	
-	$outfitOnlineCheck = outfit_user_last_online($userId);
-	$userRegistered = $currentUser->user_registered;
-	$dateFormat = get_option( 'date_format' );
-	$outfitRegDate = date_i18n( $dateFormat, strtotime($userRegistered) );
-	$outfitProfile = $redux_demo['profile'];
-	$outfitAllAds = $redux_demo['all-ads'];
-	$outfitEditProfile = $redux_demo['edit'];
-	$outfitPostAds = $redux_demo['new_post'];
-	$outfitFollowerPage = $redux_demo['outfit_user_follow'];
-	$outfitUserFavourite = $redux_demo['all-favourite'];
+	$outfitAllAds = outfit_get_page_url('user_all_ads');
+	$outfitEditProfile = outfit_get_page_url('profile_settings');
+	$outfitFollowerPage = outfit_get_page_url('follow');
+	$outfitUserFavorite = outfit_get_page_url('favorite_ads');
 	require_once 'Mobile_Detect_side.php';
 	$detect = new Mobile_Detect_side;
 ?>
@@ -48,7 +25,7 @@
 <aside id="sideBarAffix" class="section-bg-white affix-top <?php if ($detect->isMobile()): ?>mobile-user-menu<?php endif; ?>">
 	<ul class="user-page-list list-unstyled">
 		<li class="user <?php if(is_page_template( 'template-edit-profile.php' )){echo "active";}?>">
-			<a href="<?php echo esc_url( $outfitProfile ); ?>">
+			<a href="<?php echo esc_url( $outfitEditProfile ); ?>">
 				<span><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></span>
 			</a>
 		</li><!--About-->
@@ -58,7 +35,7 @@
 			</a>
 		</li><!--My Ads-->
 		<li class="wish <?php if(is_page_template( 'template-favorite.php' )){echo "active";}?>">
-			<a href="<?php echo esc_url( $outfitUserFavourite ); ?>">
+			<a href="<?php echo esc_url( $outfitUserFavorite ); ?>">
 				<?php esc_html_e("WISHLIST", 'outfit-standalone') ?></span>
 			</a>
 		</li><!-- Wishlist -->
