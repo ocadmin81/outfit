@@ -1125,6 +1125,17 @@ function outfit_get_page_url($outfit_page_name) {
 	return $url;
 }
 
+function outfit_edit_ad_url($postId) {
+	$editPostUrl = outfit_get_page_url('edit_ad');
+	global $wp_rewrite;
+	if ($wp_rewrite->permalink_structure == ''){
+		$editPostUrl .= "&post=".$postId;
+	}else{
+		$editPostUrl .= "?post=".$postId;
+	}
+	return $editPostUrl;
+}
+
 function outfit_format_price_range_label($priceRanges, $i, $currencyAfter = true) {
 	$currency = '&#8362';
 	$res = '';
