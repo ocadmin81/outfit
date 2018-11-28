@@ -1168,14 +1168,15 @@ function wpsites_change_comment_form_submit_label($arg) {
 	return $arg;
 }
 
-add_filter( 'template_include', 'outfit_template_check' );
+add_filter( 'template_include', 'outfit_template_check', 99 );
 function outfit_template_check( $template ) {
 	if ( is_category() ){
 
-		// Get category information
-		$v = get_query_var( 'outfit_ad' );
-		if ( !empty($v) ){
-			//return get_stylesheet_directory() . '/template-category.php';
+		if ( isset($_GET['outfit_ad']) ){
+			$new_template = get_template_directory() . '/custom-category.php';
+			if ( !empty( $new_template ) ) {
+				return $new_template;
+			}
 		}
 	}
 	return $template;
