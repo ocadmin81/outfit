@@ -24,7 +24,7 @@ $postCharacter = '';
 <!--SearchForm-->
 <form method="get" action="<?php echo home_url(); ?>">
 	<div class="search-form">
-		<div class="search-form-main-heading">
+		<div class="search-form-main-heading" style="display:none;">
 			<a href="#innerSearch" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="innerSearch">
 				<i class="fa fa-search"></i>
 				<?php esc_html_e( 'Filter results', 'outfit-standalone' ); ?>
@@ -35,22 +35,15 @@ $postCharacter = '';
 			<?php if ($filterBy && $filterBy->catFilterByAge) { ?>
 			<!--Age Groups-->
 			<div class="inner-search-box">
-				<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-					<?php esc_html_e( 'Age', 'outfit-standalone' ); ?>
-				</h5>
-				<div class="inner-addon right-addon">
-					<i class="right-addon form-icon fa fa-sort"></i>
-					<select id="ageGroup" name="postAgeGroup" class="form-control form-control-sm">
-						<option value=""><?php esc_html_e('Select Age Groups', 'outfit-standalone'); ?></option>
-						<?php
-						foreach ($ageGroups as $c): ?>
-							<option value="<?php echo $c->term_id; ?>"
-								<?php echo ($c->term_id == $postAgeGroup? 'selected' : ''); ?>>
-								<?php esc_html_e($c->name); ?></option>
-						<?php endforeach; ?>
-					</select>
-				</div>
-
+				<div class="inner-search-heading"><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></div>
+				<select id="ageGroup" name="postAgeGroup" class="form-control form-control-sm">					
+					<?php
+					foreach ($ageGroups as $c): ?>
+						<option value="<?php echo $c->term_id; ?>"
+							<?php echo ($c->term_id == $postAgeGroup? 'selected' : ''); ?>>
+							<?php esc_html_e($c->name); ?></option>
+					<?php endforeach; ?>
+				</select>				
 			</div>
 			<!--Age Groups-->
 			<?php } ?>

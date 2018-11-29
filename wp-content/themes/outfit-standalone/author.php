@@ -61,22 +61,22 @@ get_header();
 
 
 ?>
-<section class="author-box">
-	<div class="container border author-box-bg">
+<section class="author-box author-page">
+	<div class="wrap author-box-bg">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="row no-gutter removeMargin border-bottom author-first-row">
 					<div class="col-lg-7 col-sm-7">
 						<div class="author-info">
 							<div class="media">
-								<div class="">
+								<div class="media-img">
 									<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo get_the_author_meta('display_name', $userId ); ?>">
 								</div><!---->
 								<div class="media-body">
 									<h5 class="media-heading text-uppercase">
 										<?php echo esc_attr($authorName); ?>
 									</h5>
-									<div><?php echo esc_html($authorAbout); ?></div>
+									<div class="desc"><?php echo esc_html($authorAbout); ?></div>
 									<div>
 										<?php if (!empty($currentUserId) && $currentUserId != $authorId) { ?>
 											<?php
@@ -88,9 +88,9 @@ get_header();
 											<form method="post" class="classiera_follow_user">
 												<input type="hidden" name="author_id" value="<?php echo esc_attr($authorId); ?>"/>
 												<?php if (!outfit_is_favorite_author($authorId, $currentUserId)) { ?>
-													<input type="submit" name="follow" value="<?php esc_html_e( 'Follow', 'outfit-standalone' ); ?>" />
+													<input type="submit" name="follow" value="<?php esc_html_e( '????? ??????? ??????', 'outfit-standalone' ); ?>" />
 												<?php } else { ?>
-													<input type="submit" name="unfollow" value="<?php esc_html_e( 'Remove from favorites', 'outfit-standalone' ); ?>" />
+													<input type="submit" name="unfollow" value="<?php esc_html_e( '???? ??????? ??????', 'outfit-standalone' ); ?>" />
 												<?php } ?>
 											</form>
 											<div class="clearfix"></div>
@@ -105,38 +105,40 @@ get_header();
 						<div class="author-contact-details">
 							<div class="row">
 								<div class="col-md-6 col-sm-12">
-									<h5 class="text-uppercase"><?php esc_html_e('Contact Details', 'outfit-standalone') ?> :</h5>
-									<ul class="list-unstyled fa-ul c-detail">
+									<h5 class="text-uppercase"><?php esc_html_e('?????? ?????', 'outfit-standalone') ?></h5>
+									<ul class="list-unstyled c-detail">
+										<li>
+											<span>
+												<?php if (!empty($postAddress)) { ?>
+													<?php echo esc_html($postAddress);?>
+												<?php } ?>
+											</span>
+										</li>
+										<li>
+											<span>
+												<?php if (!empty($postSecAddress)) { ?>
+													<?php echo esc_html($postSecAddress);?>
+												<?php } ?>
+											</span>
+										</li>
+									</ul>
+								</div>							
+								<div class="col-md-6 col-sm-12">
+									<h5 class="text-uppercase"><?php esc_html_e('?????? ??? ?? ?????/?', 'outfit-standalone') ?></h5>
+									<ul class="list-unstyled p-detail">
 										<?php if(!empty($authorPhone)){?>
 											<li>
-												<span class=""><?php echo esc_html($authorPhone);?></span>
+												<a href="tel:<?php echo esc_html($authorPhone);?>"><span class="a-phone"><?php echo esc_html($authorPhone);?></span></a>
 											</li>
 										<?php } ?>
 										<?php if(!empty($authorPreferredHours)){?>
+											<li class="s-time">
+												<span><?php esc_html_e('*??? ???? ????????', 'outfit-standalone') ?>:</span>
+											</li>
 											<li>
-												<span><?php esc_html_e('Best time to call', 'outfit-standalone') ?>:</span>
-											<span>
-												<?php echo esc_html($authorPreferredHours);?>
-											</span>
+												<span><?php echo esc_html($authorPreferredHours);?></span>
 											</li>
 										<?php } ?>
-									</ul>
-								</div>
-								<div class="col-md-6 col-sm-12">
-									<h5 class="text-uppercase"><?php esc_html_e('Collect points', 'outfit-standalone') ?> :</h5>
-									<ul class="list-unstyled fa-ul c-detail">
-										<li>
-										<span>
-											<?php if (!empty($postAddress)) { ?>
-												<?php echo esc_html($postAddress);?>
-											<?php } ?>
-										</span><br>
-										<span>
-											<?php if (!empty($postSecAddress)) { ?>
-												<?php echo esc_html($postSecAddress);?>
-											<?php } ?>
-										</span>
-										</li>
 									</ul>
 								</div>
 							</div>
@@ -148,39 +150,26 @@ get_header();
 			</div><!--col-lg-12-->
 		</div><!--row-->
 	</div><!--container border author-box-bg-->
-</section><!--author-box-->
-
-<section class="inner-page-content border-bottom">
-	<section class="classiera-advertisement advertisement-v1">
-		<div class="section-light-bg">
+		<div class="wrap author-box-bg seller-ads products">
 			<div class="view-head">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-                            <h5><?php esc_html_e( 'Products', 'outfit-standalone' ); ?></h5>
-                        </div>
-					</div><!--row-->
-				</div><!--container-->
+				<div class="row">
+					<div class="col-md-12">
+						<h5><?php esc_html_e( 'Products', 'outfit-standalone' ); ?></h5>
+					</div>
+				</div><!--row-->
 			</div><!--view-head-->
 			<div class="tab-content">
-				<div class="container">
-					<div class="row">
-					<?php foreach ( $authorPosts as $post ) : setup_postdata( $post ); ?>
-						<?php get_template_part('templates/loops/product'); ?>
-					<?php
-					endforeach;
-					wp_reset_postdata();
-					?>
-					</div><!--row-->
-
-				</div><!--container-->
-					
-
-				
+				<div class="row">
+				<?php foreach ( $authorPosts as $post ) : setup_postdata( $post ); ?>
+					<?php get_template_part('templates/loops/product'); ?>
+				<?php
+				endforeach;
+				wp_reset_postdata();
+				?>
+				</div><!--row-->			
 				<?php wp_reset_query(); ?>
 			</div><!--tab-content-->
-		</div><!--tab-divs section-light-bg-->
-	</section><!--classiera-advertisement advertisement-v1-->
+		</div>
 </section><!--inner-page-content-->
 
 
