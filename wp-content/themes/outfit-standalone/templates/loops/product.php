@@ -50,7 +50,7 @@
 							</form>
 						<?php //endif; ?>	
 					</div>				
-					<div class="cat-brand"><a href=""><?php echo esc_attr($postBrand); ?></a></div>
+					<div class="cat-brand"><a href="">castro<?php echo esc_attr($postBrand); ?></a></div>
 				</div>
 			</div><!--premium-img-->
 			<div class="au-price">

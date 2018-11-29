@@ -53,7 +53,7 @@ if(!empty($favoritearray)) {
 }
 get_header(); ?>
 
-<section class="user-pages section-gray-bg">
+<section class="user-pages section-gray-bg wish-page">
 	<div class="wrap ad-page user-page">
 		<div class="row">
 			<div class="col-lg-3 col-md-4">
@@ -67,20 +67,18 @@ get_header(); ?>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads favorite-ads">
-						<h4 class="user-detail-section-heading text-uppercase">
-							<?php esc_html_e("Favorite Ads", 'outfit-standalone') ?>
-						</h4>
-						<div class="container">
+						<h1 class="user-detail-section-heading text-uppercase"><?php esc_html_e("WISHLIST", 'outfit-standalone') ?></h1>
+						<div class="my-ads products">
 							<div class="row">
 								<?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
-									<div class="col-lg-4 col-md-4 col-sm-6 match-height item">
+									<div class="col-lg-4 col-md-4 col-sm-6 item">
 										<div class="classiera-box-div classiera-box-div-v1">
 											<figure class="clearfix">
 
 												<form method="post" class="fav-form clearfix">
 													<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
 													<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
-														<span><?php esc_html_e( '???? ??- WISHLIST', 'outfit-standalone' ); ?></span>
+														<span><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
 													</button>
 												</form>
 												<div class="premium-img">
@@ -105,29 +103,28 @@ get_header(); ?>
 														}
 														?>
 													</a>
-
+													<div class="ad-brand">castro<?php echo esc_attr($postBrand); ?></div>
 												</div><!--premium-img-->
-												<div>
-													<?php echo esc_attr($postBrand); ?>
-												</div>
-												<div>
+												<div class="au-price">
+													<div class="au">
+														<a href="<?php echo get_author_posts_url( $postAuthorId ); ?>">
+															<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
+															<?php echo esc_attr($postAuthorName); ?>
+														</a>
+													</div>												
 													<?php if(!empty($postPrice)){?>
-														<div class="">
-														<span class="">
-															<?php
-															if(is_numeric($postPrice)){
-																echo '&#8362; ' .  $postPrice;
-															}else{
-																echo esc_attr( $postPrice );
-															}
-															?>
-														</span>
+														<div class="price">
+															<span class="">
+																<?php
+																if(is_numeric($postPrice)){
+																	echo '&#8362; ' .  $postPrice;
+																}else{
+																	echo esc_attr( $postPrice );
+																}
+																?>
+															</span>
 														</div>
 													<?php } ?>
-													<span>
-					<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
-				</span>
-													<span><a href="<?php echo get_author_posts_url( $postAuthorId ); ?>"><?php echo esc_attr($postAuthorName); ?></a></span>
 												</div>
 
 											</figure>

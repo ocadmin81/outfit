@@ -53,10 +53,10 @@ get_header(); ?>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads favorite-ads">
-						<h4 class="user-detail-section-heading text-uppercase">
-							<?php esc_html_e("Favorite Sellers", 'outfit-standalone') ?>
-						</h4>
-						<div class="container">
+						<h1 class="user-detail-section-heading text-uppercase">
+							<?php esc_html_e("מוכרים אהובים", 'outfit-standalone') ?>
+						</h1>
+						<div class="my-ads">
 							<div class="row">
 								<?php foreach ($favoritearray as $aid): ?>
 									<?php

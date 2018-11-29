@@ -797,6 +797,7 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .ad-tips .form-group.reg-text{padding: 0;padding-right: 30px;padding-top: 80px;}
 .ad-form{padding-left: 90px;padding-top: 50px;}
 .edit.ad-form,.edit .ad-form{padding-left: 15px;padding-top: 0;}
+.edit.ad-form .submit-post form .form-main-section #mydropzone{margin-bottom: 0;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box{float: right;padding: 0 5px 10px;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box{height: 120px;border: 1px solid #f3f3f3!important;margin-bottom: 0;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box .classiera-input-file + label{padding-top: 30px;padding-bottom: 0;margin: 0;background: none;}
@@ -944,6 +945,8 @@ html[lang="he-IL"] .cat-title{margin: 0;padding: 0 10px;margin-bottom: 15px;font
 .products .classiera-box-div-v1 figure .au-price .price{float: left;font-size: 15px;margin-top: 3px;}
 .products .row{margin-right: -10px;margin-left: -10px;}
 .products .item{padding: 0 5px;}
+.user-pages .products .item{padding: 0 15px;}
+.user-pages .products .row{margin-right: -15x;margin-left: -15px;}
 .cat-sidebar.sidebar .widget-box{border: none;margin-bottom: 0;margin-top: 10px;}
 .cat-sidebar.sidebar .widget-box .widget-title {border-bottom: 1px solid #f3f3f3;background: transparent;padding: 0;font-size: 18px;font-weight: 600;padding-bottom: 10px;}
 .classiera-pagination{text-align: center;}
@@ -958,6 +961,17 @@ html[lang="he-IL"] .cat-title{margin: 0;padding: 0 10px;margin-bottom: 15px;font
 .pagination li a[title="previous"],.pagination li a[title="previous"]:hover{background:#fff url(assets/images/arrow-right.png) center no-repeat;font-size: 0;padding: 0;}
 .pagination li a i{display:none;}
 .cat-sidebar form .search-form #innerSearch{padding: 0;}
+.my-ads{margin-top:35px;}
+.my-ads .item .remove-post-button{position: absolute;top: -15px;right: -15px;}
+.my-ads .item .ad-brand{position: absolute;bottom: 8px;left: 15px;color: #fff;font-size: 14px;letter-spacing: 1px!important;}
+.my-ads .item .edit-price{    margin-top: 10px;}
+.my-ads .item .edit-price .edit{float: right;}
+.my-ads .item .edit-price .edit a{padding-right: 21px;background:url(assets/images/edit-ad.png) right 1px no-repeat;}
+.my-ads .item .edit-price .price{float: left;}
+.classiera-box-div-v1 figure .premium-img{height: auto;}
+.wish-page .fav-form{position: absolute;top: -15px;z-index: 100;right: -15px;}
+.wish-page .fav-form button{padding: 0;background: transparent;}
+#map{width: 100%;position: fixed;    border: none;right: 0;left: 0;height: auto;}
 @media screen and (min-width: 30em){
 	.page-one-column .panel-content .wrap{max-width: 1300px;padding-top: 0;}
 }
@@ -1042,7 +1056,6 @@ html[lang="he-IL"] .cat-title{margin: 0;padding: 0 10px;margin-bottom: 15px;font
 	.custom-header{padding-bottom: 20px;}
 	.user-pages.section-gray-bg{padding: 35px 0;}
 	.user-pages aside .user-page-list{margin-bottom: 0;}
-	.user-pages .col-md-4,.user-pages .col-md-8,.user-pages .col-md-6,.user-pages .col-sm-6,.user-pages .col-sm-4,.user-pages .col-sm-12{padding:0;}
 	.user-pages .user-detail-section{padding: 7px 15px 35px;}
 	.wrap.single-post-page{padding: 25px 15px;}
 }
@@ -1128,8 +1141,13 @@ html[lang="he-IL"] .cat-title{margin: 0;padding: 0 10px;margin-bottom: 15px;font
 	.author-page .author-info .media-img{width: 35%;}
 	.author-page .author-info .media-body{width: 58%;}
 	.author-page .author-info .media-body .classiera_follow_user button{padding: 0px 3px;}
-	.seller-ads.products .col-sm-6{width: 50%;float: right;}
+	.products .col-sm-6{width: 50%;float: right;}
 	.products .classiera-box-div-v1{margin-bottom: 20px;}
 	.products .item:nth-child(odd){padding-left: 5px;}
 	.products .item:nth-child(even){padding-right: 5px;}
+	.user-pages .products .item:nth-child(odd){padding-left: 15px;}
+	.user-pages .products .item:nth-child(even){padding-right: 15px;}
+	.user-pages .products .classiera-box-div-v1{margin-bottom: 30px;}
+		.user-pages .col-md-4,.user-pages .col-md-8,.user-pages .col-md-6,.user-pages .col-sm-6,.user-pages .col-sm-4,.user-pages .col-sm-12{padding:0;}
+	/*.user-pages .user-detail-section .user-ads .item{width: 50%;float: right;}*/
 }

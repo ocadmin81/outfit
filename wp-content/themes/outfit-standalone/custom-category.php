@@ -170,8 +170,8 @@ $products = array();
 										<?php outfit_pagination(); ?>
 									<?php wp_reset_query(); ?>
 								</div><!--tabpanel ALL-->
-								<div role="tabpanel" class="tab-pane fade" id="map">
-									<div class="container">
+								<div role="tabpanel" class="tab-pane map-tab fade" id="map">
+									<div class="container-not">
 										<div class="row">
 											<textarea style="display: none;" id="current-address-points"><?php echo json_encode($products); ?></textarea>
 

@@ -1209,3 +1209,17 @@ function outfit_template_check( $template ) {
 	return $template;
 
 }
+
+//adding parameter to menu links
+add_filter( 'wp_get_nav_menu_items','nav_items', 11, 3 );
+function nav_items( $items, $menu, $args ) 
+{
+    if( is_admin() )
+        return $items;
+
+    foreach( $items as $item ) 
+    {
+        $item->url .= '?outfit_ad';
+    }
+    return $items;
+}
