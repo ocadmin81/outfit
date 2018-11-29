@@ -100,7 +100,7 @@ get_header(); ?>
 													<a href="<?php echo esc_url($deletePostUrl) ?>"
 													<span class="remove-post"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
 													<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
-												</div><!--remove-edit-post-image-->
+												</div><!--remove-post-button-->
 												<div>
 													<?php echo esc_attr($postBrand); ?>
 												</div>

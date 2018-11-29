@@ -667,12 +667,21 @@ function outfit_get_user_picture($userId, $size=150) {
  =========================================*/
 function outfit_authors_all_favorite($author_id) {
 	global $wpdb;
-	$prepared_statement = $wpdb->prepare("SELECT post_id FROM {$wpdb->prefix}author_favorite WHERE  author_id = %d", $author_id);
+	$prepared_statement = $wpdb->prepare("SELECT DISTINCT post_id FROM {$wpdb->prefix}author_favorite WHERE  author_id = %d", $author_id);
 	$postids = $wpdb->get_col($prepared_statement);
-	foreach ($postids as $v2){
-		$postids[] = $v2;
-	}
+
 	return $postids;
+}
+
+/*========================================
+ Outfit : Get User Favorite Authors IDs
+ =========================================*/
+function outfit_authors_all_favorite_sellers($author_id) {
+	global $wpdb;
+	$prepared_statement = $wpdb->prepare("SELECT DISTINCT author_id FROM {$wpdb->prefix}author_follower WHERE  follower_id = %d", $author_id);
+	$ids = $wpdb->get_col($prepared_statement);
+
+	return $ids;
 }
 
 /*========================================
@@ -713,7 +722,7 @@ function outfit_delete_author_favorite($author_id, $post_id) {
 
 function outfit_is_favorite_post($author_id, $post_id) {
 	global $wpdb;
-	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}author_favorite WHERE post_id = $post_id AND author_id = $author_id", OBJECT );
+	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}author_favorite WHERE post_id = $post_id AND author_id = $author_id" );
 	if (empty($results)) {
 		return false;
 	}
@@ -722,7 +731,7 @@ function outfit_is_favorite_post($author_id, $post_id) {
 
 function outfit_is_favorite_author($author_id, $follower_id) {
 	global $wpdb;
-	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}author_followers WHERE follower_id = $follower_id AND author_id = $author_id", OBJECT );
+	$results = $wpdb->get_results( "SELECT * FROM {$wpdb->prefix}author_follower WHERE follower_id = $follower_id AND author_id = $author_id" );
 	if (empty($results)) {
 		return false;
 	}

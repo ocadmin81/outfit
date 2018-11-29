@@ -76,10 +76,10 @@ class OutfitInit
                 'slug' => 'favorite_ads',
                 'template' => 'template-favorite.php'
             ),
-            /*'follow' => array(
+            'follow' => array(
                 'slug' => 'follow',
                 'template' => 'template-follow.php'
-            ),*/
+            ),
             'user_all_ads' => array(
                 'slug' => 'user_all_ads',
                 'template' => 'template-user-all-ads.php'

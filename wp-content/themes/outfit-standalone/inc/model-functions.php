@@ -347,3 +347,11 @@ function getAuthorFullName($postAuthorId) {
     }
     return $postAuthorName;
 }
+
+function outfit_is_user_exists($userId) {
+    $user = get_userdata( $userId );
+    if ( $user === false ) {
+        return false;
+    }
+    return true;
+}

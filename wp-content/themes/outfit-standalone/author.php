@@ -15,13 +15,7 @@ $author = (get_query_var('author_name')) ? get_user_by('slug', get_query_var('au
 wp_get_current_user();
 $currentUserId = $current_user->ID;
 $authorId = $author->ID;
-$authorName = get_the_author_meta('display_name', $authorId );
-if (empty($authorName)) {
-	$authorName = get_the_author_meta('user_nicename', $authorId );
-}
-if (empty($authorName)) {
-	$authorName = get_the_author_meta('user_login', $authorId );
-}
+$authorName = getAuthorFullName($authorId);
 $authorAvatarUrl = outfit_get_user_picture($authorId, 130);
 
 $authorEmail = get_the_author_meta('user_email', $authorId);
@@ -43,13 +37,13 @@ if (null !== $postLocation2 && isset($postLocation2['address'])) {
 }
 
 if (isset($_POST['follow'])) {
-	if (!empty($currentUserId)) {
-		outfit_insert_author_follower($_POST['author_id'], $currentUserId);
+	if (!empty($currentUserId) && !empty($_POST['author_id'])) {
+		outfit_insert_author_follower(intval($_POST['author_id']), $currentUserId);
 	}
 }
-else if (isset($_POST['unfavorite'])) {
-	if (!empty($currentUserId)) {
-		outfit_delete_author_follower($_POST['author_id'], $currentUserId);
+else if (isset($_POST['unfollow'])) {
+	if (!empty($currentUserId) && !empty($_POST['author_id'])) {
+		outfit_delete_author_follower(intval($_POST['author_id']), $currentUserId);
 	}
 }
 
@@ -84,10 +78,16 @@ get_header();
 									</h5>
 									<div><?php echo esc_html($authorAbout); ?></div>
 									<div>
-										<?php if (!empty($userId) && $userId != $authorId) { ?>
+										<?php if (!empty($currentUserId) && $currentUserId != $authorId) { ?>
+											<?php
+											//global $wpdb;
+											//$q = "SELECT * FROM {$wpdb->prefix}author_follower WHERE follower_id = $currentUserId AND author_id = $authorId";
+											//$results = $wpdb->get_results( $q );
+											//print_r($results);
+											?>
 											<form method="post" class="classiera_follow_user">
-												<input type="hidden" name="author_id" value="<?php echo esc_attr($author_id); ?>"/>
-												<?php if (!outfit_is_favorite_author($authorId, $userId)) { ?>
+												<input type="hidden" name="author_id" value="<?php echo esc_attr($authorId); ?>"/>
+												<?php if (!outfit_is_favorite_author($authorId, $currentUserId)) { ?>
 													<input type="submit" name="follow" value="<?php esc_html_e( 'Follow', 'outfit-standalone' ); ?>" />
 												<?php } else { ?>
 													<input type="submit" name="unfollow" value="<?php esc_html_e( 'Remove from favorites', 'outfit-standalone' ); ?>" />
