@@ -437,7 +437,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip" for="title"><?php esc_html_e('מה אתם מוכרים?', 'outfit-standalone') ?><span>*</span></label>
 								<div class="item">
-									<input id="title" data-minlength="5" name="postTitle" type="text" class="form-control form-control-md" value="<?php echo esc_html($postTitle); ?>" placeholder="<?php esc_html_e('Ad Title Goes here', 'outfit-standalone') ?>" required>
+									<input id="title" data-minlength="5" name="postTitle" type="text" class="form-control form-control-md" value="<?php echo esc_html($postTitle); ?>" placeholder="<?php //esc_html_e('Ad Title Goes here', 'outfit-standalone') ?>" required>
 
 								</div>
 							</div><!-- /Ad title-->
@@ -445,7 +445,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip" for="title"><?php esc_html_e('מחיר מבוקש', 'outfit-standalone') ?><span>*</span></label>
 								<div class="item">
-									<input id="price" data-minlength="1" name="postPrice" type="text" class="form-control form-control-md" value="<?php echo esc_html($postPrice); ?>" placeholder="<?php esc_html_e('Price', 'outfit-standalone') ?>" required>
+									<input id="price" data-minlength="1" name="postPrice" type="text" class="form-control form-control-md" value="<?php echo esc_html($postPrice); ?>" placeholder="<?php //esc_html_e('Price', 'outfit-standalone') ?>" required>
 
 								</div>
 							</div><!-- /Ad price-->
@@ -600,7 +600,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף עיקרית', 'outfit-standalone'); ?><span>*</span></label>
 								<div class="item">
-									<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>" required>
+									<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
 									<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
@@ -613,7 +613,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> : </label>
 								<div class="item">
-									<input id="address_2" type="text" name="address_2" class="address form-control form-control-md" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
+									<input id="address_2" type="text" name="address_2" class="address form-control form-control-md" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('כתובת או עיר	', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2" value="<?php echo esc_html($postSecLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2" value="<?php echo esc_html($postSecLongitude); ?>">
 									<input class="locality" type="hidden" id="locality_2" name="locality_2" value="<?php echo esc_html($postSecLocality); ?>">
@@ -628,14 +628,14 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('טלפון ליצירת קשר', 'outfit-standalone') ?> : <span>*</span> </label>
 								<div class="item">
-									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" value="<?php echo esc_html($postPhone); ?>" placeholder="<?php esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>" required>
+									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" value="<?php echo esc_html($postPhone); ?>" placeholder="<?php //esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('שעה נוחה להתקשרות', 'outfit-standalone') ?> :</label>
 								<div class="item">
-									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" value="<?php echo esc_html($postPreferredHours); ?>" placeholder="<?php esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
+									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" value="<?php echo esc_html($postPreferredHours); ?>" placeholder="<?php //esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
 								</div>
 							</div>						
 

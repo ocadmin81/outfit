@@ -88,9 +88,9 @@ get_header();
 											<form method="post" class="classiera_follow_user">
 												<input type="hidden" name="author_id" value="<?php echo esc_attr($authorId); ?>"/>
 												<?php if (!outfit_is_favorite_author($authorId, $currentUserId)) { ?>
-													<input type="submit" name="follow" value="<?php esc_html_e( '????? ??????? ??????', 'outfit-standalone' ); ?>" />
+													<button type="submit" name="follow"><span><?php esc_html_e( 'הוספה למוכרים אהובים', 'outfit-standalone' ); ?></span></button>
 												<?php } else { ?>
-													<input type="submit" name="unfollow" value="<?php esc_html_e( '???? ??????? ??????', 'outfit-standalone' ); ?>" />
+													<button type="submit" name="unfollow"><span><?php esc_html_e( 'הסרה ממוכרים אהובים', 'outfit-standalone' ); ?></span></button>
 												<?php } ?>
 											</form>
 											<div class="clearfix"></div>
@@ -105,7 +105,7 @@ get_header();
 						<div class="author-contact-details">
 							<div class="row">
 								<div class="col-md-6 col-sm-12">
-									<h5 class="text-uppercase"><?php esc_html_e('?????? ?????', 'outfit-standalone') ?></h5>
+									<h5 class="text-uppercase"><?php esc_html_e('נקודות איסוף', 'outfit-standalone') ?></h5>
 									<ul class="list-unstyled c-detail">
 										<li>
 											<span>
@@ -124,7 +124,7 @@ get_header();
 									</ul>
 								</div>							
 								<div class="col-md-6 col-sm-12">
-									<h5 class="text-uppercase"><?php esc_html_e('?????? ??? ?? ?????/?', 'outfit-standalone') ?></h5>
+									<h5 class="text-uppercase"><?php esc_html_e('ליצירת קשר עם המוכר/ת', 'outfit-standalone') ?></h5>
 									<ul class="list-unstyled p-detail">
 										<?php if(!empty($authorPhone)){?>
 											<li>
@@ -133,7 +133,7 @@ get_header();
 										<?php } ?>
 										<?php if(!empty($authorPreferredHours)){?>
 											<li class="s-time">
-												<span><?php esc_html_e('*??? ???? ????????', 'outfit-standalone') ?>:</span>
+												<span><?php esc_html_e('*שעה נוחה להתקשרות', 'outfit-standalone') ?>:</span>
 											</li>
 											<li>
 												<span><?php echo esc_html($authorPreferredHours);?></span>

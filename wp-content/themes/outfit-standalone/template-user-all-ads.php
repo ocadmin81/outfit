@@ -59,13 +59,13 @@ get_header(); ?>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads favorite-ads">
-						<h4 class="user-detail-section-heading text-uppercase">
-							<?php esc_html_e("My Ads", 'outfit-standalone') ?>
-						</h4>
-						<div class="container">
+						<h1 class="user-detail-section-heading text-uppercase">
+							<?php esc_html_e("המודעות שלי", 'outfit-standalone') ?>
+						</h1>
+						<div class="my-ads products">
 							<div class="row">
 								<?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
-									<div class="col-lg-4 col-md-4 col-sm-6 match-height item">
+									<div class="col-lg-4 col-md-4 col-sm-6 item">
 										<div class="classiera-box-div classiera-box-div-v1">
 											<figure class="clearfix">
 
@@ -94,19 +94,18 @@ get_header(); ?>
 														}
 														?>
 													</a>
-
+													<div class="ad-brand">castro<?php echo esc_attr($postBrand); ?></div>
 												</div><!--premium-img-->
 												<div class="remove-post-button">
-													<a href="<?php echo esc_url($deletePostUrl) ?>"
-													<span class="remove-post"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
-													<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
-												</div><!--remove-post-button-->
-												<div>
-													<?php echo esc_attr($postBrand); ?>
-												</div>
-												<div>
-													<?php if(!empty($postPrice)){?>
-														<div class="">
+													<a href="<?php echo esc_url($deletePostUrl) ?>">
+														<span class="remove-post"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
+														<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
+													</a>
+												</div><!--remove-post-button-->												
+												<div class="edit-price">
+													<div class="edit"><a href="<?php echo esc_url($editPostUrl); ?>"><?php echo esc_html_e( 'עריכה', 'outfit-standalone' ); ?></a></div>
+													<?php //if(!empty($postPrice)){?>
+														<div class="price">
 														<span class="">
 															<?php
 															if(is_numeric($postPrice)){
@@ -117,9 +116,7 @@ get_header(); ?>
 															?>
 														</span>
 														</div>
-													<?php } ?>
-
-													<span><a href="<?php echo esc_url($editPostUrl); ?>"><?php echo esc_html_e( 'Edit Post', 'outfit-standalone' ); ?></a></span>
+													<?php //} ?>													
 												</div>
 
 											</figure>
@@ -127,9 +124,9 @@ get_header(); ?>
 									</div><!--col-lg-4-->
 								<?php endwhile; ?>
 							</div>
+						</div>
 							<?php outfit_pagination(); ?>
 							<?php wp_reset_query(); ?>
-						</div>
 					</div><!--user-ads user-profile-settings-->
 				</div><!--user-detail-section-->
 			</div><!--col-lg-9-->
