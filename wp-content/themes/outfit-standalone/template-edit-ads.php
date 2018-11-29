@@ -343,6 +343,18 @@ if(isset( $_POST['postTitle'] )) {
 			if (isset($_POST['postSavePrefs'])) {
 
 				// save user prefs
+				if (!empty($postPhone)) {
+					update_user_meta($userId, USER_META_PHONE, $postPhone);
+				}
+				if (!empty($postPreferredHours)) {
+					update_user_meta($userId, USER_META_PREFERRED_HOURS, $postPreferredHours);
+				}
+				if ($location->isValid()) {
+					update_user_meta($userId, USER_META_PRIMARY_ADDRESS, $location->toString());
+				}
+				if (null !== $location2 && $location2->isValid()) {
+					update_user_meta($userId, USER_META_SECONDARY_ADDRESS, $location2->toString());
+				}
 			}
 
 			wp_redirect(get_permalink( $postId )); exit();
