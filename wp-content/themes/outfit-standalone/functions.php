@@ -23,6 +23,7 @@ require get_template_directory() . '/inc/user_status.php';
 require get_template_directory() . '/inc/model-functions.php';
 require get_template_directory() . '/inc/outfit-ajax.php';
 require get_template_directory() . '/inc/outfit-location.php';
+require get_template_directory() . '/templates/email/email_functions.php';
 require_once('pagination.php');
 
 /*==========================

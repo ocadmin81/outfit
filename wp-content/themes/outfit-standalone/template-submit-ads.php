@@ -24,7 +24,7 @@ global $redux_demo;
 global $wpdb;
 
 $current_user = wp_get_current_user();
-$userID = $current_user->ID;
+$userID = $userId = $current_user->ID;
 $cUserCheck = current_user_can( 'administrator' );
 $role = $current_user->roles;
 $currentRole = $role[0];
@@ -37,6 +37,11 @@ $brands = array();
 $conditions = outfit_get_list_of_conditions();
 $writers = outfit_get_list_of_writers();
 $characters = outfit_get_list_of_characters();
+
+$userPhone = get_user_meta($userId, USER_META_PHONE, true);
+$userPreferredHours = get_user_meta($userId, USER_META_PREFERRED_HOURS, true);
+$userPrimaryLocation = OutfitLocation::createFromJSON(get_user_meta($userId, USER_META_PRIMARY_ADDRESS, true));
+$userSecondaryLocation = OutfitLocation::createFromJSON(get_user_meta($userId, USER_META_SECONDARY_ADDRESS, true));
 
 /*
  * upload_attachment[]
@@ -154,6 +159,7 @@ if(isset( $_POST['postTitle'] )) {
 			$postSecArea2 = getPostInput('aal2_2');
 			$postSecArea3 = getPostInput('aal3_2');
 
+			$location2 = null;
 			if ($postSecAddress) {
 				$location2 = new OutfitLocation($postSecAddress, $postSecLongitude, $postSecLatitude, [
 					'locality' => $postSecLocality,
@@ -239,6 +245,18 @@ if(isset( $_POST['postTitle'] )) {
 			if (isset($_POST['postSavePrefs'])) {
 
 				// save user prefs
+				if (!empty($postPhone)) {
+					update_user_meta($userId, USER_META_PHONE, $postPhone);
+				}
+				if (!empty($postPreferredHours)) {
+					update_user_meta($userId, USER_META_PREFERRED_HOURS, $postPreferredHours);
+				}
+				if ($location->isValid()) {
+					update_user_meta($userId, USER_META_PRIMARY_ADDRESS, $location->toString());
+				}
+				if (null !== $location2 && $location2->isValid()) {
+					update_user_meta($userId, USER_META_SECONDARY_ADDRESS, $location2->toString());
+				}
 			}
 
 			wp_redirect(get_permalink( $postId )); exit();
@@ -428,26 +446,42 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף עיקרית', 'outfit-standalone'); ?> <span>*</span></label>
 								<div class="item">
-									<input class="address form-control form-control-md" id="address" type="text" name="address" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>" required>
-									<input class="latitude" type="hidden" id="latitude" name="latitude">
-									<input class="longitude" type="hidden" id="longitude" name="longitude">
-									<input class="locality" type="hidden" id="locality" name="locality">
-									<input class="aal3" type="hidden" id="aal3" name="aal3">
-									<input class="aal2" type="hidden" id="aal2" name="aal2">
-									<input class="aal1" type="hidden" id="aal1" name="aal1">
+									<input class="address form-control form-control-md" id="address" type="text"
+										   name="address" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>"
+										   value="<?php echo (null != $userPrimaryLocation? $userPrimaryLocation->getAddress() : ''); ?>" required>
+									<input class="latitude" type="hidden" id="latitude" name="latitude"
+										   value="<?php echo (null != $userPrimaryLocation? $userPrimaryLocation->getLatitude() : ''); ?>">
+									<input class="longitude" type="hidden" id="longitude" name="longitude"
+										   value="<?php echo (null != $userPrimaryLocation? $userPrimaryLocation->getLongitude() : ''); ?>">
+									<input class="locality" type="hidden" id="locality" name="locality"
+										   value="<?php echo (null != $userPrimaryLocation? $userPrimaryLocation->getLocality() : ''); ?>">
+									<input class="aal3" type="hidden" id="aal3" name="aal3"
+										   value="<?php echo (null != $userPrimaryLocation? $userPrimaryLocation->getAal3() : ''); ?>">
+									<input class="aal2" type="hidden" id="aal2" name="aal2"
+										   value="<?php echo (null != $userPrimaryLocation? $userPrimaryLocation->getAal2() : ''); ?>">
+									<input class="aal1" type="hidden" id="aal1" name="aal1"
+										   value="<?php echo (null != $userPrimaryLocation? $userPrimaryLocation->getAal1() : ''); ?>">
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> </label>
 								<div class="item">
-									<input class="address form-control form-control-md" id="address_2" type="text" name="address_2" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>">
-									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2">
-									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2">
-									<input class="locality" type="hidden" id="locality_2" name="locality_2">
-									<input class="aal3" type="hidden" id="aal3_2" name="aal3_2">
-									<input class="aal2" type="hidden" id="aal2_2" name="aal2_2">
-									<input class="aal1" type="hidden" id="aal1_2" name="aal1_2">
+									<input class="address form-control form-control-md" id="address_2" type="text"
+										   name="address_2" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>"
+										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getAddress() : ''); ?>">
+									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2"
+										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getLatitude() : ''); ?>">
+									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2"
+										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getLongitude() : ''); ?>">
+									<input class="locality" type="hidden" id="locality_2" name="locality_2"
+										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getLocality() : ''); ?>">
+									<input class="aal3" type="hidden" id="aal3_2" name="aal3_2"
+										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getAal3() : ''); ?>">
+									<input class="aal2" type="hidden" id="aal2_2" name="aal2_2"
+										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getAal2() : ''); ?>">
+									<input class="aal1" type="hidden" id="aal1_2" name="aal1_2"
+										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getAal1() : ''); ?>">
 								</div>
 							</div>
 
@@ -456,14 +490,18 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('טלפון ליצירת קשר', 'outfit-standalone') ?> <span>*</span> </label>
 								<div class="item">
-									<input type="text" id="phone" name="postPhone" class="form-control form-control-md" placeholder="<?php //esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>" required>
+									<input type="text" id="phone" name="postPhone" class="form-control form-control-md"
+										   placeholder="<?php //esc_html_e('Enter your phone number or Mobile number', 'outfit-standalone') ?>"
+										   value="<?php echo esc_html($userPhone); ?>" required>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('שעה נוחה להתקשרות', 'outfit-standalone') ?></label>
 								<div class="item">
-									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" placeholder="<?php //esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
+									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md"
+										   placeholder="<?php //esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>"
+										   value="<?php echo esc_html($userPreferredHours); ?>">
 								</div>
 							</div>						
 

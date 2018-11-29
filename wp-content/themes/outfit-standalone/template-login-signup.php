@@ -9,11 +9,10 @@
  * @since outfit-standalone 0.1
  */
 
-if ( is_user_logged_in() ) { 
+if ( is_user_logged_in() ) {
 
-	global $redux_demo; 
-	$profile = $redux_demo['profile'];
-	wp_redirect( $profile ); exit;
+	wp_redirect( outfit_get_page_url('profile_settings') );
+	exit;
 
 }
 
@@ -38,9 +37,8 @@ if(isset($_POST['op_outfit']) ){
 			$UserError = "Invalid username or password. Please try again!";
 		} else {
 
-			global $redux_demo; 
-			$profile = $redux_demo['profile'];
-			wp_redirect( $profile ); exit;
+			wp_redirect( outfit_get_page_url('profile_settings') );
+			exit;
 
 		}
 	}
@@ -187,9 +185,8 @@ if (!$user_ID){
 					$login_data['user_login'] = $username;
 					$login_data['user_password'] = $password;
 					$user_verify = wp_signon( $login_data, false );
-					global $redux_demo; 
-					$profile = $redux_demo['profile'];
-					wp_redirect( $profile ); exit;
+					wp_redirect( outfit_get_page_url('profile_settings') );
+					exit;
 					
 				}
 			}else{			
