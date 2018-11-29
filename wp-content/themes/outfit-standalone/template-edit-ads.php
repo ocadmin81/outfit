@@ -357,7 +357,8 @@ if(isset( $_POST['postTitle'] )) {
 				}
 			}
 
-			wp_redirect(get_permalink( $postId )); exit();
+			wp_redirect( outfit_get_page_url('user_all_ads') );
+			exit;
 		}
 	}
 }

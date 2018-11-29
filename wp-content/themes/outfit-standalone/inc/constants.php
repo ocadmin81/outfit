@@ -11,6 +11,8 @@ define('USER_META_SECONDARY_ADDRESS', 'outfit_secondary_address');
 define('USER_META_KIDS_BIRTHDAYS', 'outfit_kids_birthdays');
 define('USER_META_FAVORITE_BRANDS', 'outfit_favorite_brands');
 define('USER_META_ABOUT', 'outfit_about');
+define('USER_META_SEARCH_PREF_LOCATION', 'outfit_search_pref_location');
+define('USER_META_SEARCH_PREF_AGE', 'outfit_search_pref_age');
 define('POST_META_PHONE', 'outfit_post_phone');
 define('POST_META_LOCATION', 'outfit_post_location');
 define('POST_META_LOCATION_2', 'outfit_post_location_2');

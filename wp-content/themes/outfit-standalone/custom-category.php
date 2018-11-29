@@ -24,7 +24,9 @@ $thisCategory = get_category($catId);
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $perPage = 20;
 
-global $currentUserFavoriteAds;
+global $currentUserFavoriteAds, $currentUserId;
+$current_user = wp_get_current_user();
+$currentUserId = $current_user->ID;
 $currentUserFavoriteAds = outfit_authors_all_favorite($currentUserId);
 
 $args = array(

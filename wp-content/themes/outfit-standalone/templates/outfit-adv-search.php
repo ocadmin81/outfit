@@ -20,6 +20,15 @@ $postCondition = '';
 $postWriter = '';
 $postCharacter = '';
 
+global $currentUserId;
+$searchPrefAge = '';
+$searchPrefLocation = null;
+
+if ($currentUserId) {
+	$searchPrefAge = get_user_meta($currentUserId, USER_META_SEARCH_PREF_AGE, true);
+	$searchPrefLocation = get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true);
+}
+
 ?>
 <!--SearchForm-->
 <form method="get" action="<?php echo home_url(); ?>">
