@@ -1156,7 +1156,7 @@ function outfit_format_price_range_label($priceRanges, $i, $currencyAfter = true
 		$res .= '-'.($currencyAfter? $priceRanges[$i]['max'].$currency : $currency.$priceRanges[$i]['max']);
 	}
 	else {
-		$res .= translate('Above').' '.($currencyAfter? $priceRanges[$i]['min'].$currency : $currency.$priceRanges[$i]['min']);
+		$res .= translate('מעל').' '.($currencyAfter? $priceRanges[$i]['min'].$currency : $currency.$priceRanges[$i]['min']);
 	}
 	return $res;
 }

@@ -39,11 +39,14 @@ if ($currentUserId) {
 				<?php esc_html_e( 'Filter results', 'outfit-standalone' ); ?>
 			</a>
 		</div><!--search-form-main-heading-->
-		<div id="innerSearch" class="collapse in classiera__inner">
+		<div class="filter-close">
+			<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/menu-m-x.png" />
+		</div>
+		<div id="innerSearch" class="classiera__inner">
 
 			<?php if ($filterBy && $filterBy->catFilterByAge) { ?>
 			<!--Age Groups-->
-			<div class="inner-search-box">
+			<div class="inner-search-box ab">
 				<div class="inner-search-heading"><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></div>
 				<select id="ageGroup" name="postAgeGroup" class="form-control form-control-sm">					
 					<?php
@@ -58,19 +61,16 @@ if ($currentUserId) {
 			<?php } ?>
 
 			<!--Locations-->
-			<div class="inner-search-box">
-				<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-				<?php esc_html_e( 'Location', 'classiera' ); ?>
-				</h5>
-				<div class="inner-addon right-addon post_sub_loc">
-					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
-					<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
-					<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
-					<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
-					<input class="aal3" type="hidden" id="aal3" name="aal3" value="<?php echo esc_html($postArea3); ?>">
-					<input class="aal2" type="hidden" id="aal2" name="aal2" value="<?php echo esc_html($postArea2); ?>">
-					<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
-				</div>
+			<div class="inner-search-box ab">
+				<div class="inner-search-heading"><?php esc_html_e( 'אזור', 'classiera' ); ?></div>
+				<select id="address" name="address" class="form-control form-control-sm">					
+					<?php
+					foreach ($ageGroups as $c): ?>
+						<option value="<?php echo $c->term_id; ?>"
+							<?php echo ($c->term_id == $postAgeGroup? 'selected' : ''); ?>>
+							<?php esc_html_e($c->name); ?></option>
+					<?php endforeach; ?>
+				</select>	
 
 			</div>
 
@@ -79,9 +79,7 @@ if ($currentUserId) {
 			<?php if ($filterBy && $filterBy->catFilterByBrand) { ?>
 				<!--Brands-->
 				<div class="inner-search-box">
-					<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-						<?php esc_html_e( 'Brand', 'outfit-standalone' ); ?>
-					</h5>
+					<div class="inner-search-heading"><?php esc_html_e( 'מותגים', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 					<?php
 					foreach ($brands as $i => $c): ?>
@@ -98,16 +96,14 @@ if ($currentUserId) {
 
 			<?php if ($filterBy && $filterBy->catFilterByColor) { ?>
 				<!--Colors-->
-				<div class="inner-search-box">
-					<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-						<?php esc_html_e( 'Color', 'outfit-standalone' ); ?>
-					</h5>
+				<div class="inner-search-box color">
+					<div class="inner-search-heading"><?php esc_html_e( 'צבע', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($colors as $i => $c): ?>
 							<div class="checkbox">
 								<input type="checkbox" id="<?php echo esc_attr('color_'.$i); ?>" name="postColor[]" value="<?php echo $c->term_id; ?>">
-								<label for="<?php echo esc_attr('color_'.$i); ?>" style="color: <?php echo esc_attr(get_term_meta($c->term_id, 'color', true)); ?>"><?php esc_html_e($c->name); ?></label>
+								<label for="<?php echo esc_attr('color_'.$i); ?>" style="background: <?php echo esc_attr(get_term_meta($c->term_id, 'color', true)); ?>" title="<?php esc_html_e($c->name); ?>"><?php esc_html_e($c->name); ?></label>
 							</div>
 						<?php endforeach; ?>
 					</div>
@@ -118,9 +114,7 @@ if ($currentUserId) {
 
 			<!--Price-->
 			<div class="inner-search-box">
-				<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-					<?php esc_html_e( 'Price', 'outfit-standalone' ); ?>
-				</h5>
+				<div class="inner-search-heading"><?php esc_html_e( 'מחיר', 'outfit-standalone' ); ?></div>
 				<div class="inner-addon right-addon">
 					<?php
 					$priceRanges = array(
@@ -160,9 +154,7 @@ if ($currentUserId) {
 			<?php if ($filterBy && $filterBy->catFilterByCondition) { ?>
 				<!--Conditions-->
 				<div class="inner-search-box">
-					<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-						<?php esc_html_e( 'Condition', 'outfit-standalone' ); ?>
-					</h5>
+					<div class="inner-search-heading"><?php esc_html_e( 'מצב פריט', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($conditions as $i => $c): ?>
@@ -180,9 +172,7 @@ if ($currentUserId) {
 			<?php if ($filterBy && $filterBy->catFilterByWriter) { ?>
 				<!--Writers-->
 				<div class="inner-search-box">
-					<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-						<?php esc_html_e( 'Writer', 'outfit-standalone' ); ?>
-					</h5>
+					<div class="inner-search-heading"><?php esc_html_e( 'Writer', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($writers as $i => $c): ?>
@@ -200,9 +190,7 @@ if ($currentUserId) {
 			<?php if ($filterBy && $filterBy->catFilterByCharacter) { ?>
 				<!--Characters-->
 				<div class="inner-search-box">
-					<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-						<?php esc_html_e( 'Character', 'outfit-standalone' ); ?>
-					</h5>
+					divh5 class="inner-search-heading"><?php esc_html_e( 'Character', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($characters as $i => $c): ?>
@@ -217,7 +205,7 @@ if ($currentUserId) {
 				<!--Characters-->
 			<?php } ?>
 
-			<button type="submit" name="search" class="btn btn-primary sharp btn-sm btn-style-one btn-block" value="<?php esc_html_e( 'Search', 'classiera') ?>"><?php esc_html_e( 'Search', 'classiera') ?></button>
+			<button type="submit" name="search" class="btn btn-primary sharp btn-sm btn-style-one btn-block" style="display:none;" value="<?php esc_html_e( 'Search', 'classiera') ?>"><?php esc_html_e( 'Search', 'classiera') ?></button>
 		</div><!--innerSearch-->
 	</div><!--search-form-->
 </form>
