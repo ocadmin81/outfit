@@ -18,8 +18,33 @@ global $catId;
 global $paged, $wp_query, $wp, $post;
 global $outfitMainCat, $subCategories;
 
-$catId = get_queried_object_id();
-$thisCategory = get_category($catId);
+$catId = '';
+$subCategories = array();
+$thisCategory = null;
+$outfitMainCat = '';
+
+if (isset($_GET['cat_id']) && !empty($_GET['cat_id'])) {
+	$catId = intval($_GET['cat_id']);
+	$thisCategory = get_category($catId);
+	if (is_wp_error($thisCategory)) {
+		$thisCategory = null;
+	}
+}
+
+if (null !== $thisCategory) {
+	$subCategories = getSubCategories($catId);
+	$outfitMainCat = outfit_get_cat_ancestors($catId);
+
+	if (false === $outfitMainCat) {
+		$outfitMainCat = $catId;
+	}
+	else {
+		$outfitMainCat = end($outfitMainCat);
+	}
+}
+else {
+	$subCategories = outfit_get_main_cats(true);
+}
 
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $perPage = 20;
@@ -33,21 +58,100 @@ $args = array(
 	'post_type' => OUTFIT_AD_POST_TYPE,
 	'post_status' => 'publish',
 	'posts_per_page' => $perPage,
-	'paged' => $paged,
-	'cat' => $catId
+	'paged' => $paged
 );
 
-$outfitMainCat = outfit_get_cat_ancestors($catId);
+if ($thisCategory) {
+	$args['cat'] = $thisCategory->term_id;
+}
 
-if (false === $outfitMainCat) {
-	$outfitMainCat = $catId;
-}
-else {
-	$outfitMainCat = end($outfitMainCat);
-}
-//$subCategories = getSubCategories($outfitMainCat);
-$subCategories = getSubCategories($catId);
 $products = array();
+
+$postColor = getGetMultiple('postColor', []);
+$postAgeGroup = getGetMultiple('postAgeGroup', []);;
+$postBrand = getGetMultiple('postBrand', []);;
+$postCondition = getGetMultiple('postCondition', []);;
+$postWriter = getGetMultiple('postWriter', []);;
+$postCharacter = getGetMultiple('postCharacter', []);;
+$postKeyword = getGetInput('s', '');
+$postLocation = null;
+$postPrice = getGetMultiple('priceRange', []);
+
+// post primary location
+$postAddress = trim(getGetInput('address'));
+$postLatitude = getGetInput('latitude');
+$postLongitude = getGetInput('longitude');
+$postLocality = getGetInput('locality');
+$postArea1 = getGetInput('aal1');
+$postArea2 = getGetInput('aal2');
+$postArea3 = getGetInput('aal3');
+
+$postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
+	'locality' => $postLocality,
+	'aal3' => $postArea3,
+	'aal2' => $postArea2,
+	'aal1' => $postArea1
+]);
+
+$taxQuery = array();
+
+if (!empty($postColor)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'colors',
+		'field'    => 'term_id',
+		'terms'    => $postColor,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($postAgeGroup)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'age_groups',
+		'field'    => 'term_id',
+		'terms'    => $postAgeGroup,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($postBrand)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'brands',
+		'field'    => 'term_id',
+		'terms'    => $postBrand,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($postCondition)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'conditions',
+		'field'    => 'term_id',
+		'terms'    => $postCondition,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($postWriter)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'writers',
+		'field'    => 'term_id',
+		'terms'    => $postWriter,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($postCharacter)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'characters',
+		'field'    => 'term_id',
+		'terms'    => $postCharacter,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($taxQuery)) {
+	$args['tax_query'] = $taxQuery;
+}
 
 ?>
 

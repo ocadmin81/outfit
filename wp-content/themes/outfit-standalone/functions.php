@@ -948,10 +948,32 @@ function getPostInput($key, $default = '') {
 
 function getPostMultiple($key) {
 
-	if (isset($_POST[$key]) && is_array($_POST[$key])) {
+	if (isset($_POST[$key])) {
+		if (!is_array($_POST[$key])) {
+			return array($_POST[$key]);
+		}
 		return $_POST[$key];
 	}
 	return array();
+}
+
+function getGetMultiple($key) {
+
+	if (isset($_GET[$key])) {
+		if (!is_array($_GET[$key])) {
+			return array($_GET[$key]);
+		}
+		return $_GET[$key];
+	}
+	return array();
+}
+
+function getGetInput($key, $default='') {
+
+	if (isset($_GET[$key])) {
+		return $_GET[$key];
+	}
+	return $default;
 }
 
 /**
@@ -1201,6 +1223,15 @@ function outfit_template_check( $template ) {
 
 		if ( isset($_GET['outfit_ad']) ){
 			$new_template = get_template_directory() . '/custom-category.php';
+			if ( !empty( $new_template ) ) {
+				return $new_template;
+			}
+		}
+	}
+	else if (isset($_GET['search'])) {
+
+		if ( isset($_GET['outfit_ad']) ){
+			$new_template = get_template_directory() . '/custom-search.php';
 			if ( !empty( $new_template ) ) {
 				return $new_template;
 			}

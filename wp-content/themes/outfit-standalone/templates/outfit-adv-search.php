@@ -1,7 +1,7 @@
 <?php
 
 global $redux_demo;
-global $catId, $outfitMainCat;
+global $catId, $outfitMainCat, $subCategories;
 $filterBy = fetch_category_custom_fields(get_category($outfitMainCat));
 
 /* filters */
@@ -13,12 +13,7 @@ $writers = outfit_get_list_of_writers();
 $characters = outfit_get_list_of_characters();
 $brands = getBrandsByCategory($outfitMainCat);
 
-$postColor = '';
-$postAgeGroup = '';
-$postBrand = '';
-$postCondition = '';
-$postWriter = '';
-$postCharacter = '';
+
 
 global $currentUserId;
 $searchPrefAge = '';
@@ -29,6 +24,34 @@ if ($currentUserId) {
 	$searchPrefLocation = get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true);
 }
 
+$postColor = getGetMultiple('postColor', []);
+$postAgeGroup = getGetMultiple('postAgeGroup', []);;
+$postBrand = getGetMultiple('postBrand', []);;
+$postCondition = getGetMultiple('postCondition', []);;
+$postWriter = getGetMultiple('postWriter', []);;
+$postCharacter = getGetMultiple('postCharacter', []);;
+$postKeyword = getGetInput('s', '');
+$postLocation = null;
+$postPrice = getGetMultiple('priceRange', []);
+
+// post primary location
+$postAddress = trim(getGetInput('address'));
+$postLatitude = getGetInput('latitude');
+$postLongitude = getGetInput('longitude');
+$postLocality = getGetInput('locality');
+$postArea1 = getGetInput('aal1');
+$postArea2 = getGetInput('aal2');
+$postArea3 = getGetInput('aal3');
+
+$postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
+	'locality' => $postLocality,
+	'aal3' => $postArea3,
+	'aal2' => $postArea2,
+	'aal1' => $postArea1
+]);
+
+//var_dump($_GET['address']);
+//var_dump(get_query_var('address'));
 ?>
 <!--SearchForm-->
 <form method="get" action="<?php echo home_url(); ?>">
@@ -41,6 +64,26 @@ if ($currentUserId) {
 		</div><!--search-form-main-heading-->
 		<div id="innerSearch" class="collapse in classiera__inner">
 
+			<?php if (count($subCategories)) { ?>
+			<!--Categories-->
+			<!--<div class="inner-search-box">
+				<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
+					<?php //esc_html_e( 'Sub category', 'outfit-standalone' ); ?>
+				</h5>
+				<div class="inner-addon right-addon">
+					<?php
+					//foreach ($subCategories as $sub): ?>
+						<div class="checkbox">
+							<input type="checkbox" id="<?php //echo esc_attr('cat_'.$sub->term_id); ?>" name="category[]" value="<?php //echo $sub->term_id; ?>">
+							<label for="<?php //echo esc_attr('cat_'.$sub->term_id); ?>"><?php //esc_html_e($sub->name); ?></label>
+						</div>
+					<?php //endforeach; ?>
+				</div>
+
+			</div>-->
+			<!--Categories-->
+			<?php } ?>
+
 			<?php if ($filterBy && $filterBy->catFilterByAge) { ?>
 			<!--Age Groups-->
 			<div class="inner-search-box">
@@ -49,7 +92,7 @@ if ($currentUserId) {
 					<?php
 					foreach ($ageGroups as $c): ?>
 						<option value="<?php echo $c->term_id; ?>"
-							<?php echo ($c->term_id == $postAgeGroup? 'selected' : ''); ?>>
+							<?php echo (in_array($c->term_id, $postAgeGroup)? 'selected' : ''); ?>>
 							<?php esc_html_e($c->name); ?></option>
 					<?php endforeach; ?>
 				</select>				
@@ -84,9 +127,11 @@ if ($currentUserId) {
 					</h5>
 					<div class="inner-addon right-addon">
 					<?php
-					foreach ($brands as $i => $c): ?>
+					foreach ($brands as $i => $c):
+						$checked = in_array($c->term_id, $postBrand)? 'checked' : '';
+						?>
 						<div class="checkbox">
-							<input type="checkbox" id="<?php echo esc_attr('brand_'.$i); ?>" name="postBrand[]" value="<?php echo $c->term_id; ?>">
+							<input type="checkbox" id="<?php echo esc_attr('brand_'.$i); ?>" name="postBrand[]" value="<?php echo $c->term_id; ?>" <?php echo $checked?>>
 							<label for="<?php echo esc_attr('brand_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
 						</div>
 					<?php endforeach; ?>
@@ -104,9 +149,11 @@ if ($currentUserId) {
 					</h5>
 					<div class="inner-addon right-addon">
 						<?php
-						foreach ($colors as $i => $c): ?>
+						foreach ($colors as $i => $c):
+							$checked = in_array($c->term_id, $postColor)? 'checked' : '';
+						?>
 							<div class="checkbox">
-								<input type="checkbox" id="<?php echo esc_attr('color_'.$i); ?>" name="postColor[]" value="<?php echo $c->term_id; ?>">
+								<input type="checkbox" id="<?php echo esc_attr('color_'.$i); ?>" name="postColor[]" value="<?php echo $c->term_id; ?>" <?php echo $checked?>>
 								<label for="<?php echo esc_attr('color_'.$i); ?>" style="color: <?php echo esc_attr(get_term_meta($c->term_id, 'color', true)); ?>"><?php esc_html_e($c->name); ?></label>
 							</div>
 						<?php endforeach; ?>
@@ -145,10 +192,12 @@ if ($currentUserId) {
 							'max' => 1000
 						)
 					);
-					foreach ($priceRanges as $i => $range): ?>
-						<div class="checkbox">
+					foreach ($priceRanges as $i => $range):
+						$checked = in_array($range['min'].'_'.$range['max'], $postPrice)? 'checked' : '';
+						?>
+					<div class="checkbox">
 							<input type="checkbox" id="<?php echo esc_attr('price_range_'.$i); ?>" name="priceRange[]"
-								   value="<?php echo $range['min'].'_'.$range['max'] ?>">
+								   value="<?php echo $range['min'].'_'.$range['max'] ?>" <?php echo $checked?>>
 							<label for="<?php echo esc_attr('price_range_'.$i); ?>"><?php echo (outfit_format_price_range_label($priceRanges, $i)); ?></label>
 						</div>
 					<?php endforeach; ?>
@@ -165,9 +214,11 @@ if ($currentUserId) {
 					</h5>
 					<div class="inner-addon right-addon">
 						<?php
-						foreach ($conditions as $i => $c): ?>
+						foreach ($conditions as $i => $c):
+							$checked = in_array($c->term_id, $postCondition)? 'checked' : '';
+						?>
 							<div class="checkbox">
-								<input type="checkbox" id="<?php echo esc_attr('condition_'.$i); ?>" name="postCondition[]" value="<?php echo $c->term_id; ?>">
+								<input type="checkbox" id="<?php echo esc_attr('condition_'.$i); ?>" name="postCondition[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
 								<label for="<?php echo esc_attr('condition_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
 							</div>
 						<?php endforeach; ?>
@@ -185,9 +236,11 @@ if ($currentUserId) {
 					</h5>
 					<div class="inner-addon right-addon">
 						<?php
-						foreach ($writers as $i => $c): ?>
+						foreach ($writers as $i => $c):
+							$checked = in_array($c->term_id, $postWriter)? 'checked' : '';
+						?>
 							<div class="checkbox">
-								<input type="checkbox" id="<?php echo esc_attr('writer_'.$i); ?>" name="postWriter[]" value="<?php echo $c->term_id; ?>">
+								<input type="checkbox" id="<?php echo esc_attr('writer_'.$i); ?>" name="postWriter[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
 								<label for="<?php echo esc_attr('writer_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
 							</div>
 						<?php endforeach; ?>
@@ -205,9 +258,11 @@ if ($currentUserId) {
 					</h5>
 					<div class="inner-addon right-addon">
 						<?php
-						foreach ($characters as $i => $c): ?>
+						foreach ($characters as $i => $c):
+							$checked = in_array($c->term_id, $postCharacter)? 'checked' : '';
+						?>
 							<div class="checkbox">
-								<input type="checkbox" id="<?php echo esc_attr('character_'.$i); ?>" name="postCharacter[]" value="<?php echo $c->term_id; ?>">
+								<input type="checkbox" id="<?php echo esc_attr('character_'.$i); ?>" name="postCharacter[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
 								<label for="<?php echo esc_attr('character_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
 							</div>
 						<?php endforeach; ?>
@@ -216,8 +271,10 @@ if ($currentUserId) {
 				</div>
 				<!--Characters-->
 			<?php } ?>
-
-			<button type="submit" name="search" class="btn btn-primary sharp btn-sm btn-style-one btn-block" value="<?php esc_html_e( 'Search', 'classiera') ?>"><?php esc_html_e( 'Search', 'classiera') ?></button>
+			<input type="hidden" name="cat_id" value="<?php echo $catId; ?>">
+			<input type="hidden" name="search">
+			<input type="hidden" name="outfit_ad">
+			<button style="display: none;" type="submit" name="search" class="btn btn-primary sharp btn-sm btn-style-one btn-block" value="<?php esc_html_e( 'Search', 'classiera') ?>"><?php esc_html_e( 'Search', 'classiera') ?></button>
 		</div><!--innerSearch-->
 	</div><!--search-form-->
 </form>
