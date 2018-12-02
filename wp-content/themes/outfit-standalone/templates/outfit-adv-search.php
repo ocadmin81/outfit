@@ -62,7 +62,10 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 				<?php esc_html_e( 'Filter results', 'outfit-standalone' ); ?>
 			</a>
 		</div><!--search-form-main-heading-->
-		<div id="innerSearch" class="collapse in classiera__inner">
+		<div class="filter-close">
+			<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/menu-m-x.png" />
+		</div>
+		<div id="innerSearch" class="classiera__inner">
 
 			<?php if (count($subCategories)) { ?>
 			<!--Categories-->
@@ -86,7 +89,7 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 
 			<?php if ($filterBy && $filterBy->catFilterByAge) { ?>
 			<!--Age Groups-->
-			<div class="inner-search-box">
+			<div class="inner-search-box ab">
 				<div class="inner-search-heading"><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></div>
 				<select id="ageGroup" name="postAgeGroup" class="form-control form-control-sm">					
 					<?php
@@ -122,9 +125,7 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 			<?php if ($filterBy && $filterBy->catFilterByBrand) { ?>
 				<!--Brands-->
 				<div class="inner-search-box">
-					<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-						<?php esc_html_e( 'Brand', 'outfit-standalone' ); ?>
-					</h5>
+					<div class="inner-search-heading"><?php esc_html_e( 'מותגים', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 					<?php
 					foreach ($brands as $i => $c):
@@ -143,10 +144,8 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 
 			<?php if ($filterBy && $filterBy->catFilterByColor) { ?>
 				<!--Colors-->
-				<div class="inner-search-box">
-					<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-						<?php esc_html_e( 'Color', 'outfit-standalone' ); ?>
-					</h5>
+				<div class="inner-search-box color">
+					<div class="inner-search-heading"><?php esc_html_e( 'צבע', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($colors as $i => $c):
@@ -165,9 +164,7 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 
 			<!--Price-->
 			<div class="inner-search-box">
-				<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-					<?php esc_html_e( 'Price', 'outfit-standalone' ); ?>
-				</h5>
+				<div class="inner-search-heading"><?php esc_html_e( 'מחיר', 'outfit-standalone' ); ?></div>
 				<div class="inner-addon right-addon">
 					<?php
 					$priceRanges = array(
@@ -209,9 +206,7 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 			<?php if ($filterBy && $filterBy->catFilterByCondition) { ?>
 				<!--Conditions-->
 				<div class="inner-search-box">
-					<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-						<?php esc_html_e( 'Condition', 'outfit-standalone' ); ?>
-					</h5>
+					<div class="inner-search-heading"><?php esc_html_e( 'מצב פריט', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($conditions as $i => $c):
@@ -231,9 +226,7 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 			<?php if ($filterBy && $filterBy->catFilterByWriter) { ?>
 				<!--Writers-->
 				<div class="inner-search-box">
-					<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-						<?php esc_html_e( 'Writer', 'outfit-standalone' ); ?>
-					</h5>
+					<div class="inner-search-heading"><?php esc_html_e( 'Writer', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($writers as $i => $c):
@@ -253,9 +246,7 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 			<?php if ($filterBy && $filterBy->catFilterByCharacter) { ?>
 				<!--Characters-->
 				<div class="inner-search-box">
-					<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-						<?php esc_html_e( 'Character', 'outfit-standalone' ); ?>
-					</h5>
+					divh5 class="inner-search-heading"><?php esc_html_e( 'Character', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($characters as $i => $c):

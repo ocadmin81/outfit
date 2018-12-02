@@ -49,6 +49,8 @@ else {
 $subCategories = getSubCategories($catId);
 $products = array();
 
+require_once 'Mobile_Detect.php';
+$detect = new Mobile_Detect;
 ?>
 
 <!-- page content -->
@@ -56,8 +58,8 @@ $products = array();
 	<div class="wrap">		
 			<div class="view-head cat-tabs">
 					<div class="row">
-						<div class="col-md-4 col-lg-3">&nbsp;</div>
-						<div class="col-md-8 col-lg-9">
+						<div class="col-md-4 col-sm-4 col-lg-3">&nbsp;</div>
+						<div class="col-md-8 col-sm-8 col-lg-9">
 							<div class="tab-button">
 								<ul class="nav nav-tabs" role="tablist">
 									<li role="presentation" class="p-tab active">
@@ -77,13 +79,17 @@ $products = array();
 			</div><!--view-head-->	
 			<div class="cat-content">
 			<div class="row">
-				<div class="col-md-4 col-lg-3">
+				<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
+					<h1 class="cat-title"><?php echo esc_html($thisCategory->name); ?></h1>
+				<?php endif; ?>
+				<div class="col-md-4 col-lg-3 col-sm-4">
 					<aside class="sidebar cat-sidebar">
 						<div class="row">
 							<!--subcategory-->
-							<!--<div class="col-lg-12 col-md-12 col-sm-6">
+							<!--<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="widget-box">
-									<div class="widget-title"><?php //esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
+									<div class="widget-title"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
+									<div class="filter-fixed-title"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 									<div class="widget-content" style="display:none;">
 										<ul class="category">
 										<?php
@@ -104,7 +110,7 @@ $products = array();
 
 							<!--subcategory-->
 
-							<div class="col-lg-12 col-md-12 col-sm-6">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="widget-box">
 									<?php get_template_part( 'templates/outfit-adv-search' );?>
 								</div>
@@ -112,7 +118,7 @@ $products = array();
 						</div><!--row-->
 					</aside>
 				</div><!--row-->		
-				<div class="col-md-8 col-lg-9">
+				<div class="col-md-8 col-lg-9 col-sm-8">
 					<!-- advertisement -->
 					<section class="classiera-advertisement advertisement-v7 section-pad">
 							<div class="tab-content">
@@ -122,7 +128,9 @@ $products = array();
 
 											</script>
 											<!-- Posts-->
-											<h1 class="cat-title"><?php echo esc_html($thisCategory->name); ?></h1>
+											<?php if (!$detect->isMobile() || $detect->isTablet()): ?>
+												<h1 class="cat-title"><?php echo esc_html($thisCategory->name); ?></h1>
+											<?php endif; ?>
 											<?php
 
 											$wp_query= null;

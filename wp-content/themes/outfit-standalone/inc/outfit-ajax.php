@@ -21,7 +21,7 @@ function outfitGetSubCatOnClick(){
 				$option .= $cat->name;
 				$option .= '</option>';
 			  }
-			  echo '<option value="-1" selected="selected" disabled="disabled">'.esc_html__( "Select Sub Category..", "outfit-standalone" ).'</option>'.$option;
+			  echo '<option value="-1" selected="selected" disabled="disabled">'.esc_html__( "בחירת תת קטגוריה", "outfit-standalone" ).'</option>'.$option;
 			wp_die();
 		}else{			
 			echo $option;
@@ -50,7 +50,7 @@ function outfitGetBrandsByCat() {
 				$option .= $brand->name;
 				$option .= '</option>';
 			}
-			echo '<option value="-1" selected="selected" disabled="disabled">'.esc_html__( "Select Brands", "outfit-standalone" ).'</option>'.$option;
+			echo '<option value="-1" selected="selected" disabled="disabled">'.esc_html__( "בחירת מותג", "outfit-standalone" ).'</option>'.$option;
 			wp_die();
 		}else{
 			echo $option;

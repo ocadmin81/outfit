@@ -780,7 +780,7 @@ jQuery(document).ready(function(jQuery){
 		}else{
 			jQuery('.classieraAjaxResult').hide();
 		}	
-	});	
+	});		
 	jQuery(document).on('click', '.classieraAjaxResult li > a.SearchLink', function(e){
 		e.preventDefault();
 		var myResult = jQuery(this).attr('name');		
@@ -1333,6 +1333,23 @@ jQuery(document).ready(function(jQuery){
 	if(Swisth<=767){
 		jQuery(".menu-top-menu-container .menu").css( "width",Swisth );
 	}
+	//category filter in mobile
+	if(Swisth <= 767){
+		jQuery( '.cat-sidebar.sidebar .widget-box .widget-title,.filter-fixed-title' ).click(function() {
+			jQuery('.cat-sidebar .search-form').addClass('active');
+		});
+		jQuery( '.cat-sidebar .filter-close img' ).click(function() {
+			jQuery('.cat-sidebar .search-form').removeClass('active');
+		});	
+		jQuery(document).scroll(function() {
+			var scroll = jQuery(window).scrollTop();
+			if(scroll>250){
+				jQuery('.filter-fixed-title').addClass('active');
+			}else{
+				jQuery('.filter-fixed-title').removeClass('active');
+			}			
+		});
+	}	
 	//mobile menu top row
 	if(Swisth<=767){
 		var Trow = jQuery( '.m-menu-top' ).html();
