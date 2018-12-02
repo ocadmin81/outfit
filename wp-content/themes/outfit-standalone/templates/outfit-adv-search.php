@@ -246,7 +246,7 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 			<?php if ($filterBy && $filterBy->catFilterByCharacter) { ?>
 				<!--Characters-->
 				<div class="inner-search-box">
-					divh5 class="inner-search-heading"><?php esc_html_e( 'Character', 'outfit-standalone' ); ?></div>
+					<div class="inner-search-heading"><?php esc_html_e( 'Character', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($characters as $i => $c):

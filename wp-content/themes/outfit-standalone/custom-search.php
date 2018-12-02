@@ -153,6 +153,37 @@ if (!empty($taxQuery)) {
 	$args['tax_query'] = $taxQuery;
 }
 
+$metaQuery = array();
+
+if (!empty($postPrice)) {
+	foreach ($postPrice as $range) {
+		list($min, $max) = explode('_', $range);
+		// TODO: wrong, add OR
+		if (is_numeric($min) && is_numeric($max)) {
+			$min = intval($min);
+			$max = intval($max);
+			if ($max > $min) {
+				$metaQuery[] = array(
+					'key' => POST_META_PRICE,
+					'value' => array($min, $max),
+					'compare' => 'BETWEEN',
+					'type' => 'NUMERIC'
+				);
+			}
+		}
+		else if (!is_numeric($max)) {
+			$min = intval($min);
+			$metaQuery[] = array(
+				'key' => POST_META_PRICE,
+				'value' => $min,
+				'compare' => '>',
+				'type' => 'NUMERIC'
+			);
+		}
+	}
+
+}
+
 ?>
 
 <!-- page content -->
