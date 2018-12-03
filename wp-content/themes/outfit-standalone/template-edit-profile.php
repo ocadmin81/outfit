@@ -311,7 +311,7 @@ get_header();
 							<h4 class="user-detail-section-heading text-uppercase">
 								<?php esc_html_e( 'אזורי הגעה', 'outfit-standalone' ); ?>
 							</h4>
-							<div class="ex"><?php echo do_shortcode("[do_widget id=text-22]"); ?></div>
+							<div class="ex"><?php echo do_shortcode("[do_widget id=text-10]"); ?></div>
 							<!--Address-->
 							<div class="form-inline row">
 							<div class="form-group col-sm-6">

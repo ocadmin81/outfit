@@ -274,13 +274,13 @@ get_header(); ?>
 <section class="user-pages">
 	<div class="top-blog">		
 		<h1 class="page-title"><?php esc_html_e('התחילו למכור', 'outfit-standalone') ?></h1>
-		<div class="taxonomy-description"><?php echo do_shortcode("[do_widget id=text-20]"); ?></div>		
+		<div class="taxonomy-description"><?php echo do_shortcode("[do_widget id=text-8]"); ?></div>		
 	</div>
 	<div class="wrap ad-page">
 		<div class="row">
 			<div class="col-lg-5 col-md-5 col-sm-12 ad-tips">
 				<div class="form-group reg-text">
-					<?php echo do_shortcode("[do_widget id=text-21]"); ?>
+					<?php echo do_shortcode("[do_widget id=text-9]"); ?>
 				</div>				
 			</div>
 			<div class="col-lg-7 col-md-7 col-sm-12 user-content-height ad-form">

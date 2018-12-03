@@ -78,5 +78,5 @@ if ( post_password_required() ) {
 	?>
 
 </div><!-- #comments -->
-<div class="comment-form-desc"><?php echo do_shortcode("[do_widget id=text-23]"); ?></div>
+<div class="comment-form-desc"><?php echo do_shortcode("[do_widget id=text-11]"); ?></div>
 <div class="text-placeholder" style="display:none;"><?php _e( "התגובה שלך על הפוסט", 'outfit-standalone' ); ?></div>

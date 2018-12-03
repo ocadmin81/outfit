@@ -281,7 +281,7 @@ if (!$user_ID){
 						<!--Register-->
 						<div class="reg-section">
 							<div class="form-group reg-text">
-								<?php echo do_shortcode("[do_widget id=text-16]"); ?>
+								<?php echo do_shortcode("[do_widget id=text-7]"); ?>
 							</div>
 							<div class="social-login-link">
 								<a class="fb-login fb" href="<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1" onclick="window.location = '<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1&redirect='+window.location.href; return false;"><?php esc_html_e('כניסה באמצעות פייסבוק', 'outfit-standalone') ?></a>														
