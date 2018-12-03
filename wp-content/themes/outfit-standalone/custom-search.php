@@ -67,15 +67,15 @@ if ($thisCategory) {
 
 $products = array();
 
-$postColor = getGetMultiple('postColor', []);
-$postAgeGroup = getGetMultiple('postAgeGroup', []);;
-$postBrand = getGetMultiple('postBrand', []);;
-$postCondition = getGetMultiple('postCondition', []);;
-$postWriter = getGetMultiple('postWriter', []);;
-$postCharacter = getGetMultiple('postCharacter', []);;
+$postColor = getGetMultiple('postColor', true);
+$postAgeGroup = getGetMultiple('postAgeGroup', true);;
+$postBrand = getGetMultiple('postBrand', true);;
+$postCondition = getGetMultiple('postCondition', true);;
+$postWriter = getGetMultiple('postWriter', true);;
+$postCharacter = getGetMultiple('postCharacter', true);;
 $postKeyword = getGetInput('s', '');
 $postLocation = null;
-$postPrice = getGetMultiple('priceRange', []);
+$postPrice = getGetMultiple('priceRange', true);
 
 // post primary location
 $postAddress = trim(getGetInput('address'));
@@ -92,6 +92,10 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 	'aal2' => $postArea2,
 	'aal1' => $postArea1
 ]);
+
+if (!empty($postKeyword)) {
+	$args['s'] = $postKeyword;
+}
 
 $taxQuery = array();
 
@@ -154,16 +158,17 @@ if (!empty($taxQuery)) {
 }
 
 $metaQuery = array();
+$metaQueryPrice = array();
 
 if (!empty($postPrice)) {
 	foreach ($postPrice as $range) {
 		list($min, $max) = explode('_', $range);
-		// TODO: wrong, add OR
+
 		if (is_numeric($min) && is_numeric($max)) {
 			$min = intval($min);
 			$max = intval($max);
 			if ($max > $min) {
-				$metaQuery[] = array(
+				$metaQueryPrice[] = array(
 					'key' => POST_META_PRICE,
 					'value' => array($min, $max),
 					'compare' => 'BETWEEN',
@@ -173,7 +178,7 @@ if (!empty($postPrice)) {
 		}
 		else if (!is_numeric($max)) {
 			$min = intval($min);
-			$metaQuery[] = array(
+			$metaQueryPrice[] = array(
 				'key' => POST_META_PRICE,
 				'value' => $min,
 				'compare' => '>',
@@ -181,7 +186,40 @@ if (!empty($postPrice)) {
 			);
 		}
 	}
+	if (!empty($metaQueryPrice)) {
+		$metaQueryPrice['relation'] = 'OR';
+		$metaQuery[] = $metaQueryPrice;
+	}
+}
 
+$locationSearchKey = $postLocation->suggestSearchKey();
+$searchBy = $postLocation->getLastSearchKeyBy();
+
+$metaQueryLocation = array();
+if ($locationSearchKey && $searchBy) {
+
+	$metaKey = '';
+	if ($searchBy == OutfitLocation::LOCALITY) {
+		$metaKey = POST_META_LOCALITY_TAG;
+	}
+	else if ($searchBy == OutfitLocation::AREA3) {
+		$metaKey = POST_META_AREA3_TAG;
+	}
+	else if ($searchBy == OutfitLocation::AREA2) {
+		$metaKey = POST_META_AREA2_TAG;
+	}
+	else if ($searchBy == OutfitLocation::AREA1) {
+		$metaKey = POST_META_AREA1_TAG;
+	}
+	$metaQueryLocation = array(
+		'key' => $metaKey,
+		'value' => $locationSearchKey,
+		'compare' => '='
+	);
+	$metaQuery[] = $metaQueryLocation;
+}
+if (!empty($metaQuery)) {
+	$args['meta_query'] = $metaQuery;
 }
 
 ?>

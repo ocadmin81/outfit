@@ -6,6 +6,11 @@
  */
 class OutfitLocation {
 
+    const LOCALITY = 'LOCALITY';
+    const AREA3 = 'AREA3';
+    const AREA2 = 'AREA2';
+    const AREA1 = 'AREA1';
+
     private $address = '';
     private $latitude = '';
     private $longitude = '';
@@ -13,6 +18,7 @@ class OutfitLocation {
     private $aal3 = '';
     private $aal2 = '';
     private $aal1 = '';
+    private $lastSearchKeyBy = '';
 
     public function __construct($address, $longitude, $latitude, $tags) {
         $this->address = $address;
@@ -31,6 +37,30 @@ class OutfitLocation {
         if (isset($tags['aal1'])) {
             $this->aal1 = $tags['aal1'];
         }
+    }
+
+    public function suggestSearchKey() {
+        if (!empty($this->locality)) {
+            $this->lastSearchKeyBy = self::LOCALITY;
+            return $this->locality;
+        }
+        if (!empty($this->aal3)) {
+            $this->lastSearchKeyBy = self::AREA3;
+            return $this->aal3;
+        }
+        if (!empty($this->aal2)) {
+            $this->lastSearchKeyBy = self::AREA2;
+            return $this->aal2;
+        }
+        if (!empty($this->aal1)) {
+            $this->lastSearchKeyBy = self::AREA1;
+            return $this->aal1;
+        }
+        return '';
+    }
+
+    public function getLastSearchKeyBy() {
+        return $this->lastSearchKeyBy;
     }
 
     /**

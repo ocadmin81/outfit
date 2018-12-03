@@ -957,15 +957,27 @@ function getPostMultiple($key) {
 	return array();
 }
 
-function getGetMultiple($key) {
+function getGetMultiple($key, $clearEmptyValues=false) {
 
+	$t = array();
 	if (isset($_GET[$key])) {
 		if (!is_array($_GET[$key])) {
-			return array($_GET[$key]);
+			$t = array($_GET[$key]);
 		}
-		return $_GET[$key];
+		else {
+			$t = $_GET[$key];
+		}
 	}
-	return array();
+	if ($clearEmptyValues) {
+		$r = array();
+		foreach ($t as $k => $v) {
+			if (!empty($v)) {
+				$r[$k] = $v;
+			}
+		}
+		return $r;
+	}
+	return $t;
 }
 
 function getGetInput($key, $default='') {
@@ -1228,7 +1240,7 @@ function outfit_template_check( $template ) {
 			}
 		}
 	}
-	else if (isset($_GET['search'])) {
+	else if (isset($_GET['search']) || isset($_GET['s'])) {
 
 		if ( isset($_GET['outfit_ad']) ){
 			$new_template = get_template_directory() . '/custom-search.php';

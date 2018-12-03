@@ -92,6 +92,7 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 			<div class="inner-search-box ab">
 				<div class="inner-search-heading"><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></div>
 				<select id="ageGroup" name="postAgeGroup" class="form-control form-control-sm">					
+					<option value=""><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></option>
 					<?php
 					foreach ($ageGroups as $c): ?>
 						<option value="<?php echo $c->term_id; ?>"
