@@ -86,27 +86,27 @@ $detect = new Mobile_Detect;
 					<aside class="sidebar cat-sidebar">
 						<div class="row">
 							<!--subcategory-->
-							<!--<div class="col-lg-12 col-md-12 col-sm-12">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="widget-box">
 									<div class="widget-title"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 									<div class="filter-fixed-title"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 									<div class="widget-content" style="display:none;">
 										<ul class="category">
 										<?php
-											//foreach($subCategories as $sub) {
+											foreach($subCategories as $sub) {
 										?>
 											<li>
-												<a href="<?php //echo esc_url(get_category_link( $sub->term_id ));?>">
+												<a href="<?php echo esc_url(get_category_link( $sub->term_id ));?>">
 													<i class="fa fa-angle-right"></i>
-													<?php //echo esc_html($sub->name); ?>
+													<?php echo esc_html($sub->name); ?>
 
 												</a>
 											</li>
-										<?php //} ?>
+										<?php } ?>
 										</ul>
 									</div>
 								</div>
-							</div>-->
+							</div>
 
 							<!--subcategory-->
 
