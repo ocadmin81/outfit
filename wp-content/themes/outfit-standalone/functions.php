@@ -1284,9 +1284,29 @@ function get_current_template( $echo = false ) {
 
 function outfit_category_products_shortcode($atts = [], $content = null)
 {
-	// do something to $content
+	ob_start();
+	$atts = shortcode_atts(
+		array(
+			'cat_slug' => '',
+			'count' => 5,
+		), $atts, 'catprod' );
+	$catSlug = $atts['cat_slug'];
+	global $perPage;
+	$perPage = (int) $atts['count'];
+	$loggedIn = is_user_logged_in();
+	global $current_user, $user_id;
+	global $redux_demo;
+	global $paged, $wp_query, $wp, $post;
+	global $catObj;
+	$currentUser = $current_user = wp_get_current_user();
+	$userId = $user_id = $currentUser->ID;
 
-	// always return
-	return "Shalom";
+	$catObj = get_category_by_slug($catSlug);
+	if (false !== $catObj) {
+
+		get_template_part('templates/catprod_home');
+
+	}
+	return ob_get_clean();
 }
 add_shortcode('catprod', 'outfit_category_products_shortcode');

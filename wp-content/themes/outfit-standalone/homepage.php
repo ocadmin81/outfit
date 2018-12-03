@@ -27,10 +27,11 @@ get_header(); ?>
 		<?php
 		//if (!$loggedIn) {
 			foreach ($catslugs as $c) {
-				$catObj = get_category_by_slug($c);
-				if (false !== $catObj) {
-					get_template_part('templates/catprod_home');
-				}
+				//$catObj = get_category_by_slug($c);
+				//if (false !== $catObj) {
+				//	get_template_part('templates/catprod_home');
+				//}
+				echo do_shortcode('[catprod cat_slug="clothing"]');
 			} //foreach ($catslugs as $c)
 		//}
 		//else {
