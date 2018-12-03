@@ -32,6 +32,7 @@ function outfit_scripts_styles(){
 	if( is_page_template('template-submit-ads.php') ||
 		is_page_template('template-edit-ads.php') ||
 		is_page_template('template-edit-profile.php') ||
+		(get_current_template() == 'custom-search.php') ||
 		is_category()
 	) {
 		/* add javascript */
