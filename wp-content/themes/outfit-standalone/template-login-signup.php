@@ -361,13 +361,13 @@ if (!$user_ID){
 										<div class="help-block with-errors"></div>
 									</div>
 								</div><!--lastname-->
-								<div class="form-group">
+								<!--<div class="form-group">
                                     <div class="inner-addon left-addon">                                        
                                         <input type="text" name="username"
 											   class="form-control form-control-md sharp-edge"
-											   placeholder="<?php esc_html_e('שם משתמש', 'outfit-standalone') ?>"
-											   data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>"
-											   value="<?php echo esc_html( sanitize_user( $username, true ) ); ?>"
+											   placeholder="<?php //esc_html_e('שם משתמש', 'outfit-standalone') ?>"
+											   data-error="<?php //esc_html_e('זה שדה חובה', 'outfit-standalone') ?>"
+											   value="<?php //echo esc_html( sanitize_user( $username, true ) ); ?>"
 											   required>
                                         <div class="help-block with-errors"></div>
                                     </div>
