@@ -195,8 +195,8 @@ if (!$user_ID){
 
 				if ( $registerSuccess ) {
 
-					update_user_meta($status, USER_META_FIRSTNAME, $firstName);
-					update_user_meta($status, USER_META_LASTNAME, $lastName);
+					update_user_meta($status, USER_META_FIRSTNAME, $firstname);
+					update_user_meta($status, USER_META_LASTNAME, $lastname);
 					outfitUserNotification( $email, $password, $username );
 					global $redux_demo; 
 					$newUsernotification = $redux_demo['newusernotification'];	
