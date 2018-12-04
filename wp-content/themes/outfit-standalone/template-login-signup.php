@@ -173,13 +173,16 @@ if (!$user_ID){
 					}
 
 				}
-				
-				$status = wp_create_user( $username, $password, $email );
-				if ( is_wp_error($status) ) {
-					$registerSuccess = 0;
-					
-					$message =  esc_html__( 'Username or E-mail already exists. Please try another one.', 'outfit-standalone' );
-				}else{
+				if ($registerSuccess) {
+					$status = wp_create_user( $username, $password, $email );
+					if ( is_wp_error($status) ) {
+						$registerSuccess = 0;
+						$message =  esc_html__( 'Username or E-mail already exists. Please try another one.', 'outfit-standalone' );
+					}
+				}
+
+				if ( $registerSuccess ) {
+
 					update_user_meta($status, USER_META_FIRSTNAME, $firstName);
 					update_user_meta($status, USER_META_LASTNAME, $lastName);
 					outfitUserNotification( $email, $password, $username );
@@ -188,7 +191,6 @@ if (!$user_ID){
 					if($newUsernotification == 1){
 						outfitNewUserNotifiy($email, $username);	
 					}
-					$registerSuccess = 1;
 				}
 				
 				/*If Turn OFF Email verification*/
