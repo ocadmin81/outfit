@@ -1317,7 +1317,7 @@ add_action('wp_ajax_nopriv_outfit_save_search_filters', 'outfit_save_search_filt
 function outfit_save_search_filters() {
 
 	if (!is_user_logged_in()) {
-		die();
+		wp_die();
 	}
 	$currentUser = wp_get_current_user();
 	$ageTermId = (isset($_POST['age']) && !empty($_POST['age']) ? intval($_POST['age']) : false);
@@ -1342,5 +1342,6 @@ function outfit_save_search_filters() {
 	if ($postLocation->isValid()) {
 		update_user_meta($currentUser->ID, USER_META_SEARCH_PREF_LOCATION, $postLocation->toString());
 	}
-	die();
+	echo 'Age = '.$ageTermId.'; Location address = '.$postAddress;
+	wp_die();
 }

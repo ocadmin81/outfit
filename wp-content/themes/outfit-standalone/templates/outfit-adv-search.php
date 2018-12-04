@@ -141,9 +141,11 @@ else {
 
 			<!--Locations-->
 
+			<?php if (is_user_logged_in()) { ?>
 			<div class="inner-search-box">
 				<a id="outfit_save_search_prefs" href="javascript:void(0)"><?php esc_html_e('Save Search Preferences', 'outfit-standalone') ?></a>
 			</div>
+			<?php } ?>
 
 			<?php if ($filterBy && $filterBy->catFilterByBrand) { ?>
 				<!--Brands-->
