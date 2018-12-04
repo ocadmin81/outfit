@@ -109,16 +109,16 @@ if (!$user_ID){
 			//$username = $wpdb->escape($_POST['username']);
 			//$email = $wpdb->escape($_POST['email']);
 			$username = isset($_POST['username']) ? trim( wp_unslash( $_POST['username'] ) ) : '';
-			$email  = isset( $_POST['email']  ) ? trim( wp_unslash( $_POST['email'] ) ) : '';
+			$email  = isset( $_POST['email']  ) ? trim( wp_unslash( $_POST['email'] ) ) : null;
 
 			$firstname = isset( $_POST['firstname']  ) ? trim( wp_unslash( $_POST['firstname'] ) ) : '';
 			$lastname = isset( $_POST['lastname']  ) ? trim( wp_unslash( $_POST['lastname'] ) ) : '';
 
-			$password = $wpdb->escape($_POST['password']);
-			$confirm_password = $wpdb->escape($_POST['confirm']);
+			//$password = $wpdb->escape($_POST['password']);
+			//$confirm_password = $wpdb->escape($_POST['confirm']);
 
-			//$password = isset( $_POST['password']  ) ? trim( wp_unslash( $_POST['password'] ) ) : '';
-			//$confirm_password = isset( $_POST['confirm']  ) ? trim( wp_unslash( $_POST['confirm'] ) ) : '';
+			$password = isset( $_POST['password']  ) ? trim( $_POST['password'] ) : null;
+			$confirm_password = isset( $_POST['confirm']  ) ? trim( $_POST['confirm'] ) : '';
 			
 			$remember = $wpdb->escape($_POST['remember']);
 
@@ -135,44 +135,48 @@ if (!$user_ID){
 					$message =  esc_html__( 'The username you provided has invalid characters.', 'outfit-standalone' );
 					$registerSuccess = 0;
 				}
+				if ($registerSuccess) {
+					if(isset($email)) {
 
-				if(isset($email)) {
+						if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email)){
 
-					if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email)){ 
+							wp_update_user( array ('ID' => $user_ID, 'user_email' => $email) ) ;
 
-						wp_update_user( array ('ID' => $user_ID, 'user_email' => $email) ) ;
+						}else {
+							$message =  esc_html__( 'Please enter a valid email.', 'outfit-standalone' );
+							$registerSuccess = 0;
+						}
 
-					}else { 				 
+					}else{
+						$registerSuccess = 0;
 						$message =  esc_html__( 'Please enter a valid email.', 'outfit-standalone' );
-						$registerSuccess = 0;
-					}				
-
-				}else{
-					$registerSuccess = 0;
-					$message =  esc_html__( 'Please enter a valid email.', 'outfit-standalone' );
+					}
 				}
-				/*If Admin Turn Of Email Verification then this code will work*/
-				if($password){
+				if ($registerSuccess) {
+					/*If Admin Turn Of Email Verification then this code will work*/
+					if($password){
 
-					if (strlen($password) < 5 || strlen($password) > 15) {						
-						$message =  esc_html__( 'Password must be 5 to 15 characters in length.', 'outfit-standalone' );
-						$registerSuccess = 0;
-						
-					}elseif(isset($password) && $password != $confirm_password) {
-						
-						$message =  esc_html__( 'Password Mismatch', 'outfit-standalone' );
+						if (strlen($password) < 5 || strlen($password) > 15) {
+							$message =  esc_html__( 'Password must be 5 to 15 characters in length.', 'outfit-standalone' );
+							$registerSuccess = 0;
 
-						$registerSuccess = 0;
+						}elseif(isset($password) && $password != $confirm_password) {
 
-					}elseif ( isset($password) && !empty($password) ) {
+							$message =  esc_html__( 'Password Mismatch', 'outfit-standalone' );
 
-						$update = wp_set_password( $password, $user_ID );						
-						$message =  esc_html__( 'Registration successful', 'outfit-standalone' );
-						$registerSuccess = 1;
+							$registerSuccess = 0;
+
+						}elseif ( isset($password) && !empty($password) ) {
+
+							$update = wp_set_password( $password, $user_ID );
+							$message =  esc_html__( 'Registration successful', 'outfit-standalone' );
+							$registerSuccess = 1;
+
+						}
 
 					}
-
 				}
+
 				if ($registerSuccess) {
 					$status = wp_create_user( $username, $password, $email );
 					if ( is_wp_error($status) ) {
