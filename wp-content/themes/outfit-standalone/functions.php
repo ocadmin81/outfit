@@ -1310,3 +1310,37 @@ function outfit_category_products_shortcode($atts = [], $content = null)
 	return ob_get_clean();
 }
 add_shortcode('catprod', 'outfit_category_products_shortcode');
+
+add_action('wp_ajax_outfit_save_search_filters', 'outfit_save_search_filters');
+add_action('wp_ajax_nopriv_outfit_save_search_filters', 'outfit_save_search_filters');//for users that are not logged in.
+
+function outfit_save_search_filters() {
+
+	if (!is_user_logged_in()) {
+		die();
+	}
+	$currentUser = wp_get_current_user();
+	$ageTermId = (isset($_POST['age']) && !empty($_POST['age']) ? intval($_POST['age']) : false);
+	$postAddress = trim(getPostInput('address'));
+	$postLatitude = getPostInput('latitude');
+	$postLongitude = getPostInput('longitude');
+	$postLocality = getPostInput('locality');
+	$postArea1 = getPostInput('aal1');
+	$postArea2 = getPostInput('aal2');
+	$postArea3 = getPostInput('aal3');
+
+	$postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
+		'locality' => $postLocality,
+		'aal3' => $postArea3,
+		'aal2' => $postArea2,
+		'aal1' => $postArea1
+	]);
+
+	if ($ageTermId) {
+		update_user_meta($currentUser->ID, USER_META_SEARCH_PREF_AGE, $ageTermId);
+	}
+	if ($postLocation->isValid()) {
+		update_user_meta($currentUser->ID, USER_META_SEARCH_PREF_LOCATION, $postLocation->toString());
+	}
+	die();
+}

@@ -21,7 +21,7 @@ $searchPrefLocation = null;
 
 if ($currentUserId) {
 	$searchPrefAge = get_user_meta($currentUserId, USER_META_SEARCH_PREF_AGE, true);
-	$searchPrefLocation = get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true);
+	$searchPrefLocation = OutfitLocation::createFromJSON(get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true));
 }
 
 $postColor = getGetMultiple('postColor', []);
@@ -35,20 +35,34 @@ $postLocation = null;
 $postPrice = getGetMultiple('priceRange', []);
 
 // post primary location
-$postAddress = trim(getGetInput('address'));
-$postLatitude = getGetInput('latitude');
-$postLongitude = getGetInput('longitude');
-$postLocality = getGetInput('locality');
-$postArea1 = getGetInput('aal1');
-$postArea2 = getGetInput('aal2');
-$postArea3 = getGetInput('aal3');
+if (!isset($_GET['address']) || empty($_GET['address'])) {
+	if (null != $searchPrefLocation) {
+		$postAddress = $searchPrefLocation->getAddress();
+		$postLatitude = $searchPrefLocation->getLatitude();
+		$postLongitude = $searchPrefLocation->getLongitude();
+		$postLocality = $searchPrefLocation->getLocality();
+		$postArea1 = $searchPrefLocation->getAal1();
+		$postArea2 = $searchPrefLocation->getAal2();
+		$postArea3 = $searchPrefLocation->getAal3();
+	}
+}
+else {
+	$postAddress = trim(getGetInput('address'));
+	$postLatitude = getGetInput('latitude');
+	$postLongitude = getGetInput('longitude');
+	$postLocality = getGetInput('locality');
+	$postArea1 = getGetInput('aal1');
+	$postArea2 = getGetInput('aal2');
+	$postArea3 = getGetInput('aal3');
 
-$postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
-	'locality' => $postLocality,
-	'aal3' => $postArea3,
-	'aal2' => $postArea2,
-	'aal1' => $postArea1
-]);
+	$postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
+		'locality' => $postLocality,
+		'aal3' => $postArea3,
+		'aal2' => $postArea2,
+		'aal1' => $postArea1
+	]);
+}
+
 
 //var_dump($_GET['address']);
 //var_dump(get_query_var('address'));
@@ -96,7 +110,7 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 					<?php
 					foreach ($ageGroups as $c): ?>
 						<option value="<?php echo $c->term_id; ?>"
-							<?php echo (in_array($c->term_id, $postAgeGroup)? 'selected' : ''); ?>>
+							<?php echo (in_array($c->term_id, $postAgeGroup)? 'selected' : ($searchPrefAge == $c->term_id? 'selected' : '')); ?>>
 							<?php esc_html_e($c->name); ?></option>
 					<?php endforeach; ?>
 				</select>				
@@ -122,6 +136,10 @@ $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, 
 			</div>
 
 			<!--Locations-->
+
+			<div class="inner-search-box">
+				<a id="outfit_save_search_prefs" href="javascript:void(0)"><?php esc_html_e('Save Search Preferences', 'outfit-standalone') ?></a>
+			</div>
 
 			<?php if ($filterBy && $filterBy->catFilterByBrand) { ?>
 				<!--Brands-->

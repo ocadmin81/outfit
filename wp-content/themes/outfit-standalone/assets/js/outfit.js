@@ -1441,7 +1441,41 @@ jQuery(document).ready(function(jQuery){
 	});
 	//Text under comment form title
 	jQuery('.comment-form-desc').insertAfter('.comment-respond h3');	
-	jQuery('.comment-form-comment textarea').attr('placeholder',jQuery('.text-placeholder').text());	
+	jQuery('.comment-form-comment textarea').attr('placeholder',jQuery('.text-placeholder').text());
+
+    /* by Milla - save search prefs */
+    jQuery('#outfit_save_search_prefs').on('click', function(event){
+        event.preventDefault();
+        var $btn = jQuery(this);
+        var age = (jQuery('#ageGroup')? jQuery('#ageGroup').val() : '');
+        var address = jQuery('#address').val();
+        var latitude = jQuery('#latitude').val();
+        var longitude = jQuery('#longitude').val();
+        var locality = jQuery('#locality').val();
+        var aal3 = jQuery('#aal3').val();
+        var aal2 = jQuery('#aal2').val();
+        var aal1 = jQuery('#aal1').val();
+        var data = {
+            'action': 'outfit_save_search_filters',
+            'age': age,
+            'address': address,
+            'latitude': latitude,
+            'longitude': longitude,
+            'locality': locality,
+            'aal3': aal3,
+            'aal2': aal2,
+            'aal1': aal1
+        };
+        jQuery.ajax({
+            url: ajaxurl, //AJAX file path - admin_url('admin-ajax.php')
+            type: "POST",
+            data: data,
+            success: function(data){
+
+            }
+        });
+    });
+
 });
 jQuery(window).on('load', function () {	
     var mqxs = window.matchMedia( "(max-width: 1024px)" );
