@@ -565,6 +565,7 @@ input[type="checkbox"] {
 html[lang="he-IL"], html[lang="he-IL"] input,html[lang="he-IL"] button, body, button, input, select, textarea,
 html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{direction: rtl;text-align: right;}
 html[lang="he-IL"] *,html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{font-family:   "Assistant",sans-serif;}
+html[lang="he-IL"] .fa{font: normal normal normal 14px/1 FontAwesome!important;}
 body, button, input, select, textarea, a,h1, h2, h3, h4, h5, h6{color: #191919;}
 body{font-size:16px;}
 .owl-carousel .owl-stage-outer{overflow: hidden!important;}
@@ -854,7 +855,8 @@ html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background
 .single-post-ad .wish-share form{float: right;}
 .single-post-ad .wish-share .share{float: left;}
 .single-post-ad .wish-share .share ul{list-style: none;margin: 0;}
-.single-post-ad .wish-share .share ul li{float: left;margin-right: 10px;margin-top: 15px;}
+.single-post-ad .wish-share .share ul li{float: left;margin-right: 10px;margin-top: 10px;}
+.single-post-ad .wish-share .share ul li a{    color: #707070;}
 .single-post-ad .wish-share.mobile form{width: 100%;}
 .single-post-ad .wish-share.mobile button{border: 1px solid #f3f3f3;padding-right: 0;    padding-left: 0;width: 100%;text-align: center;}
 .single-post-ad .wish-share.mobile button span{display: inline-block;}
@@ -994,6 +996,22 @@ form .search-form #innerSearch .inner-search-box.color .checkbox:nth-child(22){c
 .filter-fixed-title{position: fixed;font-size: 12px;right: 0px;top: 55px;z-index: 100;background: #fff;  box-shadow: -7px 7px 20px -1px #00000036;padding:10px;border-radius: 5px;margin-right: 0;}
 .filter-fixed-title i{display: block;text-align: center;}
 .search-form-main-heading{display:none!important;}
+.home-cats .user-detail-section-heading{display:none;}
+html[lang="he-IL"] .home-cats h3{color: #6e6e6e;font-size: 26px;font-family: 'vogueregular';font-weight: 500;}
+.home-cats .products .row{    margin-right: -5px;margin-left: -5px;}
+.home-cats .products .item{padding: 0 10px;width: 20%;}
+.home-cats .my-ads{margin-top: 0;}
+.home-cats .cat-link{text-align: center;margin-top: -50px;margin-bottom: 20px;}
+.home-cats .cat-link a{    display: inline-block;width: 150px;height: 40px;line-height: 40px;border: 1px solid #efefef;text-align: center;    padding-left: 20px;background: url(assets/images/arrow-left.png) 35px 15px no-repeat;margin-top: 0;color: #6e6e6e;font-size: 15px;}
+.thankyou-page .text h2{padding:0;}
+.thankyou-page .text p{margin: 0;}
+.thankyou-page .text ul{list-style:none;text-align:center;    margin-top: 25px;}
+.thankyou-page .text ul li{display: inline-block;margin: 0 5px;}
+.thankyou-page .text ul li a{display: block;width: 235px;height: 45px;line-height: 45px;text-align: center;background: #fed3d6;color: #3d3d3d;font-size: 18px;}
+.thankyou-page .text ul li:last-child a{background:#aae4e7}
+.thankyou-page .service{margin-top: 35px;}
+.entry-content .wp_rp_wrap {display:none;}
+html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 @media only screen and (max-width: 959px) and (min-width: 768px){
 	.inner-page-content .col-md-8{    margin-bottom: 0;}
 }
@@ -1087,6 +1105,8 @@ form .search-form #innerSearch .inner-search-box.color .checkbox:nth-child(22){c
 	.user-pages aside .user-page-list{margin-bottom: 0;}
 	.user-pages .user-detail-section{padding: 7px 15px 35px;}
 	.wrap.single-post-page{padding: 25px 15px;}
+	.home-cats .products .item{width: 50%;}
+	.home-cats .cat-link{margin-top: -25px;}
 }
 @media screen and (max-width: 767px){
 	.site-content{padding: 15px 0 0;}
@@ -1194,4 +1214,9 @@ form .search-form #innerSearch .inner-search-box.color .checkbox:nth-child(22){c
 	.cat-sidebar .filter-close img{max-width: 30px;}
 	.filter-fixed-title{display:none;}
 	.filter-fixed-title.active{display:block;}
+	.home-cat-row{margin: 0;}	
+	.thankyou-page .text ul li{margin: 0 0 15px;display: block;}
+	.thankyou-page .text ul li a{width: 100%;}
+	.thankyou-page{padding: 0 15px;}
+	.thankyou-page .social-navigation{text-align:center;}
 }

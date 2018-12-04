@@ -94,7 +94,7 @@ get_header(); ?>
 														}
 														?>
 													</a>
-													<div class="ad-brand">castro<?php echo esc_attr($postBrand); ?></div>
+													<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
 												</div><!--premium-img-->
 												<div class="remove-post-button">
 													<a href="<?php echo esc_url($deletePostUrl) ?>">

@@ -1781,6 +1781,7 @@ class Latest_Post_Shortcode {
 				}
 			}
 			$tile_pattern = self::positions_from_extra( $show_extra, $tile_pattern, $args, $extra_display );
+			$count=1;
 			foreach ( $posts as $post ) {
 				// Collect the IDs for the current page from the shortcode results.
 				array_push( $lps_current_post_embedded_item_ids, $post->ID );
@@ -1893,6 +1894,10 @@ class Latest_Post_Shortcode {
 					$tile = preg_replace( '/\[(.*)\]/', '', $tile );
 
 					echo '<article>' . $tile . '<div class="clear"></div></article>'; // WPCS: XSS OK.
+					
+					$count++;
+					
+					if($count==4) break;					
 				}
 			}
 
