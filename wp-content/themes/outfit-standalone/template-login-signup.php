@@ -108,7 +108,8 @@ if (!$user_ID){
 
 			//$username = $wpdb->escape($_POST['username']);
 			//$email = $wpdb->escape($_POST['email']);
-			$username = isset($_POST['username']) ? trim( wp_unslash( $_POST['username'] ) ) : '';
+			//$username = isset($_POST['username']) ? trim( wp_unslash( $_POST['username'] ) ) : '';
+			$username = '';
 			$email  = isset( $_POST['email']  ) ? trim( wp_unslash( $_POST['email'] ) ) : null;
 
 			$firstname = isset( $_POST['firstname']  ) ? trim( wp_unslash( $_POST['firstname'] ) ) : '';
@@ -127,7 +128,7 @@ if (!$user_ID){
 
 			if(!empty($remember)) {			
 				
-				if(empty($username)){					
+				/*if(empty($username)){
 					$message =  esc_html__( 'User name should not be empty.', 'outfit-standalone' );
 					$registerSuccess = 0;
 				}
@@ -135,7 +136,8 @@ if (!$user_ID){
 					$message =  esc_html__( 'The username you provided has invalid characters.', 'outfit-standalone' );
 					$registerSuccess = 0;
 				}
-				elseif(empty($firstname)){
+				else*/
+				if(empty($firstname)){
 					$message =  esc_html__( 'First name should not be empty.', 'outfit-standalone' );
 					$registerSuccess = 0;
 				}
@@ -148,7 +150,8 @@ if (!$user_ID){
 
 						if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email)){
 
-							wp_update_user( array ('ID' => $user_ID, 'user_email' => $email) ) ;
+							//wp_update_user( array ('ID' => $user_ID, 'user_email' => $email) ) ;
+							$username = $email;
 
 						}else {
 							$message =  esc_html__( 'Please enter a valid email.', 'outfit-standalone' );
