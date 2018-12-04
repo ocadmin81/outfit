@@ -307,7 +307,7 @@ if (!$user_ID){
 							</form>
 						</div><!--col-lg-6-->
 						<!--Register-->
-						<div class="reg-section" <?php echo ($isRegistration? 'active' : '') ?>">
+						<div class="reg-section <?php echo ($isRegistration? 'active' : '') ?>">
 							<div class="form-group reg-text">
 								<?php echo do_shortcode("[do_widget id=text-7]"); ?>
 							</div>
