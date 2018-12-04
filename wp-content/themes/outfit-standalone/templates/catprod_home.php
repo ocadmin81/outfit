@@ -18,12 +18,10 @@ $args = array(
 $wp_query = new WP_Query( $args );
 ?>
 <?php if ($wp_query->have_posts()) { ?>
-<div class="row">
+<div class="row home-cat-row">
 			<div class="col-md-12 user-content-height">
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads favorite-ads">
-						<h1 class="user-detail-section-heading text-uppercase"><?php esc_html_e("Shop for", 'outfit-standalone') ?>
-                            <?php echo esc_html($catObj->name) ?></h1>
 <div class="my-ads products">
     <div class="row">
         <?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
@@ -53,7 +51,7 @@ $wp_query = new WP_Query( $args );
                                 }
                                 ?>
                             </a>
-                            <div class="ad-brand">castro<?php echo esc_attr($postBrand); ?></div>
+                            <div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
                         </div><!--premium-img-->
                         <div class="au-price">
                             <div class="au">
