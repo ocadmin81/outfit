@@ -29,6 +29,21 @@ get_header(); ?>
 
 	<?php
 	$postId = $post->ID;
+	/* save to recent products */
+	if ($userId) {
+		$recent = get_user_meta($userId, USER_META_LAST_PRODUCTS, true);
+		$recent = explode(',', $recent);
+		$newRecent = array();
+		$newRecent[] = $postId;
+		foreach ($recent as $rp) {
+			if ($rp != $postId) {
+				$newRecent[] = $rp;
+			}
+		}
+		$newRecent = array_slice($newRecent, 0, 5);
+		update_user_meta($userId, USER_META_LAST_PRODUCTS, implode(',', $newRecent));
+	}
+
 	global $wp_rewrite;
 	$editPostUrl = outfit_edit_ad_url($postId);
 

@@ -310,7 +310,7 @@ if (!$user_ID){
                             <form data-toggle="validator" role="form" method="POST" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <div class="inner-addon left-addon">                                        
-                                        <input type="text" name="username" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('שם מלא', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
+                                        <input type="text" name="username" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('שם משתמש', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div><!--username-->

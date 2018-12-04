@@ -13,6 +13,9 @@ define('USER_META_FAVORITE_BRANDS', 'outfit_favorite_brands');
 define('USER_META_ABOUT', 'outfit_about');
 define('USER_META_SEARCH_PREF_LOCATION', 'outfit_search_pref_location');
 define('USER_META_SEARCH_PREF_AGE', 'outfit_search_pref_age');
+define('USER_META_LAST_CATEGORY', 'outfit_user_last_category');
+define('USER_META_LAST_PRODUCTS', 'outfit_user_last_products');
+
 define('POST_META_PHONE', 'outfit_post_phone');
 define('POST_META_LOCATION', 'outfit_post_location');
 define('POST_META_LOCATION_2', 'outfit_post_location_2');
