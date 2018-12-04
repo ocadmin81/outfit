@@ -34,6 +34,10 @@ $postKeyword = getGetInput('s', '');
 $postLocation = null;
 $postPrice = getGetMultiple('priceRange', []);
 
+if (!isset($_GET['postAgeGroup']) || empty($_GET['postAgeGroup'])) {
+	$postAgeGroup = array($searchPrefAge);
+}
+
 // post primary location
 if (!isset($_GET['address']) || empty($_GET['address'])) {
 	if (null != $searchPrefLocation) {
@@ -110,7 +114,7 @@ else {
 					<?php
 					foreach ($ageGroups as $c): ?>
 						<option value="<?php echo $c->term_id; ?>"
-							<?php echo (in_array($c->term_id, $postAgeGroup)? 'selected' : ($searchPrefAge == $c->term_id? 'selected' : '')); ?>>
+							<?php echo (in_array($c->term_id, $postAgeGroup)? 'selected' : ''); ?>>
 							<?php esc_html_e($c->name); ?></option>
 					<?php endforeach; ?>
 				</select>				
