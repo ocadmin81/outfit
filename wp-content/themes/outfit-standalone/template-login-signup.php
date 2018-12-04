@@ -106,13 +106,19 @@ if (!$user_ID){
 			
 			$message =  esc_html__( 'Registration successful.', 'outfit-standalone' );
 
-			$username = $wpdb->escape($_POST['username']);
+			//$username = $wpdb->escape($_POST['username']);
+			//$email = $wpdb->escape($_POST['email']);
+			$username = isset($_POST['username']) ? trim( wp_unslash( $_POST['username'] ) ) : '';
+			$email  = isset( $_POST['email']  ) ? trim( wp_unslash( $_POST['email'] ) ) : '';
 
-			$email = $wpdb->escape($_POST['email']);
+			$firstname = isset( $_POST['firstname']  ) ? trim( wp_unslash( $_POST['firstname'] ) ) : '';
+			$lastname = isset( $_POST['lastname']  ) ? trim( wp_unslash( $_POST['lastname'] ) ) : '';
 
 			$password = $wpdb->escape($_POST['password']);
-
 			$confirm_password = $wpdb->escape($_POST['confirm']);
+
+			//$password = isset( $_POST['password']  ) ? trim( wp_unslash( $_POST['password'] ) ) : '';
+			//$confirm_password = isset( $_POST['confirm']  ) ? trim( wp_unslash( $_POST['confirm'] ) ) : '';
 			
 			$remember = $wpdb->escape($_POST['remember']);
 
@@ -123,6 +129,10 @@ if (!$user_ID){
 				
 				if(empty($username)){					
 					$message =  esc_html__( 'User name should not be empty.', 'outfit-standalone' );
+					$registerSuccess = 0;
+				}
+				elseif ( $username != sanitize_user( $username, true ) ) {
+					$message =  esc_html__( 'The username you provided has invalid characters.', 'outfit-standalone' );
 					$registerSuccess = 0;
 				}
 
@@ -169,8 +179,10 @@ if (!$user_ID){
 					$registerSuccess = 0;
 					
 					$message =  esc_html__( 'Username or E-mail already exists. Please try another one.', 'outfit-standalone' );
-				}else{					
-					outfitUserNotification( $email, $password, $username );			
+				}else{
+					update_user_meta($status, USER_META_FIRSTNAME, $firstName);
+					update_user_meta($status, USER_META_LASTNAME, $lastName);
+					outfitUserNotification( $email, $password, $username );
 					global $redux_demo; 
 					$newUsernotification = $redux_demo['newusernotification'];	
 					if($newUsernotification == 1){
@@ -308,9 +320,26 @@ if (!$user_ID){
                                 </div>								
                             </div><!--social-login-->						
                             <form data-toggle="validator" role="form" method="POST" enctype="multipart/form-data">
-                                <div class="form-group">
+								<div class="form-group">
+									<div class="inner-addon left-addon">
+										<input type="text" name="firstname" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('שם פרטי', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div><!--firstname-->
+								<div class="form-group">
+									<div class="inner-addon left-addon">
+										<input type="text" name="lastname" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('שם משפחה', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
+										<div class="help-block with-errors"></div>
+									</div>
+								</div><!--lastname-->
+								<div class="form-group">
                                     <div class="inner-addon left-addon">                                        
-                                        <input type="text" name="username" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('שם משתמש', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
+                                        <input type="text" name="username"
+											   class="form-control form-control-md sharp-edge"
+											   placeholder="<?php esc_html_e('שם משתמש', 'outfit-standalone') ?>"
+											   data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>"
+											   value="<?php echo esc_html( sanitize_user( $username, true ) ); ?>"
+											   required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div><!--username-->
