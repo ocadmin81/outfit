@@ -135,6 +135,14 @@ if (!$user_ID){
 					$message =  esc_html__( 'The username you provided has invalid characters.', 'outfit-standalone' );
 					$registerSuccess = 0;
 				}
+				elseif(empty($firstname)){
+					$message =  esc_html__( 'First name should not be empty.', 'outfit-standalone' );
+					$registerSuccess = 0;
+				}
+				elseif(empty($lastname)){
+					$message =  esc_html__( 'Last name should not be empty.', 'outfit-standalone' );
+					$registerSuccess = 0;
+				}
 				if ($registerSuccess) {
 					if(isset($email)) {
 
@@ -239,8 +247,10 @@ if (!$user_ID){
 							  <strong><?php esc_html_e('אופס, ', 'outfit-standalone') ?></strong> <?php echo esc_html( $message ); ?>
 							</div>
 							<?php } ?>
-							<?php } ?>					
-						<div class="login-section active">							
+							<?php }
+							$isRegistration = (isset($_POST['submit']) && $_POST['submit'] == 'Register');
+							?>
+						<div class="login-section <?php echo ($isRegistration? '' : 'active') ?>">
 							<div class="social-login-link">
 								<a class="fb-login fb" href="<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1" onclick="window.location = '<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1&redirect='+window.location.href; return false;"><?php esc_html_e('כניסה באמצעות פייסבוק', 'outfit-standalone') ?></a>														
 								<?php if($outfitSocialLogin == 1){?>							
@@ -297,7 +307,7 @@ if (!$user_ID){
 							</form>
 						</div><!--col-lg-6-->
 						<!--Register-->
-						<div class="reg-section">
+						<div class="reg-section" <?php echo ($isRegistration? 'active' : '') ?>">
 							<div class="form-group reg-text">
 								<?php echo do_shortcode("[do_widget id=text-7]"); ?>
 							</div>
@@ -328,13 +338,23 @@ if (!$user_ID){
                             <form data-toggle="validator" role="form" method="POST" enctype="multipart/form-data">
 								<div class="form-group">
 									<div class="inner-addon left-addon">
-										<input type="text" name="firstname" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('שם פרטי', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
+										<input type="text" name="firstname"
+											   class="form-control form-control-md sharp-edge"
+											   placeholder="<?php esc_html_e('שם פרטי', 'outfit-standalone') ?>"
+											   data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>"
+											   value="<?php echo esc_attr( $firstname ); ?>"
+											   required>
 										<div class="help-block with-errors"></div>
 									</div>
 								</div><!--firstname-->
 								<div class="form-group">
 									<div class="inner-addon left-addon">
-										<input type="text" name="lastname" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('שם משפחה', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
+										<input type="text" name="lastname"
+											   class="form-control form-control-md sharp-edge"
+											   placeholder="<?php esc_html_e('שם משפחה', 'outfit-standalone') ?>"
+											   data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>"
+											   value="<?php echo esc_attr( $lastname ); ?>"
+											   required>
 										<div class="help-block with-errors"></div>
 									</div>
 								</div><!--lastname-->
@@ -351,7 +371,12 @@ if (!$user_ID){
                                 </div><!--username-->
                                 <div class="form-group">
                                     <div class="inner-addon left-addon">                                        
-                                        <input type="email" name="email" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('אימייל', 'outfit-standalone') ?>" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
+                                        <input type="email" name="email"
+											   class="form-control form-control-md sharp-edge"
+											   placeholder="<?php esc_html_e('אימייל', 'outfit-standalone') ?>"
+											   data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>"
+											   value="<?php echo esc_attr( $email ); ?>"
+											   required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div><!--Email Address-->
