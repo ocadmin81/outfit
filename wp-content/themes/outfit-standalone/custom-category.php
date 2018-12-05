@@ -29,6 +29,21 @@ $current_user = wp_get_current_user();
 $currentUserId = $current_user->ID;
 $currentUserFavoriteAds = outfit_authors_all_favorite($currentUserId);
 
+/* save to recent products */
+if ($currentUserId) {
+	$recent = get_user_meta($currentUserId, USER_META_LAST_CATEGORY, true);
+	$recent = explode(',', $recent);
+	$newRecent = array();
+	$newRecent[] = $catId;
+	foreach ($recent as $rp) {
+		if ($rp != $catId) {
+			$newRecent[] = $rp;
+		}
+	}
+	$newRecent = array_slice($newRecent, 0, 5);
+	update_user_meta($currentUserId, USER_META_LAST_CATEGORY, implode(',', $newRecent));
+}
+
 $args = array(
 	'post_type' => OUTFIT_AD_POST_TYPE,
 	'post_status' => 'publish',

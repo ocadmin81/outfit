@@ -1314,38 +1314,7 @@ add_shortcode('catprod', 'outfit_category_products_shortcode');
 function outfit_homepage_products_shortcode($atts = [], $content = null)
 {
 	ob_start();
-	$atts = shortcode_atts(
-		array(
-			'count' => 5,
-		), $atts, 'homeprod' );
-	global $perPage;
-	global $currentUser, $userId;
-	global $redux_demo;
-	global $paged, $wp_query, $wp, $post;
-	global $catObj;
-	$perPage = (int) $atts['count'];
-	$loggedIn = is_user_logged_in();
-	$currentUser = wp_get_current_user();
-	$userId = $currentUser->ID;
-
-	$catSlugs = ['clothing', 'toys', 'strollers'];
-
-	if (!$loggedIn) {
-		foreach ($catSlugs as $slug) {
-			$catObj = get_category_by_slug($slug);
-			if (false !== $catObj) {
-
-				get_template_part('templates/catprod_home');
-
-			}
-		}
-	}
-	else {
-		//echo 'I am logged in';
-		get_template_part('templates/recentprod_home');
-	}
-
-
+	get_template_part('templates/homeprod');
 	return ob_get_clean();
 }
 add_shortcode('homeprod', 'outfit_homepage_products_shortcode');

@@ -355,3 +355,175 @@ function outfit_is_user_exists($userId) {
     }
     return true;
 }
+
+function outfit_get_recent_products($userId, $count) {
+    $rsnt = get_user_meta($userId, USER_META_LAST_PRODUCTS, true);
+    $rsnt = explode(',', $rsnt);
+    $recent = [];
+    foreach ($rsnt as $r) {
+        if (!empty($r)) {
+            $recent[] = (int)$r;
+        }
+    }
+    $sortedPosts = [];
+    if (count($recent) > 0) {
+        $args = array(
+            'post_type' => OUTFIT_AD_POST_TYPE,
+            'post_status' => 'publish',
+            'posts_per_page' => $count,
+            'paged' => 1,
+            'post__in' => $recent
+        );
+        $recentPosts = get_posts($args);
+
+        $recentPostsWKeys = [];
+        foreach ($recentPosts as $rp) {
+            $recentPostsWKeys[intval($rp->ID)] = $rp;
+        }
+
+
+        foreach ($recent as $pid) {
+
+            if (isset($recentPostsWKeys[$pid])) {
+                $sortedPosts[] = $recentPostsWKeys[$pid];
+            }
+        }
+    }
+    return $sortedPosts;
+}
+
+function outfit_get_recent_cats_posts($userId, $count) {
+    $rsnt = get_user_meta($userId, USER_META_LAST_CATEGORY, true);
+    $rsnt = explode(',', $rsnt);
+    $recent = [];
+
+    foreach ($rsnt as $r) {
+        if (!empty($r)) {
+            $recent[] = (int)$r;
+        }
+    }
+    $recentPosts = [];
+    if (count($recent) > 0) {
+        $args = array(
+            'post_type' => OUTFIT_AD_POST_TYPE,
+            'post_status' => 'publish',
+            'posts_per_page' => $count,
+            'paged' => 1,
+            'category__in' => $recent
+        );
+        $recentPosts = get_posts($args);
+
+    }
+    return $recentPosts;
+}
+
+/**
+ * @param $ageTermId
+ * @param OutfitLocation $location
+ * @param $count
+ * @return array
+ */
+function outfit_get_posts_by_age_and_location($ageTermId, $location, $count) {
+    $posts = array();
+    $locationSearchTag = '';
+    $locationSearchKey = '';
+
+    if (null !== $location && $location instanceof OutfitLocation) {
+        $locationSearchKey = $location->suggestSearchKey();
+        $locationSearchTag = $location->getLastSearchKeyBy();
+    }
+
+    if ( (empty($locationSearchTag) || empty($locationSearchKey)) && empty($ageTermId) ) {
+        return $posts;
+    }
+
+    $args = array(
+        'post_type' => OUTFIT_AD_POST_TYPE,
+        'post_status' => 'publish',
+        'posts_per_page' => $count,
+        'paged' => 1
+    );
+    if (!empty($ageTermId)) {
+        $args['tax_query'] = array(
+            'taxonomy' => 'age_groups',
+            'field'    => 'term_id',
+            'terms'    => $ageTermId,
+            'operator' => 'IN'
+        );
+    }
+    if (!empty($locationSearchTag)) {
+
+        $metaKey = '';
+        if ($locationSearchTag == OutfitLocation::LOCALITY) {
+            $metaKey = POST_META_LOCALITY_TAG;
+        }
+        else if ($locationSearchTag == OutfitLocation::AREA3) {
+            $metaKey = POST_META_AREA3_TAG;
+        }
+        else if ($locationSearchTag == OutfitLocation::AREA2) {
+            $metaKey = POST_META_AREA2_TAG;
+        }
+        else if ($locationSearchTag == OutfitLocation::AREA1) {
+            $metaKey = POST_META_AREA1_TAG;
+        }
+        $args['meta_query'] = array(
+            'key' => $metaKey,
+            'value' => $locationSearchKey,
+            'compare' => '='
+        );
+    }
+    $posts = get_posts($args);
+    return $posts;
+}
+
+function outfit_get_posts_of_favorite_sellers($userId, $count) {
+    $posts = array();
+    $args = array(
+        'post_type' => OUTFIT_AD_POST_TYPE,
+        'post_status' => 'publish',
+        'posts_per_page' => $count,
+        'paged' => 1
+    );
+    $favoritearray = outfit_authors_all_favorite_sellers($userId);
+    if (count($favoritearray) == 0) {
+        return $posts;
+    }
+    $args['author__in'] = $favoritearray;
+    $posts = get_posts($args);
+    return $posts;
+}
+
+function outfit_get_wishlist_posts($userId, $count) {
+    $posts = array();
+    $args = array(
+        'post_type' => OUTFIT_AD_POST_TYPE,
+        'post_status' => 'publish',
+        'posts_per_page' => $count,
+        'paged' => 1
+    );
+    $favoritearray = outfit_authors_all_favorite($userId);
+    if (count($favoritearray) == 0) {
+        return $posts;
+    }
+    $args['post__in'] = $favoritearray;
+    $posts = get_posts($args);
+    return $posts;
+}
+
+function outfit_get_category_posts($catslug, $count) {
+    $posts = array();
+    $catObj = get_category_by_slug($catslug);
+    if (!$catObj) {
+        return $posts;
+    }
+    $args = array(
+        'post_type' => OUTFIT_AD_POST_TYPE,
+        'post_status' => 'publish',
+        'posts_per_page' => $count,
+        'paged' => 1,
+        'cat' => $catObj->term_id
+    );
+
+    $posts = get_posts($args);
+    return $posts;
+}

@@ -10,45 +10,34 @@ $perPage = 5;
 if (is_user_logged_in()) {
 
     $currentUser = wp_get_current_user();
-    $rsnt = get_user_meta($currentUser->ID, USER_META_LAST_PRODUCTS, true);
+    $rsnt = get_user_meta($currentUser->ID, USER_META_LAST_CATEGORY, true);
     $rsnt = explode(',', $rsnt);
     $recent = [];
+
     foreach ($rsnt as $r) {
         if (!empty($r)) {
             $recent[] = (int)$r;
         }
     }
-    $sortedPosts = [];
+    $recentPosts = [];
     if (count($recent) > 0) {
         $args = array(
             'post_type' => OUTFIT_AD_POST_TYPE,
             'post_status' => 'publish',
             'posts_per_page' => 5,
             'paged' => 1,
-            'post__in' => $recent
+            'category__in' => $recent
         );
         $recentPosts = get_posts($args);
 
-        $recentPostsWKeys = [];
-        foreach ($recentPosts as $rp) {
-            $recentPostsWKeys[intval($rp->ID)] = $rp;
-        }
-
-
-        foreach ($recent as $pid) {
-
-            if (isset($recentPostsWKeys[$pid])) {
-                $sortedPosts[] = $recentPostsWKeys[$pid];
-            }
-        }
     }
 
 ?>
-<?php if (count($sortedPosts) > 0) { ?>
+<?php if (count($recentPosts) > 0) { ?>
 <div class="row home-cat-row">
-<div class="col-md-12 user-content-height">
-<div class="user-detail-section section-bg-white">
-<div class="user-ads favorite-ads">
+			<div class="col-md-12 user-content-height">
+				<div class="user-detail-section section-bg-white">
+					<div class="user-ads favorite-ads">
 <div class="my-ads products">
     <div class="row">
         <?php foreach ( $sortedPosts as $post ) : setup_postdata( $post ); ?>
