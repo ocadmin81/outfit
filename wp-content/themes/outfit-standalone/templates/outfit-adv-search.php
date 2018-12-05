@@ -178,7 +178,7 @@ else {
 						?>
 							<div class="checkbox">
 								<input type="checkbox" id="<?php echo esc_attr('color_'.$i); ?>" name="postColor[]" value="<?php echo $c->term_id; ?>" <?php echo $checked?>>
-								<label for="<?php echo esc_attr('color_'.$i); ?>" style="color: <?php echo esc_attr(get_term_meta($c->term_id, 'color', true)); ?>"><?php esc_html_e($c->name); ?></label>
+								<label for="<?php echo esc_attr('color_'.$i); ?>" style="background: <?php echo esc_attr(get_term_meta($c->term_id, 'color', true)); ?>" title="<?php esc_html_e($c->name); ?>"><?php esc_html_e($c->name); ?></label>
 							</div>
 						<?php endforeach; ?>
 					</div>
@@ -251,7 +251,7 @@ else {
 			<?php if ($filterBy && $filterBy->catFilterByWriter) { ?>
 				<!--Writers-->
 				<div class="inner-search-box">
-					<div class="inner-search-heading"><?php esc_html_e( 'Writer', 'outfit-standalone' ); ?></div>
+					<div class="inner-search-heading"><?php esc_html_e( 'סופר', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($writers as $i => $c):
@@ -271,7 +271,7 @@ else {
 			<?php if ($filterBy && $filterBy->catFilterByCharacter) { ?>
 				<!--Characters-->
 				<div class="inner-search-box">
-					<div class="inner-search-heading"><?php esc_html_e( 'Character', 'outfit-standalone' ); ?></div>
+					<div class="inner-search-heading"><?php esc_html_e( 'דמות', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($characters as $i => $c):

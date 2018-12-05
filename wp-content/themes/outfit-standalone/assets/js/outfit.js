@@ -1330,6 +1330,8 @@ jQuery(document).ready(function(jQuery){
 	});
 	//mobile menu width
 	var Swisth = jQuery( window ).width();
+	//var Sheight = jQuery( '.site-content-contain' ).height();
+	//console.log(Sheight);
 	if(Swisth<=767){
 		jQuery(".menu-top-menu-container .menu").css( "width",Swisth );
 	}
@@ -1406,6 +1408,14 @@ jQuery(document).ready(function(jQuery){
 			jQuery(this).toggleClass('active');
 		});
 	}
+	//map tab set Active
+	//jQuery('#outfit_main_map').height(Sheight);
+	jQuery('.m-tab').click(function() {
+		jQuery('body').css('overflow','hidden');
+	});
+	jQuery('.p-tab').click(function() {
+		jQuery('body').css('overflow','visible');
+	});	
 	//ad page image switch on click
 	jQuery( '.single-post-ad .img-box .thumbs-img .item img' ).click(function() {
 		var img = jQuery(this).attr('src');

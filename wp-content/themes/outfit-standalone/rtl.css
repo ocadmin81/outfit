@@ -567,12 +567,28 @@ html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, ht
 html[lang="he-IL"] *,html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{font-family:   "Assistant",sans-serif;}
 html[lang="he-IL"] .fa{font: normal normal normal 14px/1 FontAwesome!important;}
 input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type="number"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-outer-spin-button,
+input[type="date"]::-webkit-inner-spin-button,
+::-webkit-clear-button{
     -webkit-appearance: none;
     margin: 0;
+	display:none;
 }
-input[type="number"] {
-    -moz-appearance: textfield;
+input[type="number"] ,input[type="date"] {
+    -moz-appearance: none;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: transparent;
+    bottom: 0;
+    color: transparent;
+    cursor: pointer;
+    height: auto;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: auto;
 }
 .loader_submit_form img{width: 100px;height: 100px;}
 [class*=" eicon-"], [class^=eicon]{font-family: eicons!important;}
@@ -942,14 +958,14 @@ html[lang="he-IL"] .user-pages h1,.user-pages .user-detail-section .user-detail-
 .author-page.author-box .author-contact-details .p-detail li.s-time{    margin-top: 15px;}
 .author-page.author-box .author-contact-details .p-detail{margin: 0;}
 .author-page.author-box .seller-ads h5{color: #6e6e6e;font-size: 26px;font-family: 'vogueregular';font-weight: 500;text-align: center;margin-bottom: 30px;}
-.cat-tabs{margin-bottom: 20px;border-bottom: 1px solid #f3f3f3;}
+.cat-tabs{margin-bottom: 0;border-bottom: 1px solid #f3f3f3;}
 .cat-tabs .nav-tabs{border:none;}
-.cat-tabs .nav-tabs > li > a{border: 1px solid transparent;border-radius: 0;background: #f5f5f6;margin-right: 0;margin-left: 10px;border-bottom: none;position: relative;padding: 7px 32px;top: 1px;    background-position: right 5px top 7px;background-repeat: no-repeat;}
+.cat-tabs .nav-tabs > li > a{border: 1px solid transparent;border-radius: 0;background: #f5f5f6;margin-right: 0;margin-left: 10px;border-bottom: none;position: relative;padding: 7px 0;top: 1px;    background-position: right 5px top 7px;background-repeat: no-repeat;width: 120px;text-align: center;}
 .cat-tabs .nav-tabs > li.active > a{color: #191919;border-color:#f3f3f3;border-radius: 0;background:#fff;border-bottom: none;font-size: 17px;background-position: right 5px top 7px; background-repeat: no-repeat;}
 .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{border: 1px solid #f3f3f3;border-bottom: none;}
 .nav-tabs > li > a:hover{border-color:#f3f3f3}
-.cat-tabs .nav-tabs li.p-tab a{background-image: url(assets/images/cat-tab-products.png)}
-.cat-tabs .nav-tabs li.m-tab a{background-image: url(assets/images/addr.png);background-position: right 10px top 7px;}
+.cat-tabs .nav-tabs li.p-tab a span{background-image: url(assets/images/cat-tab-products.png);background-repeat: no-repeat;background-position: right 0;padding-right: 27px;}
+.cat-tabs .nav-tabs li.m-tab a span{background-image: url(assets/images/addr.png);background-repeat: no-repeat;background-position: right 0;padding-right: 22px;}
 html[lang="he-IL"] .cat-title{margin: 0;padding: 0 10px;margin-bottom: 15px;font-weight: 600;font-size: 24px;}
 .products .classiera-box-div-v1 figure .premium-img{height: 240px;border: 1px solid #f5f5f6;}
 .classiera-box-div-v1 figure .premium-img img{position: absolute;top: 0;bottom: 0;margin: auto;left: 0;right: 0;}
@@ -982,7 +998,8 @@ html[lang="he-IL"] .cat-title{margin: 0;padding: 0 10px;margin-bottom: 15px;font
 .pagination li a[title="previous"],.pagination li a[title="previous"]:hover{background:#fff url(assets/images/arrow-right.png) center no-repeat;font-size: 0;padding: 0;}
 .pagination li a i{display:none;}
 .cat-sidebar form .search-form #innerSearch{padding: 0;}
-.cat-sidebar{padding-left: 30px;}
+.cat-sidebar{padding-left: 30px;margin-top: 20px;}
+.cat-content .cat-tab-content{margin-top: 20px;}
 .my-ads{margin-top:35px;}
 .my-ads .item .remove-post-button{position: absolute;top: -15px;right: -15px;}
 .my-ads .item .ad-brand{position: absolute;bottom: 8px;left: 15px;color: #fff;font-size: 14px;letter-spacing: 1px!important;}
@@ -1124,7 +1141,8 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 	.user-pages .user-detail-section{padding: 7px 15px 35px;}
 	.wrap.single-post-page{padding: 25px 15px;}
 	.home-cats .products .item{width: 50%;}
-	.home-cats .cat-link{margin-top: -25px;}
+	.home-cats .products .item:last-child{display:none;}
+	.home-cats .cat-link{margin-top: -15px;}
 }
 @media screen and (max-width: 767px){
 	.site-content{padding: 15px 0 0;}

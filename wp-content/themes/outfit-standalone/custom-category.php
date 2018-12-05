@@ -54,7 +54,7 @@ $detect = new Mobile_Detect;
 ?>
 
 <!-- page content -->
-<section class="inner-page-content top-pad-50">
+<section class="inner-page-content top-pad-50 aaa">
 	<div class="wrap">		
 			<div class="view-head cat-tabs">
 					<div class="row">
@@ -64,12 +64,12 @@ $detect = new Mobile_Detect;
 								<ul class="nav nav-tabs" role="tablist">
 									<li role="presentation" class="p-tab active">
 										<a href="#grid" aria-controls="grid" role="tab" data-toggle="tab">
-											<?php esc_html_e( 'מוצרים', 'outfit-standalone' ); ?>
+											<span><?php esc_html_e( 'מוצרים', 'outfit-standalone' ); ?></span>
 										</a>
 									</li>
 									<li role="presentation" class="m-tab">
 										<a href="#map" aria-controls="map" role="tab" data-toggle="tab">
-											<?php esc_html_e( 'מפה', 'outfit-standalone' ); ?>
+											<span><?php esc_html_e( 'מפה', 'outfit-standalone' ); ?></span>
 										</a>
 									</li>
 								</ul><!--nav nav-tabs-->
@@ -183,7 +183,7 @@ $detect = new Mobile_Detect;
 										<div class="row">
 											<textarea style="display: none;" id="current-address-points"><?php echo json_encode($products); ?></textarea>
 
-											<div id="outfit_main_map" style="width:100%; height:600px;">
+											<div id="outfit_main_map" style="width:100%; height:800px;">
 
 												<script type="text/javascript">
 													// Initialize and add the map
