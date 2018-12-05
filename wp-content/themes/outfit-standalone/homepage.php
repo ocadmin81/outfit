@@ -20,27 +20,10 @@ $userId = $user_id = $currentUser->ID;
 
 $perPage = 5;
 
-get_header(); ?>
+get_header();
 
-<section class="user-pages section-gray-bg wish-page">
-	<div class="wrap ad-page user-page">
-		<?php
-		//if (!$loggedIn) {
-			foreach ($catslugs as $c) {
-				//$catObj = get_category_by_slug($c);
-				//if (false !== $catObj) {
-				//	get_template_part('templates/catprod_home');
-				//}
-				echo do_shortcode('[catprod cat_slug="clothing"]');
-			} //foreach ($catslugs as $c)
-		//}
-		//else {
-
-		//}
-		?>
-	</div><!--container-->
-</section><!--user-pages section-gray-bg-->
+echo do_shortcode('[homeprod]');
 
 
 
-<?php get_footer(); ?>
+get_footer(); ?>

@@ -7,24 +7,51 @@ global $paged, $wp_query, $wp, $post;
 
 $perPage = 5;
 
-$args = array(
-    'post_type' => OUTFIT_AD_POST_TYPE,
-    'post_status' => 'publish',
-    'posts_per_page' => 5,
-    //'paged' => 1,
-    'cat' => $catObj->term_id
-);
-$wp_query = null;
-$wp_query = new WP_Query( $args );
+if (is_user_logged_in()) {
+
+    $currentUser = wp_get_current_user();
+    $rsnt = get_user_meta($currentUser->ID, USER_META_LAST_PRODUCTS, true);
+    $rsnt = explode(',', $rsnt);
+    $recent = [];
+    foreach ($rsnt as $r) {
+        if (!empty($r)) {
+            $recent[] = (int)$r;
+        }
+    }
+    $sortedPosts = [];
+    if (count($recent) > 0) {
+        $args = array(
+            'post_type' => OUTFIT_AD_POST_TYPE,
+            'post_status' => 'publish',
+            'posts_per_page' => 5,
+            'paged' => 1,
+            'post__in' => $recent
+        );
+        $recentPosts = get_posts($args);
+
+        $recentPostsWKeys = [];
+        foreach ($recentPosts as $rp) {
+            $recentPostsWKeys[intval($rp->ID)] = $rp;
+        }
+
+
+        foreach ($recent as $pid) {
+
+            if (isset($recentPostsWKeys[$pid])) {
+                $sortedPosts[] = $recentPostsWKeys[$pid];
+            }
+        }
+    }
+
 ?>
-<?php if ($wp_query->have_posts()) { ?>
+<?php if (count($sortedPosts) > 0) { ?>
 <div class="row home-cat-row">
 			<div class="col-md-12 user-content-height">
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads favorite-ads">
 <div class="my-ads products">
     <div class="row">
-        <?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
+        <?php foreach ( $sortedPosts as $post ) : setup_postdata( $post ); ?>
             <div class="col-lg-4 col-md-4 col-sm-6 item">
                 <div class="classiera-box-div classiera-box-div-v1">
                     <figure class="clearfix">
@@ -78,12 +105,14 @@ $wp_query = new WP_Query( $args );
                     </figure>
                 </div><!--classiera-box-div-->
             </div><!--col-lg-4-->
-        <?php endwhile; ?>
+        <?php endforeach; ?>
     </div>
-    <?php wp_reset_query(); ?>
+    <?php wp_reset_postdata(); ?>
 </div>
 </div><!--user-ads user-profile-settings-->
 </div><!--user-detail-section-->
 </div><!--col-lg-9-->
 </div><!--row-->
-<?php } ?>
+<?php } //if ($wp_query->have_posts()) ?>
+
+<?php } //if (is_user_logged_in()) ?>

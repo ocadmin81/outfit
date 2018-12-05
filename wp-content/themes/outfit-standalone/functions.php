@@ -1228,7 +1228,7 @@ function posts_in_category($query){
 		 $query->set('posts_per_archive_page', 20);
 	}	
 }
-add_filter('pre_get_posts', 'posts_in_category');
+//add_filter('pre_get_posts', 'posts_in_category');
 add_filter( 'template_include', 'outfit_template_check', 99 );
 function outfit_template_check( $template ) {
 	if ( is_category() ){
@@ -1310,6 +1310,67 @@ function outfit_category_products_shortcode($atts = [], $content = null)
 	return ob_get_clean();
 }
 add_shortcode('catprod', 'outfit_category_products_shortcode');
+
+function outfit_homepage_products_shortcode($atts = [], $content = null)
+{
+	ob_start();
+	$atts = shortcode_atts(
+		array(
+			'count' => 5,
+		), $atts, 'homeprod' );
+	global $perPage;
+	global $currentUser, $userId;
+	global $redux_demo;
+	global $paged, $wp_query, $wp, $post;
+	global $catObj;
+	$perPage = (int) $atts['count'];
+	$loggedIn = is_user_logged_in();
+	$currentUser = wp_get_current_user();
+	$userId = $currentUser->ID;
+
+	$catSlugs = ['clothing', 'toys', 'strollers'];
+
+	if (!$loggedIn) {
+		foreach ($catSlugs as $slug) {
+			$catObj = get_category_by_slug($slug);
+			if (false !== $catObj) {
+
+				get_template_part('templates/catprod_home');
+
+			}
+		}
+	}
+	else {
+		//echo 'I am logged in';
+		get_template_part('templates/recentprod_home');
+	}
+
+
+	return ob_get_clean();
+}
+add_shortcode('homeprod', 'outfit_homepage_products_shortcode');
+
+function outfit_user_firstname() {
+
+	$currentUser = wp_get_current_user();
+	$userId = $currentUser->ID;
+	if ($userId) {
+		return esc_html(get_user_meta($userId, USER_META_FIRSTNAME, true));
+	}
+	return '';
+}
+add_shortcode('userfirstname', 'outfit_user_firstname');
+
+function outfit_user_lastname() {
+
+	$currentUser = wp_get_current_user();
+	$userId = $currentUser->ID;
+	if ($userId) {
+		return esc_html(get_user_meta($userId, USER_META_LASTNAME, true));
+	}
+	return '';
+}
+add_shortcode('userlastname', 'outfit_user_lastname');
 
 add_action('wp_ajax_outfit_save_search_filters', 'outfit_save_search_filters');
 add_action('wp_ajax_nopriv_outfit_save_search_filters', 'outfit_save_search_filters');//for users that are not logged in.
