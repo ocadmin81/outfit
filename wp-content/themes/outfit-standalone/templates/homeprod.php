@@ -25,18 +25,16 @@ $userId = $user_id = $currentUser->ID;
 $postsRows = array();
 
 if ($loggedIn) {
-	/*$catSlugsKeys = array_keys($catslugs);
-	$catSlugsIndex = 0;*/
-	/*if (empty($recentCatsPosts)) {
-		if ($catSlugsIndex < count($catSlugsKeys)) {
-			$postsRows[] = outfit_get_category_posts($catSlugsKeys[$catSlugsIndex], 5);
-			$catSlugsIndex++;
-		}
-	}
-	else {
 
-	}*/
-	$postsRows[] = $recentCatsPosts = outfit_get_recent_cats_posts($currentUser->ID, 5);
+	$postsRows[] = array(
+		'title' => 'New in',
+		'data' => $recentCatsPosts = outfit_get_recent_cats_posts($currentUser->ID, 5)
+	);
+
+	/*$postsRows[] = array(
+		'title' => '',
+		'data' =>
+	);*/
 
 	$searchPrefAge = get_user_meta($userId, USER_META_SEARCH_PREF_AGE, true);
 	$searchPrefLocation = OutfitLocation::createFromJSON(
@@ -46,37 +44,58 @@ if ($loggedIn) {
 	if (null != $searchPrefLocation || !empty($searchPrefAge)) {
 		$postsByAgeAndLocation = outfit_get_posts_by_age_and_location($searchPrefAge, $searchPrefLocation, 5);
 	}
-	$postsRows[] = $postsByAgeAndLocation;
-	$postsRows[] = $favSellersPosts = outfit_get_posts_of_favorite_sellers($currentUser->ID, 5);
-	$postsRows[] = $wishlist = outfit_get_wishlist_posts($currentUser->ID, 5);
-	$postsRows[] = $recentPosts = outfit_get_recent_products($currentUser->ID, 20);
+	$postsRows[] = array(
+		'title' => 'By age and location',
+		'data' => $postsByAgeAndLocation
+	);
+	$postsRows[] = array(
+		'title' => 'New from favorite sellers',
+		'data' => $favSellersPosts = outfit_get_posts_of_favorite_sellers($currentUser->ID, 5)
+	);
+	$postsRows[] = array(
+		'title' => 'Wishlist',
+		'data' => $wishlist = outfit_get_wishlist_posts($currentUser->ID, 5)
+	);
+	$postsRows[] = array(
+		'title' => 'Recently viewed',
+		'data' => $recentPosts = outfit_get_recent_products($currentUser->ID, 20)
+	);
 
 	$catSlugsKeys = array_keys($catslugs);
 	$catSlugsIndex = 0;
 	$catSlugsCount = count($catSlugsKeys);
 	foreach ($postsRows as $i => $postRow) {
-		if (empty($postRow) && $catSlugsIndex < $catSlugsCount) {
-			$postRows[$i] = outfit_get_category_posts($catSlugsKeys[$catSlugsIndex], 5);
+		if (empty($postRow['data']) && $catSlugsIndex < $catSlugsCount) {
+			$postRows[$i]['data'] = outfit_get_category_posts($catSlugsKeys[$catSlugsIndex], 5);
+			$postRows[$i]['title'] = $catslugs[$catSlugsKeys[$catSlugsIndex]];
 			$catSlugsIndex++;
 		}
 	}
 }
 else {
-	foreach ($catslugs as $catslug) {
-		$postsRows[] = outfit_get_category_posts($catslug, 5);
+	foreach ($catslugs as $catslug => $title) {
+		$postsRows[] = array(
+			'title' => $title,
+			'data' => outfit_get_category_posts($catslug, 5)
+		);
 	}
 }
 
 foreach ($postsRows as $i => $postRow) { ?>
 
-	<?php if (count($postRow) > 0) { ?>
+	<?php if (count($postRow['data']) > 0) { ?>
+
+		<div class="elementor-widget-container">
+			<div class="elementor-text-editor elementor-clearfix">
+				<h3 style="text-align: center;"><?php echo esc_html($postRow['title']) ?></h3></div>
+		</div>
 		<div class="row home-cat-row">
 			<div class="col-md-12 user-content-height">
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads favorite-ads">
 						<div class="my-ads products">
 							<div class="row">
-								<?php foreach ( $postRow as $post ) : setup_postdata( $post ); ?>
+								<?php foreach ( $postRow['data'] as $post ) : setup_postdata( $post ); ?>
 									<div class="col-lg-4 col-md-4 col-sm-6 item">
 										<div class="classiera-box-div classiera-box-div-v1">
 											<figure class="clearfix">
