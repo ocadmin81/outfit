@@ -7,7 +7,7 @@
  * @since 1.0
  * @version 1.2
  */
-
+$userFirstName = do_shortcode('[userfirstname]');
 ?>
 <nav id="site-navigation" class="main-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Top Menu', 'twentyseventeen' ); ?>">
 	<button class="menu-toggle" aria-controls="top-menu" aria-expanded="false">
@@ -16,14 +16,14 @@
 	</button>
 	<div class="m-menu-top hidden-lg hidden-md hidden-sm">
 		<div class="favourites">
-			<a href="#">
+			<a href="/favorite_ads">
 				<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/heart.png" />
 				<span class="count">0</span>
 			</a>
 		</div>
 		<div class="login">
 			<?php if(is_user_logged_in()): ?>	
-				<a href="<?php echo get_site_url(); ?>/profile_settings"><?php _e( "החשבון שלי", 'outfit-standalone' ); ?></a>
+				<a href="<?php echo get_site_url(); ?>/profile_settings"><?php _e( "היי, ", 'outfit-standalone' ); ?><?php echo $userFirstName; ?></a>
 			<?php else: ?>
 				<a href="<?php echo get_site_url(); ?>/login"><?php _e( "היי, התחבר/י", 'twentyseventeen' ); ?></a>
 			<?php endif; ?>

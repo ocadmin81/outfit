@@ -10,13 +10,13 @@
 ?>
 <?php if ($detect->isMobile()): ?>
 	<div class="user-menu-heading">
-		<?php if($path == 'profile_settings/'): ?>
+		<?php if($path == '/profile-settings/'): ?>
 			<span class="user"><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></span>
-		<?php elseif($path == 'user_all_ads/'): ?>
+		<?php elseif($path == '/user_all_ads/'): ?>
 			<span class="ads"><?php esc_html_e("המודעות שלי", 'outfit-standalone') ?></span>
-		<?php elseif($path == 'favorite_ads/'): ?>
+		<?php elseif($path == '/favorite_ads/'): ?>
 			<span class="wish"><?php esc_html_e("WISHLIST", 'outfit-standalone') ?></span>
-		<?php elseif($path == 'follow/'): ?>
+		<?php elseif($path == '/follow/'): ?>
 			<span class="seller"><?php esc_html_e("מוכרים אהובים", 'outfit-standalone') ?></span>
 		<?php else: ?>
 			<span class="user"><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></span>
@@ -25,22 +25,22 @@
 <?php endif; ?>
 <aside id="sideBarAffix-not" class="section-bg-white affix-top <?php if ($detect->isMobile()): ?>mobile-user-menu<?php endif; ?>">
 	<ul class="user-page-list list-unstyled">
-		<li class="user <?php if($path == 'profile_settings/'){echo "active";}?>">
+		<li class="user <?php if($path == '/profile-settings/'){echo "active";}?>">
 			<a href="<?php echo esc_url( $outfitEditProfile ); ?>">
 				<span><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></span>
 			</a>
 		</li><!--About-->
-		<li class="ads <?php if($path == 'user_all_ads/'){echo "active";}?>">
+		<li class="ads <?php if($path == '/user_all_ads/'){echo "active";}?>">
 			<a href="<?php echo esc_url( $outfitAllAds ); ?>">
 				<span><?php esc_html_e("המודעות שלי", 'outfit-standalone') ?></span>				
 			</a>
 		</li><!--My Ads-->
-		<li class="wish <?php if($path == 'favorite_ads/'){echo "active";}?>">
+		<li class="wish <?php if($path == '/favorite_ads/'){echo "active";}?>">
 			<a href="<?php echo esc_url( $outfitUserFavorite ); ?>">
 				<?php esc_html_e("WISHLIST", 'outfit-standalone') ?></span>
 			</a>
 		</li><!-- Wishlist -->
-		<li class="seller <?php if($path == 'follow/'){echo "active";}?>">
+		<li class="seller <?php if($path == '/follow/'){echo "active";}?>">
 			<a href="<?php echo esc_url( $outfitFollowerPage ); ?>">
 				<span><?php esc_html_e("מוכרים אהובים", 'outfit-standalone') ?></span>
 			</a>

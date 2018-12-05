@@ -46,7 +46,8 @@ if(isset($_POST['op_outfit']) ){
 global $redux_demo; 
 $login = outfit_get_page_url('login');
 $outfitSocialLogin = $redux_demo['outfit_social_login'];
-$termsandcondition = $redux_demo['termsandcondition'];
+//$termsandcondition = $redux_demo['termsandcondition'];
+$termsandcondition = '/תנאי-שימוש-באתר';
 $outfitEmailVerify = $redux_demo['registor-email-verify'];
 $outfitSocialLogin = $redux_demo['outfit_social_login'];
 $rand1 = rand(0,9);
@@ -192,7 +193,7 @@ if (!$user_ID){
 					$status = wp_create_user( $username, $password, $email );
 					if ( is_wp_error($status) ) {
 						$registerSuccess = 0;
-						$message =  esc_html__( 'Username or E-mail already exists. Please try another one.', 'outfit-standalone' );
+						$message =  esc_html__( 'שם משתמש או כתובת מייל כבר קיים.', 'outfit-standalone' );
 					}
 				}
 
@@ -219,7 +220,7 @@ if (!$user_ID){
 					
 				}
 			}else{			
-				$message =  esc_html__( 'You Must Need to Agree With Terms And Conditions.', 'outfit-standalone' );
+				$message =  esc_html__( 'יש לאשר את תנאי השימוש.', 'outfit-standalone' );
 				$registerSuccess = 0;
 			}
 		}
@@ -230,6 +231,7 @@ if (!$user_ID){
 <?php 
 	$page = get_post($post->ID);
 	$current_page_id = $page->ID;
+	$isRegistration = (isset($_POST['submit']) && $_POST['submit'] == 'Register');
 ?>
 <!-- page content -->
 <img class="login-bg" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/login-bg.jpg" />
@@ -241,8 +243,8 @@ if (!$user_ID){
 				</div>		
 				<div class="center-block">
 					<div class="tabs">
-						<div id="tab1" class="active"><?php esc_html_e('כניסה לחשבונך', 'outfit-standalone') ?></div>
-						<div id="tab2"><?php esc_html_e('הצטרפות', 'outfit-standalone') ?></div>
+						<div id="tab1" class="<?php echo ($isRegistration? '' : 'active') ?>"><?php esc_html_e('כניסה לחשבונך', 'outfit-standalone') ?></div>
+						<div id="tab2" class="<?php echo ($isRegistration? 'active' : '') ?>"><?php esc_html_e('הצטרפות', 'outfit-standalone') ?></div>
 					</div>
 							<?php if($_POST){?>
 							<?php if($registerSuccess == 0){?>
@@ -250,8 +252,7 @@ if (!$user_ID){
 							  <strong><?php esc_html_e('אופס, ', 'outfit-standalone') ?></strong> <?php echo esc_html( $message ); ?>
 							</div>
 							<?php } ?>
-							<?php }
-							$isRegistration = (isset($_POST['submit']) && $_POST['submit'] == 'Register');
+							<?php }							
 							?>
 						<div class="login-section <?php echo ($isRegistration? '' : 'active') ?>">
 							<div class="social-login-link">
@@ -386,13 +387,13 @@ if (!$user_ID){
                                 <div class="form-group">
                                     <div class="inner-addon left-addon">                                        
                                         <input type="password" name="password" data-minlength="5" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('סיסמא', 'outfit-standalone') ?>" id="registerPass" data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>" required>
-                                        <!--<div class="help-block"><?php esc_html_e('Minimum of 5 characters.', 'outfit-standalone') ?></div>-->
+                                        <!--<div class="help-block"><?php //esc_html_e('Minimum of 5 characters.', 'outfit-standalone') ?></div>-->
                                     </div>
                                 </div><!--Password-->
                                 <div class="form-group">
                                     <div class="inner-addon left-addon">                                        
-                                        <input type="password" name="confirm" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('סיסמא שוב', 'outfit-standalone') ?>" data-match="#registerPass" data-match-error="<?php esc_html_e('Whoops, these dont match', 'outfit-standalone') ?>" required>
-                                        <div class="help-block with-errors"></div>
+                                        <input type="password" name="confirm" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e('סיסמא שוב', 'outfit-standalone') ?>" data-match="#registerPass" data-match-error="<?php esc_html_e('אופס, לא תואם לשדה סיסמא', 'outfit-standalone') ?>" required>
+                                        <!--<div class="help-block with-errors"></div>-->
                                     </div>
                                 </div><!--re-enter password-->
                                 <div class="form-group">
