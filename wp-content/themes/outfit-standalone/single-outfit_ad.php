@@ -40,7 +40,7 @@ get_header(); ?>
 				$newRecent[] = $rp;
 			}
 		}
-		$newRecent = array_slice($newRecent, 0, 5);
+		$newRecent = array_slice($newRecent, 0, 20);
 		update_user_meta($userId, USER_META_LAST_PRODUCTS, implode(',', $newRecent));
 	}
 

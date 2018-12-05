@@ -11,7 +11,7 @@ $args = array(
     'post_type' => OUTFIT_AD_POST_TYPE,
     'post_status' => 'publish',
     'posts_per_page' => $perPage,
-    'paged' => 1,
+    //'paged' => 1,
     'cat' => $catObj->term_id
 );
 
