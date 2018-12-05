@@ -351,11 +351,13 @@ get_header(); ?>
 								<div class="author-info widget-content-post-area">
 									<div class="media">
 										<div class="user-img">
+											<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
 											<?php if($authorAvatarUrl): ?>
 												<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
 											<?php else: ?>
 												<img class="media-object" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/user-placeholder.png" alt="<?php echo esc_attr($postAuthorName); ?>">
 											<?php endif; ?>
+											</a>
 										</div><!--media-left-->
 										<div class="media-body">
 											<h5 class="media-heading text-uppercase">

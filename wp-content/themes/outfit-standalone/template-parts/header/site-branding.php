@@ -7,20 +7,21 @@
  * @since 1.0
  * @version 1.0
  */
+$userFirstName = do_shortcode('[userfirstname]');
 ?>
 <div class="site-branding">
 	<div class="wrap">
 		<div class="right header-right">
 			<div class="publish"><a href="<?php echo get_site_url(); ?>/submit_ad"><?php _e( "פרסום מודעה", 'outfit-standalone' ); ?></a></div>
 			<div class="favourites hidden-xs">
-				<a href="#">
+				<a href="/favorite_ads">
 					<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/heart.png" />
 					<span class="count">0</span>
 				</a>
 			</div>
 			<div class="login hidden-xs">
 				<?php if(is_user_logged_in()): ?>					
-					<a href="<?php echo get_site_url(); ?>/profile_settings"><?php _e( "החשבון שלי", 'outfit-standalone' ); ?></a>
+					<a href="<?php echo get_site_url(); ?>/profile_settings"><?php _e( "היי, ", 'outfit-standalone' ); ?><?php echo $userFirstName; ?></a>
 				<?php else: ?>
 					<a href="<?php echo get_site_url(); ?>/login"><?php _e( "היי, התחבר/י", 'outfit-standalone' ); ?></a>					
 				<?php endif; ?>

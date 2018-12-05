@@ -458,7 +458,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip" for="title"><?php esc_html_e('מחיר מבוקש', 'outfit-standalone') ?><span>*</span></label>
 								<div class="item">
-									<input id="price" data-minlength="1" name="postPrice" type="text" class="form-control form-control-md" value="<?php echo esc_html($postPrice); ?>" placeholder="<?php //esc_html_e('Price', 'outfit-standalone') ?>" required>
+									<input id="price" data-minlength="1" name="postPrice" placeholder="<?php esc_html_e('מספרים בלבד', 'outfit-standalone') ?>" type="number" class="form-control form-control-md" value="<?php echo esc_html($postPrice); ?>" placeholder="<?php //esc_html_e('Price', 'outfit-standalone') ?>" required>
 
 								</div>
 							</div><!-- /Ad price-->
@@ -558,6 +558,7 @@ get_header(); ?>
 									<div class="item">
 										<select id="condition" name="postCondition" class="reg form-control form-control-md"
 											<?php echo (($filterBy && $filterBy->catFilterByCondition)? 'required' : ''); ?>>
+											<option></option>
 											<?php
 											foreach ($conditions as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"
@@ -573,7 +574,8 @@ get_header(); ?>
 									<label class="text-left flip"><?php esc_html_e('כותכ', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
 										<select id="writer" name="postWriter[]" class="reg form-control form-control-md"
-											<?php echo (($filterBy && $filterBy->catFilterByWriter)? 'required' : ''); ?>>											
+											<?php echo (($filterBy && $filterBy->catFilterByWriter)? 'required' : ''); ?>>	
+											<option></option>
 											<?php
 											foreach ($writers as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"
@@ -591,6 +593,7 @@ get_header(); ?>
 										<select id="character" name="postCharacter[]" class="reg form-control form-control-md"
 											<?php echo (($filterBy && $filterBy->catFilterByCharacter)? 'required' : ''); ?>>
 											<option value=""><?php esc_html_e('Select Characters', 'outfit-standalone'); ?></option>
+											<option></option>
 											<?php
 											foreach ($characters as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"
@@ -648,7 +651,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('שעה נוחה להתקשרות', 'outfit-standalone') ?> :</label>
 								<div class="item">
-									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md" value="<?php echo esc_html($postPreferredHours); ?>" placeholder="<?php //esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
+									<input type="text" id="preferred_hours" name="postPreferredHours" placeholder="<?php esc_html_e('בין 8:00 ל 12:00, לא בשבת', 'outfit-standalone') ?>" class="form-control form-control-md" value="<?php echo esc_html($postPreferredHours); ?>" placeholder="<?php //esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>">
 								</div>
 							</div>						
 

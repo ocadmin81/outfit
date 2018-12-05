@@ -298,7 +298,7 @@ get_header(); ?>
 										<?php
 										for ($i = 0; $i < $imageLimit; $i++){
 											?>
-											<div class="classiera-image-box">
+											<div class="classiera-image-box" onclick="addImage('<?php echo $i; ?>')" id="index-<?php echo $i; ?>" <?php if($i>0): ?>style="display:none;"<?php endif; ?>>
 												<div class="classiera-upload-box">
 													<input name="image-count" type="hidden" value="<?php echo esc_attr( $imageLimit ); ?>" />
 													<input class="classiera-input-file imgInp" id="imgInp<?php echo esc_attr( $i ); ?>" type="file" name="upload_attachment[]">
@@ -329,8 +329,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip" for="title"><?php esc_html_e('מחיר מבוקש', 'outfit-standalone') ?> <span>*</span></label>
 								<div class="item">
-									<input id="price" data-minlength="1" name="postPrice" type="text" class="form-control form-control-md" required>
-
+									<input id="price" data-minlength="1" name="postPrice" placeholder="<?php esc_html_e('מספרים בלבד', 'outfit-standalone') ?>" type="number" class="form-control form-control-md" required>									
 								</div>
 							</div><!-- /Ad price-->
 							
@@ -378,7 +377,7 @@ get_header(); ?>
 								<div class="form-group post-age-groups-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="ageGroup" name="postAgeGroup[]" class="reg form-control form-control-md">											
+										<select id="ageGroup" name="postAgeGroup[]" class="reg form-control form-control-md" multiple>											
 											<?php
 											foreach ($ageGroups as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -402,7 +401,8 @@ get_header(); ?>
 								<div class="form-group post-conditions-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('מצב הפריט', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="condition" name="postCondition" class="reg form-control form-control-md">											
+										<select id="condition" name="postCondition" class="reg form-control form-control-md">	
+											<option></option>
 											<?php
 											foreach ($conditions as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -414,7 +414,8 @@ get_header(); ?>
 								<div class="form-group post-writers-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('כותכ', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="writer" name="postWriter[]" class="reg form-control form-control-md">											
+										<select id="writer" name="postWriter[]" class="reg form-control form-control-md">	
+											<option></option>
 											<?php
 											foreach ($writers as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -426,7 +427,8 @@ get_header(); ?>
 								<div class="form-group post-characters-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="character" name="postCharacter[]" class="reg form-control form-control-md">											
+										<select id="character" name="postCharacter[]" class="reg form-control form-control-md">	
+											<option></option>
 											<?php
 											foreach ($characters as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -501,7 +503,7 @@ get_header(); ?>
 								<label class="text-left flip"><?php esc_html_e('שעה נוחה להתקשרות', 'outfit-standalone') ?></label>
 								<div class="item">
 									<input type="text" id="preferred_hours" name="postPreferredHours" class="form-control form-control-md"
-										   placeholder="<?php //esc_html_e('Enter your preferred hours to contact', 'outfit-standalone') ?>"
+										   placeholder="<?php esc_html_e('בין 8:00 ל 12:00, לא בשבת', 'outfit-standalone') ?>"
 										   value="<?php echo esc_html($userPreferredHours); ?>">
 								</div>
 							</div>						
@@ -544,6 +546,12 @@ get_header(); ?>
 </section><!--user-pages-->
 <?php endwhile; ?>
 <div class="loader_submit_form">
-	<img src="<?php echo get_template_directory_uri().'/assets/images/loader180.gif' ?>">
+	<img src="<?php echo get_template_directory_uri().'/assets/images/loader-thin.gif' ?>">
 </div>
+<script>
+	function addImage(index){
+		var index = parseInt(index)+1;
+		jQuery('#index-'+index).show();
+	}
+</script>
 <?php get_footer(); ?>

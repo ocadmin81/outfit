@@ -235,12 +235,12 @@ if (!empty($metaQuery)) {
 								<ul class="nav nav-tabs" role="tablist">
 									<li role="presentation" class="p-tab active">
 										<a href="#grid" aria-controls="grid" role="tab" data-toggle="tab">
-											<?php esc_html_e( 'מוצרים', 'outfit-standalone' ); ?>
+											<span><?php esc_html_e( 'מוצרים', 'outfit-standalone' ); ?></span>
 										</a>
 									</li>
 									<li role="presentation" class="m-tab">
 										<a href="#map" aria-controls="map" role="tab" data-toggle="tab">
-											<?php esc_html_e( 'מפה', 'outfit-standalone' ); ?>
+											<span><?php esc_html_e( 'מפה', 'outfit-standalone' ); ?></span>
 										</a>
 									</li>
 								</ul><!--nav nav-tabs-->
@@ -254,27 +254,26 @@ if (!empty($metaQuery)) {
 					<aside class="sidebar cat-sidebar">
 						<div class="row">
 							<!--subcategory-->
-							<!--<div class="col-lg-12 col-md-12 col-sm-6">
+							<div class="col-lg-12 col-md-12 col-sm-6">
 								<div class="widget-box">
-									<div class="widget-title"><?php //esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
+									<div class="widget-title"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 									<div class="widget-content" style="display:none;">
 										<ul class="category">
 										<?php
-											//foreach($subCategories as $sub) {
+											foreach($subCategories as $sub) {
 										?>
 											<li>
-												<a href="<?php //echo esc_url(get_category_link( $sub->term_id ));?>">
+												<a href="<?php echo esc_url(get_category_link( $sub->term_id ));?>">
 													<i class="fa fa-angle-right"></i>
-													<?php //echo esc_html($sub->name); ?>
+													<?php echo esc_html($sub->name); ?>
 
 												</a>
 											</li>
-										<?php //} ?>
+										<?php } ?>
 										</ul>
 									</div>
 								</div>
-							</div>-->
-
+							</div>
 							<!--subcategory-->
 
 							<div class="col-lg-12 col-md-12 col-sm-6">
@@ -348,7 +347,7 @@ if (!empty($metaQuery)) {
 										<div class="row">
 											<textarea style="display: none;" id="current-address-points"><?php echo json_encode($products); ?></textarea>
 
-											<div id="outfit_main_map" style="width:100%; height:600px;">
+											<div id="outfit_main_map" style="width:100%; height:800px;">
 
 												<script type="text/javascript">
 													// Initialize and add the map
