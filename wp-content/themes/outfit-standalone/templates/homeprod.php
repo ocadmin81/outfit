@@ -45,6 +45,8 @@ if ($loggedIn) {
 	$searchPrefLocation = OutfitLocation::createFromJSON(
 		get_user_meta($userId, USER_META_SEARCH_PREF_LOCATION, true));
 
+	//var_dump($searchPrefLocation);
+
 	$postsByAgeAndLocation = array();
 	if (null != $searchPrefLocation || !empty($searchPrefAge)) {
 		$postsByAgeAndLocation = outfit_get_posts_by_age_and_location($searchPrefAge, $searchPrefLocation, $count);

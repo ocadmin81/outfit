@@ -445,7 +445,7 @@ function outfit_get_posts_by_age_and_location($ageTermId, $location, $count) {
     $locationSearchTag = '';
     $locationSearchKey = '';
 
-    if (null !== $location && $location instanceof OutfitLocation) {
+    if (null !== $location && ($location instanceof OutfitLocation)) {
         $locationSearchKey = $location->suggestSearchKey();
         $locationSearchTag = $location->getLastSearchKeyBy();
     }
@@ -483,11 +483,13 @@ function outfit_get_posts_by_age_and_location($ageTermId, $location, $count) {
         else if ($locationSearchTag == OutfitLocation::AREA1) {
             $metaKey = POST_META_AREA1_TAG;
         }
-        $args['meta_query'] = array(
+        $args['meta_query'] = [array(
             'key' => $metaKey,
             'value' => $locationSearchKey,
             'compare' => '='
-        );
+        )];
+
+        //var_dump($args);
     }
     $posts = get_posts($args);
     return $posts;
