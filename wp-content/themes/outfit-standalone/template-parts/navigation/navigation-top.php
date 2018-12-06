@@ -18,7 +18,7 @@ $userFirstName = do_shortcode('[userfirstname]');
 		<div class="favourites">
 			<a href="/favorite_ads">
 				<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/heart.png" />
-				<span class="count">0</span>
+				<span class="count"><?php echo do_shortcode('[wishlistcount]'); ?></span>
 			</a>
 		</div>
 		<div class="login">

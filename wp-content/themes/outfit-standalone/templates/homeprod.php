@@ -21,7 +21,7 @@ if ($detect->isMobile() && !$detect->isTablet())
 $catslugs = [
 	'clothing' => 'Shop for clothes',
 	'toys' => 'Shop for toys',
-	'strollers' => 'Shop for strollers'
+	'and-safety-chairs-strollers' => 'Shop for strollers'
 ];
 
 $currentUser = $current_user = wp_get_current_user();
@@ -129,27 +129,7 @@ foreach ($postsRows as $i => $postRow) { ?>
 														}
 														?>
 													</a>
-													<div class="cat-wish-brand">
-														<div class="cat-wish">
-															<?php //if ($isFavorite) { ?>
-																<!--<i class="fa fa-heart" aria-hidden="true"></i>-->
-															<?php //} else { ?>
-																<!--<i class="fa fa-heart-o" aria-hidden="true"></i>-->
-															<?php //} ?>
-														
-															<?php //if (!empty($userId)): ?>
-																<form method="post" class="fav-form clearfix">
-																	<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
-																	<?php if (isFavorite) { ?>
-																		<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase"><span></span></button>
-																	<?php } else { ?>
-																		<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase in-wish"><span></span></button>
-																	<?php } ?>
-																</form>
-															<?php //endif; ?>	
-														</div>															
-														<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
-													</div>
+													<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
 												</div><!--premium-img-->
 												<div class="au-price">
 													<div class="au">
