@@ -218,7 +218,7 @@ else {
 					<div class="checkbox">
 							<input type="checkbox" id="<?php echo esc_attr('price_range_'.$i); ?>" name="priceRange[]"
 								   value="<?php echo $range['min'].'_'.$range['max'] ?>" <?php echo $checked?>>
-							<label for="<?php echo esc_attr('price_range_'.$i); ?>"><?php echo (outfit_format_price_range_label($priceRanges, $i, false)); ?></label>
+							<label for="<?php echo esc_attr('price_range_'.$i); ?>"><?php echo (outfit_format_price_range_label($priceRanges, $i, true)); ?></label>
 						</div>
 					<?php endforeach; ?>
 				</div>
