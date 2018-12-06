@@ -9,6 +9,7 @@
 
 	$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
 	$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
+	$postBrandObjects = wp_get_post_terms($post->ID, 'brands');
 
 	$isFavorite = in_array($post->ID, $currentUserFavoriteAds);
 ?>
@@ -42,7 +43,7 @@
 						<?php //if (!empty($userId)): ?>
 							<form method="post" class="fav-form clearfix">
 								<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
-								<?php if ($isFavorite) { ?>
+								<?php if (!$isFavorite) { ?>
 									<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase"><span></span></button>
 								<?php } else { ?>
 									<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase in-wish"><span></span></button>
@@ -50,7 +51,11 @@
 							</form>
 						<?php //endif; ?>	
 					</div>				
-					<div class="cat-brand"><a href=""><?php echo esc_attr($postBrand); ?></a></div>
+					<div class="cat-brand">
+						<?php foreach ($postBrandObjects as $termObj): ?>
+							<a href="<?php echo outfit_get_brand_link($termObj->term_id) ?>"><?php echo esc_attr($termObj->name); ?></a>
+						<?php endforeach; ?>
+					</div>
 				</div>
 			</div><!--premium-img-->
 			<div class="au-price">

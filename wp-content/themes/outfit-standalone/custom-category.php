@@ -33,8 +33,10 @@ $current_user = wp_get_current_user();
 $currentUserId = $current_user->ID;
 
 if (isset($_POST['favorite'])) {
+	//echo 'add to wishlist: '.$currentUserId.' - '.$_POST['post_id'];
 	if (!empty($currentUserId)) {
 		outfit_insert_author_favorite($currentUserId, $_POST['post_id']);
+		//echo 'added to wishlist: '.$currentUserId.' - '.$_POST['post_id'];
 	}
 }
 else if (isset($_POST['unfavorite'])) {

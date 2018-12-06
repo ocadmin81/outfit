@@ -46,6 +46,9 @@
 	</div><!-- .site-content-contain -->
 </div><!-- #page -->
 <?php wp_footer(); ?>
-
+<script type="text/javascript">
+	var wishlistCount = '<?php echo do_shortcode('[wishlistcount]') ?>';
+	jQuery('.site-branding .favourites .count').text(wishlistCount);
+</script>
 </body>
 </html>
