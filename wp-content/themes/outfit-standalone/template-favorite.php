@@ -103,7 +103,10 @@ get_header(); ?>
 														}
 														?>
 													</a>
-													<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
+													<div class="cat-wish-brand">
+														<div class="cat-wish">&nbsp;</div>
+														<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
+													</div>
 												</div><!--premium-img-->
 												<div class="au-price">
 													<div class="au">

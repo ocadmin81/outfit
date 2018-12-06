@@ -524,8 +524,8 @@ get_header(); ?>
 									 style="<?php echo (($filterBy && $filterBy->catFilterByAge)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
-										<select id="ageGroup" name="postAgeGroup[]" class="reg form-control form-control-md"
-											<?php echo (($filterBy && $filterBy->catFilterByAge)? 'required' : ''); ?>>
+										<select id="ageGroup" name="postAgeGroup[]" class="reg ageGroup form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByAge)? 'required' : ''); ?> multiple>
 											<?php
 											foreach ($ageGroups as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"

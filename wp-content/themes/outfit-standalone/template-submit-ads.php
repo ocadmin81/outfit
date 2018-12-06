@@ -298,14 +298,14 @@ get_header(); ?>
 										<?php
 										for ($i = 0; $i < $imageLimit; $i++){
 											?>
-											<div class="classiera-image-box" onclick="addImage('<?php echo $i; ?>')" id="index-<?php echo $i; ?>" <?php if($i>0): ?>style="display:none;"<?php endif; ?>>
+											<div class="classiera-image-box" id="index-<?php echo $i; ?>" <?php if($i>0): ?>style="display:none;"<?php endif; ?>>
 												<div class="classiera-upload-box">
 													<input name="image-count" type="hidden" value="<?php echo esc_attr( $imageLimit ); ?>" />
 													<input class="classiera-input-file imgInp" id="imgInp<?php echo esc_attr( $i ); ?>" type="file" name="upload_attachment[]">
-													<label class="img-label" for="imgInp<?php echo esc_attr( $i ); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/upload-icon.png" /></label>
+													<label class="img-label" onclick="addImage('<?php echo $i; ?>')" for="imgInp<?php echo esc_attr( $i ); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/upload-icon.png" /></label>
 													<div class="classiera-image-preview">
 														<img class="my-image" src=""/>
-														<span class="remove-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
+														<span class="remove-img" onclick="removeImage('<?php echo $i; ?>')"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
 													</div>
 												</div>
 											</div>
@@ -377,7 +377,7 @@ get_header(); ?>
 								<div class="form-group post-age-groups-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="ageGroup" name="postAgeGroup[]" class="reg form-control form-control-md" multiple>											
+										<select id="ageGroup" name="postAgeGroup[]" class="reg ageGroup form-control form-control-md" multiple>											
 											<?php
 											foreach ($ageGroups as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -550,8 +550,17 @@ get_header(); ?>
 </div>
 <script>
 	function addImage(index){
+		jQuery('#index-'+index).addClass('active');
 		var index = parseInt(index)+1;
-		jQuery('#index-'+index).show();
+		setTimeout(function(){
+			jQuery('#index-'+index).show();
+		}, 2000);
+	}
+	function removeImage(index){
+		jQuery('#index-'+index).removeClass('active');
+		var index = parseInt(index)+1;
+		if(!jQuery('#index-'+index).hasClass('active'))
+			jQuery('#index-'+index).hide();
 	}
 </script>
 <?php get_footer(); ?>
