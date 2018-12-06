@@ -143,7 +143,7 @@ foreach ($postsRows as $i => $postRow) { ?>
 															<span class="">
 																<?php
 																if(is_numeric($postPrice)){
-																	echo '&#8362; ' .  $postPrice;
+																	echo $postPrice. ' &#8362;';
 																}else{
 																	echo esc_attr( $postPrice );
 																}

@@ -265,7 +265,9 @@ get_header(); ?>
 							}
 							?>
 					</div>
-					<div class="post-desc"><?php echo the_content(); ?></div>
+					<?php if ( !empty( get_the_content() ) ): ?>
+						<div class="post-desc"><?php echo the_content(); ?></div>
+					<?php endif; ?>
 					<div class="post-details">
 						<ul class="list-unstyled clearfix">
 
