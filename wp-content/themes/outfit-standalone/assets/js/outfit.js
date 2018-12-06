@@ -1428,6 +1428,7 @@ jQuery(document).ready(function(jQuery){
 	jQuery( '.single-post-ad .img-box .thumbs-img .item img' ).click(function() {
 		var img = jQuery(this).attr('src');
 		jQuery('.single-post-ad .img-box .main-img img').attr('src',img);
+		jQuery('.single-post-ad .img-box .main-img a').attr('href',img);
 	});
 	//ad page mobile image carousel
 	jQuery(".thumbs-img-m").owlCarousel({

@@ -185,7 +185,9 @@ get_header(); ?>
 									<div class="col-md-10 col-sm-10 main-img" role="listbox">
 									<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
 										<div class="item">
-											<img class="img-responsive" src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
+											<a href="<?php echo esc_url($image[0]); ?>" class="fancybox">
+												<img class="img-responsive" src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
+											</a>
 										</div>	
 										<div class="wish-share">
 											<?php if (!empty($userId)): ?>
@@ -214,14 +216,16 @@ get_header(); ?>
 									</div>
 								<?php else: ?>
 									<?php if(!empty($attachments)){ ?>
-										<div class="thumbs-img-m owl-carousel">
+										<div class="thumbs-img-m <?php if(count($attachments) > 1): ?>owl-carousel<?php endif; ?>">
 											<?php
 											$count = 1;
 											foreach($attachments as $att_id => $attachment){
 												$full_img_url = wp_get_attachment_url($attachment->ID);
 												?>
 												<div class="item <?php if($count == 1){ echo "active"; }?>">
-													<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
+													<a href="<?php echo esc_url($full_img_url); ?>" class="fancybox">
+														<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
+													</a>
 												</div>
 												<?php
 												$count++;
@@ -237,21 +241,20 @@ get_header(); ?>
 				</div>			
 				<div class="col-md-4 col-sm-6 middle-ad-column">
 					<h1 class="text-uppercase">
-						<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+						<?php the_title(); ?>
+						<!--Edit Ads Button-->
 						<?php
 						if (
 						($post->post_author == $currentUser->ID && get_post_status ( $post->ID ) == 'publish') ||
 						current_user_can('administrator')
 						):
 						?>
-							<a href="<?php echo esc_url($editPostUrl); ?>" class="edit-post btn btn-sm btn-default" style="padding:0;">
-								<i class="far fa-edit"></i>
-								<?php esc_html_e( 'Edit Post', 'outfit-standalone' ); ?>
+							<a href="<?php echo esc_url($editPostUrl); ?>" class="edit-post btn btn-sm btn-default">
+								<?php esc_html_e( 'עריכה', 'outfit-standalone' ); ?>
 							</a>
 						<?php
 						endif;
-						?>
-						<!--Edit Ads Button-->
+						?>						
 					</h1>
 					<div class="post-price">
 							<?php
