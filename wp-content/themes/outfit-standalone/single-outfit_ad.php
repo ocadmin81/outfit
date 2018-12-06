@@ -25,6 +25,8 @@ if ( is_user_logged_in() ) {
 
 get_header(); ?>
 
+<?php echo 'curr templ' . $GLOBALS['current_theme_template'] ?>
+
 <?php while ( have_posts() ) : the_post(); ?>
 
 	<?php

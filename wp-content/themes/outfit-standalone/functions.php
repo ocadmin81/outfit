@@ -1415,9 +1415,9 @@ function outfit_show_pending_ad_to_author($query) {
 	global $current_user;
 	wp_get_current_user();
 	$currentUserId = $current_user->ID;
-	if (get_current_template() == 'single_outfit_ad.php' && !empty($currentUserId)) {
+	if (is_single()) {
 		if (isset($_GET['p'])) {
-			$p = get_post();
+			$p = get_post($_GET['p']);
 			if ($p) {
 				if (!is_admin() && $p->post_author == $currentUserId) {
 					$query->set('post_status', array('publish','pending'));
