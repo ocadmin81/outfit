@@ -1440,7 +1440,7 @@ jQuery(document).ready(function(jQuery){
 		navigation:false,
 		lazyLoad : false,
 		rtl:true,
-		loop:true,
+		loop:false,
 		responsive:{
 			0:{
 				items:1
