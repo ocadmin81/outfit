@@ -527,3 +527,5 @@ function outfit_get_category_posts($catslug, $count) {
     $posts = get_posts($args);
     return $posts;
 }
+
+

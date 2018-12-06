@@ -83,7 +83,7 @@ class OutfitInit
             'user_all_ads' => array(
                 'slug' => 'user_all_ads',
                 'template' => 'template-user-all-ads.php'
-            ),
+            )
             /*'' => array(
                 'slug' => '',
                 'template' => ''

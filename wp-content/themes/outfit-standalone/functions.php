@@ -663,6 +663,22 @@ function outfit_get_user_picture($userId, $size=150) {
 	return $profileImg;
 }
 
+function outfit_get_wishlist_count($userId) {
+	if (empty($userId)) return 0;
+	global $wpdb;
+	$prepared_statement = $wpdb->prepare("SELECT COUNT(DISTINCT post_id) FROM {$wpdb->prefix}author_favorite WHERE  author_id = %d", $userId);
+	$count = $wpdb->get_var($prepared_statement);
+	return $count;
+}
+
+function outfit_wishlist_count_shortcode($atts = [], $content = null) {
+	$user = wp_get_current_user();
+	if (!$user->ID) return '0';
+	return outfit_get_wishlist_count($user->ID);
+}
+
+add_shortcode('wishlistcount', 'outfit_wishlist_count_shortcode');
+
 /*========================================
  Outfit : Get User Favorite Posts IDs
  =========================================*/
@@ -1380,4 +1396,16 @@ function outfit_get_brand_link($termId) {
 	$query = 'outfit_ad=1&search=1&postBrand='.$termId;
 	$link = home_url('?' . $query );
 	return $link;
+}
+
+add_action('after_setup_theme', 'outfit_remove_admin_bar');
+
+function outfit_remove_admin_bar() {
+	if (!current_user_can('administrator') && !is_admin()) {
+		show_admin_bar(false);
+	}
+}
+
+function outfit_get_thank_you_link() {
+	return '/'.'תודה-שפירסמתם-אצלינו';
 }
