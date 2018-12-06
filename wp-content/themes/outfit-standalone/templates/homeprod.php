@@ -112,7 +112,7 @@ foreach ($postsRows as $i => $postRow) { ?>
 														<?php
 														$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 														$postAuthorId = $post->post_author;
-														$postAuthorName = getAuthorFullName($postAuthorId);
+														$postAuthorName = getAuthorFullNameCat($postAuthorId);
 
 														$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
 														$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));

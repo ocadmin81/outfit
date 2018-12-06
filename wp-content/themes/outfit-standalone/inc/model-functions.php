@@ -348,6 +348,23 @@ function getAuthorFullName($postAuthorId) {
     return $postAuthorName;
 }
 
+function getAuthorFullNameCat($postAuthorId) {
+
+    $firstName = get_the_author_meta(USER_META_FIRSTNAME, $postAuthorId);
+    $lastName = get_the_author_meta(USER_META_LASTNAME, $postAuthorId);
+    if (!empty($firstName) && !empty($lastName)) {
+        return ($firstName . ' ' . mb_substr($lastName, 0, 1,'UTF-8').'.');
+    }
+    $postAuthorName = get_the_author_meta('display_name', $postAuthorId );
+    if (empty($postAuthorName)) {
+        $postAuthorName = get_the_author_meta('user_nicename', $postAuthorId);
+    }
+    if (empty($postAuthorName)) {
+        $postAuthorName = get_the_author_meta('user_login', $postAuthorId );
+    }
+    return $postAuthorName;
+}
+
 function outfit_is_user_exists($userId) {
     $user = get_userdata( $userId );
     if ( $user === false ) {
