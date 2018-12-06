@@ -376,7 +376,7 @@ get_header(); ?>
 											</h5>
 											<?php if (!empty($userId) && $userId != $postAuthorId) { ?>
 												<form method="post" class="classiera_follow_user">
-													<input type="hidden" name="author_id" value="<?php echo esc_attr($author_id); ?>"/>
+													<input type="hidden" name="author_id" value="<?php echo esc_attr($postAuthorId); ?>"/>
 													<?php if (!outfit_is_favorite_author($postAuthorId, $userId)) { ?>
 														<button type="submit" name="follow"><span><?php esc_html_e( 'הוספה למוכרים אהובים', 'outfit-standalone' ); ?></span></button>
 													<?php } else { ?>

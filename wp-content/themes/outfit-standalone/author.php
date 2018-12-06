@@ -47,6 +47,17 @@ else if (isset($_POST['unfollow'])) {
 	}
 }
 
+if (isset($_POST['favorite'])) {
+	if (!empty($currentUserId)) {
+		outfit_insert_author_favorite($currentUserId, $_POST['post_id']);
+	}
+}
+else if (isset($_POST['unfavorite'])) {
+	if (!empty($currentUserId)) {
+		outfit_delete_author_favorite($currentUserId, $_POST['post_id']);
+	}
+}
+
 global $paged;
 global $post;
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;

@@ -47,7 +47,7 @@ if ($loggedIn) {
 
 	$postsByAgeAndLocation = array();
 	if (null != $searchPrefLocation || !empty($searchPrefAge)) {
-		$postsByAgeAndLocation = outfit_get_posts_by_age_and_location($searchPrefAge, $searchPrefLocation, $count5);
+		$postsByAgeAndLocation = outfit_get_posts_by_age_and_location($searchPrefAge, $searchPrefLocation, $count);
 	}
 	$postsRows[] = array(
 		'title' => 'לפי גיל ואיזור',
@@ -55,7 +55,7 @@ if ($loggedIn) {
 	);
 	$postsRows[] = array(
 		'title' => 'חדש מאנשים שאת אוהבת',
-		'data' => $favSellersPosts = outfit_get_posts_of_favorite_sellers($currentUser->ID,$count5)
+		'data' => $favSellersPosts = outfit_get_posts_of_favorite_sellers($currentUser->ID,$count)
 	);
 	$postsRows[] = array(
 		'title' => 'אהבת אותם לאחרונה',
