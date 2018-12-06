@@ -1200,13 +1200,14 @@ function outfit_format_price_range_label($priceRanges, $i, $currencyAfter = true
 	$currency = '&#8362';
 	$res = '';
 	$count = count($priceRanges);
+	$d = ' ';
 	if ($i+1 > $count) return $res;
 	if ($i+1 < $count) {
-		$res .= ($currencyAfter? $priceRanges[$i]['min'].$currency : $currency.$priceRanges[$i]['min']);
-		$res .= '-'.($currencyAfter? $priceRanges[$i]['max'].$currency : $currency.$priceRanges[$i]['max']);
+		$res .= ($currencyAfter? $priceRanges[$i]['min'].$d.$currency : $currency.$d.$priceRanges[$i]['min']);
+		$res .= '-'.($currencyAfter? $priceRanges[$i]['max'].$d.$currency : $currency.$d.$priceRanges[$i]['max']);
 	}
 	else {
-		$res .= translate('מעל').' '.($currencyAfter? $priceRanges[$i]['min'].$currency : $currency.$priceRanges[$i]['min']);
+		$res .= translate('מעל').' '.($currencyAfter? $priceRanges[$i]['min'].$d.$currency : $currency.$d.$priceRanges[$i]['min']);
 	}
 	return $res;
 }
