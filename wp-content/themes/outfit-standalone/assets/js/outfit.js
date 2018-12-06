@@ -1363,10 +1363,18 @@ jQuery(document).ready(function(jQuery){
 		jQuery('.header-left').addClass('active');
 	});	
 	//menu overlay
-	jQuery(".main-navigation .menu > li.menu-item-has-children").hover(function () {
-		jQuery('.overlay-nav').toggleClass("overlay-active");
+	setTimeout(function(){
+		jQuery('.overlay-nav').removeClass('overlay-active');
+	}, 1000);
+	jQuery(".main-navigation .menu > li.menu-item-has-children").mouseenter(function() {
+		jQuery('.overlay-nav').addClass("overlay-active");
+	}).mouseleave(function() {
+		jQuery('.overlay-nav').removeClass("overlay-active");
 	});	
-	jQuery( ".navbar-nav.desktop-nav li.parent" ).mouseleave(function() {
+	//jQuery(".main-navigation .menu > li.menu-item-has-children").hover(function () {
+	//	jQuery('.overlay-nav').addClass("overlay-active");
+	//});	
+	jQuery( ".site-content-contain" ).hover(function() {
 		jQuery( ".overlay-nav" ).removeClass("overlay-active");
 	});		
 	//login-page-tabs

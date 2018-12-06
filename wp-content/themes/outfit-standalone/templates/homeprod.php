@@ -13,6 +13,11 @@ global $current_user, $user_id;
 global $redux_demo;
 global $paged, $wp_query, $wp, $post;
 global $catObj;
+require_once 'Mobile_Detect_Prods.php';
+$detect = new Mobile_Detect_Prods;
+$count = 5;
+if ($detect->isMobile() && !$detect->isTablet())
+	$count = 4;
 $catslugs = [
 	'clothing' => 'Shop for clothes',
 	'toys' => 'Shop for toys',
@@ -28,7 +33,7 @@ if ($loggedIn) {
 
 	$postsRows[] = array(
 		'title' => 'New in',
-		'data' => $recentCatsPosts = outfit_get_recent_cats_posts($currentUser->ID, 5)
+		'data' => $recentCatsPosts = outfit_get_recent_cats_posts($currentUser->ID, $count)
 	);
 
 	/*$postsRows[] = array(
@@ -42,23 +47,23 @@ if ($loggedIn) {
 
 	$postsByAgeAndLocation = array();
 	if (null != $searchPrefLocation || !empty($searchPrefAge)) {
-		$postsByAgeAndLocation = outfit_get_posts_by_age_and_location($searchPrefAge, $searchPrefLocation, 5);
+		$postsByAgeAndLocation = outfit_get_posts_by_age_and_location($searchPrefAge, $searchPrefLocation, $count5);
 	}
 	$postsRows[] = array(
-		'title' => 'By age and location',
+		'title' => 'לפי גיל ואיזור',
 		'data' => $postsByAgeAndLocation
 	);
 	$postsRows[] = array(
-		'title' => 'New from favorite sellers',
-		'data' => $favSellersPosts = outfit_get_posts_of_favorite_sellers($currentUser->ID, 5)
+		'title' => 'חדש מאנשים שאת אוהבת',
+		'data' => $favSellersPosts = outfit_get_posts_of_favorite_sellers($currentUser->ID,$count5)
 	);
 	$postsRows[] = array(
-		'title' => 'Wishlist',
-		'data' => $wishlist = outfit_get_wishlist_posts($currentUser->ID, 5)
+		'title' => 'אהבת אותם לאחרונה',
+		'data' => $wishlist = outfit_get_wishlist_posts($currentUser->ID, $count)
 	);
 	$postsRows[] = array(
-		'title' => 'Recently viewed',
-		'data' => $recentPosts = outfit_get_recent_products($currentUser->ID, 20)
+		'title' => 'צפית בהם לאחרונה',
+		'data' => $recentPosts = outfit_get_recent_products($currentUser->ID, $count)
 	);
 
 	$catSlugsKeys = array_keys($catslugs);
@@ -66,7 +71,7 @@ if ($loggedIn) {
 	$catSlugsCount = count($catSlugsKeys);
 	foreach ($postsRows as $i => $postRow) {
 		if (empty($postRow['data']) && $catSlugsIndex < $catSlugsCount) {
-			$postRows[$i]['data'] = outfit_get_category_posts($catSlugsKeys[$catSlugsIndex], 5);
+			$postRows[$i]['data'] = outfit_get_category_posts($catSlugsKeys[$catSlugsIndex], $count);
 			$postRows[$i]['title'] = $catslugs[$catSlugsKeys[$catSlugsIndex]];
 			$catSlugsIndex++;
 		}
@@ -76,7 +81,8 @@ else {
 	foreach ($catslugs as $catslug => $title) {
 		$postsRows[] = array(
 			'title' => $title,
-			'data' => outfit_get_category_posts($catslug, 5)
+			'data' => outfit_get_category_posts($catslug, $count),
+			'slug' => $catslug
 		);
 	}
 }
@@ -84,10 +90,11 @@ else {
 foreach ($postsRows as $i => $postRow) { ?>
 
 	<?php if (count($postRow['data']) > 0) { ?>
-
+	<div class="home-cats <?php if(!$loggedIn): ?>guest<?php endif; ?>">
 		<div class="elementor-widget-container">
 			<div class="elementor-text-editor elementor-clearfix">
-				<h3 style="text-align: center;"><?php echo esc_html($postRow['title']) ?></h3></div>
+				<h3 style="text-align: center;"><?php echo esc_html($postRow['title']) ?></h3>
+			</div>
 		</div>
 		<div class="row home-cat-row">
 			<div class="col-md-12 user-content-height">
@@ -157,6 +164,12 @@ foreach ($postsRows as $i => $postRow) { ?>
 				</div><!--user-detail-section-->
 			</div><!--col-lg-9-->
 		</div><!--row-->
+			<?php if (!$loggedIn): ?>
+				<div class="cat-link">
+					<a href="category/<?php echo $postRow['slug']; ?>?outfit_ad">הצג עוד</a>
+				</div>
+			<?php endif; ?>		
+	</div>
 	<?php } //if ($wp_query->have_posts()) ?>
 
 <?php } // foreach ($postsRows as $i => $postRow) ?>
