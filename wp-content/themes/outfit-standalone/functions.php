@@ -1412,12 +1412,14 @@ function outfit_get_thank_you_link() {
 }
 
 function outfit_show_pending_ad_to_author($query) {
-	$currentUser = wp_get_current_user();
-	if ($currentUser->ID) {
-		if (get_current_template() == 'single_outfit_ad.php' && isset($_GET['p'])) {
-			$p = get_post($_GET['p']);
+	global $current_user;
+	wp_get_current_user();
+	$currentUserId = $current_user->ID;
+	if (get_current_template() == 'single_outfit_ad.php' && !empty($currentUserId)) {
+		if (isset($_GET['p'])) {
+			$p = get_post();
 			if ($p) {
-				if (!is_admin() && $p->post_author == $currentUser->ID) {
+				if (!is_admin() && $p->post_author == $currentUserId) {
 					$query->set('post_status', array('publish','pending'));
 				}
 			}
