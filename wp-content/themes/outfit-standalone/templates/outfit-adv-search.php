@@ -123,12 +123,10 @@ else {
 			<?php } ?>
 
 			<!--Locations-->
-			<div class="inner-search-box">
-				<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-				<?php esc_html_e( 'Location', 'classiera' ); ?>
-				</h5>
+			<div class="inner-search-box ab address">
+				<div class="inner-search-heading"><?php esc_html_e( 'איזור', 'classiera' ); ?></div>
 				<div class="inner-addon right-addon post_sub_loc">
-					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('Address or City', 'outfit-standalone') ?>">
+					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>">
 					<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 					<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
 					<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
@@ -142,8 +140,8 @@ else {
 			<!--Locations-->
 
 			<?php if (is_user_logged_in()) { ?>
-			<div class="inner-search-box">
-				<a id="outfit_save_search_prefs" href="javascript:void(0)"><?php esc_html_e('Save Search Preferences', 'outfit-standalone') ?></a>
+			<div class="inner-search-box save-pre">
+				<a id="outfit_save_search_prefs" href="javascript:void(0)"><?php esc_html_e('שמור את ההעדפות שלי', 'outfit-standalone') ?></a>
 			</div>
 			<?php } ?>
 
@@ -176,7 +174,7 @@ else {
 						foreach ($colors as $i => $c):
 							$checked = in_array($c->term_id, $postColor)? 'checked' : '';
 						?>
-							<div class="checkbox">
+							<div class="checkbox <?php if(in_array($c->term_id, $postColor)): ?>active<?php endif; ?>">
 								<input type="checkbox" id="<?php echo esc_attr('color_'.$i); ?>" name="postColor[]" value="<?php echo $c->term_id; ?>" <?php echo $checked?>>
 								<label for="<?php echo esc_attr('color_'.$i); ?>" style="background: <?php echo esc_attr(get_term_meta($c->term_id, 'color', true)); ?>" title="<?php esc_html_e($c->name); ?>"><?php esc_html_e($c->name); ?></label>
 							</div>
