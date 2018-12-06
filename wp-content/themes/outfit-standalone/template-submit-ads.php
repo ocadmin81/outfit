@@ -321,7 +321,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip" for="title"><?php esc_html_e('מה אתם מוכרים?', 'outfit-standalone') ?> <span>*</span></label>
 								<div class="item">
-									<input id="title" data-minlength="5" name="postTitle" type="text" class="form-control form-control-md" required>
+									<input id="title" data-minlength="2" name="postTitle" type="text" class="form-control form-control-md" required>
 
 								</div>
 							</div><!-- /Ad title-->
