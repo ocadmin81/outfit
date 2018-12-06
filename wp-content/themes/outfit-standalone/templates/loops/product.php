@@ -42,7 +42,7 @@
 						<?php //if (!empty($userId)): ?>
 							<form method="post" class="fav-form clearfix">
 								<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
-								<?php if (isFavorite) { ?>
+								<?php if ($isFavorite) { ?>
 									<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase"><span></span></button>
 								<?php } else { ?>
 									<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase in-wish"><span></span></button>

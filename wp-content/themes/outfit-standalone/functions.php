@@ -1428,3 +1428,18 @@ function outfit_show_pending_ad_to_author($query) {
 
 }
 add_action( 'pre_get_posts', 'outfit_show_pending_ad_to_author' );
+
+function outfit_get_page_permalink($pageId, $queryString) {
+	global $wp_rewrite;
+	$pagepermalink = get_permalink($pageId);
+	$link = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&".$queryString : $pagepermalink."?".$queryString;
+	return $link;
+}
+
+function outfit_get_add_favorites_link($pageId, $postId) {
+	return outfit_get_page_permalink($pageId, 'favorite_id='.$postId);
+}
+
+function outfit_get_remove_favorites_link($pageId, $postId) {
+	return outfit_get_page_permalink($pageId, 'unfavorite_id='.$postId);
+}

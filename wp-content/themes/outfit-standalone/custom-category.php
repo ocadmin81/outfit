@@ -24,9 +24,25 @@ $thisCategory = get_category($catId);
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $perPage = 20;
 
+$pagepermalink = get_permalink($post->ID);
+global $currPageId;
+$currPageId = $post->ID;
+
 global $currentUserFavoriteAds, $currentUserId;
 $current_user = wp_get_current_user();
 $currentUserId = $current_user->ID;
+
+if (isset($_POST['favorite'])) {
+	if (!empty($currentUserId)) {
+		outfit_insert_author_favorite($currentUserId, $_POST['post_id']);
+	}
+}
+else if (isset($_POST['unfavorite'])) {
+	if (!empty($currentUserId)) {
+		outfit_delete_author_favorite($currentUserId, $_POST['post_id']);
+	}
+}
+
 $currentUserFavoriteAds = outfit_authors_all_favorite($currentUserId);
 
 /* save to recent products */
