@@ -1410,3 +1410,19 @@ function outfit_remove_admin_bar() {
 function outfit_get_thank_you_link() {
 	return '/'.'תודה-שפירסמתם-אצלינו';
 }
+
+function outfit_show_pending_ad_to_author($query) {
+	$currentUser = wp_get_current_user();
+	if ($currentUser->ID) {
+		if (get_current_template() == 'single_outfit_ad.php' && isset($_GET['p'])) {
+			$p = get_post($_GET['p']);
+			if ($p) {
+				if (!is_admin() && $p->post_author == $currentUser->ID) {
+					$query->set('post_status', array('publish','pending'));
+				}
+			}
+		}
+	}
+
+}
+add_action( 'pre_get_posts', 'outfit_show_pending_ad_to_author' );
