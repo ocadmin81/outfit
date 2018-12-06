@@ -1375,3 +1375,9 @@ function outfit_save_search_filters() {
 	echo 'Age = '.$ageTermId.'; Location address = '.$postAddress;
 	wp_die();
 }
+
+function outfit_get_brand_link($termId) {
+	$query = 'outfit_ad=1&search=1&postBrand='.$termId;
+	$link = home_url('?' . $query );
+	return $link;
+}

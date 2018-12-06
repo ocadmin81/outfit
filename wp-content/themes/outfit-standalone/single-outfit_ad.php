@@ -119,6 +119,7 @@ get_header(); ?>
 			$postColor = getPostTermNames($post->ID, 'colors');
 			$postAgeGroup = getPostTermNames($post->ID, 'age_groups');
 			$postBrand = getPostTermNames($post->ID, 'brands');
+			$postBrandObjects = wp_get_post_terms($post->ID, 'brands');
 			$postConditions = getPostTermNames($post->ID, 'conditions');
 			$postCondition = (isset($postConditions[0])? $postConditions[0] : '');
 			$postWriter = getPostTermNames($post->ID, 'writers');
@@ -264,11 +265,14 @@ get_header(); ?>
 					<div class="post-desc"><?php echo the_content(); ?></div>
 					<div class="post-details">
 						<ul class="list-unstyled clearfix">
-							<?php if(!empty( $postBrand )): ?>
+
+							<?php if(!empty( $postBrandObjects )): ?>
 								<li>
-									<strong><?php esc_html_e( 'מותג', 'outfit-standalone' ); ?></strong>									
+									<strong><?php esc_html_e( 'מותג', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
-										<?php echo esc_attr(join(',', $postBrand)); ?>
+										<?php foreach ($postBrandObjects as $termObj): ?>
+										<a href="<?php echo outfit_get_brand_link($termObj->term_id) ?>"><?php echo esc_attr($termObj->name); ?></a>
+										<?php endforeach; ?>
 									</span>
 								</li>
 							<?php endif; ?>
