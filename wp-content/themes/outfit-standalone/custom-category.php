@@ -13,6 +13,8 @@ get_header();
 ?>
 <?php
 global $redux_demo;
+global $current_user;
+$currentUserId = '';
 global $allowed_html;
 global $catId;
 global $paged, $wp_query, $wp, $post;
@@ -29,7 +31,7 @@ global $currPageId;
 $currPageId = $post->ID;
 
 global $currentUserFavoriteAds, $currentUserId;
-$current_user = wp_get_current_user();
+wp_get_current_user();
 $currentUserId = $current_user->ID;
 
 if (isset($_POST['favorite'])) {

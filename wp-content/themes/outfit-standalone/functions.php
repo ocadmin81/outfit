@@ -672,9 +672,10 @@ function outfit_get_wishlist_count($userId) {
 }
 
 function outfit_wishlist_count_shortcode($atts = [], $content = null) {
-	$user = wp_get_current_user();
-	if (!$user->ID) return '0';
-	return outfit_get_wishlist_count($user->ID);
+	global $current_user;
+	wp_get_current_user();
+	if (empty($current_user->ID)) return '0';
+	return outfit_get_wishlist_count($current_user->ID);
 }
 
 add_shortcode('wishlistcount', 'outfit_wishlist_count_shortcode');
@@ -1315,7 +1316,8 @@ function outfit_category_products_shortcode($atts = [], $content = null)
 	global $redux_demo;
 	global $paged, $wp_query, $wp, $post;
 	global $catObj;
-	$currentUser = $current_user = wp_get_current_user();
+	wp_get_current_user();
+	$currentUser = $current_user;
 	$userId = $user_id = $currentUser->ID;
 
 	$catObj = get_category_by_slug($catSlug);
@@ -1338,7 +1340,9 @@ add_shortcode('homeprod', 'outfit_homepage_products_shortcode');
 
 function outfit_user_firstname() {
 
-	$currentUser = wp_get_current_user();
+	global $current_user;
+	wp_get_current_user();
+	$currentUser = $current_user;
 	$userId = $currentUser->ID;
 	if ($userId) {
 		return esc_html(get_user_meta($userId, USER_META_FIRSTNAME, true));
@@ -1349,7 +1353,9 @@ add_shortcode('userfirstname', 'outfit_user_firstname');
 
 function outfit_user_lastname() {
 
-	$currentUser = wp_get_current_user();
+	global $current_user;
+	wp_get_current_user();
+	$currentUser = $current_user;
 	$userId = $currentUser->ID;
 	if ($userId) {
 		return esc_html(get_user_meta($userId, USER_META_LASTNAME, true));
@@ -1366,7 +1372,9 @@ function outfit_save_search_filters() {
 	if (!is_user_logged_in()) {
 		wp_die();
 	}
-	$currentUser = wp_get_current_user();
+	global $current_user;
+	wp_get_current_user();
+	$currentUser = $current_user;
 	$ageTermId = (isset($_POST['age']) && !empty($_POST['age']) ? intval($_POST['age']) : false);
 	$postAddress = trim(getPostInput('address'));
 	$postLatitude = getPostInput('latitude');

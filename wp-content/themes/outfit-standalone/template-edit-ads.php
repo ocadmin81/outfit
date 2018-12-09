@@ -13,8 +13,8 @@ if ( !is_user_logged_in() ) {
 	wp_redirect( outfit_get_page_url('login') );
 	exit;
 }
-
-$current_user = wp_get_current_user();
+global $current_user;
+wp_get_current_user();
 $userId = $current_user->ID;
 
 $authorized = false;

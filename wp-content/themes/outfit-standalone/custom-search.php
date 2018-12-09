@@ -13,6 +13,8 @@ get_header();
 ?>
 <?php
 global $redux_demo;
+global $current_user;
+$currentUserId = '';
 global $allowed_html;
 global $catId;
 global $paged, $wp_query, $wp, $post;
@@ -50,7 +52,7 @@ $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $perPage = 20;
 
 global $currentUserFavoriteAds, $currentUserId;
-$current_user = wp_get_current_user();
+wp_get_current_user();
 $currentUserId = $current_user->ID;
 $currentUserFavoriteAds = outfit_authors_all_favorite($currentUserId);
 

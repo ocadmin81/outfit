@@ -22,8 +22,9 @@ $hasError = '';
 $allowed = '';
 global $redux_demo;
 global $wpdb;
+global $current_user;
 
-$current_user = wp_get_current_user();
+wp_get_current_user();
 $userID = $userId = $current_user->ID;
 $cUserCheck = current_user_can( 'administrator' );
 $role = $current_user->roles;

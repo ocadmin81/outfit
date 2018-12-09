@@ -9,7 +9,8 @@ $perPage = 5;
 
 if (is_user_logged_in()) {
 
-    $currentUser = wp_get_current_user();
+    wp_get_current_user();
+    $currentUser = $current_user;
     $rsnt = get_user_meta($currentUser->ID, USER_META_LAST_CATEGORY, true);
     $rsnt = explode(',', $rsnt);
     $recent = [];

@@ -24,7 +24,8 @@ $catslugs = [
 	'and-safety-chairs-strollers' => 'Shop for strollers'
 ];
 
-$currentUser = $current_user = wp_get_current_user();
+wp_get_current_user();
+$currentUser = $current_user;
 $userId = $user_id = $currentUser->ID;
 
 $postsRows = array();

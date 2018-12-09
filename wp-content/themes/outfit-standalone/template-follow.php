@@ -16,7 +16,8 @@ global $current_user, $user_id;
 global $redux_demo;
 global $paged, $wp_query, $wp, $post;
 
-$currentUser = $current_user = wp_get_current_user();
+wp_get_current_user();
+$currentUser = $current_user;
 $userId = $user_id = $currentUser->ID;
 
 if (isset($_GET['follow_id'])) {

@@ -16,8 +16,9 @@ if ( !is_user_logged_in() ) {
 
 global $userId, $userIdentity, $userLevel;
 global $redux_demo;
-
-$currentUser = wp_get_current_user();
+global $current_user;
+wp_get_current_user();
+$currentUser = $current_user;
 $userId = $currentUser->ID;
 $userInfo = get_userdata($userId);
 

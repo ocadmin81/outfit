@@ -12,16 +12,15 @@
  */
 
 global $redux_demo;
+global $current_user;
 global $post;
 $postId = '';
 $userId = '';
-$currentUser = null;
 require_once 'Mobile_Detect.php';
 $detect = new Mobile_Detect;
-if ( is_user_logged_in() ) {
-	$currentUser = wp_get_current_user();
-	$userId = $currentUser->ID;
-}
+
+wp_get_current_user();
+$userId = $current_user->ID;
 
 get_header(); ?>
 
@@ -32,7 +31,7 @@ get_header(); ?>
 	<?php
 	$postId = $post->ID;
 	/* save to recent products */
-	if ($userId) {
+	if (!empty($userId)) {
 		$recent = get_user_meta($userId, USER_META_LAST_PRODUCTS, true);
 		$recent = explode(',', $recent);
 		$newRecent = array();
