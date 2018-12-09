@@ -111,7 +111,7 @@ if ($currentUserId) {
 				'compare' => '='
 			)];
 
-			var_dump($args);
+			//var_dump($args);
 		}
 	}
 }
