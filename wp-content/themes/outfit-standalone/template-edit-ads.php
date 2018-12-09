@@ -71,7 +71,7 @@ $brands = array();
 $conditions = outfit_get_list_of_conditions();
 $writers = outfit_get_list_of_writers();
 $characters = outfit_get_list_of_characters();
-
+$termsandcondition = '/תנאי-שימוש-באתר';
 /*
  * post data
  * */
@@ -669,11 +669,12 @@ get_header(); ?>
 						</div><!---form-main-section post-detail-->
 						<div class="row">
 							<div class="item">
-								<div class="form-check">
-									<input type="checkbox" class="form-check-input" name="postAgreeToTerms" id="postAgreeToTerms" required>
+								<div class="form-check checkbox">
+									<input type="checkbox" class="form-check-input" name="postAgreeToTerms" id="postAgreeToTerms" data-error="<?php esc_html_e('יש להסכים לתנאי השימוש', 'outfit-standalone') ?>" required>
 									<label class="form-check-label" for="postAgreeToTerms">
-										<?php esc_html_e('קראתי ואני מסיכמ/ה לתנאי האתר', 'outfit-standalone') ?>
+										<?php esc_html_e('קראתי ואני מסכימ/ה', 'outfit-standalone') ?> <a href="<?php echo esc_url( $termsandcondition ); ?>" target="_blank"><?php esc_html_e('לתנאי השימוש', 'outfit-standalone') ?></a>
 									</label>
+									<div class="left-side help-block with-errors"></div>
 								</div>
 							</div>
 						</div>

@@ -402,7 +402,7 @@ input[type="checkbox"] {
 	body.has-sidebar.error404 #primary .page-header,
 	body.page-two-column:not(.archive) #primary .entry-header,
 	body.page-two-column.archive:not(.has-sidebar) #primary .page-header {
-		float: right;width: 25%;
+		float: right;width: 25%;padding-left: 20px;
 	}
 
 	.blog:not(.has-sidebar) #primary article,
@@ -562,6 +562,7 @@ input[type="checkbox"] {
     font-style: normal;
 
 }
+html #wpadminbar{display: none;}
 html[lang="he-IL"], html[lang="he-IL"] input,html[lang="he-IL"] button, body, button, input, select, textarea,
 html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{direction: rtl;text-align: right;}
 html[lang="he-IL"] *,html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{font-family:   "Assistant",sans-serif;}
@@ -590,6 +591,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     top: 0;
     width: auto;
 }
+.classiera-box-div-v1{    margin-bottom: 30px;}
 .loader_submit_form img{width: 100px;height: 100px;}
 [class*=" eicon-"], [class^=eicon]{font-family: eicons!important;}
 body, button, input, select, textarea, a,h1, h2, h3, h4, h5, h6{color: #191919;}
@@ -633,7 +635,7 @@ a.custom-logo-link{float: right;width: 33.333%;padding: 0;text-align: center;mar
 .header-left .search-field:-moz-placeholder {color: #747474;}
 .search-form .search-submit .icon{display: none;}
 .search-form .search-submit{background: #fff url(assets/images/search.png) 0 0 no-repeat;width: 21px;height: 20px;top: 7px;}
-.navigation-top{border: none;}
+.navigation-top{border: none;z-index: 1000;}
 .navigation-top a{color: #010101;font-weight: 500;font-size: 18px;    border-bottom: 4px solid transparent;}
 .navigation-top .current-menu-item > a, .navigation-top .current_page_item > a,.main-navigation li:hover a{color: #e7a5aa;border-bottom: 4px solid #e7a5aa;}
 .navigation-top li.menu-item:before{display:none!important;}
@@ -692,13 +694,15 @@ html[lang="he-IL"] .start-selling h3{text-transform: uppercase;font-size: 27px;f
 .site-footer .widget-area p{margin: 0;font-size: 16px;}
 .site-footer .widget-column.footer-widget-1 section ul{list-style: none;margin: 0;text-align: center;}
 .site-footer .widget-column.footer-widget-1 section ul li{border: none;display: inline-block;padding: 0;margin: 0 15px;font-size: 16px;}
-.site-footer .widget-column.footer-widget-1 section img{float: left;margin-top: 5px;}
+.site-footer .widget-column.footer-widget-1 section img{float: left;    margin-top: 2px;width: 130px;}
 .site-footer .wrap {padding-bottom: 15px;padding-top: 15px;}
 .elementor-column-gap-default>.elementor-row>.elementor-column>.elementor-element-populated{padding: 0;}
 .menu-toggle:focus {outline: none;}
 body.page-two-column:not(.archive) #primary .entry-header .textwidget ul{list-style:none;margin: 0;}
-body.page-two-column:not(.archive) #primary .entry-header .textwidget ul li{border-bottom: 1px solid #f3f3f3;margin-bottom: 8px;padding-bottom: 8px;max-width: 100%;width: 240px;    margin-top: 0;}
-body.page-two-column:not(.archive) #primary .entry-header .textwidget ul li a{font-size: 17px;}
+body.page-two-column:not(.archive) #primary .entry-header .textwidget ul li{border-bottom: 1px solid #f3f3f3;padding-right: 15px;;padding-bottom: 5px;max-width: 100%;width: 240px;    margin-top: 0;}
+body.page-two-column:not(.archive) #primary .entry-header .textwidget ul li.active{background: #f5f5f6;}
+body.page-two-column:not(.archive) #primary .entry-header .textwidget ul li a{font-size: 17px;box-shadow: none;line-height: 35px;}
+article.type-page{margin-top: 30px;}
 .page .panel-content .entry-title, .page-title, body.page:not(.twentyseventeen-front-page) .entry-title{color: #191919;font-size: 20px;border-bottom: 1px solid #f3f3f3;margin: 0;padding-bottom: 10px;margin-bottom: 25px;}
 .about-text .elementor-text-editor p{font-size:17px;    margin-bottom: 25px;}
 #secondary{padding: 0;}
@@ -902,7 +906,7 @@ html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background
 .single-post-ad .wish-share.mobile button span{display: inline-block;}
 .single-post-ad .whatsapp-share{float: right;width: 100%;margin-top: 20px;}
 .single-post-ad .whatsapp-share a{display: block;border: 1px solid #f3f3f3;height: 50px;line-height: 50px;text-align: center;}
-.single-post-ad .whatsapp-share a span{background: url(assets/images/whatsapp.png) right 12px no-repeat;display: inline-block;padding-right: 33px;background-size: 23px;;}
+.single-post-ad .whatsapp-share a span{background: url(assets/images/whatsapp.png) right 3px top 12px no-repeat;display: inline-block;padding-right: 33px;background-size: 23px;;}
 .single-post-ad .wish-share.mobile .share ul li{float: none;display: inline-block;}
 .single-post-ad .wish-share.mobile .share{margin-bottom: 15px;text-align: center;width: 100%;}
 html[lang="he-IL"] .user-pages h1,.user-pages .user-detail-section .user-detail-section-heading{font-weight: 600;font-size: 20px;padding-bottom: 10px;margin-bottom: 0;margin-top: 20px;}
@@ -977,6 +981,7 @@ html[lang="he-IL"] .user-pages h1,.user-pages .user-detail-section .user-detail-
 html[lang="he-IL"] .cat-title{margin: 0;padding: 0 10px;margin-bottom: 15px;font-weight: 600;font-size: 24px;}
 .products .classiera-box-div-v1 figure .premium-img{height: 240px;border: 1px solid #f5f5f6;}
 .classiera-box-div-v1 figure .premium-img img{position: absolute;top: 0;bottom: 0;margin: auto;left: 0;right: 0;}
+.fa-sellers .classiera-box-div-v1 figure .premium-img img{position:relative;}
 .products .classiera-box-div-v1 figure .premium-img .cat-wish-brand{position: absolute;bottom: 0;left: 0;right: 0;background-image: -webkit-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);
 background-image:  -moz-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);
 background-image:  -o-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);
@@ -995,7 +1000,7 @@ background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);   
 .products .row{margin-right: -10px;margin-left: -10px;}
 .products .item{padding: 0 5px;}
 .user-pages .products .item{padding: 0 15px;}
-.user-pages .products .row{margin-right: -15x;margin-left: -15px;}
+.user-pages .products .row{margin-right: -15px;margin-left: -15px;}
 .cat-sidebar.sidebar .widget-box{border: none;margin-bottom: 0;margin-top: 10px;}
 .cat-sidebar.sidebar .widget-box .widget-title {border-bottom: 1px solid #ededef;background: transparent;padding: 0;font-size: 18px;font-weight: 600;padding-bottom: 10px;}
 .classiera-pagination{text-align: center;}
@@ -1013,7 +1018,7 @@ background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);   
 .cat-sidebar{padding-left: 30px;margin-top: 20px;}
 .cat-content .cat-tab-content{margin-top: 20px;}
 .my-ads{margin-top:35px;}
-.my-ads .item .remove-post-button{position: absolute;top: -15px;right: -15px;}
+.my-ads .item .remove-post-button{position: absolute;top: -15px;right: -15px;z-index: 100;}
 .my-ads .item .ad-brand{position: absolute;bottom: 8px;left: 15px;color: #fff;font-size: 14px;letter-spacing: 1px!important;}
 .my-ads .item .edit-price{    margin-top: 10px;}
 .my-ads .item .edit-price .edit{float: right;}
@@ -1060,12 +1065,19 @@ html[lang="he-IL"] .home-cats:first-child h3{font-family: 'vogueregular';font-we
 .thankyou-page .text ul{list-style:none;text-align:center;    margin-top: 25px;}
 .thankyou-page .text ul li{display: inline-block;margin: 0 5px;}
 .thankyou-page .text ul li a{display: block;width: 235px;height: 45px;line-height: 45px;text-align: center;background: #fed3d6;color: #3d3d3d;font-size: 18px;}
+.thankyou-page .text ul li a:hover{    -webkit-box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);-moz-box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);}
 .thankyou-page .text ul li:last-child a{background:#aae4e7}
 .thankyou-page .service{margin-top: 35px;}
 .entry-content .wp_rp_wrap {display:none;}
 html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 .home-cats{margin-bottom:0;}
 .home-cats.guest{margin-bottom:45px;}
+.my-ads .no-items a,.not-found .thankyou-page a{display: inline-block;width: 235px;height: 45px;line-height: 45px;text-align: center;background: #fed3d6;color: #3d3d3d;font-size: 18px;margin-top: 15px;}
+.my-ads .no-items a:hover,.not-found .thankyou-page a:hover{    -webkit-box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);-moz-box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.2);}
+.not-found .customer-service p{margin:0;}
+.not-found .customer-service{    margin-top: 20px;}
+.not-found .social-navigation{margin: 0;margin-top: 15px;text-align: center;}
+.static-sidebar .widget-title{border: 1px solid #d7d7d7;padding: 15px;font-size: 25px;margin-bottom: 15px;background: url(assets/images/select-arrow.png) 18px 50% no-repeat;font-weight: 600;}
 @media only screen and (max-width: 959px) and (min-width: 768px){
 	.inner-page-content .col-md-8{    margin-bottom: 0;}
 }
@@ -1107,6 +1119,8 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 	.overlay-nav.overlay-active{display:block}
 	.filter-close,.filter-fixed-title{display:none;}
 	.navigation-top{position: relative;}
+	.admin-bar .site-navigation-fixed.navigation-top{top: 0;z-index: 150;}
+	.has-sidebar.error404 #primary .page-content, .error404.has-sidebar #primary .page-content{width: 100%;margin-top: 20px;}
 }
 @media screen and (min-width: 67em){
 	.navigation-top .wrap{max-width: 1300px;padding: 0;}	
@@ -1115,6 +1129,12 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 }
 @media screen and (min-width: 768px){
 	.cat-sidebar .search-form .collapse{display: block!important;}
+	.static-sidebar .widget-title{display:none;}
+}
+@media screen and (min-width: 992px){
+		.user-pages .user-detail-section .user-ads{margin-bottom: 0;min-height: 550px;}
+	.user-pages .user-detail-section{padding: 7px 30px 0;}
+	.user-pages aside .user-page-list{min-height: 547px;margin-bottom: 0;}		
 }
 @media screen and (max-width: 1320px){
 	.wrap{padding: 0 15px;}
@@ -1165,7 +1185,8 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 @media screen and (max-width: 767px){
 	.site-content{padding: 15px 0 0;}
 	header.site-header{border-bottom: 1px solid #f3f3f3;}
-	.top-pad-50{    padding-top: 0;}
+	.top-pad-50{padding-bottom: 0;padding-top: 0;}
+	.site-footer{margin-top: 20px;}
 	a.custom-logo-link{margin-top: 5px;}
 	.header-right .publish a{    font-size: 14px;padding: 7px 10px;}
 	.site-branding {margin-bottom: 0!important;padding: 15px 0;}
@@ -1176,7 +1197,7 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 	.header-left{display: inline-block;width: auto;padding: 5px 0 0 0;float: left;margin-left: 55px;}
 	.header-left .m-search img{max-width: 55%;float: left;}
 	.header-left.active .m-search{display:none;}
-	.navigation-top{position: absolute;top: 20px;left: 0;z-index: 10;background: transparent;}
+	.navigation-top{position: absolute;top: 20px;left: 0;background: transparent;}
 	.menu-toggle .m-open{display:none;}
 	.menu-toggle{padding: 0;margin: 0;width: auto;max-width: 55%;float: left;    position: relative;left: 15px;}	
 	.main-navigation > div > ul{border-top: none;    padding: 0;}
@@ -1261,7 +1282,7 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 	.cat-tab-content.products .item:nth-child(even){padding-right: 15px;padding-left: 5px;}
 	.cat-tab-content.products .item:nth-child(odd){padding-left: 15px;padding-right: 5px;}
 	.cat-tab-content.products .row{    margin-right: -15px;margin-left: -15px;}
-	.cat-sidebar .search-form{position: fixed;top: 0;background: #fff;z-index: 150;padding-top: 10px;left: 0;right: 0;width: 100%;display: none;}
+	.cat-sidebar .search-form{position: fixed;top: 0;background: #fff;z-index: 1500;padding-top: 10px;left: 0;right: 0;width: 100%;display: none;    max-height: 555px;overflow: hidden;padding-bottom: 15px;overflow-y: scroll;}
 	.cat-sidebar .search-form.active{display:block}
 	.cat-sidebar form .search-form #innerSearch{padding: 10px 15px 0;}
 	.cat-sidebar .filter-close{border-bottom: 1px solid #ededef;padding: 0 10px 10px;  text-align: left;}
@@ -1274,4 +1295,8 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 	.thankyou-page{padding: 0 15px;}
 	.thankyou-page .social-navigation{text-align:center;}
 	.products .classiera-box-div-v1 figure .premium-img{height: 160px;}
+	.start-selling .elementor-text-editor{padding: 0 15px;}
+	.start-selling .elementor-text-editor p{font-size: 16px;}
+	body.page-two-column:not(.archive) #primary .entry-header .textwidget ul{display: none;}
+	body.page-two-column:not(.archive) #primary .entry-header .textwidget ul.active{display:block}
 }

@@ -43,6 +43,8 @@ $userPreferredHours = get_user_meta($userId, USER_META_PREFERRED_HOURS, true);
 $userPrimaryLocation = OutfitLocation::createFromJSON(get_user_meta($userId, USER_META_PRIMARY_ADDRESS, true));
 $userSecondaryLocation = OutfitLocation::createFromJSON(get_user_meta($userId, USER_META_SECONDARY_ADDRESS, true));
 
+$termsandcondition = '/תנאי-שימוש-באתר';
+
 /*
  * upload_attachment[]
  * postTitle
@@ -298,14 +300,14 @@ get_header(); ?>
 										<?php
 										for ($i = 0; $i < $imageLimit; $i++){
 											?>
-											<div class="classiera-image-box" id="index-<?php echo $i; ?>" <?php if($i>0): ?>style="display:none;"<?php endif; ?>>
+											<div class="classiera-image-box" id="index-<?php echo $i; ?>">
 												<div class="classiera-upload-box">
 													<input name="image-count" type="hidden" value="<?php echo esc_attr( $imageLimit ); ?>" />
 													<input class="classiera-input-file imgInp" id="imgInp<?php echo esc_attr( $i ); ?>" type="file" name="upload_attachment[]">
-													<label class="img-label" onclick="addImage('<?php echo $i; ?>')" for="imgInp<?php echo esc_attr( $i ); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/upload-icon.png" /></label>
+													<label class="img-label" for="imgInp<?php echo esc_attr( $i ); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/upload-icon.png" /></label>
 													<div class="classiera-image-preview">
 														<img class="my-image" src=""/>
-														<span class="remove-img" onclick="removeImage('<?php echo $i; ?>')"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
+														<span class="remove-img"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
 													</div>
 												</div>
 											</div>
@@ -337,7 +339,7 @@ get_header(); ?>
 								<div class="form-group post-cat-container">
 									<label class="text-left flip"><?php esc_html_e('קטגוריה', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="category" name="postCategory" class="reg form-control form-control-md category-select" required>
+										<select id="category" name="postCategory" class="reg form-control select2-container form-control-md category-select" required>
 											<option value="" selected><?php esc_html_e('בחירת קטגוריה', 'outfit-standalone'); ?></option>
 											<?php
 											foreach ($categories as $c): ?>
@@ -522,11 +524,12 @@ get_header(); ?>
 						</div><!---form-main-section post-detail-->							
 						<div class="row">
 							<div class="item">
-								<div class="form-check">
-									<input type="checkbox" class="form-check-input" name="postAgreeToTerms" id="postAgreeToTerms" required>
-									<label class="form-check-label" for="postAgreeToTerms">
-										<?php esc_html_e("קראתי ואני מסיכמ/ה לתנאי האתר", 'outfit-standalone') ?>
+								<div class="form-check checkbox">
+									<input type="checkbox" class="form-check-input" name="postAgreeToTerms" id="postAgreeToTerms" data-error="<?php esc_html_e('יש להסכים לתנאי השימוש', 'outfit-standalone') ?>" required>
+									<label class="form-check-label" for="postAgreeToTerms">										
+										<?php esc_html_e('קראתי ואני מסכימ/ה', 'outfit-standalone') ?> <a href="<?php echo esc_url( $termsandcondition ); ?>" target="_blank"><?php esc_html_e('לתנאי השימוש', 'outfit-standalone') ?></a>
 									</label>
+									<div class="left-side help-block with-errors"></div>
 								</div>
 							</div>
 						</div>
@@ -548,19 +551,4 @@ get_header(); ?>
 <div class="loader_submit_form">
 	<img src="<?php echo get_template_directory_uri().'/assets/images/loader-thin.gif' ?>">
 </div>
-<script>
-	function addImage(index){
-		jQuery('#index-'+index).addClass('active');
-		var index = parseInt(index)+1;
-		setTimeout(function(){
-			jQuery('#index-'+index).show();
-		}, 2000);
-	}
-	function removeImage(index){
-		jQuery('#index-'+index).removeClass('active');
-		var index = parseInt(index)+1;
-		if(!jQuery('#index-'+index).hasClass('active'))
-			jQuery('#index-'+index).hide();
-	}
-</script>
 <?php get_footer(); ?>

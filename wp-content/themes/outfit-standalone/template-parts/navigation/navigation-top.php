@@ -23,7 +23,7 @@ $userFirstName = do_shortcode('[userfirstname]');
 		</div>
 		<div class="login">
 			<?php if(is_user_logged_in()): ?>	
-				<a href="<?php echo get_site_url(); ?>/profile_settings"><?php _e( "היי, ", 'outfit-standalone' ); ?><?php echo $userFirstName; ?></a>
+				<a href="<?php echo get_site_url(); ?>/profile-settings"><?php _e( "היי, ", 'outfit-standalone' ); ?><?php echo $userFirstName; ?></a>
 			<?php else: ?>
 				<a href="<?php echo get_site_url(); ?>/login"><?php _e( "היי, התחבר/י", 'twentyseventeen' ); ?></a>
 			<?php endif; ?>

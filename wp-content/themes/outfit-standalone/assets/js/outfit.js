@@ -1351,6 +1351,9 @@ jQuery(document).ready(function(jQuery){
 				jQuery('.filter-fixed-title').removeClass('active');
 			}			
 		});
+		jQuery( '.static-sidebar .widget-title' ).click(function() {
+			jQuery('.static-sidebar ul').toggleClass('active');
+		});		
 	}	
 	//mobile menu top row
 	if(Swisth<=767){
@@ -1494,6 +1497,8 @@ jQuery(document).ready(function(jQuery){
             }
         });
     });
+	//style selects
+	jQuery('select').select2();
 
 });
 jQuery(window).on('load', function () {	
