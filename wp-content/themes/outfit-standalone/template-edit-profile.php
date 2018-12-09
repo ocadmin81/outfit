@@ -22,8 +22,6 @@ $currentUser = $current_user;
 $userId = $currentUser->ID;
 $userInfo = get_userdata($userId);
 
-$outfitAuthorThumb = outfit_get_user_picture($userId, 130);
-
 $userName = $userInfo->display_name;
 
 $userFirstName = get_user_meta($userId, USER_META_FIRSTNAME, true);
@@ -206,16 +204,18 @@ if ($userId) {
 				);
 				$_FILES = array("upload_attachment" => $file);
 				foreach ($_FILES as $file => $array) {
-					$newupload = outfit_insert_userIMG($file);
-					$count++;
-					$profileImage = $newupload;
-					if(!empty($profileImage )){
-						update_user_meta( $userId, USER_META_AVATAR_URL, $profileImage );
+					if (($newupload = outfit_insert_userIMG($file)) !== false) {
+						$count++;
+						$profileImage = $newupload;
+						if (!empty($profileImage)) {
+							update_user_meta($userId, USER_META_AVATAR_URL, $profileImage);
+						}
 					}
 				}
 			}
 		}/*Foreach*/
 	}
+	$outfitAuthorThumb = outfit_get_user_picture($userId, 130);
 }
 
 get_header();

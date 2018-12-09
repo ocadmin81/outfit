@@ -632,6 +632,7 @@ function outfit_insert_userIMG($file_handler){
 	require_once(ABSPATH . "wp-admin" . '/includes/file.php');
 	require_once(ABSPATH . "wp-admin" . '/includes/media.php');
 	$attach_id = media_handle_upload($file_handler, $post_id = null);
+	if (is_wp_error($attach_id)) return false;
 	return $attach_id;
 }
 

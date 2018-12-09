@@ -461,12 +461,12 @@ function outfit_get_posts_by_age_and_location($ageTermId, $location, $count) {
         'paged' => 1
     );
     if (!empty($ageTermId)) {
-        $args['tax_query'] = array(
+        $args['tax_query'] = [array(
             'taxonomy' => 'age_groups',
             'field'    => 'term_id',
             'terms'    => $ageTermId,
             'operator' => 'IN'
-        );
+        )];
     }
     if (!empty($locationSearchTag)) {
 
