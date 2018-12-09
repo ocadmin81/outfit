@@ -66,7 +66,7 @@ get_header(); ?>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads favorite-ads">
-						<h1 class="user-detail-section-heading text-uppercase"><?php esc_html_e("WISHLIST", 'outfit-standalone') ?></h1>
+						<h1 class="user-detail-section-heading text-uppercase <?php if(!$wp_query->have_posts()): ?>center<?php endif; ?>"><?php esc_html_e("WISHLIST", 'outfit-standalone') ?></h1>
 						<div class="my-ads products">
 							<div class="row">
 								<?php if($wp_query->have_posts()): ?>
@@ -87,6 +87,7 @@ get_header(); ?>
 															$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 															$postAuthorId = $post->post_author;
 															$postAuthorName = getAuthorFullNameCat($postAuthorId);
+															$postAuthorNameTitle = getAuthorFullName($postAuthorId);
 
 															$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
 															$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
@@ -111,7 +112,7 @@ get_header(); ?>
 													<div class="au-price">
 														<div class="au">
 															<a href="<?php echo get_author_posts_url( $postAuthorId ); ?>">
-																<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
+																<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorNameTitle); ?>">
 																<?php echo esc_attr($postAuthorName); ?>
 															</a>
 														</div>												

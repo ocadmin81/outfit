@@ -115,9 +115,12 @@ foreach ($postsRows as $i => $postRow) { ?>
 														$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 														$postAuthorId = $post->post_author;
 														$postAuthorName = getAuthorFullNameCat($postAuthorId);
+														$postAuthorNameTitle = getAuthorFullName($postAuthorId);
 
 														$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
 														$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
+														$postBrandObjects = wp_get_post_terms($post->ID, 'brands');
+														$isFavorite = in_array($post->ID, $currentUserFavoriteAds);
 														if( has_post_thumbnail()){
 															$imageurl = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'classiera-370');
 															$thumb_id = get_post_thumbnail_id($post->ID);
@@ -131,12 +134,36 @@ foreach ($postsRows as $i => $postRow) { ?>
 														}
 														?>
 													</a>
-													<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
+													<div class="cat-wish-brand">
+														<div class="cat-wish">
+															<?php //if ($isFavorite) { ?>
+																<!--<i class="fa fa-heart" aria-hidden="true"></i>-->
+															<?php //} else { ?>
+																<!--<i class="fa fa-heart-o" aria-hidden="true"></i>-->
+															<?php //} ?>
+														
+															<?php //if (!empty($userId)): ?>
+																<form method="post" class="fav-form clearfix">
+																	<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
+																	<?php if (!$isFavorite) { ?>
+																		<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase"><span></span></button>
+																	<?php } else { ?>
+																		<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase in-wish"><span></span></button>
+																	<?php } ?>
+																</form>
+															<?php //endif; ?>	
+														</div>				
+														<div class="cat-brand">
+															<?php foreach ($postBrandObjects as $termObj): ?>
+																<a href="<?php echo outfit_get_brand_link($termObj->term_id) ?>"><?php echo esc_attr($termObj->name); ?></a>
+															<?php endforeach; ?>
+														</div>
+													</div>
 												</div><!--premium-img-->
 												<div class="au-price">
 													<div class="au">
 														<a href="<?php echo get_author_posts_url( $postAuthorId ); ?>">
-															<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
+															<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorNameTitle); ?>">
 															<?php echo esc_attr($postAuthorName); ?>
 														</a>
 													</div>

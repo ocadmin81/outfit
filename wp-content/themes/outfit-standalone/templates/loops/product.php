@@ -6,6 +6,7 @@
 	$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 	$postAuthorId = $post->post_author;
 	$postAuthorName = getAuthorFullNameCat($postAuthorId);
+	$postAuthorNameTitle = getAuthorFullName($postAuthorId);
 
 	$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
 	$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
@@ -61,7 +62,7 @@
 			<div class="au-price">
 				<div class="au">
 					<a href="<?php echo get_author_posts_url( $postAuthorId ); ?>">
-						<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
+						<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorNameTitle); ?>">
 						<?php echo esc_attr($postAuthorName); ?>
 					</a>
 				</div>				

@@ -59,73 +59,77 @@ get_header(); ?>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads favorite-ads">
-						<h1 class="user-detail-section-heading text-uppercase">
-							<?php esc_html_e("המודעות שלי", 'outfit-standalone') ?>
-						</h1>
+						<h1 class="user-detail-section-heading text-uppercase <?php if(!$wp_query->have_posts()): ?>center<?php endif; ?>"><?php esc_html_e("המודעות שלי", 'outfit-standalone') ?></h1>
 						<div class="my-ads products">
 							<div class="row">
-								<?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
-									<div class="col-lg-4 col-md-4 col-sm-6 item">
-										<div class="classiera-box-div classiera-box-div-v1">
-											<figure class="clearfix">
+								<?php if($wp_query->have_posts()): ?>
+									<?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
+										<div class="col-lg-4 col-md-4 col-sm-6 item">
+											<div class="classiera-box-div classiera-box-div-v1">
+												<figure class="clearfix">
 
-												<div class="premium-img">
-													<a href="<?php the_permalink(); ?>">
-														<?php
-														$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
-														$postAuthorId = $post->post_author;
-														$postAuthorName = getAuthorFullName($postAuthorId);
-														$editPostUrl = outfit_edit_ad_url($post->ID);
-														global $wp_rewrite;
-														$deletePostUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&delete_id=".$post->ID : $pagepermalink."?delete_id=".$post->ID;
+													<div class="premium-img">
+														<a href="<?php the_permalink(); ?>">
+															<?php
+															$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
+															$postAuthorId = $post->post_author;
+															$postAuthorName = getAuthorFullName($postAuthorId);
+															$editPostUrl = outfit_edit_ad_url($post->ID);
+															global $wp_rewrite;
+															$deletePostUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&delete_id=".$post->ID : $pagepermalink."?delete_id=".$post->ID;
 
-														//$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
-														$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
-														if( has_post_thumbnail()){
-															$imageurl = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'classiera-370');
-															$thumb_id = get_post_thumbnail_id($post->ID);
-															?>
-															<img class="img-responsive" src="<?php echo esc_url( $imageurl[0] ); ?>" alt="<?php the_title() ?>">
-															<?php
-														}else{
-															?>
-															<img class="img-responsive" src="<?php echo get_template_directory_uri() . '/assets/images/nothumb.png' ?>" alt="No Thumb"/>
-															<?php
-														}
-														?>
-													</a>
-													<div class="cat-wish-brand">
-														<div class="cat-wish">&nbsp;</div>
-														<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
-													</div>
-												</div><!--premium-img-->
-												<div class="remove-post-button">
-													<a href="<?php echo esc_url($deletePostUrl) ?>">
-														<span class="remove-post"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
-														<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
-													</a>
-												</div><!--remove-post-button-->												
-												<div class="edit-price">
-													<div class="edit"><a href="<?php echo esc_url($editPostUrl); ?>"><?php echo esc_html_e( 'עריכה', 'outfit-standalone' ); ?></a></div>
-													<?php //if(!empty($postPrice)){?>
-														<div class="price">
-														<span class="">
-															<?php
-															if(is_numeric($postPrice)){
-																echo '&#8362; ' .  $postPrice;
+															//$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
+															$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
+															if( has_post_thumbnail()){
+																$imageurl = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'classiera-370');
+																$thumb_id = get_post_thumbnail_id($post->ID);
+																?>
+																<img class="img-responsive" src="<?php echo esc_url( $imageurl[0] ); ?>" alt="<?php the_title() ?>">
+																<?php
 															}else{
-																echo esc_attr( $postPrice );
+																?>
+																<img class="img-responsive" src="<?php echo get_template_directory_uri() . '/assets/images/nothumb.png' ?>" alt="No Thumb"/>
+																<?php
 															}
 															?>
-														</span>
+														</a>
+														<div class="cat-wish-brand">
+															<div class="cat-wish">&nbsp;</div>
+															<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
 														</div>
-													<?php //} ?>													
-												</div>
+													</div><!--premium-img-->
+													<div class="remove-post-button">
+														<a href="<?php echo esc_url($deletePostUrl) ?>">
+															<span class="remove-post"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
+															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
+														</a>
+													</div><!--remove-post-button-->												
+													<div class="edit-price">
+														<div class="edit"><a href="<?php echo esc_url($editPostUrl); ?>"><?php echo esc_html_e( 'עריכה', 'outfit-standalone' ); ?></a></div>
+														<?php //if(!empty($postPrice)){?>
+															<div class="price">
+															<span class="">
+																<?php
+																if(is_numeric($postPrice)){
+																	echo '&#8362; ' .  $postPrice;
+																}else{
+																	echo esc_attr( $postPrice );
+																}
+																?>
+															</span>
+															</div>
+														<?php //} ?>													
+													</div>
 
-											</figure>
-										</div><!--classiera-box-div-->
-									</div><!--col-lg-4-->
-								<?php endwhile; ?>
+												</figure>
+											</div><!--classiera-box-div-->
+										</div><!--col-lg-4-->
+									<?php endwhile; ?>
+								<?php else: ?>
+									<div class="no-items">
+										<?php echo do_shortcode("[do_widget id=text-13]"); ?>
+									</div>
+								<?php endif; ?>								
 							</div>
 						</div>
 							<?php outfit_pagination(); ?>
