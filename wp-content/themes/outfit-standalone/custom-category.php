@@ -9,7 +9,7 @@
  * @since classiera 1.0
  */
 
-get_header(); 
+
 ?>
 <?php
 global $redux_demo;
@@ -37,6 +37,11 @@ $currentUserId = $current_user->ID;
 if (isset($_POST['favorite'])) {
 	if (!empty($currentUserId)) {
 		outfit_insert_author_favorite($currentUserId, $_POST['post_id']);
+	}
+	else {
+		$loginUrl = outfit_login_url_back();
+		wp_redirect($loginUrl);
+		exit;
 	}
 }
 else if (isset($_POST['unfavorite'])) {
@@ -130,6 +135,8 @@ $products = array();
 
 require_once 'Mobile_Detect.php';
 $detect = new Mobile_Detect;
+
+get_header();
 ?>
 
 <!-- page content -->

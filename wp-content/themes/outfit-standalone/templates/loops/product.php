@@ -50,7 +50,7 @@
 									<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase in-wish"><span></span></button>
 								<?php } ?>
 							</form>
-						<?php //endif; ?>	
+						<?php //endif; ?>
 					</div>				
 					<div class="cat-brand">
 						<?php foreach ($postBrandObjects as $termObj): ?>

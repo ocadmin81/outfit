@@ -9,6 +9,13 @@
  * @since outfit-standalone 0.1
  */
 
+if (!isset($_GET['back_to']) || empty($_GET['back_to'])) {
+	$redirectAfterSuccess = $_GET['back_to'];
+}
+else {
+	$redirectAfterSuccess = outfit_get_page_url('profile_settings');
+}
+
 if ( is_user_logged_in() ) {
 
 	wp_redirect( outfit_get_page_url('profile_settings') );
@@ -37,7 +44,7 @@ if(isset($_POST['op_outfit']) ){
 			$UserError = "Invalid username or password. Please try again!";
 		} else {
 
-			wp_redirect( outfit_get_page_url('profile_settings') );
+			wp_redirect( $redirectAfterSuccess );
 			exit;
 
 		}
@@ -215,7 +222,7 @@ if (!$user_ID){
 					$login_data['user_login'] = $username;
 					$login_data['user_password'] = $password;
 					$user_verify = wp_signon( $login_data, false );
-					wp_redirect( outfit_get_page_url('profile_settings') );
+					wp_redirect( $redirectAfterSuccess );
 					exit;
 					
 				}

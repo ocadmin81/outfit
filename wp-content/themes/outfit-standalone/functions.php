@@ -1198,6 +1198,28 @@ function outfit_edit_ad_url($postId) {
 	return $editPostUrl;
 }
 
+function outfit_login_url_back($back_to = '') {
+
+	if (empty($back_to)) {
+		$back_to = outfit_current_url();
+	}
+	$loginUrl = outfit_get_page_url('login');
+	global $wp_rewrite;
+	if ($wp_rewrite->permalink_structure == ''){
+		$loginUrl .= "&back_to=".urlencode($back_to);
+	}else{
+		$loginUrl .= "?back_to=".urlencode($back_to);
+	}
+	return $loginUrl;
+}
+
+function outfit_current_url() {
+	$protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+	$url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+	return $url; // full URL
+}
+
 function outfit_format_price_range_label($priceRanges, $i, $currencyAfter = true) {
 	$currency = '&#8362';
 	$res = '';
