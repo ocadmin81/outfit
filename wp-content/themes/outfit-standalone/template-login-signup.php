@@ -9,7 +9,7 @@
  * @since outfit-standalone 0.1
  */
 
-if (!isset($_GET['back_to']) || empty($_GET['back_to'])) {
+if (isset($_GET['back_to']) && !empty($_GET['back_to'])) {
 	$redirectAfterSuccess = $_GET['back_to'];
 }
 else {
