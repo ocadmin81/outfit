@@ -1498,7 +1498,12 @@ jQuery(document).ready(function(jQuery){
         });
     });
 	//style selects
-	jQuery('select').select2();
+	jQuery('select:not(.brand-select)').select2({
+		minimumResultsForSearch: Infinity
+	});
+	jQuery('select.brand-select').select2({
+		searchInputPlaceholder: 'חיפוש'
+	});
 
 });
 jQuery(window).on('load', function () {	

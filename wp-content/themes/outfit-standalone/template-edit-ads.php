@@ -540,7 +540,7 @@ get_header(); ?>
 									 style="<?php echo (($filterBy && $filterBy->catFilterByBrand)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('מותג', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
-										<select id="brand" name="postBrand[]" class="reg form-control form-control-md"
+										<select id="brand" name="postBrand[]" class="brand-select reg form-control form-control-md"
 											<?php echo (($filterBy && $filterBy->catFilterByBrand)? 'required' : ''); ?>>
 											<?php
 											foreach ($brands as $c): ?>

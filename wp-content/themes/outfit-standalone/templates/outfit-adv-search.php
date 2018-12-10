@@ -110,7 +110,7 @@ else {
 			<div class="inner-search-box ab">
 				<div class="inner-search-heading"><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></div>
 				<select id="ageGroup" name="postAgeGroup" class="form-control form-control-sm">					
-					<option value=""><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></option>
+					<option value=""><?php esc_html_e( 'בחרו גיל', 'outfit-standalone' ); ?></option>
 					<?php
 					foreach ($ageGroups as $c): ?>
 						<option value="<?php echo $c->term_id; ?>"
@@ -126,7 +126,7 @@ else {
 			<div class="inner-search-box ab address">
 				<div class="inner-search-heading"><?php esc_html_e( 'איזור', 'classiera' ); ?></div>
 				<div class="inner-addon right-addon post_sub_loc">
-					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>">
+					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
 					<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 					<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
 					<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">

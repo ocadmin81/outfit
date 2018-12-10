@@ -78,7 +78,7 @@ if (!$user_ID){
 
 						wp_set_password( $new_password, $user_ID );
 
-						$message = "Check your email for new password.";
+						$message = "בדוק את תיבת המייל שלך";
 
 						$from = get_option('admin_email');
 						$headers = 'From: '.$from . "\r\n";
@@ -94,12 +94,12 @@ if (!$user_ID){
 
 				} else {
 
-					$message = "There is no user available for this email.";
+					$message = "אין שם משתמש עם כתובת מייל זה";
 
 				} // end if/else
 
 			} else {
-				$message = "Email should not be empty.";
+				$message = "כתבות מייל הוא שדה חובה";
 			}
 
 		}
@@ -139,11 +139,11 @@ if (!$user_ID){
 				}
 				else*/
 				if(empty($firstname)){
-					$message =  esc_html__( 'First name should not be empty.', 'outfit-standalone' );
+					$message =  esc_html__( 'שם פרטי הוא שדה חובה', 'outfit-standalone' );
 					$registerSuccess = 0;
 				}
 				elseif(empty($lastname)){
-					$message =  esc_html__( 'Last name should not be empty.', 'outfit-standalone' );
+					$message =  esc_html__( 'שם משפחה הוא שדה חובה', 'outfit-standalone' );
 					$registerSuccess = 0;
 				}
 				if ($registerSuccess) {
@@ -155,13 +155,13 @@ if (!$user_ID){
 							$username = $email;
 
 						}else {
-							$message =  esc_html__( 'Please enter a valid email.', 'outfit-standalone' );
+							$message =  esc_html__( 'יש להכניס כתובת מייל תקינה', 'outfit-standalone' );
 							$registerSuccess = 0;
 						}
 
 					}else{
 						$registerSuccess = 0;
-						$message =  esc_html__( 'Please enter a valid email.', 'outfit-standalone' );
+						$message =  esc_html__( 'יש להכניס כתובת מייל תקינה', 'outfit-standalone' );
 					}
 				}
 				if ($registerSuccess) {
@@ -169,19 +169,19 @@ if (!$user_ID){
 					if($password){
 
 						if (strlen($password) < 5 || strlen($password) > 15) {
-							$message =  esc_html__( 'Password must be 5 to 15 characters in length.', 'outfit-standalone' );
+							$message =  esc_html__( 'סיסמא חייבת להיות בין 5-15 תווים', 'outfit-standalone' );
 							$registerSuccess = 0;
 
 						}elseif(isset($password) && $password != $confirm_password) {
 
-							$message =  esc_html__( 'Password Mismatch', 'outfit-standalone' );
+							$message =  esc_html__( 'הסיסמאות אינן תואמות', 'outfit-standalone' );
 
 							$registerSuccess = 0;
 
 						}elseif ( isset($password) && !empty($password) ) {
 
 							$update = wp_set_password( $password, $user_ID );
-							$message =  esc_html__( 'Registration successful', 'outfit-standalone' );
+							$message =  esc_html__( 'נרשמת בהצלחה', 'outfit-standalone' );
 							$registerSuccess = 1;
 
 						}
@@ -249,7 +249,7 @@ if (!$user_ID){
 							<?php if($_POST){?>
 							<?php if($registerSuccess == 0){?>
 							<div class="alert alert-danger" role="alert">
-							  <strong><?php esc_html_e('אופס, ', 'outfit-standalone') ?></strong> <?php echo esc_html( $message ); ?>
+							  <strong><?php //esc_html_e('אופס, ', 'outfit-standalone') ?></strong> <?php echo esc_html( $message ); ?>
 							</div>
 							<?php } ?>
 							<?php }							

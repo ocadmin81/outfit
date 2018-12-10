@@ -368,7 +368,8 @@ get_header(); ?>
 								<div class="form-group post-colors-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('צבע', 'outfit-standalone') ?> <span>*</span></label>
 									<div class="item">
-										<select id="color" name="postColor[]" class="reg form-control form-control-md">											
+										<select id="color" name="postColor[]" class="reg form-control form-control-md">	
+											<option value="" selected><?php esc_html_e('בחירת צבע', 'outfit-standalone'); ?></option>
 											<?php
 											foreach ($colors as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -380,7 +381,8 @@ get_header(); ?>
 								<div class="form-group post-age-groups-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="ageGroup" name="postAgeGroup[]" class="reg ageGroup form-control form-control-md" multiple>											
+										<select id="ageGroup" name="postAgeGroup[]" class="reg ageGroup form-control form-control-md" multiple>		
+										<!--<option value=""><?php //esc_html_e('בחירת קבוצת גיל', 'outfit-standalone'); ?></option>-->
 											<?php
 											foreach ($ageGroups as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -392,7 +394,8 @@ get_header(); ?>
 								<div class="form-group post-brands-container" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('מותג', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="brand" name="postBrand[]" class="reg form-control form-control-md">											
+										<select id="brand" name="postBrand[]" class="brand-select reg form-control form-control-md">
+										<option value="" selected><?php esc_html_e('בחירת מותג', 'outfit-standalone'); ?></option>
 											<?php
 											foreach ($brands as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -405,7 +408,7 @@ get_header(); ?>
 									<label class="text-left flip"><?php esc_html_e('מצב הפריט', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="condition" name="postCondition" class="reg form-control form-control-md">	
-											<option></option>
+											<option value="" selected><?php esc_html_e('בחירת מצב פריט', 'outfit-standalone'); ?></option>
 											<?php
 											foreach ($conditions as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -415,10 +418,10 @@ get_header(); ?>
 								</div><!-- /Ad Conditions-->
 
 								<div class="form-group post-writers-container" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('כותכ', 'outfit-standalone') ?> <span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('סופר', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="writer" name="postWriter[]" class="reg form-control form-control-md">	
-											<option></option>
+											<option value="" selected><?php esc_html_e('בחירת סופר', 'outfit-standalone'); ?></option>
 											<?php
 											foreach ($writers as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
@@ -428,10 +431,10 @@ get_header(); ?>
 								</div><!-- /Ad Book Writers-->
 
 								<div class="form-group post-characters-container" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?> <span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('דמות', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="character" name="postCharacter[]" class="reg form-control form-control-md">	
-											<option></option>
+											<option value="" selected><?php esc_html_e('בחירת דמות', 'outfit-standalone'); ?></option>
 											<?php
 											foreach ($characters as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
