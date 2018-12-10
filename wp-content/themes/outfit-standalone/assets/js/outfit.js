@@ -1498,7 +1498,7 @@ jQuery(document).ready(function(jQuery){
         });
     });
 	//style selects
-	//jQuery('select').select2();
+	jQuery('select').select2();
 
 });
 jQuery(window).on('load', function () {	
