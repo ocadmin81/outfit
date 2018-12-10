@@ -267,6 +267,8 @@ $detect = new Mobile_Detect;
 												<script type="text/javascript">
 													// Initialize and add the map
 													var map;
+													var infowindows = [];
+
 													function initMap(lat, long) {
 														var point = {lat: lat, lng: long};
 
@@ -277,29 +279,36 @@ $detect = new Mobile_Detect;
 
 													}
 
+													function closeAllInfowindows() {
+														for (var i = 0; i < infowindows.length; i++) {
+															infowindows[i].close();
+														}
+													}
+
 													function loadAddressPoints() {
 														var products = jQuery.parseJSON(jQuery('#current-address-points').text());
-														var markers = [];
+
+
 														for (var i = 0; i < products.length; i++){
 															var a = products[i];
-															var infowindow = new google.maps.InfoWindow({
-																content: a.content
-															});
+
 															for (var j = 0; j < a.locations.length; j++) {
+																var infowindow = new google.maps.InfoWindow({
+																	content: a.content
+																});
+																infowindows.push(infowindow);
+
 																var coords = a.locations[j];
 																var position = {lat: parseFloat(coords[0]), lng: parseFloat(coords[1])};
 																var marker = new google.maps.Marker({position: position, map: map, title: a.title});
-																marker.addListener('click', function() {
-																	infowindow.open(map, this);
-																});
-																//markers.push(marker);
+																(function (m, iw) {
+																	m.addListener('click', function() {
+																		closeAllInfowindows();
+																		iw.open(map, this);
+																	});
+																}(marker, infowindow));
 															}
 														}
-														//var bounds = new google.maps.LatLngBounds();
-														//for (i = 0; i < markers.length; i++) {
-														//	bounds.extend(markers[i].getPosition());
-														//}
-														//map.fitBounds(bounds);
 													}
 
 													jQuery(document).ready(function() {
