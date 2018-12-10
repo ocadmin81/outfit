@@ -174,7 +174,10 @@ get_header();
 							<!--subcategory-->
 							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="widget-box">
-									<div class="widget-title"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
+									<div class="box-title-mobile">
+										<div class="widget-title pop-form"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i> <?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
+										<div class="widget-title pop-map"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/addr.png" /><a href="#map" aria-controls="map" role="tab" data-toggle="tab"><?php esc_html_e( 'מפה', 'outfit-standalone' ); ?></a></div>
+									<div>
 									<div class="filter-fixed-title"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 									<div class="widget-content" style="display:none;">
 										<ul class="category">
@@ -265,6 +268,7 @@ get_header();
 									<?php wp_reset_query(); ?>
 								</div><!--tabpanel ALL-->
 								<div role="tabpanel" class="tab-pane map-tab fade" id="map">
+									<div class="filter-close-map"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/menu-m-x.png" /></div>
 									<div class="container-not">
 										<div class="row">
 											<textarea style="display: none;" id="current-address-points"><?php echo json_encode($products); ?></textarea>
