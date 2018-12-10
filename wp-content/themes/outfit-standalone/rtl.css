@@ -562,7 +562,7 @@ input[type="checkbox"] {
     font-style: normal;
 
 }
-html #wpadminbar{display: none;}
+.loader_submit_form{z-index: 9999;}
 html[lang="he-IL"], html[lang="he-IL"] input,html[lang="he-IL"] button, body, button, input, select, textarea,
 html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{direction: rtl;text-align: right;}
 html[lang="he-IL"] *,html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{font-family:   "Assistant",sans-serif;}
@@ -591,6 +591,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     top: 0;
     width: auto;
 }
+select.form-control{visibility:hidden;}
 .classiera-box-div-v1{    margin-bottom: 30px;}
 .loader_submit_form img{width: 100px;height: 100px;}
 [class*=" eicon-"], [class^=eicon]{font-family: eicons!important;}
@@ -842,6 +843,7 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box .classiera-input-file + label{padding-top: 30px;padding-bottom: 0;margin: 0;background: none;}
 .submit-post form .form-main-section .classiera-image-upload{border: none;background: #fff;padding: 0;}
 .submit-post form .form-group{margin: 0;margin-bottom: 20px;position: relative;}
+.submit-post form .ad-categories .form-group{border-bottom: 1px solid #e2e2e4;margin-bottom: 5px;padding-bottom: 5px;}
 .has-error .form-control{box-shadow: none;}
 .submit-post form .ad-categories .form-group label{position: absolute;margin: 0;padding: 0;top: 13px;right: 0;}
 .submit-post form .ad-categories .form-group select{    border: none;border-bottom: 1px solid #e2e2e4;padding-right: 90px;}
@@ -1003,6 +1005,8 @@ background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);   
 .user-pages .products .row{margin-right: -15px;margin-left: -15px;}
 .cat-sidebar.sidebar .widget-box{border: none;margin-bottom: 0;margin-top: 10px;}
 .cat-sidebar.sidebar .widget-box .widget-title {border-bottom: 1px solid #ededef;background: transparent;padding: 0;font-size: 18px;font-weight: 600;padding-bottom: 10px;}
+.cat-sidebar.sidebar .widget-box .widget-title i{    position: relative;top: -3px;right: -3px;}
+.cat-sidebar.sidebar .widget-box .widget-title img{position: relative;top: -2px;right: -3px;}
 .classiera-pagination{text-align: center;}
 .pagination{display: inline-block;width:auto;border: none;text-align: center;padding: 0;margin: 0;margin-top: 20px;}
 .pagination li{display: inline-block;border: 1px solid #f3f3f3;}
@@ -1016,7 +1020,7 @@ background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);   
 .pagination li a i{display:none;}
 .cat-sidebar form .search-form #innerSearch{padding: 0;}
 .cat-sidebar{padding-left: 30px;margin-top: 20px;}
-.cat-content .cat-tab-content{margin-top: 20px;}
+.cat-content .cat-tab-content{margin-top: 20px;opacity: 1;}
 .my-ads{margin-top:35px;}
 .my-ads .item .remove-post-button{position: absolute;top: -15px;right: -15px;z-index: 100;}
 .my-ads .item .ad-brand{position: absolute;bottom: 8px;left: 15px;color: #fff;font-size: 14px;letter-spacing: 1px!important;}
@@ -1032,6 +1036,15 @@ form .search-form #innerSearch .inner-search-box{position: relative;float: right
 form .search-form #innerSearch .inner-search-box .inner-search-heading{color: #191919;font-weight: 600;font-size: 18px;border: none;    padding-bottom: 5px;}
 form .search-form #innerSearch .inner-search-box.ab .inner-search-heading{position: absolute;margin: 0;padding: 0;top: 13px;right: 0;}
 form .search-form #innerSearch .inner-search-box .form-control{color: #191919;font-size: 16px;}
+form .search-form #innerSearch .inner-search-box.ab .select2-selection{border: none;padding-right: 48px;background: url(assets/images/select-arrow.png) 5px 21px no-repeat;    padding-top: 5px;}
+.submit-post form .form-group .select2-selection{border: none;padding-right: 90px;background: url(assets/images/select-arrow.png) 5px 21px no-repeat;    padding-top: 5px;}
+.submit-post .select2-container--default .select2-selection--single .select2-selection__rendered {line-height: 42px !important;}
+.select2-container--open .select2-dropdown{border: 1px solid #e2e2e4;}
+.select2-container--default .select2-results__option--highlighted[aria-selected],
+.select2-container--default .select2-results__option[aria-selected=true]{background-color: #fed3d6;color: #191919;}
+.select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered{color: #747474;}
+.select2-container{width:100%!important;    z-index: 10000;}
+.select2-container--default .select2-results>.select2-results__options{    background-color: #f7f7f7;font-size: 16px;}
 form .search-form #innerSearch .inner-search-box.ab select{    border: none;padding-right: 48px;padding-top: 15px;background: url(assets/images/select-arrow.png) 5px 21px no-repeat;}
 form .search-form #innerSearch .inner-search-box.ab input[type="text"]{background: transparent;border: none;    padding-right: 48px;}
 form .search-form #innerSearch .inner-search-box.address{padding-bottom: 0;    border-bottom: none;margin-bottom: 0;}
@@ -1129,7 +1142,7 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 }
 @media screen and (min-width: 768px){
 	.cat-sidebar .search-form .collapse{display: block!important;}
-	.static-sidebar .widget-title{display:none;}
+	.box-title-mobile,.filter-close-map{display:none;}
 }
 @media screen and (min-width: 992px){
 		.user-pages .user-detail-section .user-ads{margin-bottom: 0;min-height: 550px;}
@@ -1160,6 +1173,7 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 	html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{padding-right: 45px;}
 	.author-page .author-info .media-object{width: 110px;height: 110px;}
 	.author-page .author-info .media-img{width: 110px;}
+	.main-navigation a{padding: 0 15px;}
 }
 @media screen and (max-width: 991px){
 	.header-right div{margin-left: 15px;}
@@ -1278,15 +1292,17 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 	.cat-tabs{display: none;}
 	html[lang="he-IL"] .cat-title{padding: 0 15px;}
 	.cat-sidebar{padding-left: 0;margin-bottom: 20px;}
-	.cat-sidebar.sidebar .widget-box .widget-title{border: 1px solid #d7d7d7;padding: 15px;font-size: 25px;background: url(assets/images/select-arrow.png) 18px 50% no-repeat;}
+	.cat-sidebar.sidebar .widget-box .widget-title{border: 1px solid #d7d7d7;padding: 8px 15px;font-size: 25px;width: 48%;line-height: 30px;float: right;text-align: center;}
+	.cat-sidebar.sidebar .widget-box .widget-title.pop-map{float:left;}
 	.cat-tab-content.products .item:nth-child(even){padding-right: 15px;padding-left: 5px;}
 	.cat-tab-content.products .item:nth-child(odd){padding-left: 15px;padding-right: 5px;}
 	.cat-tab-content.products .row{    margin-right: -15px;margin-left: -15px;}
 	.cat-sidebar .search-form{position: fixed;top: 0;background: #fff;z-index: 1500;padding-top: 10px;left: 0;right: 0;width: 100%;display: none;    max-height: 555px;overflow: hidden;padding-bottom: 15px;overflow-y: scroll;}
 	.cat-sidebar .search-form.active{display:block}
 	.cat-sidebar form .search-form #innerSearch{padding: 10px 15px 0;}
-	.cat-sidebar .filter-close{border-bottom: 1px solid #ededef;padding: 0 10px 10px;  text-align: left;}
-	.cat-sidebar .filter-close img{max-width: 30px;}
+	.cat-sidebar .filter-close,.filter-close-map{border-bottom: 1px solid #ededef;padding: 0 10px 10px;  text-align: left;    background: #fff;}
+	.cat-sidebar .filter-close img,.filter-close-map img{max-width: 30px;}
+	.filter-close-map{padding-top: 10px;}
 	.filter-fixed-title{display:none;}
 	.filter-fixed-title.active{display:block;}
 	.home-cat-row{margin: 0;}	
@@ -1299,4 +1315,5 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 	.start-selling .elementor-text-editor p{font-size: 16px;}
 	body.page-two-column:not(.archive) #primary .entry-header .textwidget ul{display: none;}
 	body.page-two-column:not(.archive) #primary .entry-header .textwidget ul.active{display:block}
+	#map{top: 0;z-index: 1000;}
 }
