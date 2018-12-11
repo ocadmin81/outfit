@@ -44,6 +44,12 @@ if(isset($_POST['op_outfit']) ){
 			$UserError = "Invalid username or password. Please try again!";
 		} else {
 
+			if (isset($_GET['favorite'])) {
+				$pid = (int) $_GET['favorite'];
+				if (!empty($pid)) {
+					outfit_insert_author_favorite($user_verify->ID, $pid);
+				}
+			}
 			wp_redirect( $redirectAfterSuccess );
 			exit;
 
@@ -129,12 +135,12 @@ if (!$user_ID){
 			$password = isset( $_POST['password']  ) ? trim( $_POST['password'] ) : null;
 			$confirm_password = isset( $_POST['confirm']  ) ? trim( $_POST['confirm'] ) : '';
 			
-			$remember = $wpdb->escape($_POST['remember']);
+			$agree = $wpdb->escape($_POST['agree']);
 
 			$registerSuccess = 1;
 
 
-			if(!empty($remember)) {			
+			if(!empty($agree)) {
 				
 				/*if(empty($username)){
 					$message =  esc_html__( 'User name should not be empty.', 'outfit-standalone' );
@@ -222,6 +228,12 @@ if (!$user_ID){
 					$login_data['user_login'] = $username;
 					$login_data['user_password'] = $password;
 					$user_verify = wp_signon( $login_data, false );
+					if (isset($_GET['favorite'])) {
+						$pid = (int) $_GET['favorite'];
+						if (!empty($pid)) {
+							outfit_insert_author_favorite($user_verify->ID, $pid);
+						}
+					}
 					wp_redirect( $redirectAfterSuccess );
 					exit;
 					
@@ -405,7 +417,7 @@ if (!$user_ID){
                                 </div><!--re-enter password-->
                                 <div class="form-group">
                                     <div class="checkbox">
-                                        <input type="checkbox" value="forever" name="remember" id="agree" data-error="<?php esc_html_e('יש להסכים לתנאי השימוש', 'outfit-standalone') ?>" required>
+                                        <input type="checkbox" value="forever" name="agree" id="agree" data-error="<?php esc_html_e('יש להסכים לתנאי השימוש', 'outfit-standalone') ?>" required>
                                         <label for="agree"><?php esc_html_e('מסכימ/ה', 'outfit-standalone') ?> <a href="<?php echo esc_url( $termsandcondition ); ?>" target="_blank"><?php esc_html_e('לתנאי השימוש', 'outfit-standalone') ?></a></label>
                                         <div class="left-side help-block with-errors"></div>
                                     </div>

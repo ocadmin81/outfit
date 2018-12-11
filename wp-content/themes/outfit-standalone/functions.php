@@ -1198,7 +1198,7 @@ function outfit_edit_ad_url($postId) {
 	return $editPostUrl;
 }
 
-function outfit_login_url_back($back_to = '') {
+function outfit_login_url_back($back_to = '', $action = '', $post_id = '') {
 
 	if (empty($back_to)) {
 		$back_to = outfit_current_url();
@@ -1209,6 +1209,9 @@ function outfit_login_url_back($back_to = '') {
 		$loginUrl .= "&back_to=".urlencode($back_to);
 	}else{
 		$loginUrl .= "?back_to=".urlencode($back_to);
+	}
+	if (!empty($action) && !empty($post_id)) {
+		$loginUrl .= '&'.$action.'='.$post_id;
 	}
 	return $loginUrl;
 }

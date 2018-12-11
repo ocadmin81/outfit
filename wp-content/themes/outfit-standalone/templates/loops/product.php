@@ -1,7 +1,7 @@
 <?php 
 	global $redux_demo;
 	global $post;
-	global $currentUserFavoriteAds;
+	global $currentUserFavoriteAds, $currentUserId;
 
 	$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 	$postAuthorId = $post->post_author;
@@ -41,7 +41,7 @@
 							<!--<i class="fa fa-heart-o" aria-hidden="true"></i>-->
 						<?php //} ?>
 					
-						<?php //if (!empty($userId)): ?>
+						<?php //if (!empty($currentUserId)): ?>
 							<form method="post" class="fav-form clearfix">
 								<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
 								<?php if (!$isFavorite) { ?>

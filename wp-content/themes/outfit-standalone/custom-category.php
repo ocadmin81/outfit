@@ -39,7 +39,7 @@ if (isset($_POST['favorite'])) {
 		outfit_insert_author_favorite($currentUserId, $_POST['post_id']);
 	}
 	else {
-		$loginUrl = outfit_login_url_back();
+		$loginUrl = outfit_login_url_back('', 'favorite', $_POST['post_id']);
 		wp_redirect($loginUrl);
 		exit;
 	}

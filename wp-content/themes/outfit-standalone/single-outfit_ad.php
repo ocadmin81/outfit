@@ -52,6 +52,11 @@ get_header(); ?>
 		if (!empty($userId)) {
 			outfit_insert_author_favorite($userId, $_POST['post_id']);
 		}
+		else {
+			$loginUrl = outfit_login_url_back('', 'favorite', $_POST['post_id']);
+			wp_redirect($loginUrl);
+			exit;
+		}
 	}
 	else if (isset($_POST['unfavorite'])) {
 		if (!empty($userId)) {
@@ -191,7 +196,7 @@ get_header(); ?>
 											</a>
 										</div>	
 										<div class="wish-share">
-											<?php if (!empty($userId)): ?>
+											<?php //if (!empty($userId)): ?>
 											<form method="post" class="fav-form clearfix">
 												<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
 												<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
@@ -204,7 +209,7 @@ get_header(); ?>
 													</button>
 												<?php } ?>
 											</form>
-											<?php endif; ?>
+											<?php //endif; ?>
 											<div class="share">
 												<ul>
 													<li><a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo get_permalink(); ?>" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>													
