@@ -143,6 +143,10 @@ else {
 			<div class="inner-search-box save-pre">
 				<a id="outfit_save_search_prefs" href="javascript:void(0)"><?php esc_html_e('שמור את ההעדפות שלי', 'outfit-standalone') ?></a>
 			</div>
+			<?php } else { ?>
+			<div class="inner-search-box save-pre">
+				<a id="outfit_save_search_prefs" href="<?php echo esc_url(outfit_get_page_url('login')); ?>"><?php esc_html_e('התחבר/י לשמירת העדפה', 'outfit-standalone') ?></a>
+			</div>
 			<?php } ?>
 
 			<?php if ($filterBy && $filterBy->catFilterByBrand) { ?>
@@ -297,7 +301,10 @@ else {
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 
-		jQuery('.inner-search-box').on("change", "input, select", function(){
+		jQuery('.inner-search-box').on("change", "input:not(.address), select", function(){
+			jQuery(this).closest('form').submit();
+		});
+		jQuery('.inner-search-box').on("addresschange", "input.address", function(){
 			jQuery(this).closest('form').submit();
 		});
 	});

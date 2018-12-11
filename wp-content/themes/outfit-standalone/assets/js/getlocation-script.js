@@ -65,6 +65,8 @@ jQuery(document).ready(function(){
           parent.find(".aal3").val(ui.item.hash.aal3);
           parent.find(".aal2").val(ui.item.hash.aal2);
           parent.find(".aal1").val(ui.item.hash.aal1);
+          jQuery(this).val(ui.item.formatted_address);
+          jQuery(this).trigger('addresschange');
         },
         minLength: 3
       });
