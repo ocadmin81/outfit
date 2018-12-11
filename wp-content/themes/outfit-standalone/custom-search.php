@@ -352,9 +352,14 @@ if (!empty($metaQuery)) {
 													'content' => '<a class="classiera_map_div" href="'.get_the_permalink().'">'
 														.'<img class="classiera_map_div__img" src="'.$pThumb.'" alt="images">'
 														.'<div class="classiera_map_div__body">'
-														.'<p class="classiera_map_div__price">'.__( "Price", 'outfit-standalone').' : <span>'.$pPrice.'</span></p>'
 														.'<h5 class="classiera_map_div__heading">'.get_the_title().'</h5>'
+														.'<p class="classiera_map_div__price"><span>'.$pPrice.'</span></p>'
 														.'<p class="classiera_map_div__cat">'.__( "Brand", 'outfit-standalone').' : '.$pBrand.'</p></div></a>'
+														.'<div class="au-price"><div class="au">'
+														.'<a href="'.get_author_posts_url( $postAuthorId ).'">'
+														.'<img style="height: 30px;" src="'.esc_url($authorAvatarUrl).'" alt="'.esc_attr($postAuthorNameTitle).'">'
+														.esc_attr($postAuthorName)
+														.'</a></div></div>'
 												);
 											endwhile;
 											?>
