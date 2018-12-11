@@ -142,6 +142,20 @@ get_header(); ?>
 	</div><!--container-->
 </section><!--user-pages section-gray-bg-->
 
-
+	<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="remove-post-modal">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><?php echo esc_html_e( 'Are you sure?', 'outfit-standalone' ); ?></h4>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" value="" id="remove-post-modal-data">
+					<button type="button" class="btn btn-default" id="remove-post-modal-yes"><?php echo esc_html_e( 'Yes', 'outfit-standalone' ); ?></button>
+					<button type="button" class="btn btn-primary" id="remove-post-modal-no"><?php echo esc_html_e( 'No', 'outfit-standalone' ); ?></button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 <?php get_footer(); ?>

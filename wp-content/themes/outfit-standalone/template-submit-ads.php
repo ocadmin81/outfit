@@ -529,7 +529,7 @@ get_header(); ?>
 						<div class="row">
 							<div class="item">
 								<div class="form-check checkbox">
-									<input type="checkbox" class="form-check-input" name="postAgreeToTerms" id="postAgreeToTerms" data-error="<?php esc_html_e('יש להסכים לתנאי השימוש', 'outfit-standalone') ?>" required>
+									<input type="checkbox" class="form-check-input" name="postAgreeToTerms" id="postAgreeToTerms" data-validate="true" data-error="<?php esc_html_e('יש להסכים לתנאי השימוש', 'outfit-standalone') ?>" required>
 									<label class="form-check-label" for="postAgreeToTerms">										
 										<?php esc_html_e('קראתי ואני מסכימ/ה', 'outfit-standalone') ?> <a href="<?php echo esc_url( $termsandcondition ); ?>" target="_blank"><?php esc_html_e('לתנאי השימוש', 'outfit-standalone') ?></a>
 									</label>

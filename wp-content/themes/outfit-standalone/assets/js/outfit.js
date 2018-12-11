@@ -1322,7 +1322,7 @@ jQuery(document).ready(function(jQuery){
 	/*=====================================
 	Show Loader on Submit Ad Form
 	======================================*/
-	jQuery('#primaryPostForm').validator().on('submit', function (e){
+	jQuery('#primaryPostForm').validator({disable: false}).on('submit', function (e){
 		if (e.isDefaultPrevented()) {			
 		}else{
 			jQuery('.loader_submit_form').addClass('active');
@@ -1508,6 +1508,36 @@ jQuery(document).ready(function(jQuery){
 	jQuery('select.brand-select').select2({
 		searchInputPlaceholder: 'חיפוש'
 	});
+
+    // confirm deleting product - by Milla
+    var modalConfirmDelete = function(callback){
+
+        $(".remove-post-button a").on("click", function(event){
+            event.preventDefault();
+            $('#remove-post-modal-data').val(this.attr('href'));
+            $("#remove-post-modal").modal('show');
+        });
+
+        $("#remove-post-modal-yes").on("click", function(){
+            callback(true, $('#remove-post-modal-data').val());
+            $('#remove-post-modal-data').val('');
+            $("#remove-post-modal").modal('hide');
+        });
+
+        $("#remove-post-modal-no").on("click", function(){
+            $('#remove-post-modal-data').val('');
+            callback(false);
+            $("#remove-post-modal").modal('hide');
+        });
+    };
+
+    modalConfirmDelete(function(confirm, location){
+        if(confirm){
+            window.href.location = location;
+        }else{
+            // not confirmed
+        }
+    });
 
 });
 jQuery(window).on('load', function () {	
