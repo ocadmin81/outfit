@@ -34,12 +34,12 @@ $postKeyword = getGetInput('s', '');
 $postLocation = null;
 $postPrice = getGetMultiple('priceRange', []);
 
-if (!isset($_GET['postAgeGroup']) || empty($_GET['postAgeGroup'])) {
+if (!isset($_GET['postAgeGroup'])) {
 	$postAgeGroup = array($searchPrefAge);
 }
 
 // post primary location
-if (!isset($_GET['address']) || empty($_GET['address'])) {
+if (!isset($_GET['address'])) {
 	if (null != $searchPrefLocation) {
 		$postAddress = $searchPrefLocation->getAddress();
 		$postLatitude = $searchPrefLocation->getLatitude();
@@ -119,6 +119,7 @@ else {
 					<?php endforeach; ?>
 				</select>				
 			</div>
+			<div><a class="clear-age-filter" href="javascript:void(0)">clear age</a></div>
 			<!--Age Groups-->
 			<?php } ?>
 
@@ -127,7 +128,6 @@ else {
 				<div class="inner-search-heading"><?php esc_html_e( 'איזור', 'classiera' ); ?></div>
 				<div class="inner-addon right-addon post_sub_loc">
 					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
-					<input type="hidden" id="address-hidden" name="a" value="<?php echo esc_html($postAddress); ?>">
 					<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 					<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
 					<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
@@ -135,7 +135,7 @@ else {
 					<input class="aal2" type="hidden" id="aal2" name="aal2" value="<?php echo esc_html($postArea2); ?>">
 					<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
 				</div>
-
+				<div><a class="clear-address-filter" href="javascript:void(0)">clear address</a></div>
 			</div>
 
 			<!--Locations-->
@@ -307,6 +307,21 @@ else {
 		});
 		jQuery('.inner-search-box').on("addresschange", "input.address", function(event){
 			jQuery(this).closest('form').submit();
+		});
+		jQuery('.clear-address-filter').on("click", function() {
+			var box = jQuery(this).closest('.inner-search-box');
+			box.find(".latitude").val('');
+			box.find(".longitude").val('');
+			box.find(".locality").val('');
+			box.find(".aal3").val('');
+			box.find(".aal2").val('');
+			box.find(".aal1").val('');
+			box.find("input.address").val('');
+			jQuery(this).closest('form').submit();
+		});
+		jQuery('.clear-age-filter').on("click", function() {
+			jQuery('#ageGroup').val('').trigger('change');
+			//jQuery(this).closest('form').submit();
 		});
 	});
 </script>
