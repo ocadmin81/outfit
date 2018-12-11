@@ -34,6 +34,8 @@ else if (isset($_GET['unfollow_id'])) {
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $perPage = 20;
 
+$pagepermalink = get_permalink($post->ID);
+
 $favoritearray = outfit_authors_all_favorite_sellers($userId);
 
 get_header(); ?>
@@ -60,7 +62,7 @@ get_header(); ?>
 										<?php
 										if (empty($aid) || !outfit_is_user_exists($aid)) continue;
 										global $wp_rewrite;
-										$unfollowUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&unfollow_id=".$post->ID : $pagepermalink."?unfollow_id=".$post->ID;
+										$unfollowUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&unfollow_id=".$aid : $pagepermalink."?unfollow_id=".$aid;
 										$authorName = getAuthorFullName($aid);
 										?>
 										<div class="col-lg-4 col-md-4 col-sm-6 match-height item">
