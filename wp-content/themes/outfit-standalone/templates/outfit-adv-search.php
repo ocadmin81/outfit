@@ -127,6 +127,7 @@ else {
 				<div class="inner-search-heading"><?php esc_html_e( 'איזור', 'classiera' ); ?></div>
 				<div class="inner-addon right-addon post_sub_loc">
 					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
+					<input type="hidden" id="address-hidden" name="a" value="<?php echo esc_html($postAddress); ?>">
 					<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 					<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
 					<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
@@ -304,7 +305,7 @@ else {
 		jQuery('.inner-search-box').on("change", "input:not(.address), select", function(){
 			jQuery(this).closest('form').submit();
 		});
-		jQuery('.inner-search-box').on("addresschange", "input.address", function(){
+		jQuery('.inner-search-box').on("addresschange", "input.address", function(event){
 			jQuery(this).closest('form').submit();
 		});
 	});
