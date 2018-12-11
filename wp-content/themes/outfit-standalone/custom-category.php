@@ -242,27 +242,29 @@ get_header();
 												$pThumb = esc_url(outfit_get_post_thumb_url($post->ID));
 												$pPrice = outfit_format_post_price(get_post_meta($post->ID, POST_META_PRICE, true));
 												$pBrand = esc_attr(implode(', ', getPostTermNames($post->ID, 'brands')));
+												$pAuthorName = esc_attr(getAuthorFullName($post->post_author));
+												$authorAvatarUrl = esc_url(outfit_get_user_picture($post->post_author, 50));
 												$products[] = array(
 													'id' => $post->ID,
 													'author_id' => $post->post_author,
-													'author_name' => esc_attr(getAuthorFullName($postAuthorId)),
+													'author_name' => $pAuthorName,
 													'title' => get_the_title(),
 													'price' => $pPrice,
 													'thumb_img_url' => $pThumb,
-													'author_img_url' => esc_url(outfit_get_user_picture($postAuthorId, 50)),
+													'author_img_url' => $authorAvatarUrl,
 													'brand' => $pBrand,
 													'locations' => $postLocations,
-													'content' => '<a class="classiera_map_div" href="'.get_the_permalink().'">'
+													'content' => '<div class="classiera_map_div"><a href="'.get_the_permalink().'">'
 														.'<img class="classiera_map_div__img" src="'.$pThumb.'" alt="images">'
 														.'<div class="classiera_map_div__body">'
 														.'<h5 class="classiera_map_div__heading">'.get_the_title().'</h5>'
-														.'<p class="classiera_map_div__price"><span>'.$pPrice.'</span></p>'
-														.'<p class="classiera_map_div__cat">'.__( "Brand", 'outfit-standalone').' : '.$pBrand.'</p></div></a>'
-														.'<div class="au-price"><div class="au">'
-														.'<a href="'.get_author_posts_url( $postAuthorId ).'">'
-														.'<img style="height: 30px;" src="'.esc_url($authorAvatarUrl).'" alt="'.esc_attr($postAuthorNameTitle).'">'
-														.esc_attr($postAuthorName)
-														.'</a></div></div>'
+														.'<p class="classiera_map_div__price"><span>'.$pPrice.'</span></p></div></a></div>'
+														//.'<p class="classiera_map_div__cat">'.__( "Brand", 'outfit-standalone').' : '.$pBrand.'</p></div></a>'
+														.'<div class="classiera_map_div">'
+														.'<a href="'.get_author_posts_url( $post->post_author ).'">'
+														.'<img style="height: 30px;" src="'.esc_url($authorAvatarUrl).'" alt="'.esc_attr($pAuthorName).'">'
+														.esc_attr($pAuthorName)
+														.'</a></div>'
 												);
 											endwhile;
 											?>
