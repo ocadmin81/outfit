@@ -1512,7 +1512,7 @@ jQuery(document).ready(function(jQuery){
     // confirm deleting product - by Milla
     var modalConfirmDelete = function(callback){
 
-        jQuery(".remove-post-button a").on("click", function(event){
+        jQuery(".remove-post-button.post-rmv a").on("click", function(event){
             event.preventDefault();
             jQuery('#remove-post-modal-data').val(jQuery(this).attr('href'));
             jQuery("#remove-post-modal").modal('show');

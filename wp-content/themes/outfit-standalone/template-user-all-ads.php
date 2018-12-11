@@ -99,7 +99,7 @@ get_header(); ?>
 															<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
 														</div>
 													</div><!--premium-img-->
-													<div class="remove-post-button">
+													<div class="remove-post-button post-rmv">
 														<a href="<?php echo esc_url($deletePostUrl) ?>">
 															<span class="remove-post"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
 															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
