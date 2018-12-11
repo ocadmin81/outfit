@@ -28,6 +28,7 @@ if (isset($_POST['favorite'])) {
 else if (isset($_POST['unfavorite'])) {
 	if (!empty($userId)) {
 		outfit_delete_author_favorite($userId, $_POST['post_id']);
+		$unfavoriteSuccess = true;
 	}
 }
 
@@ -60,9 +61,9 @@ get_header(); ?>
 				<?php get_template_part( 'templates/profile/profile-sidebar' );?>
 			</div><!--col-lg-3-->
 			<div class="col-lg-9 col-md-8 user-content-height">
-				<?php if($_POST){?>
+				<?php if(isset($unfavoriteSuccess)) {?>
 					<div class="alert alert-success" role="alert">
-						<?php echo esc_html( $message ); ?>
+						<?php echo esc_html_e( 'Successfully removed form wishlist.', 'outfit-standalone' ); ?>
 					</div>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
