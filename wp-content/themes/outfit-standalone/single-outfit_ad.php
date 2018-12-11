@@ -22,7 +22,7 @@ $detect = new Mobile_Detect;
 wp_get_current_user();
 $userId = $current_user->ID;
 
-get_header(); ?>
+?>
 
 <?php //echo 'curr templ' . $GLOBALS['current_theme_template'] ?>
 
@@ -54,6 +54,7 @@ get_header(); ?>
 		}
 		else {
 			$loginUrl = outfit_login_url_back('', 'favorite', $_POST['post_id']);
+			//echo 'login url' . $loginUrl;
 			wp_redirect($loginUrl);
 			exit;
 		}
@@ -74,6 +75,8 @@ get_header(); ?>
 			outfit_delete_author_follower($_POST['author_id'], $userId);
 		}
 	}
+
+	get_header();
 
 	?>
 
