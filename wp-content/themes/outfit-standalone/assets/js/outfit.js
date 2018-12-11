@@ -1512,28 +1512,28 @@ jQuery(document).ready(function(jQuery){
     // confirm deleting product - by Milla
     var modalConfirmDelete = function(callback){
 
-        $(".remove-post-button a").on("click", function(event){
+        jQuery(".remove-post-button a").on("click", function(event){
             event.preventDefault();
-            $('#remove-post-modal-data').val(this.attr('href'));
-            $("#remove-post-modal").modal('show');
+            jQuery('#remove-post-modal-data').val(jQuery(this).attr('href'));
+            jQuery("#remove-post-modal").modal('show');
         });
 
-        $("#remove-post-modal-yes").on("click", function(){
-            callback(true, $('#remove-post-modal-data').val());
-            $('#remove-post-modal-data').val('');
-            $("#remove-post-modal").modal('hide');
+        jQuery("#remove-post-modal-yes").on("click", function(){
+            callback(true, jQuery('#remove-post-modal-data').val());
+            jQuery('#remove-post-modal-data').val('');
+            jQuery("#remove-post-modal").modal('hide');
         });
 
-        $("#remove-post-modal-no").on("click", function(){
-            $('#remove-post-modal-data').val('');
+        jQuery("#remove-post-modal-no").on("click", function(){
+            jQuery('#remove-post-modal-data').val('');
             callback(false);
-            $("#remove-post-modal").modal('hide');
+            jQuery("#remove-post-modal").modal('hide');
         });
     };
 
     modalConfirmDelete(function(confirm, location){
         if(confirm){
-            window.href.location = location;
+            window.location.replace(location);
         }else{
             // not confirmed
         }
