@@ -136,15 +136,8 @@ $userId = $current_user->ID;
 
 			/* post author */
 			$postAuthorId = $post->post_author;
-			$postAuthorName = get_the_author_meta('display_name', $postAuthorId );
-			if (empty($postAuthorName)) {
-				$postAuthorName = get_the_author_meta('user_nicename', $postAuthorId );
-			}
-			if (empty($postAuthorName)) {
-				$postAuthorName = get_the_author_meta('user_login', $postAuthorId );
-			}
-			$authorAvatarUrl = get_user_meta($postAuthorId, USER_META_AVATAR_URL, true);
-			$authorAvatarUrl = outfit_get_profile_img($authorAvatarUrl);
+			$postAuthorName = getAuthorFullName($postAuthorId);
+			$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
 			$authorEmail = get_the_author_meta(USER_META_EMAIL, $postAuthorId);
 			$authorPhone = get_the_author_meta(USER_META_PHONE, $postAuthorId);
 			$authorPreferredHours = get_the_author_meta(USER_META_PREFERRED_HOURS, $postAuthorId);
