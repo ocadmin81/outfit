@@ -173,10 +173,22 @@ else {
 						<?php
 						foreach ($colors as $i => $c):
 							$checked = in_array($c->term_id, $postColor)? 'checked' : '';
+							$attId = get_term_meta($c->term_id, 'image', true);
+							$imgSrcArr = wp_get_attachment_image_src($attId['ID']);
+
+							if (!empty($imgSrcArr)) {
+								$bg = 'url('.$imgSrcArr[0].')';
+							}
+							else {
+								$bg = get_term_meta($c->term_id, 'color', true);
+							}
 						?>
+							<div style="display: none">
+								<?php //var_dump($imgSrcArr); ?>
+							</div>
 							<div class="checkbox <?php if(in_array($c->term_id, $postColor)): ?>active<?php endif; ?>">
 								<input type="checkbox" id="<?php echo esc_attr('color_'.$i); ?>" name="postColor[]" value="<?php echo $c->term_id; ?>" <?php echo $checked?>>
-								<label for="<?php echo esc_attr('color_'.$i); ?>" style="background: <?php echo esc_attr(get_term_meta($c->term_id, 'color', true)); ?>" title="<?php esc_html_e($c->name); ?>"><?php esc_html_e($c->name); ?></label>
+								<label for="<?php echo esc_attr('color_'.$i); ?>" style="background: <?php echo esc_attr($bg); ?>" title="<?php esc_html_e($c->name); ?>"><?php esc_html_e($c->name); ?></label>
 							</div>
 						<?php endforeach; ?>
 					</div>
