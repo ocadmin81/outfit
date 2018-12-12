@@ -383,6 +383,7 @@ if (!empty($metaQuery)) {
 													// Initialize and add the map
 													var map;
 													var infowindows = [];
+													var mapMarkerUrl = "<?php echo esc_url(get_stylesheet_directory_uri().'/assets/images/map-marker.png') ?>";
 
 													function initMap(lat, long) {
 														var point = {lat: lat, lng: long};
@@ -415,7 +416,7 @@ if (!empty($metaQuery)) {
 
 																var coords = a.locations[j];
 																var position = {lat: parseFloat(coords[0]), lng: parseFloat(coords[1])};
-																var marker = new google.maps.Marker({position: position, map: map, title: a.title});
+																var marker = new google.maps.Marker({position: position, map: map, title: a.title, icon: mapMarkerUrl});
 																(function (m, iw) {
 																	m.addListener('click', function() {
 																		closeAllInfowindows();
