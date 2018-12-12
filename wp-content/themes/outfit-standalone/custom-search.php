@@ -20,6 +20,9 @@ global $catId;
 global $paged, $wp_query, $wp, $post;
 global $outfitMainCat, $subCategories;
 
+require_once 'Mobile_Detect.php';
+$detect = new Mobile_Detect;
+
 $catId = '';
 $subCategories = array();
 $thisCategory = null;

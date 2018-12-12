@@ -252,11 +252,14 @@ function getCategoryPath($postId) {
     return $res;
 }
 
-function getSubCategories($catId) {
+function getSubCategories($catId, $direct = false) {
     if (!outfit_category_exists($catId)) {
         return array();
     }
-    return get_categories('child_of='.$catId.'&hide_empty=0');
+    if (!$direct) {
+        return get_categories('child_of=' . $catId . '&hide_empty=0');
+    }
+    return get_categories('parent=' . $catId . '&hide_empty=0');
 }
 
 function getBrandsByCategory($catId) {
