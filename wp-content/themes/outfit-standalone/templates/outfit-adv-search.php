@@ -85,26 +85,6 @@ else {
 		</div>
 		<div id="innerSearch" class="classiera__inner">
 
-			<?php if (count($subCategories)) { ?>
-			<!--Categories-->
-			<!--<div class="inner-search-box">
-				<h5 class="inner-search-heading"><i class="fas fa-map-marker-alt"></i>
-					<?php //esc_html_e( 'Sub category', 'outfit-standalone' ); ?>
-				</h5>
-				<div class="inner-addon right-addon">
-					<?php
-					//foreach ($subCategories as $sub): ?>
-						<div class="checkbox">
-							<input type="checkbox" id="<?php //echo esc_attr('cat_'.$sub->term_id); ?>" name="category[]" value="<?php //echo $sub->term_id; ?>">
-							<label for="<?php //echo esc_attr('cat_'.$sub->term_id); ?>"><?php //esc_html_e($sub->name); ?></label>
-						</div>
-					<?php //endforeach; ?>
-				</div>
-
-			</div>-->
-			<!--Categories-->
-			<?php } ?>
-
 			<?php if ($filterBy && $filterBy->catFilterByAge) { ?>
 			<!--Age Groups-->
 			<div class="inner-search-box ab">
@@ -149,7 +129,22 @@ else {
 				<a id="outfit_save_search_prefs" href="<?php echo esc_url(outfit_get_page_url('login')); ?>"><?php esc_html_e('התחבר/י לשמירת העדפה', 'outfit-standalone') ?></a>
 			</div>
 			<?php } ?>
+			<?php if (count($subCategories)) { ?>
+			<!--Categories-->
+			<div class="inner-search-box">
+				<div class="inner-search-heading"><?php esc_html_e( 'קטגוריות', 'outfit-standalone' ); ?></div>
+				<div class="inner-addon right-addon">
+					<?php
+					foreach ($subCategories as $sub): ?>
+						<div class="link">							
+							<a href="<?php echo get_category_link($sub->term_id); ?>?outfit_ad"><?php esc_html_e($sub->name); ?></a>
+						</div>
+					<?php endforeach; ?>
+				</div>
 
+			</div>
+			<!--Categories-->
+			<?php } ?>
 			<?php if ($filterBy && $filterBy->catFilterByBrand) { ?>
 				<!--Brands-->
 				<div class="inner-search-box">
