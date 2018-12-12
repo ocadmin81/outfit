@@ -33,10 +33,21 @@ if(isset($_GET['delete_id'])){
 	}
 }
 
+if(isset($_GET['sold_id'])){
+	$soldId = $_GET['sold_id'];
+	$soldPost = get_post($soldId);
+	if ($soldPost && ($soldPost->post_author == $userId || current_user_can('administrator'))) {
+		wp_update_post(array(
+			'ID' => $soldId,
+			'post_status' => 'sold'
+		));
+	}
+}
+
 $args = array(
 	'post_type' => OUTFIT_AD_POST_TYPE,
 	'author' => $userId,
-	'post_status' => array( 'publish', 'pending' ),
+	'post_status' => array( 'publish', 'pending', 'sold' ),
 	'posts_per_page' => $perPage,
 	'paged' => $paged
 );
@@ -78,7 +89,7 @@ get_header(); ?>
 															$editPostUrl = outfit_edit_ad_url($post->ID);
 															global $wp_rewrite;
 															$deletePostUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&delete_id=".$post->ID : $pagepermalink."?delete_id=".$post->ID;
-
+															$soldPostUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&sold_id=".$post->ID : $pagepermalink."?sold_id=".$post->ID;
 															//$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
 															$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
 															if( has_post_thumbnail()){
@@ -104,7 +115,29 @@ get_header(); ?>
 															<span class="remove-post"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
 															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
 														</a>
-													</div><!--remove-post-button-->												
+													</div><!--remove-post-button-->
+													<div class="remove-post-button-set" style="display: none;">
+														<div class="post-action-button-sold">
+														<a class="" href="<?php echo esc_url($deletePostUrl) ?>"
+														   data-title="<?php echo esc_html_e( 'בטוח שתרצו להסיר את המוצר?', 'outfit-standalone' ); ?>"
+														   data-content="<?php echo esc_html_e( 'ברגע שתלחצו על כן, המוצר שפירסמתם יירד מהמערכת, האם אתה בטוח?', 'outfit-standalone' ); ?>">
+															<span class="remove-post">
+																<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" />
+																<?php esc_html_e('Set as sold', 'outfit-standalone'); ?>
+															</span>
+															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
+														</a>
+														</div>
+														<div class="post-action-button-remove">
+														<a class="" href="<?php echo esc_url($deletePostUrl) ?>">
+															<span class="remove-post">
+																<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" />
+																<?php esc_html_e('Remove from the system', 'outfit-standalone'); ?>
+															</span>
+															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
+														</a>
+														</div>
+													</div><!--remove-post-button-->
 													<div class="edit-price">
 														<div class="edit"><a href="<?php echo esc_url($editPostUrl); ?>"><?php echo esc_html_e( 'עריכה', 'outfit-standalone' ); ?></a></div>
 														<?php //if(!empty($postPrice)){?>
@@ -147,8 +180,8 @@ get_header(); ?>
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel"><?php echo esc_html_e( 'בטוח שתרצו להסיר את המוצר?', 'outfit-standalone' ); ?></h4>
-					<p><?php echo esc_html_e( 'ברגע שתלחצו על כן, המוצר שפירסמתם יירד מהמערכת, האם אתה בטוח?', 'outfit-standalone' ); ?></p>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+					<p id="myModalText"></p>
 				</div>
 				<div class="modal-footer">
 					<input type="hidden" value="" id="remove-post-modal-data">

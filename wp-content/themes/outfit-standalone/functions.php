@@ -15,6 +15,7 @@ define('OUTFIT_AD_STATUS_SOLD', 'outfit_sold');
 /*==========================
  Requried some Files.
  ===========================*/
+require get_template_directory() . '/inc/post_status.php';
 require get_template_directory() . '/inc/constants.php';
 require get_template_directory() . '/inc/outfit_init.php';
 require get_template_directory() . '/inc/theme-support.php';

@@ -1510,10 +1510,12 @@ jQuery(document).ready(function(jQuery){
 	});
 
     // confirm deleting product - by Milla
-    var modalConfirmDelete = function(callback){
+    var modalConfirmDelete = function(selector, title, content, callback){
 
-        jQuery(".remove-post-button.post-rmv a").on("click", function(event){
+        jQuery(selector).on("click", function(event){
             event.preventDefault();
+            jQuery("#myModalLabel").text(title);
+            jQuery("#myModalText").text(content);
             jQuery('#remove-post-modal-data').val(jQuery(this).attr('href'));
             jQuery("#remove-post-modal").modal('show');
         });
@@ -1531,13 +1533,33 @@ jQuery(document).ready(function(jQuery){
         });
     };
 
-    modalConfirmDelete(function(confirm, location){
-        if(confirm){
-            window.location.replace(location);
-        }else{
-            // not confirmed
+    var soldLink = jQuery(".post-action-button-sold a");
+
+    modalConfirmDelete(".post-action-button-sold a",
+        soldLink.attr('data-title'),
+        soldLink.attr('data-content'),
+        function(confirm, location) {
+            if(confirm){
+                window.location.replace(location);
+            }else{
+                // not confirmed
+            }
         }
-    });
+    );
+
+    var removeLink = jQuery(".post-action-button-remove a");
+
+    modalConfirmDelete(".post-action-button-remove a",
+        removeLink.attr('data-title'),
+        removeLink.attr('data-content'),
+        function(confirm, location) {
+            if(confirm){
+                window.location.replace(location);
+            }else{
+                // not confirmed
+            }
+        }
+    );
 
 });
 jQuery(window).on('load', function () {	
