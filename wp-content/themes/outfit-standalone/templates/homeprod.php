@@ -118,7 +118,7 @@ foreach ($postsRows as $i => $postRow) { ?>
 								}
 
 								foreach ( $postRow['data'] as $postIndex => $post ) : setup_postdata( $post );
-									if ($postIndex == $lastIndex) break;
+									if ($postIndex > $lastIndex) break;
 								?>
 									<div class="col-lg-4 col-md-4 col-sm-6 item">
 										<div class="classiera-box-div classiera-box-div-v1">
