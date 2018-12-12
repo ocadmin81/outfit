@@ -29,6 +29,8 @@ wp_get_current_user();
 $currentUser = $current_user;
 $userId = $user_id = $currentUser->ID;
 
+$currentUserFavoriteAds = outfit_authors_all_favorite($userId);
+
 $postsRows = array();
 
 if ($loggedIn) {
@@ -106,7 +108,18 @@ foreach ($postsRows as $i => $postRow) { ?>
 					<div class="user-ads favorite-ads">
 						<div class="my-ads products">
 							<div class="row">
-								<?php foreach ( $postRow['data'] as $post ) : setup_postdata( $post ); ?>
+								<?php
+								$postsInRow = count($postRow['data']);
+								if ($isMobile && $postsInRow > 1 && ($postsInRow % 2) == 1) {
+									$lastIndex = $postsInRow - 2;
+								}
+								else {
+									$lastIndex = $postsInRow - 1;
+								}
+
+								foreach ( $postRow['data'] as $postIndex => $post ) : setup_postdata( $post );
+									if ($postIndex == $lastIndex) break;
+								?>
 									<div class="col-lg-4 col-md-4 col-sm-6 item">
 										<div class="classiera-box-div classiera-box-div-v1">
 											<figure class="clearfix">
