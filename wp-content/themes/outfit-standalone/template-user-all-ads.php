@@ -147,12 +147,13 @@ get_header(); ?>
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel"><?php echo esc_html_e( 'Are you sure?', 'outfit-standalone' ); ?></h4>
+					<h4 class="modal-title" id="myModalLabel"><?php echo esc_html_e( 'בטוח שתרצו להסיר את המוצר?', 'outfit-standalone' ); ?></h4>
+					<p><?php echo esc_html_e( 'ברגע שתלחצו על כן, המוצר שפירסמתם יירד מהמערכת, האם אתה בטוח?', 'outfit-standalone' ); ?></p>
 				</div>
 				<div class="modal-footer">
 					<input type="hidden" value="" id="remove-post-modal-data">
-					<button type="button" class="btn btn-default" id="remove-post-modal-yes"><?php echo esc_html_e( 'Yes', 'outfit-standalone' ); ?></button>
-					<button type="button" class="btn btn-primary" id="remove-post-modal-no"><?php echo esc_html_e( 'No', 'outfit-standalone' ); ?></button>
+					<button type="button" class="btn btn-yes" id="remove-post-modal-yes"><?php echo esc_html_e( 'כן', 'outfit-standalone' ); ?></button>
+					<button type="button" class="btn btn-no" id="remove-post-modal-no"><?php echo esc_html_e( 'לא', 'outfit-standalone' ); ?></button>
 				</div>
 			</div>
 		</div>
