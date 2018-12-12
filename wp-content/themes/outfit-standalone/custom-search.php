@@ -37,7 +37,7 @@ if (isset($_GET['cat_id']) && !empty($_GET['cat_id'])) {
 }
 
 if (null !== $thisCategory) {
-	$subCategories = getSubCategories($catId);
+	$subCategories = getSubCategories($catId, true);
 	$outfitMainCat = outfit_get_cat_ancestors($catId);
 
 	if (false === $outfitMainCat) {
@@ -98,6 +98,17 @@ $postCharacter = getGetMultiple('postCharacter', true);;
 $postKeyword = getGetInput('s', '');
 $postLocation = null;
 $postPrice = getGetMultiple('priceRange', true);
+
+$pageTitle = '';
+if (isset($_GET['bpg']) && count($postBrand) > 0) {
+	$term = get_term($postBrand[0], 'brands');
+	if (!is_wp_error($term)) {
+		$pageTitle = $term->name;
+	}
+}
+else if (!empty($postKeyword)) {
+	$pageTitle = $postKeyword;
+}
 
 // post primary location
 $postAddress = trim(getGetInput('address'));
@@ -273,7 +284,7 @@ if (!empty($metaQuery)) {
 			<div class="cat-content">
 			<div class="row">
 				<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
-					<h1 class="cat-title"><?php echo esc_html($thisCategory->name); ?></h1>
+					<h1 class="cat-title"><?php echo esc_html($pageTitle); ?></h1>
 				<?php endif; ?>
 				<div class="col-md-4 col-lg-3 col-sm-4">
 					<aside class="sidebar cat-sidebar">
@@ -325,7 +336,7 @@ if (!empty($metaQuery)) {
 											</script>
 											<!-- Posts-->
 											<?php if (!$detect->isMobile() || $detect->isTablet()): ?>
-												<h1 class="cat-title"><?php echo esc_html($thisCategory->name); ?></h1>
+												<h1 class="cat-title"><?php echo esc_html($pageTitle); ?></h1>
 											<?php endif; ?>
 											<?php
 

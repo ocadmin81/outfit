@@ -24,12 +24,12 @@ if ($currentUserId) {
 	$searchPrefLocation = OutfitLocation::createFromJSON(get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true));
 }
 
-$postColor = getGetMultiple('postColor', []);
-$postAgeGroup = getGetMultiple('postAgeGroup', []);;
-$postBrand = getGetMultiple('postBrand', []);;
-$postCondition = getGetMultiple('postCondition', []);;
-$postWriter = getGetMultiple('postWriter', []);;
-$postCharacter = getGetMultiple('postCharacter', []);;
+$postColor = getGetMultiple('postColor', true);
+$postAgeGroup = getGetMultiple('postAgeGroup', true);;
+$postBrand = getGetMultiple('postBrand', true);;
+$postCondition = getGetMultiple('postCondition', true);;
+$postWriter = getGetMultiple('postWriter', true);;
+$postCharacter = getGetMultiple('postCharacter', true);;
 $postKeyword = getGetInput('s', '');
 $postLocation = null;
 $postPrice = getGetMultiple('priceRange', []);
