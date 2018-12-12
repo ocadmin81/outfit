@@ -29,7 +29,7 @@ $userId = $current_user->ID;
 <?php while ( have_posts() ) : the_post(); ?>
 
 	<?php
-	$postId = $post->ID;
+	$postId = $mainPostId = $post->ID;
 	/* save to recent products */
 	if (!empty($userId)) {
 		$recent = get_user_meta($userId, USER_META_LAST_PRODUCTS, true);
@@ -75,6 +75,9 @@ $userId = $current_user->ID;
 			outfit_delete_author_follower($_POST['author_id'], $userId);
 		}
 	}
+
+	global $currentUserFavoriteAds;
+	$currentUserFavoriteAds = outfit_authors_all_favorite($userId);
 
 	get_header();
 
@@ -141,6 +144,10 @@ $userId = $current_user->ID;
 			$authorEmail = get_the_author_meta(USER_META_EMAIL, $postAuthorId);
 			$authorPhone = get_the_author_meta(USER_META_PHONE, $postAuthorId);
 			$authorPreferredHours = get_the_author_meta(USER_META_PREFERRED_HOURS, $postAuthorId);
+
+			$authorPosts = getOutfitAdsByAuthor($postAuthorId, 1, 5);
+
+			$categoryPosts = outfit_get_category_posts_by_id($postCategories, 5);
 
 			?>
 			<?php if ( get_post_status ( $post->ID ) == 'pending' ) {?>
@@ -428,7 +435,69 @@ $userId = $current_user->ID;
 				</div>				
 			</div>
 		</div>
+
+
 	</section>
+
+	<?php if (count($authorPosts) > 1) { ?>
+	<section class="author-box author-page">
+		<div class="wrap author-box-bg seller-ads products">
+			<div class="view-head">
+				<div class="row">
+					<div class="col-md-12">
+						<h5><?php esc_html_e( 'More from this seller', 'outfit-standalone' ); ?></h5>
+					</div>
+				</div><!--row-->
+			</div><!--view-head-->
+			<div class="tab-content">
+				<div class="row">
+					<?php
+					foreach ( $authorPosts as $post ) : setup_postdata( $post ); ?>
+						<?php
+						if ($post->ID != $mainPostId) {
+							get_template_part('templates/loops/product');
+						}
+						?>
+						<?php
+					endforeach;
+					wp_reset_postdata();
+					?>
+				</div><!--row-->
+				<?php wp_reset_query(); ?>
+			</div><!--tab-content-->
+		</div>
+	</section>
+	<?php } ?>
+
+	<?php if (count($categoryPosts) > 1) { ?>
+		<section class="author-box author-page">
+			<div class="wrap author-box-bg seller-ads products">
+				<div class="view-head">
+					<div class="row">
+						<div class="col-md-12">
+							<h5><?php esc_html_e( 'More items like this', 'outfit-standalone' ); ?></h5>
+						</div>
+					</div><!--row-->
+				</div><!--view-head-->
+				<div class="tab-content">
+					<div class="row">
+						<?php
+						foreach ( $categoryPosts as $post ) : setup_postdata( $post ); ?>
+							<?php
+							if ($post->ID != $mainPostId) {
+								get_template_part('templates/loops/product');
+							}
+							?>
+							<?php
+						endforeach;
+						wp_reset_postdata();
+						?>
+					</div><!--row-->
+					<?php wp_reset_query(); ?>
+				</div><!--tab-content-->
+			</div>
+		</section>
+	<?php } ?>
 
 <?php endwhile; ?>
 <?php get_footer();

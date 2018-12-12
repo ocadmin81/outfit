@@ -161,7 +161,7 @@ get_header();
 			</div><!--col-lg-12-->
 		</div><!--row-->
 	</div><!--container border author-box-bg-->
-		<div class="wrap author-box-bg seller-ads products">
+	<div class="wrap author-box-bg seller-ads products">
 			<div class="view-head">
 				<div class="row">
 					<div class="col-md-12">

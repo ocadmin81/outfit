@@ -547,4 +547,20 @@ function outfit_get_category_posts($catslug, $count) {
     return $posts;
 }
 
+function outfit_get_category_posts_by_id($catId, $count) {
 
+    $posts = array();
+    if (empty($catId)) {
+        return $posts;
+    }
+    $args = array(
+        'post_type' => OUTFIT_AD_POST_TYPE,
+        'post_status' => 'publish',
+        'posts_per_page' => $count,
+        'paged' => 1,
+        'cat' => $catId
+    );
+
+    $posts = get_posts($args);
+    return $posts;
+}
