@@ -20,6 +20,9 @@ global $catId;
 global $paged, $wp_query, $wp, $post;
 global $outfitMainCat, $subCategories;
 
+require_once 'Mobile_Detect.php';
+$detect = new Mobile_Detect;
+
 $catId = '';
 $subCategories = array();
 $thisCategory = null;
@@ -34,7 +37,7 @@ if (isset($_GET['cat_id']) && !empty($_GET['cat_id'])) {
 }
 
 if (null !== $thisCategory) {
-	$subCategories = getSubCategories($catId);
+	$subCategories = getSubCategories($catId, true);
 	$outfitMainCat = outfit_get_cat_ancestors($catId);
 
 	if (false === $outfitMainCat) {
@@ -278,7 +281,7 @@ if (!empty($metaQuery)) {
 							<!--subcategory-->
 							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="widget-box">
-									<div class="widget-title"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
+									<div class="widget-title title-desk"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 									<div class="box-title-mobile">
 										<div class="widget-title pop-form"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i> <?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 										<div class="widget-title pop-map"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/addr.png" /><a href="#map" aria-controls="map" role="tab" data-toggle="tab"><?php esc_html_e( 'מפה', 'outfit-standalone' ); ?></a></div>

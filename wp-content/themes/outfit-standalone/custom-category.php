@@ -129,8 +129,8 @@ if (false === $outfitMainCat) {
 else {
 	$outfitMainCat = end($outfitMainCat);
 }
-$subCategories = getSubCategories($outfitMainCat);
-//$subCategories = getSubCategories($catId);
+//$subCategories = getSubCategories($outfitMainCat);
+$subCategories = getSubCategories($thisCategory->term_id, true);
 $products = array();
 
 require_once 'Mobile_Detect.php';
@@ -138,7 +138,12 @@ $detect = new Mobile_Detect;
 
 get_header();
 ?>
-
+<div style="display: none">
+	<?php
+	echo 'This category: '.$thisCategory->term_id;
+	var_dump($thisCategory);
+	?>
+</div>
 <!-- page content -->
 <section class="inner-page-content top-pad-50 aaa">
 	<div class="wrap">		
@@ -174,7 +179,7 @@ get_header();
 							<!--subcategory-->
 							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="widget-box">
-									<div class="widget-title"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
+									<div class="widget-title title-desk"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 									<div class="box-title-mobile">
 										<div class="widget-title pop-form"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i> <?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 										<div class="widget-title pop-map"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/addr.png" /><a href="#map" aria-controls="map" role="tab" data-toggle="tab"><?php esc_html_e( 'מפה', 'outfit-standalone' ); ?></a></div>
