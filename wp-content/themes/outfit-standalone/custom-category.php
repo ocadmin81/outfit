@@ -129,8 +129,8 @@ if (false === $outfitMainCat) {
 else {
 	$outfitMainCat = end($outfitMainCat);
 }
-//$subCategories = getSubCategories($outfitMainCat);
-$subCategories = getSubCategories($catId);
+$subCategories = getSubCategories($outfitMainCat);
+//$subCategories = getSubCategories($catId);
 $products = array();
 
 require_once 'Mobile_Detect.php';

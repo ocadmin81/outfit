@@ -269,16 +269,20 @@ if (!empty($metaQuery)) {
 			</div><!--view-head-->	
 			<div class="cat-content">
 			<div class="row">
-				<div class="col-md-4 col-lg-3">
+				<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
+					<h1 class="cat-title"><?php echo esc_html($thisCategory->name); ?></h1>
+				<?php endif; ?>
+				<div class="col-md-4 col-lg-3 col-sm-4">
 					<aside class="sidebar cat-sidebar">
 						<div class="row">
 							<!--subcategory-->
-							<div class="col-lg-12 col-md-12 col-sm-6">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="widget-box">
 									<div class="box-title-mobile">
 										<div class="widget-title pop-form"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i> <?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 										<div class="widget-title pop-map"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/addr.png" /><a href="#map" aria-controls="map" role="tab" data-toggle="tab"><?php esc_html_e( 'מפה', 'outfit-standalone' ); ?></a></div>
 									<div>
+									<div class="filter-fixed-title"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 									<div class="widget-content" style="display:none;">
 										<ul class="category">
 										<?php
@@ -296,9 +300,10 @@ if (!empty($metaQuery)) {
 									</div>
 								</div>
 							</div>
+
 							<!--subcategory-->
 
-							<div class="col-lg-12 col-md-12 col-sm-6">
+							<div class="col-lg-12 col-md-12 col-sm-12">
 								<div class="widget-box">
 									<?php get_template_part( 'templates/outfit-adv-search' );?>
 								</div>
@@ -306,7 +311,7 @@ if (!empty($metaQuery)) {
 						</div><!--row-->
 					</aside>
 				</div><!--row-->		
-				<div class="col-md-8 col-lg-9">
+				<div class="col-md-8 col-lg-9 col-sm-8">
 					<!-- advertisement -->
 					<section class="classiera-advertisement advertisement-v7 section-pad">
 							<div class="tab-content">
@@ -316,7 +321,9 @@ if (!empty($metaQuery)) {
 
 											</script>
 											<!-- Posts-->
-											<h1 class="cat-title"><?php echo esc_html($thisCategory->name); ?></h1>
+											<?php if (!$detect->isMobile() || $detect->isTablet()): ?>
+												<h1 class="cat-title"><?php echo esc_html($thisCategory->name); ?></h1>
+											<?php endif; ?>
 											<?php
 
 											$wp_query= null;

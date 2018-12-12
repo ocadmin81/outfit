@@ -16,7 +16,8 @@ global $catObj;
 require_once 'Mobile_Detect_Prods.php';
 $detect = new Mobile_Detect_Prods;
 $count = 5;
-if ($detect->isMobile() && !$detect->isTablet())
+$isMobile = ($detect->isMobile() && !$detect->isTablet());
+if ($isMobile)
 	$count = 4;
 $catslugs = [
 	'clothing' => 'Shop for clothes',

@@ -1439,7 +1439,7 @@ function outfit_save_search_filters() {
 }
 
 function outfit_get_brand_link($termId) {
-	$query = 'outfit_ad=1&search=1&postBrand='.$termId;
+	$query = 'outfit_ad=1&search=1&postBrand='.$termId.'&bpg=1';
 	$link = home_url('?' . $query );
 	return $link;
 }
