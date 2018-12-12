@@ -1198,6 +1198,17 @@ function outfit_edit_ad_url($postId) {
 	return $editPostUrl;
 }
 
+function outfit_get_category_link ($catId) {
+	$catUrl = get_category_link($catId);
+	global $wp_rewrite;
+	if ($wp_rewrite->permalink_structure == ''){
+		$catUrl .= "&outfit_ad";
+	}else{
+		$catUrl .= "?outfit_ad";
+	}
+	return $catUrl;
+}
+
 function outfit_login_url_back($back_to = '', $action = '', $post_id = '') {
 
 	if (empty($back_to)) {

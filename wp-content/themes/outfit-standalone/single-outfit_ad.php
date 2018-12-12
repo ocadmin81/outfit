@@ -147,7 +147,7 @@ $userId = $current_user->ID;
 
 			$authorPosts = getOutfitAdsByAuthor($postAuthorId, 1, 5);
 
-			$categoryPosts = outfit_get_category_posts_by_id($postCategories, 5);
+			$categoryPosts = outfit_get_category_posts_by_id($outfitMainCat, 5);
 
 			?>
 			<?php if ( get_post_status ( $post->ID ) == 'pending' ) {?>
@@ -464,6 +464,9 @@ $userId = $current_user->ID;
 					?>
 				</div><!--row-->
 				<?php wp_reset_query(); ?>
+				<div class="cat-link">
+					<a href="<?php echo get_author_posts_url( $postAuthorId ); ?>">הצג עוד</a>
+				</div>
 			</div><!--tab-content-->
 		</div>
 	</section>
@@ -494,6 +497,9 @@ $userId = $current_user->ID;
 						?>
 					</div><!--row-->
 					<?php wp_reset_query(); ?>
+					<div class="cat-link">
+						<a href="<?php echo esc_url(outfit_get_category_link($outfitMainCat)) ?>">הצג עוד</a>
+					</div>
 				</div><!--tab-content-->
 			</div>
 		</section>
