@@ -300,12 +300,12 @@ get_header();
 														var point = {lat: lat, lng: long};
 
 														map = new google.maps.Map(
-															document.getElementById('outfit_main_map'), {zoom: 10, center: point});
+															document.getElementById('outfit_main_map'), {zoom: 9, center: point});
 
 														loadAddressPoints();
 
 														if (topMarkerPoint.lat > 0) {
-															map.panTo(topMarkerPoint);
+															map.setCenter(topMarkerPoint);
 														}
 													}
 
