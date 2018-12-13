@@ -111,7 +111,7 @@ get_header(); ?>
 														</div>
 													</div><!--premium-img-->
 													<div class="remove-post-button post-rmv">
-														<a href="<?php //echo esc_url($deletePostUrl) ?>">
+														<a href="javascript:void(0)">
 															<span class="remove-post"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
 															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
 														</a>
@@ -119,8 +119,8 @@ get_header(); ?>
 													<div class="remove-post-button-set" style="display: none;">
 														<div class="post-action-button-sold">
 														<a class="" href="<?php echo esc_url($soldPostUrl) ?>"
-														   data-title="<?php echo esc_html_e( 'בטוח שתרצו להסיר את המוצר?', 'outfit-standalone' ); ?>"
-														   data-content="<?php echo esc_html_e( 'ברגע שתלחצו על כן, המוצר שפירסמתם יירד מהמערכת, האם אתה בטוח?', 'outfit-standalone' ); ?>">
+														   data-title="<?php echo esc_html_e( 'האם לסמן את המוצר כ"נמכר" ולהסירו מקטגוריה?', 'outfit-standalone' ); ?>"
+														   data-content="<?php echo esc_html_e( 'הסבר', 'outfit-standalone' ); ?>">
 															<span class="remove-post">
 																<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" />
 																<?php esc_html_e('Set as sold', 'outfit-standalone'); ?>

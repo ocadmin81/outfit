@@ -1509,6 +1509,11 @@ jQuery(document).ready(function(jQuery){
 		searchInputPlaceholder: 'חיפוש'
 	});
 
+    jQuery('.remove-post-button.post-rmv a').on("click", function(event){
+        event.preventDefault();
+        jQuery(this).next().toggle();
+    });
+
     // confirm deleting product - by Milla
     var modalConfirmDelete = function(selector, title, content, callback){
 
