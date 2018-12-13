@@ -24,6 +24,7 @@ $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $perPage = 20;
 
 $pagepermalink = get_permalink($post->ID);
+$currentPageId = $post->ID;
 
 if(isset($_GET['delete_id'])){
 	$deleteId = $_GET['delete_id'];
@@ -87,9 +88,12 @@ get_header(); ?>
 															$postAuthorId = $post->post_author;
 															$postAuthorName = getAuthorFullName($postAuthorId);
 															$editPostUrl = outfit_edit_ad_url($post->ID);
-															global $wp_rewrite;
-															$deletePostUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&delete_id=".$post->ID : $pagepermalink."?delete_id=".$post->ID;
-															$soldPostUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&sold_id=".$post->ID : $pagepermalink."?sold_id=".$post->ID;
+															//global $wp_rewrite;
+															//$deletePostUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&delete_id=".$post->ID : $pagepermalink."?delete_id=".$post->ID;
+															//$soldPostUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&sold_id=".$post->ID : $pagepermalink."?sold_id=".$post->ID;
+															$deletePostUrl = outfit_get_page_permalink($currentPageId, 'delete_id='.$post->ID);
+															$soldPostUrl = outfit_get_page_permalink($currentPageId, 'sold_id='.$post->ID);
+
 															//$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
 															$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
 															if( has_post_thumbnail()){

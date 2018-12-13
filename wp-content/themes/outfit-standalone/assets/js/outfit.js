@@ -1544,9 +1544,9 @@ jQuery(document).ready(function(jQuery){
     modalConfirmDelete(".post-action-button-sold a",
         soldLink.attr('data-title'),
         soldLink.attr('data-content'),
-        function(confirm, location) {
+        function(confirm, loc) {
             if(confirm){
-                window.location.href = location;
+                window.location.replace(loc);
             }else{
                 // not confirmed
             }
@@ -1558,9 +1558,9 @@ jQuery(document).ready(function(jQuery){
     modalConfirmDelete(".post-action-button-remove a",
         removeLink.attr('data-title'),
         removeLink.attr('data-content'),
-        function(confirm, location) {
+        function(confirm, loc) {
             if(confirm){
-                window.location.href = location;
+                window.location.replace(loc);
             }else{
                 // not confirmed
             }

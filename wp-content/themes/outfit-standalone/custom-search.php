@@ -405,15 +405,20 @@ if (!empty($metaQuery)) {
 													var map;
 													var infowindows = [];
 													var mapMarkerUrl = "<?php echo esc_url(get_stylesheet_directory_uri().'/assets/images/map-marker.png') ?>";
+													var topMarkerPoint = {lat: 0, lng: 0};
+													var topLatitude = 0;
 
 													function initMap(lat, long) {
 														var point = {lat: lat, lng: long};
 
 														map = new google.maps.Map(
-															document.getElementById('outfit_main_map'), {zoom: 7, center: point});
+															document.getElementById('outfit_main_map'), {zoom: 13, center: point});
 
 														loadAddressPoints();
 
+														if (topMarkerPoint.lat > 0) {
+															map.panTo(topMarkerPoint);
+														}
 													}
 
 													function closeAllInfowindows() {
@@ -437,6 +442,11 @@ if (!empty($metaQuery)) {
 
 																var coords = a.locations[j];
 																var position = {lat: parseFloat(coords[0]), lng: parseFloat(coords[1])};
+																if (position.lat > topLatitude) {
+																	topLatitude = position.lat;
+																	topMarkerPoint.lat = topLatitude;
+																	topMarkerPoint.lng = position.lng;
+																}
 																var marker = new google.maps.Marker({position: position, map: map, title: a.title, icon: mapMarkerUrl});
 																(function (m, iw) {
 																	m.addListener('click', function() {
