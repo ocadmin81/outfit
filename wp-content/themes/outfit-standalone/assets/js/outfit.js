@@ -43,11 +43,11 @@
 
     $.fn.toggleRequired = function( required ) {
         var showAndRequired = (required? true : false);
-        if (this.get(0).tagName.toLowerCase() == 'div') {
+        if ($(this).get(0).tagName.toLowerCase() == 'div') {
             this.find('select, input[type="text"], textarea').prop('required', showAndRequired);
             return (showAndRequired? this.show() : this.hide());
         }
-        return this.prop('required', (required? true : false));
+        return $(this).prop('required', (required? true : false));
 
     };
 
