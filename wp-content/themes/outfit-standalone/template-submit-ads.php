@@ -352,6 +352,8 @@ get_header(); ?>
 														data-character-enabled="<?php echo ($c->catFilterByCharacter? '1' : '0'); ?>"
 														data-age-enabled="<?php echo ($c->catFilterByAge? '1' : '0'); ?>"
 														data-condition-enabled="<?php echo ($c->catFilterByCondition? '1' : '0'); ?>"
+														data-gender-enabled="<?php echo ($c->catFilterByGender? '1' : '0'); ?>"
+														data-language-enabled="<?php echo ($c->catFilterByLanguage? '1' : '0'); ?>"
 													><?php esc_html_e($c->name); ?></option>
 											<?php endforeach; ?>
 										</select>

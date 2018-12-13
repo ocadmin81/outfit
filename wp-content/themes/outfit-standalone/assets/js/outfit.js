@@ -395,7 +395,15 @@ jQuery(document).ready(function(jQuery){
         var characterFilter = selected.attr('data-character-enabled');
         if (characterFilter == '1') {
             jQuery('.post-characters-container').toggleRequired(1);
-    }
+        }
+        var genderFilter = selected.attr('data-gender-enabled');
+        if (genderFilter == '1') {
+            jQuery('.post-genders-container').toggleRequired(1);
+        }
+        var languageFilter = selected.attr('data-language-enabled');
+        if (languageFilter == '1') {
+            jQuery('.post-languages-container').toggleRequired(1);
+        }
 
         mainCatText = selected.text();
 		var data = {

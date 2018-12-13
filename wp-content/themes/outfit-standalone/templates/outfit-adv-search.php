@@ -12,7 +12,8 @@ $conditions = outfit_get_list_of_conditions();
 $writers = outfit_get_list_of_writers();
 $characters = outfit_get_list_of_characters();
 $brands = getBrandsByCategory($outfitMainCat);
-
+$genders = outfit_get_list_of_genders();
+$languages = outfit_get_list_of_languages();
 
 
 global $currentUserId;
@@ -25,11 +26,13 @@ if ($currentUserId) {
 }
 
 $postColor = getGetMultiple('postColor', true);
-$postAgeGroup = getGetMultiple('postAgeGroup', true);;
-$postBrand = getGetMultiple('postBrand', true);;
-$postCondition = getGetMultiple('postCondition', true);;
-$postWriter = getGetMultiple('postWriter', true);;
-$postCharacter = getGetMultiple('postCharacter', true);;
+$postAgeGroup = getGetMultiple('postAgeGroup', true);
+$postBrand = getGetMultiple('postBrand', true);
+$postCondition = getGetMultiple('postCondition', true);
+$postWriter = getGetMultiple('postWriter', true);
+$postCharacter = getGetMultiple('postCharacter', true);
+$postGender = getGetMultiple('postGender', true);
+$postLanguage = getGetMultiple('postLanguage', true);
 $postKeyword = getGetInput('s', '');
 $postLocation = null;
 $postPrice = getGetMultiple('priceRange', []);
@@ -297,6 +300,47 @@ else {
 				</div>
 				<!--Characters-->
 			<?php } ?>
+
+			<?php if ($filterBy && $filterBy->catFilterByGender) { ?>
+				<!--Genders-->
+				<div class="inner-search-box">
+					<div class="inner-search-heading"><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></div>
+					<div class="inner-addon right-addon">
+						<?php
+						foreach ($genders as $i => $c):
+							$checked = in_array($c->term_id, $postGender)? 'checked' : '';
+							?>
+							<div class="checkbox">
+								<input type="checkbox" id="<?php echo esc_attr('gender_'.$i); ?>" name="postGender[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
+								<label for="<?php echo esc_attr('gender_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+							</div>
+						<?php endforeach; ?>
+					</div>
+
+				</div>
+				<!--Genders-->
+			<?php } ?>
+
+			<?php if ($filterBy && $filterBy->catFilterByLanguage) { ?>
+				<!--Languages-->
+				<div class="inner-search-box">
+					<div class="inner-search-heading"><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></div>
+					<div class="inner-addon right-addon">
+						<?php
+						foreach ($languages as $i => $c):
+							$checked = in_array($c->term_id, $postLanguage)? 'checked' : '';
+							?>
+							<div class="checkbox">
+								<input type="checkbox" id="<?php echo esc_attr('language_'.$i); ?>" name="postLanguage[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
+								<label for="<?php echo esc_attr('language_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+							</div>
+						<?php endforeach; ?>
+					</div>
+
+				</div>
+				<!--Languages-->
+			<?php } ?>
+
 			<input type="hidden" name="cat_id" value="<?php echo $catId; ?>">
 			<input type="hidden" name="search">
 			<input type="hidden" name="outfit_ad">
