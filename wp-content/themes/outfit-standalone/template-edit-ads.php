@@ -71,6 +71,8 @@ $brands = array();
 $conditions = outfit_get_list_of_conditions();
 $writers = outfit_get_list_of_writers();
 $characters = outfit_get_list_of_characters();
+$genders = outfit_get_list_of_genders();
+$languages = outfit_get_list_of_languages();
 $termsandcondition = '/תנאי-שימוש-באתר';
 /*
  * post data
@@ -132,6 +134,8 @@ $postConditions = getPostConditions($postId);
 $postCondition = (isset($postConditions[0])? $postConditions[0] : '');
 $postWriter = getPostWriters($postId);
 $postCharacter = getPostCharacters($postId);
+$postGender = getPostGenders($postId);
+$postLanguage = getPostLanguages($postId);
 /*
  * upload_attachment[]
  * postTitle
@@ -478,6 +482,8 @@ get_header(); ?>
 														data-character-enabled="<?php echo ($c->catFilterByCharacter? '1' : '0'); ?>"
 														data-age-enabled="<?php echo ($c->catFilterByAge? '1' : '0'); ?>"
 														data-condition-enabled="<?php echo ($c->catFilterByCondition? '1' : '0'); ?>"
+														data-gender-enabled="<?php echo ($c->catFilterByGender? '1' : '0'); ?>"
+														data-language-enabled="<?php echo ($c->catFilterByLanguage? '1' : '0'); ?>"
 														<?php if ($outfitMainCat && $c->term_id == $outfitMainCat) {
 															$filterBy = $c;
 															echo 'selected';
@@ -603,6 +609,41 @@ get_header(); ?>
 										</select>
 									</div>
 								</div><!-- /Ad Characters-->
+
+								<div class="form-group post-genders-container"
+									 style="<?php echo (($filterBy && $filterBy->catFilterByGender)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('מין', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="writer" name="postGender[]" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByGender)? 'required' : ''); ?>>
+											<option></option>
+											<?php
+											foreach ($genders as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $postGender)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Genders-->
+
+								<div class="form-group post-genders-container"
+									 style="<?php echo (($filterBy && $filterBy->catFilterByLanguage)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('שפה', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="writer" name="postLanguage[]" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByLanguage)? 'required' : ''); ?>>
+											<option></option>
+											<?php
+											foreach ($languages as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $postLanguage)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Languages-->
+
 							</div>
 							<div class="form-group">
 								<label class="text-left flip" for="description"><?php esc_html_e('תיאור הפריט', 'outfit-standalone') ?> : </label>

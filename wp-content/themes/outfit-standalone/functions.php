@@ -822,6 +822,8 @@ function outfit_my_category_fields($tag) {
 	$catFilterByCondition = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_condition'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_condition'] : false;
 	$catFilterByWriter = isset( $extraFields[$tag->term_id]['category_filter_by_writer'] ) ? $extraFields[$tag->term_id]['category_filter_by_writer'] : false;
 	$catFilterByCharacter = isset( $extraFields[$tag->term_id]['category_filter_by_character'] ) ? $extraFields[$tag->term_id]['category_filter_by_character'] : false;
+	$catFilterByGender = isset( $extraFields[$tag->term_id]['category_filter_by_gender'] ) ? $extraFields[$tag->term_id]['category_filter_by_gender'] : false;
+	$catFilterByLanguage = isset( $extraFields[$tag->term_id]['category_filter_by_language'] ) ? $extraFields[$tag->term_id]['category_filter_by_language'] : false;
 
 	?>
 
@@ -875,6 +877,22 @@ function outfit_my_category_fields($tag) {
 						   value="1" <?php echo ($catFilterByCharacter? "checked" : "") ?> />
 				</td>
 			</tr>
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Gender', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_gender" type="checkbox" name="category_filter_by_gender"
+						   value="1" <?php echo ($catFilterByGender? "checked" : "") ?> />
+				</td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Language', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_language" type="checkbox" name="category_filter_by_language"
+						   value="1" <?php echo ($catFilterByLanguage? "checked" : "") ?> />
+				</td>
+			</tr>
 		</table>
 	</div>
 
@@ -893,6 +911,8 @@ function outfit_update_my_category_fields($term_id) {
 			$tag_extra_fields[$term_id]['category_filter_by_writer'] = isset($_POST['category_filter_by_writer'])? true : false;
 			$tag_extra_fields[$term_id]['category_filter_by_character'] = isset($_POST['category_filter_by_character'])? true : false;
 			$tag_extra_fields[$term_id]['category_filter_by_condition'] = isset($_POST['category_filter_by_condition'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_gender'] = isset($_POST['category_filter_by_gender'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_language'] = isset($_POST['category_filter_by_language'])? true : false;
 			update_option(MY_CATEGORY_FIELDS, $tag_extra_fields);
 		endif;
 	}

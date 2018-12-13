@@ -39,7 +39,8 @@ function fetch_category_custom_fields($category) {
     $category->catFilterByCondition = isset( $extraFields[$category->term_id]['category_filter_by_condition'] ) ? $extraFields[$category->term_id]['category_filter_by_condition'] : false;
     $category->catFilterByWriter = isset( $extraFields[$category->term_id]['category_filter_by_writer'] ) ? $extraFields[$category->term_id]['category_filter_by_writer'] : false;
     $category->catFilterByCharacter = isset( $extraFields[$category->term_id]['category_filter_by_character'] ) ? $extraFields[$category->term_id]['category_filter_by_character'] : false;
-
+    $category->catFilterByGender = isset( $extraFields[$category->term_id]['category_filter_by_gender'] ) ? $extraFields[$category->term_id]['category_filter_by_gender'] : false;
+    $category->catFilterByLanguage = isset( $extraFields[$category->term_id]['category_filter_by_language'] ) ? $extraFields[$category->term_id]['category_filter_by_language'] : false;
     return $category;
 }
 
@@ -86,6 +87,16 @@ function outfit_get_list_of_conditions() {
 function outfit_get_list_of_writers() {
 
     return outfit_get_list_of_filters('writers');
+}
+
+function outfit_get_list_of_genders() {
+
+    return outfit_get_list_of_filters('genders');
+}
+
+function outfit_get_list_of_languages() {
+
+    return outfit_get_list_of_filters('languages');
 }
 
 function outfit_get_list_of_characters() {
@@ -220,6 +231,14 @@ function getPostWriters($postId) {
 
 function getPostCharacters($postId) {
     return getPostTermIds($postId, 'characters');
+}
+
+function getPostGenders($postId) {
+    return getPostTermIds($postId, 'genders');
+}
+
+function getPostLanguages($postId) {
+    return getPostTermIds($postId, 'languages');
 }
 
 function getCategoryPath($postId) {

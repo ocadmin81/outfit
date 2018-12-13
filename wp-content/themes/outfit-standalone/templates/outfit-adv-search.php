@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 87fb7bed30a3c58d56f3be6adddc3f0cbac59b7c
 <?php
 
 global $redux_demo;
@@ -13,7 +16,12 @@ $conditions = outfit_get_list_of_conditions();
 $writers = outfit_get_list_of_writers();
 $characters = outfit_get_list_of_characters();
 $brands = getBrandsByCategory($outfitMainCat);
+<<<<<<< HEAD
 
+=======
+$genders = outfit_get_list_of_genders();
+$languages = outfit_get_list_of_languages();
+>>>>>>> 87fb7bed30a3c58d56f3be6adddc3f0cbac59b7c
 
 
 global $currentUserId;
@@ -26,11 +34,21 @@ if ($currentUserId) {
 }
 
 $postColor = getGetMultiple('postColor', true);
+<<<<<<< HEAD
 $postAgeGroup = getGetMultiple('postAgeGroup', true);;
 $postBrand = getGetMultiple('postBrand', true);;
 $postCondition = getGetMultiple('postCondition', true);;
 $postWriter = getGetMultiple('postWriter', true);;
 $postCharacter = getGetMultiple('postCharacter', true);;
+=======
+$postAgeGroup = getGetMultiple('postAgeGroup', true);
+$postBrand = getGetMultiple('postBrand', true);
+$postCondition = getGetMultiple('postCondition', true);
+$postWriter = getGetMultiple('postWriter', true);
+$postCharacter = getGetMultiple('postCharacter', true);
+$postGender = getGetMultiple('postGender', true);
+$postLanguage = getGetMultiple('postLanguage', true);
+>>>>>>> 87fb7bed30a3c58d56f3be6adddc3f0cbac59b7c
 $postKeyword = getGetInput('s', '');
 $postLocation = null;
 $postPrice = getGetMultiple('priceRange', []);
@@ -114,7 +132,12 @@ else {
 					<input class="aal3" type="hidden" id="aal3" name="aal3" value="<?php echo esc_html($postArea3); ?>">
 					<input class="aal2" type="hidden" id="aal2" name="aal2" value="<?php echo esc_html($postArea2); ?>">
 					<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
+<<<<<<< HEAD
 				</div>				
+=======
+				</div>
+				<div><a class="clear-address-filter" href="javascript:void(0)">clear address</a></div>
+>>>>>>> 87fb7bed30a3c58d56f3be6adddc3f0cbac59b7c
 			</div>
 
 			<!--Locations-->
@@ -296,6 +319,7 @@ else {
 				</div>
 				<!--Characters-->
 			<?php } ?>
+<<<<<<< HEAD
 			<input type="hidden" name="cat_id" value="<?php echo $catId; ?>">
 			<input type="hidden" name="search">
 			<input type="hidden" name="outfit_ad">
@@ -581,11 +605,27 @@ else {
 							<div class="checkbox">
 								<input type="checkbox" id="<?php echo esc_attr('condition_'.$i); ?>" name="postCondition[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
 								<label for="<?php echo esc_attr('condition_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+=======
+
+			<?php if ($filterBy && $filterBy->catFilterByGender) { ?>
+				<!--Genders-->
+				<div class="inner-search-box">
+					<div class="inner-search-heading"><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></div>
+					<div class="inner-addon right-addon">
+						<?php
+						foreach ($genders as $i => $c):
+							$checked = in_array($c->term_id, $postGender)? 'checked' : '';
+							?>
+							<div class="checkbox">
+								<input type="checkbox" id="<?php echo esc_attr('gender_'.$i); ?>" name="postGender[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
+								<label for="<?php echo esc_attr('gender_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+>>>>>>> 87fb7bed30a3c58d56f3be6adddc3f0cbac59b7c
 							</div>
 						<?php endforeach; ?>
 					</div>
 
 				</div>
+<<<<<<< HEAD
 				<!--Conditions-->
 			<?php } ?>
 
@@ -601,11 +641,29 @@ else {
 							<div class="checkbox">
 								<input type="checkbox" id="<?php echo esc_attr('writer_'.$i); ?>" name="postWriter[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
 								<label for="<?php echo esc_attr('writer_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+=======
+				<!--Genders-->
+			<?php } ?>
+
+			<?php if ($filterBy && $filterBy->catFilterByLanguage) { ?>
+				<!--Languages-->
+				<div class="inner-search-box">
+					<div class="inner-search-heading"><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></div>
+					<div class="inner-addon right-addon">
+						<?php
+						foreach ($languages as $i => $c):
+							$checked = in_array($c->term_id, $postLanguage)? 'checked' : '';
+							?>
+							<div class="checkbox">
+								<input type="checkbox" id="<?php echo esc_attr('language_'.$i); ?>" name="postLanguage[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
+								<label for="<?php echo esc_attr('language_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+>>>>>>> 87fb7bed30a3c58d56f3be6adddc3f0cbac59b7c
 							</div>
 						<?php endforeach; ?>
 					</div>
 
 				</div>
+<<<<<<< HEAD
 				<!--Writers-->
 			<?php } ?>
 
@@ -628,6 +686,11 @@ else {
 				</div>
 				<!--Characters-->
 			<?php } ?>
+=======
+				<!--Languages-->
+			<?php } ?>
+
+>>>>>>> 87fb7bed30a3c58d56f3be6adddc3f0cbac59b7c
 			<input type="hidden" name="cat_id" value="<?php echo $catId; ?>">
 			<input type="hidden" name="search">
 			<input type="hidden" name="outfit_ad">
@@ -662,5 +725,8 @@ else {
 			//jQuery(this).closest('form').submit();
 		});
 	});
+<<<<<<< HEAD
 >>>>>>> ddb73ee2468531ef72c3fec93c27d47c392f17bc
+=======
+>>>>>>> 87fb7bed30a3c58d56f3be6adddc3f0cbac59b7c
 </script>
