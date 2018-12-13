@@ -43,7 +43,7 @@
 
     $.fn.toggleRequired = function( required ) {
         var showAndRequired = (required? true : false);
-        if ($(this).get(0).tagName.toLowerCase() == 'div') {
+        if (this.length && this.get(0).tagName.toLowerCase() == 'div') {
             this.find('select, input[type="text"], textarea').prop('required', showAndRequired);
             return (showAndRequired? this.show() : this.hide());
         }
@@ -373,6 +373,8 @@ jQuery(document).ready(function(jQuery){
         jQuery('.post-brands-container').toggleRequired(0);
         jQuery('.post-writers-container').toggleRequired(0);
         jQuery('.post-characters-container').toggleRequired(0);
+        jQuery('.post-genders-container').toggleRequired(0);
+        jQuery('.post-languages-container').toggleRequired(0);
         var selected = jQuery(this).find(":selected");
         var mainCatId = selected.val();
         var ageFilter = selected.attr('data-age-enabled');
