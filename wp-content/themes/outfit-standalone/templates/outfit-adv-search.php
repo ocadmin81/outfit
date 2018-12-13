@@ -148,7 +148,7 @@ else {
 			</div>
 			<?php } else { ?>
 			<div class="inner-search-box save-pre">
-				<a id="outfit_save_search_prefs" href="<?php echo esc_url(outfit_get_page_url('login')); ?>"><?php esc_html_e('התחבר/י לשמירת העדפה', 'outfit-standalone') ?></a>
+				<a id="login_to_save_search_prefs" href="<?php echo esc_url(outfit_get_page_url('login')); ?>"><?php esc_html_e('התחבר/י לשמירת העדפה', 'outfit-standalone') ?></a>
 			</div>
 			<?php } ?>
 			<?php if (count($subCategories)) { ?>
