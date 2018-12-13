@@ -101,7 +101,8 @@ else {
 							<?php esc_html_e($c->name); ?></option>
 					<?php endforeach; ?>
 				</select>				
-			</div>			
+			</div>	
+			<!--<div><a class="clear-age-filter" href="javascript:void(0)">clear age</a></div>-->
 			<!--Age Groups-->
 			<?php } ?>
 
@@ -118,7 +119,7 @@ else {
 					<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
 				</div>				
 			</div>
-
+			<!--<div><a class="clear-address-filter" href="javascript:void(0)">clear address</a></div>-->
 			<!--Locations-->
 
 			<?php if (is_user_logged_in()) { ?>
