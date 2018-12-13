@@ -101,8 +101,7 @@ else {
 							<?php esc_html_e($c->name); ?></option>
 					<?php endforeach; ?>
 				</select>				
-			</div>
-			<div><a class="clear-age-filter" href="javascript:void(0)">clear age</a></div>
+			</div>			
 			<!--Age Groups-->
 			<?php } ?>
 
