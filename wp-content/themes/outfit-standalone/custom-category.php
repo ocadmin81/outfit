@@ -300,7 +300,7 @@ get_header();
 														var point = {lat: lat, lng: long};
 
 														map = new google.maps.Map(
-															document.getElementById('outfit_main_map'), {zoom: 13, center: point});
+															document.getElementById('outfit_main_map'), {zoom: 10, center: point});
 
 														loadAddressPoints();
 
