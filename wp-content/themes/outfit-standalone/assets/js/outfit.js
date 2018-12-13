@@ -1511,7 +1511,8 @@ jQuery(document).ready(function(jQuery){
 
     jQuery('.remove-post-button.post-rmv a').on("click", function(event){
         event.preventDefault();
-        jQuery(this).next().toggle();
+        var btnSet = jQuery(this).parent().next();
+        btnSet.toggle();
     });
 
     // confirm deleting product - by Milla
@@ -1545,7 +1546,7 @@ jQuery(document).ready(function(jQuery){
         soldLink.attr('data-content'),
         function(confirm, location) {
             if(confirm){
-                window.location.replace(location);
+                window.location.href = location;
             }else{
                 // not confirmed
             }
@@ -1559,7 +1560,7 @@ jQuery(document).ready(function(jQuery){
         removeLink.attr('data-content'),
         function(confirm, location) {
             if(confirm){
-                window.location.replace(location);
+                window.location.href = location;
             }else{
                 // not confirmed
             }

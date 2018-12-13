@@ -116,7 +116,7 @@ get_header(); ?>
 															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
 														</a>
 													</div><!--remove-post-button-->
-													<div class="remove-post-button-set" style="display: none;">
+													<div class=" " style="display: none;">
 														<div class="post-action-button-sold">
 														<a class="" href="<?php echo esc_url($soldPostUrl) ?>"
 														   data-title="<?php echo esc_html_e( 'האם לסמן את המוצר כ"נמכר" ולהסירו מקטגוריה?', 'outfit-standalone' ); ?>"
