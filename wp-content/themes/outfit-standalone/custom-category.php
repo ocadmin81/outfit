@@ -260,17 +260,17 @@ get_header();
 													'author_img_url' => $authorAvatarUrl,
 													'brand' => $pBrand,
 													'locations' => $postLocations,
-													'content' => '<div class="classiera_map_div"><a href="'.get_the_permalink().'">'
+													'content' => '<div class="classiera_map_div img"><a href="'.get_the_permalink().'">'
 														.'<img class="classiera_map_div__img" src="'.$pThumb.'" alt="images">'
-														.'<div class="classiera_map_div__body">'
-														.'<h5 class="classiera_map_div__heading">'.get_the_title().'</h5>'
-														.'<p class="classiera_map_div__price"><span>'.$pPrice.'</span></p></div></a></div>'
-														//.'<p class="classiera_map_div__cat">'.__( "Brand", 'outfit-standalone').' : '.$pBrand.'</p></div></a>'
-														.'<div class="classiera_map_div">'
-														.'<a href="'.get_author_posts_url( $post->post_author ).'">'
-														.'<img style="height: 30px;" src="'.esc_url($authorAvatarUrl).'" alt="'.esc_attr($pAuthorName).'">'
-														.esc_attr($pAuthorName)
 														.'</a></div>'
+														//.'<p class="classiera_map_div__cat">'.__( "Brand", 'outfit-standalone').' : '.$pBrand.'</p></div></a>'
+														.'<div class="classiera_map_div content">'
+														.'<a href="'.get_the_permalink().'"><h5 class="classiera_map_div__heading">'.get_the_title().'</a></h5>'
+														.'<p class="classiera_map_div__price"><span>'.$pPrice.'</span></p>'
+														.'<a href="'.get_author_posts_url( $post->post_author ).'">'
+														.'<div class="map-author"><img style="height: 30px;" src="'.esc_url($authorAvatarUrl).'" alt="'.esc_attr($pAuthorName).'">'
+														.esc_attr($pAuthorName)
+														.'</a></div></div>'
 												);
 											endwhile;
 											?>

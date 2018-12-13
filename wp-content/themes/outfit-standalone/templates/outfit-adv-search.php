@@ -98,8 +98,7 @@ else {
 							<?php esc_html_e($c->name); ?></option>
 					<?php endforeach; ?>
 				</select>				
-			</div>
-			<div><a class="clear-age-filter" href="javascript:void(0)">clear age</a></div>
+			</div>			
 			<!--Age Groups-->
 			<?php } ?>
 
@@ -114,8 +113,7 @@ else {
 					<input class="aal3" type="hidden" id="aal3" name="aal3" value="<?php echo esc_html($postArea3); ?>">
 					<input class="aal2" type="hidden" id="aal2" name="aal2" value="<?php echo esc_html($postArea2); ?>">
 					<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
-				</div>
-				<div><a class="clear-address-filter" href="javascript:void(0)">clear address</a></div>
+				</div>				
 			</div>
 
 			<!--Locations-->
