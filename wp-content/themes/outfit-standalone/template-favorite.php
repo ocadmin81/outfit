@@ -37,7 +37,7 @@ $perPage = 20;
 
 $args = array(
 	'post_type' => OUTFIT_AD_POST_TYPE,
-	'post_status' => 'publish',
+	'post_status' => array('publish','sold'),
 	'posts_per_page' => $perPage,
 	'paged' => $paged
 );
@@ -84,6 +84,11 @@ get_header(); ?>
 														</button>
 													</form>
 													<div class="premium-img">
+														<?php if ($post->post_status == 'sold') { ?>
+														<div class="featured">
+															<p>Sold</p>
+														</div>
+														<?php } ?>
 														<a href="<?php the_permalink(); ?>">
 															<?php
 															$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
