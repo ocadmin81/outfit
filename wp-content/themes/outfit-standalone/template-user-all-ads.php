@@ -83,11 +83,11 @@ get_header(); ?>
 
 													<div class="premium-img">
 														<?php if ($post->post_status == 'sold') { ?>
-															<div class="featured">
+															<div class="sold" style="position: absolute; top: 0; z-index: 10;">
 																<p>Sold</p>
 															</div>
 														<?php } else if ($post->post_status == 'pending') { ?>
-															<div class="featured">
+															<div class="pending" style="position: absolute; top: 0; z-index: 10;">
 																<p>Pending</p>
 															</div>
 														<?php } ?>
