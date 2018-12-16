@@ -25,24 +25,24 @@ if ($currentUserId) {
 	$searchPrefLocation = OutfitLocation::createFromJSON(get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true));
 }
 
-$postColor = getGetMultiple('postColor', true);
-$postAgeGroup = getGetMultiple('postAgeGroup', true);
-$postBrand = getGetMultiple('postBrand', true);
-$postCondition = getGetMultiple('postCondition', true);
-$postWriter = getGetMultiple('postWriter', true);
-$postCharacter = getGetMultiple('postCharacter', true);
-$postGender = getGetMultiple('postGender', true);
-$postLanguage = getGetMultiple('postLanguage', true);
-$postKeyword = getGetInput('s', '');
+$postColor = getRequestMultiple('postColor', true);
+$postAgeGroup = getRequestMultiple('postAgeGroup', true);
+$postBrand = getRequestMultiple('postBrand', true);
+$postCondition = getRequestMultiple('postCondition', true);
+$postWriter = getRequestMultiple('postWriter', true);
+$postCharacter = getRequestMultiple('postCharacter', true);
+$postGender = getRequestMultiple('postGender', true);
+$postLanguage = getRequestMultiple('postLanguage', true);
+$postKeyword = getRequestInput('s', '');
 $postLocation = null;
-$postPrice = getGetMultiple('priceRange', []);
+$postPrice = getRequestMultiple('priceRange', []);
 
-if (!isset($_GET['postAgeGroup'])) {
+if (!isset($_REQUEST['postAgeGroup'])) {
 	$postAgeGroup = array($searchPrefAge);
 }
 
 // post primary location
-if (!isset($_GET['address'])) {
+if (!isset($_REQUEST['address'])) {
 	if (null != $searchPrefLocation) {
 		$postAddress = $searchPrefLocation->getAddress();
 		$postLatitude = $searchPrefLocation->getLatitude();
@@ -54,13 +54,13 @@ if (!isset($_GET['address'])) {
 	}
 }
 else {
-	$postAddress = trim(getGetInput('address'));
-	$postLatitude = getGetInput('latitude');
-	$postLongitude = getGetInput('longitude');
-	$postLocality = getGetInput('locality');
-	$postArea1 = getGetInput('aal1');
-	$postArea2 = getGetInput('aal2');
-	$postArea3 = getGetInput('aal3');
+	$postAddress = trim(getRequestInput('address'));
+	$postLatitude = getRequestInput('latitude');
+	$postLongitude = getRequestInput('longitude');
+	$postLocality = getRequestInput('locality');
+	$postArea1 = getRequestInput('aal1');
+	$postArea2 = getRequestInput('aal2');
+	$postArea3 = getRequestInput('aal3');
 
 	$postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
 		'locality' => $postLocality,
@@ -71,11 +71,11 @@ else {
 }
 
 
-//var_dump($_GET['address']);
+//var_dump($_REQUEST['address']);
 //var_dump(get_query_var('address'));
 ?>
 <!--SearchForm-->
-<form method="get" action="<?php echo home_url(); ?>">
+<form method="post" action="<?php echo home_url(); ?>">
 	<div class="search-form">
 		<div class="search-form-main-heading" style="display:none;">
 			<a href="#innerSearch" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="innerSearch">

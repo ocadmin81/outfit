@@ -29,8 +29,8 @@ $subCategories = array();
 $thisCategory = null;
 $outfitMainCat = '';
 
-if (isset($_GET['cat_id']) && !empty($_GET['cat_id'])) {
-	$catId = intval($_GET['cat_id']);
+if (isset($_REQUEST['cat_id']) && !empty($_REQUEST['cat_id'])) {
+	$catId = intval($_REQUEST['cat_id']);
 	$thisCategory = get_category($catId);
 	if (is_wp_error($thisCategory)) {
 		$thisCategory = null;
@@ -90,18 +90,18 @@ if ($thisCategory) {
 
 $products = array();
 
-$postColor = getGetMultiple('postColor', true);
-$postAgeGroup = getGetMultiple('postAgeGroup', true);;
-$postBrand = getGetMultiple('postBrand', true);;
-$postCondition = getGetMultiple('postCondition', true);;
-$postWriter = getGetMultiple('postWriter', true);;
-$postCharacter = getGetMultiple('postCharacter', true);;
+$postColor = getRequestMultiple('postColor', true);
+$postAgeGroup = getRequestMultiple('postAgeGroup', true);;
+$postBrand = getRequestMultiple('postBrand', true);;
+$postCondition = getRequestMultiple('postCondition', true);;
+$postWriter = getRequestMultiple('postWriter', true);;
+$postCharacter = getRequestMultiple('postCharacter', true);;
 $postKeyword = getGetInput('s', '');
 $postLocation = null;
-$postPrice = getGetMultiple('priceRange', true);
+$postPrice = getRequestMultiple('priceRange', true);
 
 $pageTitle = '';
-if (isset($_GET['bpg']) && count($postBrand) > 0) {
+if (isset($_REQUEST['bpg']) && count($postBrand) > 0) {
 	$term = get_term($postBrand[0], 'brands');
 	if (!is_wp_error($term)) {
 		$pageTitle = $term->name;
@@ -514,8 +514,8 @@ $subCategories = array();
 $thisCategory = null;
 $outfitMainCat = '';
 
-if (isset($_GET['cat_id']) && !empty($_GET['cat_id'])) {
-	$catId = intval($_GET['cat_id']);
+if (isset($_REQUEST['cat_id']) && !empty($_REQUEST['cat_id'])) {
+	$catId = intval($_REQUEST['cat_id']);
 	$thisCategory = get_category($catId);
 	if (is_wp_error($thisCategory)) {
 		$thisCategory = null;
@@ -575,18 +575,18 @@ if ($thisCategory) {
 
 $products = array();
 
-$postColor = getGetMultiple('postColor', true);
-$postAgeGroup = getGetMultiple('postAgeGroup', true);;
-$postBrand = getGetMultiple('postBrand', true);;
-$postCondition = getGetMultiple('postCondition', true);;
-$postWriter = getGetMultiple('postWriter', true);;
-$postCharacter = getGetMultiple('postCharacter', true);;
-$postKeyword = getGetInput('s', '');
+$postColor = getRequestMultiple('postColor', true);
+$postAgeGroup = getRequestMultiple('postAgeGroup', true);;
+$postBrand = getRequestMultiple('postBrand', true);;
+$postCondition = getRequestMultiple('postCondition', true);;
+$postWriter = getRequestMultiple('postWriter', true);;
+$postCharacter = getRequestMultiple('postCharacter', true);;
+$postKeyword = getRequestInput('s', '');
 $postLocation = null;
-$postPrice = getGetMultiple('priceRange', true);
+$postPrice = getRequestMultiple('priceRange', true);
 
 $pageTitle = '';
-if (isset($_GET['bpg']) && count($postBrand) > 0) {
+if (isset($_REQUEST['bpg']) && count($postBrand) > 0) {
 	$term = get_term($postBrand[0], 'brands');
 	if (!is_wp_error($term)) {
 		$pageTitle = $term->name;
@@ -597,13 +597,13 @@ else if (!empty($postKeyword)) {
 }
 
 // post primary location
-$postAddress = trim(getGetInput('address'));
-$postLatitude = getGetInput('latitude');
-$postLongitude = getGetInput('longitude');
-$postLocality = getGetInput('locality');
-$postArea1 = getGetInput('aal1');
-$postArea2 = getGetInput('aal2');
-$postArea3 = getGetInput('aal3');
+$postAddress = trim(getRequestInput('address'));
+$postLatitude = getRequestInput('latitude');
+$postLongitude = getRequestInput('longitude');
+$postLocality = getRequestInput('locality');
+$postArea1 = getRequestInput('aal1');
+$postArea2 = getRequestInput('aal2');
+$postArea3 = getRequestInput('aal3');
 
 $postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
 	'locality' => $postLocality,

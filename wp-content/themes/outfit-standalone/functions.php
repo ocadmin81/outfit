@@ -1019,10 +1019,45 @@ function getGetMultiple($key, $clearEmptyValues=false) {
 	return $t;
 }
 
+function getRequestMultiple($key, $clearEmptyValues=false) {
+
+	$requestValue = (isset($_GET[$key])? $_GET[$key] : (isset($_POST[$key])? $_POST[$key] : null));
+	$t = array();
+	if (isset($requestValue)) {
+		if (!is_array($requestValue)) {
+			$t = array($requestValue);
+		}
+		else {
+			$t = $requestValue;
+		}
+	}
+	if ($clearEmptyValues) {
+		$r = array();
+		foreach ($t as $k => $v) {
+			if (!empty($v)) {
+				$r[$k] = $v;
+			}
+		}
+		return $r;
+	}
+	return $t;
+}
+
 function getGetInput($key, $default='') {
 
 	if (isset($_GET[$key])) {
 		return $_GET[$key];
+	}
+	return $default;
+}
+
+function getRequestInput($key, $default='') {
+
+	if (isset($_GET[$key])) {
+		return $_GET[$key];
+	}
+	else if (isset($_POST[$key])) {
+		return $_POST[$key];
 	}
 	return $default;
 }
