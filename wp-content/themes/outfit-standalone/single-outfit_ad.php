@@ -157,6 +157,65 @@ $userId = $current_user->ID;
 					</p>
 				</div>
 			<?php } ?>
+			<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
+				<div class="mobile-seller">
+					<div class="seller-img-link">
+						<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
+							<?php if($authorAvatarUrl): ?>
+								<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
+							<?php else: ?>
+								<img class="media-object" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/user-placeholder.png" alt="<?php echo esc_attr($postAuthorName); ?>">
+							<?php endif; ?>
+							<?php echo esc_attr($postAuthorName); ?>
+						</a>
+					</div>
+					<div class="seller-info">
+						<div class="area seller-info-block">
+							<div class="seller-icon"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/placeholder.svg" /></div>
+							<div class="seller-info-drop area-drop">
+								<div class="widget-content widget-content-post collect-points">
+									<div class="contact-details widget-content-post-area">
+										<h5 class="text-uppercase"><?php esc_html_e('נקודות איסוף', 'outfit-standalone') ?></h5>
+										<ul class="list-unstyled c-detail">
+											<?php if (!empty($postAddress)) { ?>
+												<li><span><?php echo esc_html($postAddress);?></span></li>
+											<?php } ?>
+											<?php if (!empty($postSecAddress)) { ?>
+												<li><span><?php echo esc_html($postSecAddress);?></span></li>
+											<?php } ?>
+										</ul>
+									</div>
+								</div><!--widget-content-->								
+							</div>
+						</div>
+						<div class="phone seller-info-block">
+							<div class="seller-icon"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/phone.svg" /></div>
+							<div class="seller-info-drop area-phone area-drop">
+								<div class="widget-content widget-content-post collect-details">
+									<div class="contact-details widget-content-post-area">
+										<h5 class="text-uppercase"><?php esc_html_e('ליצירת קשר עם המוכר/ת', 'outfit-standalone') ?></h5>
+										<ul class="list-unstyled c-detail">
+											<?php if(!empty($authorPhone)){?>
+												<li class="authorPhone">
+													<a href="tel:<?php echo esc_html($authorPhone); ?>"><span class=""><?php echo esc_html($authorPhone);?></a></span>
+												</li>
+											<?php } ?>
+											<?php if(!empty($authorPreferredHours)){?>
+												<li class="PreferredHours">
+													<span class="title"><?php esc_html_e('*שעה נוחה להתקשרות', 'outfit-standalone') ?>:</span>
+													<span>
+														<?php echo esc_html($authorPreferredHours);?>
+													</span>
+												</li>
+											<?php } ?>
+										</ul>
+									</div><!--contact-details-->
+								</div>							
+							</div>
+						</div>
+					</div>
+				</div>
+			<?php endif; ?>
 			<div class="row">
 				<div class="col-md-5 col-sm-6 media-box">
 					<!-- single post carousel-->
@@ -360,6 +419,7 @@ $userId = $current_user->ID;
 						</div>	
 					<?php endif; ?>
 				</div>
+				<?php if (!$detect->isMobile() || $detect->isTablet()): ?>
 				<div class="col-md-3 col-sm-12 post-left-side">
 					<div class="post-left">
 						<div class="widget-box">
@@ -432,7 +492,8 @@ $userId = $current_user->ID;
 							</div><!--widget-content-->
 						</div>
 					</div>
-				</div>				
+				</div>
+				<?php endif; ?>
 			</div>
 		</div>
 

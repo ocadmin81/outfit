@@ -1518,13 +1518,25 @@ jQuery(document).ready(function(jQuery){
 	jQuery('select.brand-select').select2({
 		searchInputPlaceholder: 'חיפוש'
 	});
-
+	jQuery(".select2-selection__rendered").removeAttr('title');
+	//mobile product page seller
+	jQuery(document).scroll(function() {
+		var scroll = jQuery(window).scrollTop();
+		if(scroll>50){
+			jQuery('.mobile-seller').addClass('active');	
+		}else{
+			jQuery('.mobile-seller').removeClass('active');	
+		}
+	});
+	jQuery('.mobile-seller .seller-info .seller-icon').click(function() {
+		jQuery(this).parent().toggleClass('active');
+	});
     jQuery('.remove-post-button.post-rmv a').on("click", function(event){
         event.preventDefault();
         var btnSet = jQuery(this).parent().next();
         btnSet.toggle();
     });
-
+	
     // confirm deleting product - by Milla
     var modalConfirmDelete = function(selector, title, content, callback){
 
