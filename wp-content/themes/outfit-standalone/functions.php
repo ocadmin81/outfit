@@ -1344,16 +1344,16 @@ add_filter( 'template_include', 'outfit_template_check', 99 );
 function outfit_template_check( $template ) {
 	if ( is_category() ){
 
-		if ( isset($_GET['outfit_ad']) ){
+		if ( isset($_GET['outfit_ad']) || isset($_POST['outfit_ad']) ){
 			$new_template = get_template_directory() . '/custom-category.php';
 			if ( !empty( $new_template ) ) {
 				return $new_template;
 			}
 		}
 	}
-	else if (isset($_GET['search']) || isset($_GET['s'])) {
+	else if (isset($_GET['search']) || isset($_POST['search']) || isset($_GET['s']) || isset($_POST['s'])) {
 
-		if ( isset($_GET['outfit_ad']) ){
+		if ( isset($_GET['outfit_ad']) || isset($_POST['outfit_ad']) ){
 			$new_template = get_template_directory() . '/custom-search.php';
 			if ( !empty( $new_template ) ) {
 				return $new_template;
