@@ -150,7 +150,10 @@ else {
 			<?php if ($filterBy && $filterBy->catFilterByBrand) { ?>
 				<?php
 				if (!empty($catId)) {
-					$brands = outfit_filter_live_terms($catId, 'brands', $brands);
+					$livebrands = outfit_filter_live_terms($catId, 'brands', $brands);
+				}
+				else {
+					$livebrands = $brands;
 				}
 				?>
 
@@ -159,7 +162,7 @@ else {
 					<div class="inner-search-heading"><?php esc_html_e( 'מותגים', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 					<?php
-					foreach ($brands as $i => $c):
+					foreach ($livebrands as $i => $c):
 						$checked = in_array($c->term_id, $postBrand)? 'checked' : '';
 						?>
 						<div class="checkbox">

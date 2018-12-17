@@ -612,7 +612,7 @@ function outfit_get_live_terms($categoryId, $taxonomy) {
     $res = outfit_get_posts_count_by_term($categoryId, $taxonomy);
     $terms = array();
     foreach ($res as $r) {
-        $terms[] = $r['term'];
+        $terms[] = $r->term;
     }
     return $terms;
 }
