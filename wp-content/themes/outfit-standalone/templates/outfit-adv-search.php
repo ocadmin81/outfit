@@ -382,6 +382,7 @@ else {
 
 			<?php if ($filterBy && $filterBy->catFilterByLanguage) { ?>
 				<?php
+				//var_dump($languages);
 				if (!empty($catId)) {
 					$livelanguages = outfit_filter_live_terms($catId, 'languages', $languages);
 				}
@@ -391,7 +392,7 @@ else {
 				?>
 				<!--Languages-->
 				<div class="inner-search-box">
-					<div class="inner-search-heading"><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></div>
+					<div class="inner-search-heading"><?php esc_html_e( 'שפה', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($livelanguages as $i => $c):
