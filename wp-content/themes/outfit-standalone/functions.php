@@ -820,10 +820,10 @@ function outfit_my_category_fields($tag) {
 	$catFilterByBrand = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_brand'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_brand'] : false;
 	$catFilterByAge = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_age'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_age'] : false;
 	$catFilterByCondition = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_condition'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_condition'] : false;
-	$catFilterByWriter = isset( $extraFields[$tag->term_id]['category_filter_by_writer'] ) ? $extraFields[$tag->term_id]['category_filter_by_writer'] : false;
-	$catFilterByCharacter = isset( $extraFields[$tag->term_id]['category_filter_by_character'] ) ? $extraFields[$tag->term_id]['category_filter_by_character'] : false;
-	$catFilterByGender = isset( $extraFields[$tag->term_id]['category_filter_by_gender'] ) ? $extraFields[$tag->term_id]['category_filter_by_gender'] : false;
-	$catFilterByLanguage = isset( $extraFields[$tag->term_id]['category_filter_by_language'] ) ? $extraFields[$tag->term_id]['category_filter_by_language'] : false;
+	$catFilterByWriter = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_writer'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_writer'] : false;
+	$catFilterByCharacter = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_character'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_character'] : false;
+	$catFilterByGender = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_gender'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_gender'] : false;
+	$catFilterByLanguage = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_language'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_language'] : false;
 
 	?>
 
