@@ -166,7 +166,7 @@ $userId = $current_user->ID;
 							<?php else: ?>
 								<img class="media-object" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/user-placeholder.png" alt="<?php echo esc_attr($postAuthorName); ?>">
 							<?php endif; ?>
-							<?php echo esc_attr($postAuthorName); ?>
+							<span><?php echo esc_attr($postAuthorName); ?></span>
 						</a>
 					</div>
 					<div class="seller-info">
@@ -266,7 +266,7 @@ $userId = $current_user->ID;
 														<span><?php esc_html_e( 'הוסף ל- WISHLIST', 'outfit-standalone' ); ?></span>
 													</button>
 												<?php } else { ?>
-													<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
+													<button type="submit" value="unfavorite" name="unfavorite" class="watch-later in-fa text-uppercase">
 														<span><?php esc_html_e( 'הסרה מה- WISHLIST', 'outfit-standalone' ); ?></span>
 													</button>
 												<?php } ?>
@@ -400,7 +400,7 @@ $userId = $current_user->ID;
 										<span><?php esc_html_e( 'הוסף ל- WISHLIST', 'outfit-standalone' ); ?></span>
 									</button>
 									<?php } else { ?>
-									<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
+									<button type="submit" value="unfavorite" name="unfavorite" class="watch-later in-fa text-uppercase">
 										<span><?php esc_html_e( 'הסרה מה- WISHLIST', 'outfit-standalone' ); ?></span>
 									</button>
 									<?php } ?>

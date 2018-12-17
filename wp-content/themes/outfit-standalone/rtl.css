@@ -674,6 +674,7 @@ html[lang="he-IL"] .start-selling h3{text-transform: uppercase;font-size: 27px;f
     font-size: 18px;
     font-weight: 600;}
 .main-navigation ul{text-align: center;}
+.elementor-image-carousel{visibility:hidden;}
 .elementor-section.elementor-section-boxed>.elementor-container{max-width: 1300px;width:100%;/*display: inline-block;*/}
 .elementor-slick-slider ul.slick-dots{bottom: 5px;}
 .elementor-slick-slider ul.slick-dots li button:before{font-size: 11px;width: 20px;height: 20px;color: #fff;opacity: 1;}
@@ -868,7 +869,7 @@ body.page-two-column:not(.archive) #primary .post-241 .entry-content{width: 100%
 .post-241 .entry-title{display:none;}
 .single-post-ad{margin-top: 30px;}
 .single-post-ad{display:block!important;}
-.single-post-ad .img-box .main-img img{width: 100%;    position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
+.single-post-ad .img-box .main-img img{max-width: 100%;    position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
 .single-post-ad .img-box .main-img .item{    height: 432px;overflow: hidden;position: relative;}
 .single-post-ad .img-box .thumbs-img .item{margin-bottom: 15px;cursor:pointer;height: 77px;overflow: hidden;position: relative;}
 .single-post-ad .img-box .thumbs-img .item img{width: 100%;    position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
@@ -876,7 +877,8 @@ body.page-two-column:not(.archive) #primary .post-241 .entry-content{width: 100%
 .single-post-ad .thumbs-img-m .item img{    width: 100%;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
 .single-post-ad .img-box .thumbs-img{padding-left: 0;}
 .wish-share button{font-size: 16px;padding-right: 0;background: transparent;}
-.wish-share button span{background: url(assets/images/add-to-wish.png) right 0 no-repeat;padding-right: 41px;    height: 20px;display: block;}
+.wish-share button span{background: url(assets/images/add-to-wish.png) right 0 no-repeat;    background-size: 33px;padding-right: 41px;height: 20px;display: block;}
+.wish-share button.in-fa span{background: url(assets/images/add-to-wish-in.png) right 0 no-repeat;    background-size: 33px;}
 .wish-share{margin-top: 10px;}
 .middle-ad-column h1{margin: 0;font-weight: 500;font-size: 20px;line-height: 20px;}
 .middle-ad-column h1 a.edit-post{padding-right: 21px;padding-top: 0;background: url(assets/images/edit-ad.png) right 1px no-repeat;float: left;font-size: 16px;padding-left: 0;}
@@ -985,6 +987,7 @@ html[lang="he-IL"] .user-pages h1,.user-pages .user-detail-section .user-detail-
 .cat-tabs .nav-tabs li.m-tab a span{background-image: url(assets/images/addr.png);background-repeat: no-repeat;background-position: right 0;padding-right: 22px;}
 html[lang="he-IL"] .cat-title{margin: 0;padding: 0 10px;margin-bottom: 15px;font-weight: 600;font-size: 24px;}
 .products .classiera-box-div-v1 figure .premium-img{height: 240px;border: 1px solid #f3f3f3;}
+.products .classiera-box-div-v1 figure .premium-img .sold{    position: absolute;top: 0;z-index: 10;left: 0;width: 92px;height: 90px;}
 .classiera-box-div-v1 figure .premium-img img{position: absolute;top: 0;bottom: 0;margin: auto;left: 0;right: 0;}
 .fa-sellers .classiera-box-div-v1 figure .premium-img img{position:relative;}
 .products .classiera-box-div-v1 figure .premium-img .cat-wish-brand{position: absolute;bottom: 0;left: 0;right: 0;background-image: -webkit-linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);
@@ -1026,6 +1029,8 @@ background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);   
 .cat-content .cat-tab-content{margin-top: 20px;opacity: 1;}
 .my-ads{margin-top:35px;}
 .my-ads .item .remove-post-button{position: absolute;top: -15px;right: -15px;z-index: 100;}
+.my-ads .item .remove-post-button .remove-post{background: url(assets/images/pop-close-ads.png) 0 0 no-repeat;    width: 36px;height: 37px;display: block;border: none;}
+.my-ads .item .remove-post-button .remove-post:hover,.my-ads .item .remove-post-button a.active .remove-post{background-position:0 -50px;}
 .my-ads .item .ad-brand{position: absolute;bottom: 8px;left: 15px;color: #fff;font-size: 14px;letter-spacing: 1px!important;}
 .my-ads .item .edit-price{    margin-top: 10px;}
 .my-ads .item .edit-price .edit{float: right;}
@@ -1097,7 +1102,7 @@ html[lang="he-IL"] .thankyou-page .service h4{    font-weight: 600;}
 .not-found .social-navigation{margin: 0;margin-top: 15px;text-align: center;}
 .static-sidebar .widget-title{border: 1px solid #d7d7d7;padding: 15px;font-size: 25px;margin-bottom: 15px;background: url(assets/images/select-arrow.png) 18px 50% no-repeat;font-weight: 600;}
 .modal-open .modal{z-index: 1000002;}
-.modal-content{padding: 0 105px;}
+.modal-content{padding: 0 75px;}
 .modal-backdrop{z-index: 1000001;}
 .modal-content{    border-radius: 0;border: none;box-shadow: none;}
 .modal-sm{width: 600px;max-width: 85%;margin: 80px auto;}
@@ -1128,7 +1133,8 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 .mobile-seller.active{top: 30px;    position: fixed;}
 .mobile-seller .seller-img-link,.mobile-seller .seller-info{display: inline-block;width: 48%;}
 .mobile-seller .seller-img-link a{font-weight: 600;}
-.mobile-seller .seller-img-link img{width: 50px;display: inline-block;margin-left: 10px;}
+.mobile-seller .seller-img-link img{width: 30%;display: inline-block;margin-left: 10px;}
+.mobile-seller .seller-img-link span{    display: inline-block;width: 55%;vertical-align: top;}
 .mobile-seller .seller-info{text-align: left;float: left;}
 .mobile-seller .seller-info .area,.mobile-seller .seller-info .phone{display: inline-block;width: 50px;margin-right: 15px;vertical-align: middle;}
 .mobile-seller .seller-info .area .seller-icon{background: #a8e5e6;border-radius: 50%;width: 50px;height: 50px;position: relative;}
@@ -1144,6 +1150,13 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 .single-post-ad .mobile-seller .collect-details li.authorPhone{width: 80%;margin-top: 15px;}
 .single-post-ad .mobile-seller .collect-details li.PreferredHours{margin-bottom: 15px;}
 .mobile-seller .seller-info .seller-info-block.active .seller-info-drop,.mobile-seller .seller-info .seller-info-block.active .seller-icon:after{display:block}
+.remove-post-buttons{position: absolute;top: -12px;right: 25px;z-index: 100;    width: 140px;max-width: 100%;}
+.remove-post-buttons div{background: #fff;border: 1px solid #e0e0e0;border-radius: 35px;padding: 3px 10px;    margin-bottom: 10px;}
+.remove-post-buttons div img{margin-top: -3px;margin-left: 1px;}
+.remove-post-buttons div a{display:block}
+.alert-success {color: #191919;background-color: #fed3d6;border-color: #fed3d6;border-radius: 0;}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary, .btn-primary.active:hover, .btn-primary:active:hover,
+.btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus{background: #fed3d6;color: #191919;}
 @media only screen and (max-width: 959px) and (min-width: 768px){
 	.inner-page-content .col-md-8{    margin-bottom: 0;}
 }
@@ -1199,7 +1212,6 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 }
 @media screen and (min-width: 992px){
 		.user-pages .user-detail-section .user-ads{margin-bottom: 0;min-height: 550px;}
-	.user-pages .user-detail-section{padding: 7px 30px 0;}
 	.user-pages aside .user-page-list{min-height: 547px;margin-bottom: 0;}		
 }
 @media screen and (max-width: 1320px){
@@ -1380,4 +1392,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.classiera_map_div.img img{max-width: 100%;height: 75px;}
 	.classiera_map_div .map-author{position: static;margin-top: 15px;}
 	.user-pages .user-detail-section .user-detail-section-heading{display: none;}
+	.select2-container{z-index: 1000000;}
+	.remove-post-buttons{    top: 28px;right: 0;}
+	.wish-share button span{padding-right: 40px;}
 }
