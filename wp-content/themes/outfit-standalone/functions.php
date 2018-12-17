@@ -824,6 +824,10 @@ function outfit_my_category_fields($tag) {
 	$catFilterByCharacter = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_character'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_character'] : false;
 	$catFilterByGender = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_gender'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_gender'] : false;
 	$catFilterByLanguage = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_language'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_language'] : false;
+	$catFilterByShoeSize = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_shoesize'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_shoesize'] : false;
+	$catFilterByMaternitySize = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_maternitysize'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_maternitysize'] : false;
+	$catFilterByBicycleSize = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_bicyclesize'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_bicyclesize'] : false;
+
 
 	?>
 
@@ -893,6 +897,30 @@ function outfit_my_category_fields($tag) {
 						   value="1" <?php echo ($catFilterByLanguage? "checked" : "") ?> />
 				</td>
 			</tr>
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Shoe Size', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_shoesize" type="checkbox" name="category_filter_by_shoesize"
+						   value="1" <?php echo ($catFilterByShoeSize? "checked" : "") ?> />
+				</td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Maternity Size', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_maternitysize" type="checkbox" name="category_filter_by_maternitysize"
+						   value="1" <?php echo ($catFilterByMaternitySize? "checked" : "") ?> />
+				</td>
+			</tr>
+			<tr class="form-field">
+				<th scope="row" valign="top"><label for="category-page-slider"><?php esc_html_e( 'Filter By Bicycle Size', 'outfit-standalone' ); ?></label></th>
+				<td>
+
+					<input id="category_filter_by_bicyclesize" type="checkbox" name="category_filter_by_bicyclesize"
+						   value="1" <?php echo ($catFilterByBicycleSize? "checked" : "") ?> />
+				</td>
+			</tr>
 		</table>
 	</div>
 
@@ -913,6 +941,10 @@ function outfit_update_my_category_fields($term_id) {
 			$tag_extra_fields[$term_id]['category_filter_by_condition'] = isset($_POST['category_filter_by_condition'])? true : false;
 			$tag_extra_fields[$term_id]['category_filter_by_gender'] = isset($_POST['category_filter_by_gender'])? true : false;
 			$tag_extra_fields[$term_id]['category_filter_by_language'] = isset($_POST['category_filter_by_language'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_shoesize'] = isset($_POST['category_filter_by_shoesize'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_maternitysize'] = isset($_POST['category_filter_by_maternitysize'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_bicycle'] = isset($_POST['category_filter_by_bicycle'])? true : false;
+
 			update_option(MY_CATEGORY_FIELDS, $tag_extra_fields);
 		endif;
 	}

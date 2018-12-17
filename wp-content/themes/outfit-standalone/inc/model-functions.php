@@ -41,6 +41,10 @@ function fetch_category_custom_fields($category) {
     $category->catFilterByCharacter = isset( $extraFields[$category->term_id]['category_filter_by_character'] ) ? $extraFields[$category->term_id]['category_filter_by_character'] : false;
     $category->catFilterByGender = isset( $extraFields[$category->term_id]['category_filter_by_gender'] ) ? $extraFields[$category->term_id]['category_filter_by_gender'] : false;
     $category->catFilterByLanguage = isset( $extraFields[$category->term_id]['category_filter_by_language'] ) ? $extraFields[$category->term_id]['category_filter_by_language'] : false;
+    $category->catFilterByShoeSize = isset( $extraFields[$category->term_id]['category_filter_by_shoesize'] ) ? $extraFields[$category->term_id]['category_filter_by_shoesize'] : false;
+    $category->catFilterByMaternitySize = isset( $extraFields[$category->term_id]['category_filter_by_maternitysize'] ) ? $extraFields[$category->term_id]['category_filter_by_maternitysize'] : false;
+    $category->catFilterByBicycleSize = isset( $extraFields[$category->term_id]['category_filter_by_bicyclesize'] ) ? $extraFields[$category->term_id]['category_filter_by_bicyclesize'] : false;
+
     return $category;
 }
 
@@ -102,6 +106,18 @@ function outfit_get_list_of_languages() {
 function outfit_get_list_of_characters() {
 
     return outfit_get_list_of_filters('characters');
+}
+
+function outfit_get_list_of_shoe_sizes() {
+    return outfit_get_list_of_filters('shoe_sizes');
+}
+
+function outfit_get_list_of_maternity_sizes() {
+    return outfit_get_list_of_filters('maternity_sizes');
+}
+
+function outfit_get_list_of_bicycle_sizes() {
+    return outfit_get_list_of_filters('bicycle_sizes');
 }
 
 function outfit_get_list_of_filters($taxonomy) {
@@ -189,6 +205,31 @@ function setPostWriters($postId, $termIds) {
 function setPostCharacters($postId, $termIds) {
 
     setPostTerms($postId, $termIds, 'characters');
+}
+
+function setPostLanguages($postId, $termIds) {
+
+    setPostTerms($postId, $termIds, 'languages');
+}
+
+function setPostGenders($postId, $termIds) {
+
+    setPostTerms($postId, $termIds, 'genders');
+}
+
+function setPostShoeSizes($postId, $termIds) {
+
+    setPostTerms($postId, $termIds, 'shoe_sizes');
+}
+
+function setPostMaternitySizes($postId, $termIds) {
+
+    setPostTerms($postId, $termIds, 'maternity_sizes');
+}
+
+function setPostBicycleSizes($postId, $termIds) {
+
+    setPostTerms($postId, $termIds, 'bicycle_sizes');
 }
 
 function getPostTermIds($postId, $taxonomy) {

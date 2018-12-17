@@ -15,6 +15,10 @@ $brands = getBrandsByCategory($outfitMainCat);
 $genders = outfit_get_list_of_genders();
 $languages = outfit_get_list_of_languages();
 
+$shoeSizes = outfit_get_list_of_shoe_sizes();
+$maternitySizes = outfit_get_list_of_maternity_sizes();
+$bicycleSizes = outfit_get_list_of_bicycle_sizes();
+
 
 global $currentUserId;
 $searchPrefAge = '';
@@ -33,6 +37,10 @@ $postWriter = getRequestMultiple('postWriter', true);
 $postCharacter = getRequestMultiple('postCharacter', true);
 $postGender = getRequestMultiple('postGender', true);
 $postLanguage = getRequestMultiple('postLanguage', true);
+$postShoeSize = getRequestMultiple('postShoeSize', true);
+$postMaternitySize = getRequestMultiple('postMaternitySize', true);
+$postBicycleSize = getRequestMultiple('postBicycleSize', true);
+
 $postKeyword = getRequestInput('s', '');
 $postLocation = null;
 $postPrice = getRequestMultiple('priceRange', []);
@@ -407,6 +415,90 @@ else {
 
 				</div>
 				<!--Languages-->
+			<?php } ?>
+
+			<?php if ($filterBy && $filterBy->catFilterByShoeSize) { ?>
+				<?php
+				if (!empty($catId)) {
+					$live = outfit_filter_live_terms($catId, 'shoe_sizes', $shoeSizes);
+				}
+				else {
+					$live = $shoeSizes;
+				}
+				?>
+				<!--Shoe Sizes-->
+				<div class="inner-search-box">
+					<div class="inner-search-heading"><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></div>
+					<div class="inner-addon right-addon">
+						<?php
+						foreach ($live as $i => $c):
+							$checked = in_array($c->term_id, $postShoeSize)? 'checked' : '';
+							?>
+							<div class="checkbox">
+								<input type="checkbox" id="<?php echo esc_attr('shoesize_'.$i); ?>" name="postShoeSize[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
+								<label for="<?php echo esc_attr('shoesize_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+							</div>
+						<?php endforeach; ?>
+					</div>
+
+				</div>
+				<!--Shoe Sizes-->
+			<?php } ?>
+
+			<?php if ($filterBy && $filterBy->catFilterByMaternitySize) { ?>
+				<?php
+				if (!empty($catId)) {
+					$live = outfit_filter_live_terms($catId, 'maternity_sizes', $maternitySizes);
+				}
+				else {
+					$live = $maternitySizes;
+				}
+				?>
+				<!--Maternity Sizes-->
+				<div class="inner-search-box">
+					<div class="inner-search-heading"><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></div>
+					<div class="inner-addon right-addon">
+						<?php
+						foreach ($live as $i => $c):
+							$checked = in_array($c->term_id, $postMaternitySize)? 'checked' : '';
+							?>
+							<div class="checkbox">
+								<input type="checkbox" id="<?php echo esc_attr('maternitysize_'.$i); ?>" name="postMaternitySize[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
+								<label for="<?php echo esc_attr('maternitysize_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+							</div>
+						<?php endforeach; ?>
+					</div>
+
+				</div>
+				<!--Maternity Sizes-->
+			<?php } ?>
+
+			<?php if ($filterBy && $filterBy->catFilterByBicycleSize) { ?>
+				<?php
+				if (!empty($catId)) {
+					$live = outfit_filter_live_terms($catId, 'bicycle_sizes', $bicycleSizes);
+				}
+				else {
+					$live = $bicycleSizes;
+				}
+				?>
+				<!--Bicycle Sizes-->
+				<div class="inner-search-box">
+					<div class="inner-search-heading"><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></div>
+					<div class="inner-addon right-addon">
+						<?php
+						foreach ($live as $i => $c):
+							$checked = in_array($c->term_id, $postBicycleSize)? 'checked' : '';
+							?>
+							<div class="checkbox">
+								<input type="checkbox" id="<?php echo esc_attr('bicyclesize_'.$i); ?>" name="postBicycleSize[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
+								<label for="<?php echo esc_attr('bicyclesize_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+							</div>
+						<?php endforeach; ?>
+					</div>
+
+				</div>
+				<!--Bicycle Sizes-->
 			<?php } ?>
 
 			<input type="hidden" name="cat_id" value="<?php echo $catId; ?>">

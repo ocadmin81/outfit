@@ -356,25 +356,11 @@ jQuery(document).ready(function(jQuery){
 		This function will show sub categories
 		list When click on main category.
 	======================================*/
-    //jQuery('.post-sub-cat-container').toggleRequired(0);
-    //jQuery('.post-age-groups-container').toggleRequired(0);
-    //jQuery('.post-colors-container').toggleRequired(0);
-    //jQuery('.post-conditions-container').toggleRequired(0);
-    //jQuery('.post-brands-container').toggleRequired(0);
-    //jQuery('.post-writers-container').toggleRequired(0);
-    //jQuery('.post-characters-container').toggleRequired(0);
     var mainCatText;
     jQuery(".post-cat-container select").on('change', function (event){
         event.preventDefault();
-		jQuery('.post-sub-cat-container').toggleRequired(0);
-        jQuery('.post-age-groups-container').toggleRequired(0);
-        jQuery('.post-colors-container').toggleRequired(0);
-        jQuery('.post-conditions-container').toggleRequired(0);
-        jQuery('.post-brands-container').toggleRequired(0);
-        jQuery('.post-writers-container').toggleRequired(0);
-        jQuery('.post-characters-container').toggleRequired(0);
-        jQuery('.post-genders-container').toggleRequired(0);
-        jQuery('.post-languages-container').toggleRequired(0);
+		jQuery('.toggle-required').toggleRequired(0);
+
         var selected = jQuery(this).find(":selected");
         var mainCatId = selected.val();
         var ageFilter = selected.attr('data-age-enabled');
@@ -405,6 +391,18 @@ jQuery(document).ready(function(jQuery){
         var languageFilter = selected.attr('data-language-enabled');
         if (languageFilter == '1') {
             jQuery('.post-languages-container').toggleRequired(1);
+        }
+        var shoeSizeFilter = selected.attr('data-shoesize-enabled');
+        if (shoeSizeFilter == '1') {
+            jQuery('.post-shoe-sizes-container').toggleRequired(1);
+        }
+        var maternitySizeFilter = selected.attr('data-maternitysize-enabled');
+        if (maternitySizeFilter == '1') {
+            jQuery('.post-maternity-sizes-container').toggleRequired(1);
+        }
+        var bicycleSizeFilter = selected.attr('data-bicyclesize-enabled');
+        if (bicycleSizeFilter == '1') {
+            jQuery('.post-bicycle-sizes-container').toggleRequired(1);
         }
 
         mainCatText = selected.text();

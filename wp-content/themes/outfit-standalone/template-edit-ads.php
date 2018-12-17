@@ -73,6 +73,10 @@ $writers = outfit_get_list_of_writers();
 $characters = outfit_get_list_of_characters();
 $genders = outfit_get_list_of_genders();
 $languages = outfit_get_list_of_languages();
+$shoeSizes = outfit_get_list_of_shoe_sizes();
+$maternitySizes = outfit_get_list_of_maternity_sizes();
+$bicycleSizes = outfit_get_list_of_bicycle_sizes();
+
 $termsandcondition = '/תנאי-שימוש-באתר';
 /*
  * post data
@@ -317,6 +321,26 @@ if(isset( $_POST['postTitle'] )) {
 			$postCharacter = getPostMultiple('postCharacter');
 			setPostCharacters($postId, $postCharacter);
 
+			// post languages
+			$postLanguage = getPostMultiple('postLanguage');
+			setPostLanguages($postId, $postLanguage);
+
+			// post genders
+			$postGender = getPostMultiple('postGender');
+			setPostGenders($postId, $postGender);
+
+			// post shoe sizes
+			$postShoeSize = getPostMultiple('postShoeSize');
+			setPostShoeSizes($postId, $postShoeSize);
+
+			// post maternity sizes
+			$postMaternitySize = getPostMultiple('postMaternitySize');
+			setPostMaternitySizes($postId, $postMaternitySize);
+
+			// post bicycle sizes
+			$postBicycleSize = getPostMultiple('postBicycleSize');
+			setPostBicycleSizes($postId, $postBicycleSize);
+
 			//If Its posting featured image//
 			if ( isset($_FILES['upload_attachment']) ) {
                 $count = 0;
@@ -484,6 +508,9 @@ get_header(); ?>
 														data-condition-enabled="<?php echo ($c->catFilterByCondition? '1' : '0'); ?>"
 														data-gender-enabled="<?php echo ($c->catFilterByGender? '1' : '0'); ?>"
 														data-language-enabled="<?php echo ($c->catFilterByLanguage? '1' : '0'); ?>"
+														data-shoesize-enabled="<?php echo ($c->catFilterByShoeSize? '1' : '0'); ?>"
+														data-maternitysize-enabled="<?php echo ($c->catFilterByMaternitySize? '1' : '0'); ?>"
+														data-bicyclesize-enabled="<?php echo ($c->catFilterByBicycleSize? '1' : '0'); ?>"
 														<?php if ($outfitMainCat && $c->term_id == $outfitMainCat) {
 															$filterBy = $c;
 															echo 'selected';
@@ -494,7 +521,7 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Category-->
 
-								<div class="form-group post-sub-cat-container" style="<?php echo (count($subCategories)? '' : 'display: none;'); ?>">
+								<div class="form-group post-sub-cat-container toggle-required" style="<?php echo (count($subCategories)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?></label>
 									<div class="item">
 										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md">
@@ -510,7 +537,7 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Sub Category-->
 
-								<div class="form-group post-colors-container"
+								<div class="form-group post-colors-container toggle-required"
 									style="<?php echo (($filterBy && $filterBy->catFilterByColor)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('צבע', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
@@ -526,7 +553,7 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Colors-->
 
-								<div class="form-group post-age-groups-container"
+								<div class="form-group post-age-groups-container toggle-required"
 									 style="<?php echo (($filterBy && $filterBy->catFilterByAge)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
@@ -542,7 +569,7 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Age Groups-->
 
-								<div class="form-group post-brands-container"
+								<div class="form-group post-brands-container toggle-required"
 									 style="<?php echo (($filterBy && $filterBy->catFilterByBrand)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('מותג', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
@@ -575,7 +602,7 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Conditions-->
 
-								<div class="form-group post-writers-container"
+								<div class="form-group post-writers-container toggle-required"
 									 style="<?php echo (($filterBy && $filterBy->catFilterByWriter)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('כותכ', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
@@ -592,7 +619,7 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Book Writers-->
 
-								<div class="form-group post-characters-container"
+								<div class="form-group post-characters-container toggle-required"
 									 style="<?php echo (($filterBy && $filterBy->catFilterByCharacter)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
@@ -610,11 +637,11 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Characters-->
 
-								<div class="form-group post-genders-container"
+								<div class="form-group post-genders-container toggle-required"
 									 style="<?php echo (($filterBy && $filterBy->catFilterByGender)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('מין', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
-										<select id="writer" name="postGender[]" class="reg form-control form-control-md"
+										<select id="gender" name="postGender[]" class="reg form-control form-control-md"
 											<?php echo (($filterBy && $filterBy->catFilterByGender)? 'required' : ''); ?>>
 											<option></option>
 											<?php
@@ -627,11 +654,11 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Genders-->
 
-								<div class="form-group post-genders-container"
+								<div class="form-group post-languages-container toggle-required"
 									 style="<?php echo (($filterBy && $filterBy->catFilterByLanguage)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('שפה', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
-										<select id="writer" name="postLanguage[]" class="reg form-control form-control-md"
+										<select id="language" name="postLanguage[]" class="reg form-control form-control-md"
 											<?php echo (($filterBy && $filterBy->catFilterByLanguage)? 'required' : ''); ?>>
 											<option></option>
 											<?php
@@ -643,6 +670,57 @@ get_header(); ?>
 										</select>
 									</div>
 								</div><!-- /Ad Languages-->
+
+								<div class="form-group post-shoe-sizes-container toggle-required"
+									 style="<?php echo (($filterBy && $filterBy->catFilterByShoeSize)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('מידת נעליים', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="shoeSize" name="postShoeSize[]" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByShoeSize)? 'required' : ''); ?>>
+											<option></option>
+											<?php
+											foreach ($shoeSizes as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $postShoeSize)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Shoe Sizes-->
+
+								<div class="form-group post-maternity-sizes-container toggle-required"
+									 style="<?php echo (($filterBy && $filterBy->catFilterByMaternitySize)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('מידה', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="maternitySize" name="postMaternitySize[]" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByMaternitySize)? 'required' : ''); ?>>
+											<option></option>
+											<?php
+											foreach ($maternitySizes as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $postMaternitySize)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Maternity Sizes-->
+
+								<div class="form-group post-bicycle-sizes-container toggle-required"
+									 style="<?php echo (($filterBy && $filterBy->catFilterByBicycleSize)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('מידה', 'outfit-standalone') ?><span>*</span> </label>
+									<div class="item">
+										<select id="bicycleSize" name="postBicycleSize[]" class="reg form-control form-control-md"
+											<?php echo (($filterBy && $filterBy->catFilterByBicycleSize)? 'required' : ''); ?>>
+											<option></option>
+											<?php
+											foreach ($bicycleSizes as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php echo (in_array($c->term_id, $postBicycleSize)? 'selected' : ''); ?>>
+													<?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Bicycle Sizes-->
 
 							</div>
 							<div class="form-group">
