@@ -83,13 +83,13 @@ get_header(); ?>
 
 													<div class="premium-img">
 														<?php if ($post->post_status == 'sold') { ?>
-															<div class="sold" style="position: absolute; top: 0; z-index: 10;">
-																<p>Sold</p>
+															<div class="sold">
+																<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/SOLD.png" />
 															</div>
-														<?php } else if ($post->post_status == 'pending') { ?>
-															<div class="pending" style="position: absolute; top: 0; z-index: 10;">
+														<?php //} else if ($post->post_status == 'pending') { ?>
+															<!--<div class="pending" style="position: absolute; top: 0; z-index: 10;">
 																<p>Pending</p>
-															</div>
+															</div>-->
 														<?php } ?>
 														<a href="<?php the_permalink(); ?>">
 															<?php
@@ -125,18 +125,18 @@ get_header(); ?>
 													</div><!--premium-img-->
 													<div class="remove-post-button post-rmv">
 														<a href="javascript:void(0)">
-															<span class="remove-post"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
+															<span class="remove-post">&nbsp;</span>
 															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
 														</a>
 													</div><!--remove-post-button-->
-													<div class=" " style="display: none;">
+													<div class="remove-post-buttons" style="display: none;">
 														<div class="post-action-button-sold">
 														<a class="" href="<?php echo esc_url($soldPostUrl) ?>"
-														   data-title="<?php echo esc_html_e( 'האם לסמן את המוצר כ"נמכר" ולהסירו מקטגוריה?', 'outfit-standalone' ); ?>"
-														   data-content="<?php echo esc_html_e( 'הסבר', 'outfit-standalone' ); ?>">
+														   data-title="<?php echo esc_html_e( 'האם לסמן את המוצר כ"נמכר" ולהסירו מהקטגוריה?', 'outfit-standalone' ); ?>"
+														   data-content="<?php echo esc_html_e( 'פה יכול להיות הסבר על התהליך ואיפה המוצר יוכל להופיע או לא', 'outfit-standalone' ); ?>">
 															<span class="remove-post">
-																<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" />
-																<?php esc_html_e('Set as sold', 'outfit-standalone'); ?>
+																<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/remove-check.png" />
+																<?php esc_html_e('סמן כנמכר', 'outfit-standalone'); ?>
 															</span>
 															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
 														</a>
@@ -146,8 +146,8 @@ get_header(); ?>
 														   data-title="<?php echo esc_html_e( 'בטוח שתרצו להסיר את המוצר?', 'outfit-standalone' ); ?>"
 														   data-content="<?php echo esc_html_e( 'ברגע שתלחצו על כן, המוצר שפירסמתם יירד מהמערכת, האם אתה בטוח?', 'outfit-standalone' ); ?>">
 															<span class="remove-post">
-																<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" />
-																<?php esc_html_e('Remove from the system', 'outfit-standalone'); ?>
+																<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/remove-close.png" />
+																<?php esc_html_e('מחיקת הודעה', 'outfit-standalone'); ?>
 															</span>
 															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
 														</a>

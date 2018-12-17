@@ -1433,6 +1433,10 @@ jQuery(document).ready(function(jQuery){
 			jQuery(this).toggleClass('active');
 		});
 	}
+	//on load show slider
+	jQuery(window).on('load', function () {	
+		jQuery('.elementor-image-carousel').css('visibility','visible');
+	});
 	//map tab set Active
 	//jQuery('#outfit_main_map').height(Sheight);
 	jQuery('.m-tab').click(function() {
