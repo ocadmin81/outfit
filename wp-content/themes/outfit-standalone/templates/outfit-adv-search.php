@@ -150,10 +150,7 @@ else {
 			<?php if ($filterBy && $filterBy->catFilterByBrand) { ?>
 				<?php
 				if (!empty($catId)) {
-					$totals = outfit_get_posts_count_by_term($catId, 'brands');
-					echo '<div style="display: none">';
-					var_dump($totals);
-					echo '</div>';
+					$brands = outfit_filter_live_terms($catId, 'brands', $brands);
 				}
 				?>
 

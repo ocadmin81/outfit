@@ -591,7 +591,7 @@ function outfit_get_posts_count_by_term($categoryId, $taxonomy) {
 
     global $wpdb;
     $query = "
-      SELECT COUNT (p.ID) as posts, t.term_id as term
+      SELECT COUNT(p.ID) as posts, tt1.term_id as term
       FROM $wpdb->posts AS p
       INNER JOIN $wpdb->term_relationships AS tr1 ON (p.ID = tr1.object_id)
       INNER JOIN $wpdb->term_taxonomy AS tt1 ON (tr1.term_taxonomy_id = tt1.term_taxonomy_id)
@@ -604,4 +604,26 @@ function outfit_get_posts_count_by_term($categoryId, $taxonomy) {
       GROUP BY tt1.term_id
     ";
     return $wpdb->get_results($query);
+    //return $query;
+}
+
+function outfit_get_live_terms($categoryId, $taxonomy) {
+
+    $res = outfit_get_posts_count_by_term($categoryId, $taxonomy);
+    $terms = array();
+    foreach ($res as $r) {
+        $terms[] = $r['term'];
+    }
+    return $terms;
+}
+
+function outfit_filter_live_terms($categoryId, $taxonomy, $terms) {
+    $live = outfit_get_live_terms($categoryId, $taxonomy);
+    $res = array();
+    foreach ($terms as $term) {
+        if (in_array($term->term_id, $live)) {
+            $res[] = $term;
+        }
+    }
+    return $res;
 }
