@@ -1537,6 +1537,7 @@ jQuery(document).ready(function(jQuery){
     jQuery('.remove-post-button.post-rmv a').on("click", function(event){
         event.preventDefault();
         var btnSet = jQuery(this).parent().next();
+		jQuery(this).toggleClass('active');
         btnSet.toggle();
     });
 	
