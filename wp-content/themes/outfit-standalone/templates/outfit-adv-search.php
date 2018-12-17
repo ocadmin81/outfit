@@ -148,6 +148,15 @@ else {
 			<!--Categories-->
 			<?php } ?>
 			<?php if ($filterBy && $filterBy->catFilterByBrand) { ?>
+				<?php
+				if (!empty($catId)) {
+					$totals = outfit_get_posts_count_by_term($catId, 'brands');
+					echo '<div style="display: none">';
+					var_dump($totals);
+					echo '</div>';
+				}
+				?>
+
 				<!--Brands-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מותגים', 'outfit-standalone' ); ?></div>

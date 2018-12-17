@@ -586,3 +586,22 @@ function outfit_get_category_posts_by_id($catId, $count) {
     $posts = get_posts($args);
     return $posts;
 }
+
+function outfit_get_posts_count_by_term($categoryId, $taxonomy) {
+
+    global $wpdb;
+    $query = "
+      SELECT COUNT (p.ID) as posts, t.term_id as term
+      FROM $wpdb->posts AS p
+      INNER JOIN $wpdb->term_relationships AS tr1 ON (p.ID = tr1.object_id)
+      INNER JOIN $wpdb->term_taxonomy AS tt1 ON (tr1.term_taxonomy_id = tt1.term_taxonomy_id)
+      INNER JOIN $wpdb->term_relationships AS tr2 ON (p.ID = tr2.object_id)
+      INNER JOIN $wpdb->term_taxonomy AS tt2 ON (tr2.term_taxonomy_id = tt2.term_taxonomy_id)
+      WHERE p.post_status = 'publish'
+      AND p.post_type = '".OUTFIT_AD_POST_TYPE."'
+      AND tt1.taxonomy = '$taxonomy'
+      AND tt2.term_id = $categoryId
+      GROUP BY tt1.term_id
+    ";
+    return $wpdb->get_results($query);
+}
