@@ -1433,10 +1433,6 @@ jQuery(document).ready(function(jQuery){
 			jQuery(this).toggleClass('active');
 		});
 	}
-	//on load show slider
-	jQuery(window).on('load', function () {	
-		jQuery('.elementor-image-carousel').css('visibility','visible');
-	});
 	//map tab set Active
 	//jQuery('#outfit_main_map').height(Sheight);
 	jQuery('.m-tab').click(function() {
@@ -1482,7 +1478,10 @@ jQuery(document).ready(function(jQuery){
 	//Text under comment form title
 	jQuery('.comment-form-desc').insertAfter('.comment-respond h3');	
 	jQuery('.comment-form-comment textarea').attr('placeholder',jQuery('.text-placeholder').text());
-
+	/*show slider onload*/
+	jQuery(window).on('load', function () {	
+		jQuery('.elementor-image-carousel').css('visibility','visible');
+	});
     /* by Milla - save search prefs */
     jQuery('#outfit_save_search_prefs').on('click', function(event){
         event.preventDefault();

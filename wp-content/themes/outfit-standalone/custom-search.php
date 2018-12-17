@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?php
 /**
  * The template for displaying Category pages.
@@ -968,5 +967,4 @@ if (!empty($metaQuery)) {
 	</div><!--container-->
 </section>	
 <!-- page content -->
->>>>>>> ddb73ee2468531ef72c3fec93c27d47c392f17bc
 <?php get_footer(); ?>
