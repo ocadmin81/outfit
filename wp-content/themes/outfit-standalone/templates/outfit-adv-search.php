@@ -89,13 +89,21 @@ else {
 		<div id="innerSearch" class="classiera__inner">
 
 			<?php if ($filterBy && $filterBy->catFilterByAge) { ?>
+				<?php
+				if (!empty($catId)) {
+					$liveAgeGroups = outfit_filter_live_terms($catId, 'age_groups', $ageGroups);
+				}
+				else {
+					$liveAgeGroups = $ageGroups;
+				}
+				?>
 			<!--Age Groups-->
 			<div class="inner-search-box ab">
 				<div class="inner-search-heading"><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></div>
 				<select id="ageGroup" name="postAgeGroup" class="form-control form-control-sm">					
 					<option value=""><?php esc_html_e( 'בחרו גיל', 'outfit-standalone' ); ?></option>
 					<?php
-					foreach ($ageGroups as $c): ?>
+					foreach ($liveAgeGroups as $c): ?>
 						<option value="<?php echo $c->term_id; ?>"
 							<?php echo (in_array($c->term_id, $postAgeGroup)? 'selected' : ''); ?>>
 							<?php esc_html_e($c->name); ?></option>
@@ -177,12 +185,20 @@ else {
 			<?php } ?>
 
 			<?php if ($filterBy && $filterBy->catFilterByColor) { ?>
+				<?php
+				if (!empty($catId)) {
+					$livecolors = outfit_filter_live_terms($catId, 'colors', $colors);
+				}
+				else {
+					$livecolors = $colors;
+				}
+				?>
 				<!--Colors-->
 				<div class="inner-search-box color">
 					<div class="inner-search-heading"><?php esc_html_e( 'צבע', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
-						foreach ($colors as $i => $c):
+						foreach ($livecolors as $i => $c):
 							$checked = in_array($c->term_id, $postColor)? 'checked' : '';
 							$attId = get_term_meta($c->term_id, 'image', true);
 							$imgSrcArr = wp_get_attachment_image_src($attId['ID']);
@@ -250,12 +266,20 @@ else {
 			<!--Price-->
 
 			<?php if ($filterBy && $filterBy->catFilterByCondition) { ?>
+				<?php
+				if (!empty($catId)) {
+					$liveconditions = outfit_filter_live_terms($catId, 'conditions', $conditions);
+				}
+				else {
+					$liveconditions = $conditions;
+				}
+				?>
 				<!--Conditions-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מצב פריט', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
-						foreach ($conditions as $i => $c):
+						foreach ($liveconditions as $i => $c):
 							$checked = in_array($c->term_id, $postCondition)? 'checked' : '';
 						?>
 							<div class="checkbox">
@@ -270,12 +294,20 @@ else {
 			<?php } ?>
 
 			<?php if ($filterBy && $filterBy->catFilterByWriter) { ?>
+				<?php
+				if (!empty($catId)) {
+					$livewriters = outfit_filter_live_terms($catId, 'writers', $writers);
+				}
+				else {
+					$livewriters = $writers;
+				}
+				?>
 				<!--Writers-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'סופר', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
-						foreach ($writers as $i => $c):
+						foreach ($livewriters as $i => $c):
 							$checked = in_array($c->term_id, $postWriter)? 'checked' : '';
 						?>
 							<div class="checkbox">
@@ -290,12 +322,20 @@ else {
 			<?php } ?>
 
 			<?php if ($filterBy && $filterBy->catFilterByCharacter) { ?>
+				<?php
+				if (!empty($catId)) {
+					$livecharacters = outfit_filter_live_terms($catId, 'characters', $characters);
+				}
+				else {
+					$livecharacters = $characters;
+				}
+				?>
 				<!--Characters-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'דמות', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
-						foreach ($characters as $i => $c):
+						foreach ($livecharacters as $i => $c):
 							$checked = in_array($c->term_id, $postCharacter)? 'checked' : '';
 						?>
 							<div class="checkbox">
@@ -310,12 +350,20 @@ else {
 			<?php } ?>
 
 			<?php if ($filterBy && $filterBy->catFilterByGender) { ?>
+				<?php
+				if (!empty($catId)) {
+					$livegenders = outfit_filter_live_terms($catId, 'genders', $genders);
+				}
+				else {
+					$livegenders = $genders;
+				}
+				?>
 				<!--Genders-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
-						foreach ($genders as $i => $c):
+						foreach ($livegenders as $i => $c):
 							$checked = in_array($c->term_id, $postGender)? 'checked' : '';
 							?>
 							<div class="checkbox">
@@ -330,12 +378,20 @@ else {
 			<?php } ?>
 
 			<?php if ($filterBy && $filterBy->catFilterByLanguage) { ?>
+				<?php
+				if (!empty($catId)) {
+					$livelanguages = outfit_filter_live_terms($catId, 'languages', $languages);
+				}
+				else {
+					$livelanguages = $languages;
+				}
+				?>
 				<!--Languages-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
-						foreach ($languages as $i => $c):
+						foreach ($livelanguages as $i => $c):
 							$checked = in_array($c->term_id, $postLanguage)? 'checked' : '';
 							?>
 							<div class="checkbox">
