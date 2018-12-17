@@ -201,7 +201,10 @@ else {
 						foreach ($livecolors as $i => $c):
 							$checked = in_array($c->term_id, $postColor)? 'checked' : '';
 							$attId = get_term_meta($c->term_id, 'image', true);
-							$imgSrcArr = wp_get_attachment_image_src($attId['ID']);
+							$imgSrcArr = [];
+							if (isset($attId['ID'])) {
+								wp_get_attachment_image_src($attId['ID']);
+							}
 
 							if (!empty($imgSrcArr)) {
 								$bg = 'url('.$imgSrcArr[0].')';
