@@ -46,14 +46,13 @@ if ($loggedIn) {
 	);*/
 
 	$searchPrefAge = get_user_meta($userId, USER_META_SEARCH_PREF_AGE, true);
-	$searchPrefLocation = OutfitLocation::createFromJSON(
-		get_user_meta($userId, USER_META_SEARCH_PREF_LOCATION, true));
+	$searchPrefLocations = outfit_get_search_locations(get_user_meta($userId, USER_META_SEARCH_PREF_LOCATION, true));
 
-	//var_dump($searchPrefLocation);
+	//var_dump($searchPrefLocations);
 
 	$postsByAgeAndLocation = array();
-	if (null != $searchPrefLocation || !empty($searchPrefAge)) {
-		$postsByAgeAndLocation = outfit_get_posts_by_age_and_location($searchPrefAge, $searchPrefLocation, $count);
+	if (!empty($searchPrefLocations) || !empty($searchPrefAge)) {
+		$postsByAgeAndLocation = outfit_get_posts_by_age_and_location($searchPrefAge, $searchPrefLocations, $count);
 	}
 	$postsRows[] = array(
 		'title' => 'לפי גיל ואיזור',

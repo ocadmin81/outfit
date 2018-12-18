@@ -503,17 +503,10 @@ function outfit_get_recent_cats_posts($userId, $count) {
  * @param $count
  * @return array
  */
-function outfit_get_posts_by_age_and_location($ageTermId, $location, $count) {
+function outfit_get_posts_by_age_and_location($ageTermId, $locations, $count) {
     $posts = array();
-    $locationSearchTag = '';
-    $locationSearchKey = '';
 
-    if (null !== $location && ($location instanceof OutfitLocation)) {
-        $locationSearchKey = $location->suggestSearchKey();
-        $locationSearchTag = $location->getLastSearchKeyBy();
-    }
-
-    if ( (empty($locationSearchTag) || empty($locationSearchKey)) && empty($ageTermId) ) {
+    if (empty($ageTermId) && empty($locations)) {
         return $posts;
     }
 
@@ -531,26 +524,23 @@ function outfit_get_posts_by_age_and_location($ageTermId, $location, $count) {
             'operator' => 'IN'
         )];
     }
-    if (!empty($locationSearchTag)) {
+    if (!empty($locations)) {
 
-        $metaKey = '';
-        if ($locationSearchTag == OutfitLocation::LOCALITY) {
-            $metaKey = POST_META_LOCALITY_TAG;
+        $metaQueryLocation = array('relation' => 'OR');
+
+        // search by locations
+        foreach ($locations as $location) {
+            $meta = $location->suggestMetaKeyValue();
+            if (false !== $meta) {
+                $metaQueryLocation[] = array(
+                    'key' => $meta['meta_key'],
+                    'value' => $meta['meta_value'],
+                    'compare' => '='
+                );
+            }
         }
-        else if ($locationSearchTag == OutfitLocation::AREA3) {
-            $metaKey = POST_META_AREA3_TAG;
-        }
-        else if ($locationSearchTag == OutfitLocation::AREA2) {
-            $metaKey = POST_META_AREA2_TAG;
-        }
-        else if ($locationSearchTag == OutfitLocation::AREA1) {
-            $metaKey = POST_META_AREA1_TAG;
-        }
-        $args['meta_query'] = [array(
-            'key' => $metaKey,
-            'value' => $locationSearchKey,
-            'compare' => '='
-        )];
+
+        $args['meta_query'] = $metaQueryLocation;
 
         //var_dump($args);
     }

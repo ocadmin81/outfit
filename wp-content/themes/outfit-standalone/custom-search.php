@@ -96,7 +96,6 @@ $postCondition = getRequestMultiple('postCondition', true);;
 $postWriter = getRequestMultiple('postWriter', true);;
 $postCharacter = getRequestMultiple('postCharacter', true);;
 $postKeyword = getGetInput('s', '');
-$postLocation = null;
 $postPrice = getRequestMultiple('priceRange', true);
 
 $pageTitle = '';
@@ -110,21 +109,15 @@ else if (!empty($postKeyword)) {
 	$pageTitle = $postKeyword;
 }
 
-// post primary location
-$postAddress = trim(getGetInput('address'));
-$postLatitude = getGetInput('latitude');
-$postLongitude = getGetInput('longitude');
-$postLocality = getGetInput('locality');
-$postArea1 = getGetInput('aal1');
-$postArea2 = getGetInput('aal2');
-$postArea3 = getGetInput('aal3');
-
-$postLocation = new OutfitLocation($postAddress, $postLongitude, $postLatitude, [
-	'locality' => $postLocality,
-	'aal3' => $postArea3,
-	'aal2' => $postArea2,
-	'aal1' => $postArea1
-]);
+// search locations
+global $searchLocations, $searchLocationsStr;
+$searchLocations = outfit_get_search_locations();
+$searchLocationsStr = '';
+$arr = array();
+foreach ($searchLocations as $l) {
+	$arr[] = $l->toString();
+}
+$searchLocationsStr = json_encode($arr);
 
 if (!empty($postKeyword)) {
 	$args['s'] = $postKeyword;
@@ -225,32 +218,22 @@ if (!empty($postPrice)) {
 	}
 }
 
-$locationSearchKey = $postLocation->suggestSearchKey();
-$searchBy = $postLocation->getLastSearchKeyBy();
+$metaQueryLocation = array('relation' => 'OR');
 
-$metaQueryLocation = array();
-if ($locationSearchKey && $searchBy) {
-
-	$metaKey = '';
-	if ($searchBy == OutfitLocation::LOCALITY) {
-		$metaKey = POST_META_LOCALITY_TAG;
+// search by locations
+foreach ($searchLocations as $location) {
+	$meta = $location->suggestMetaKeyValue();
+	if (false !== $meta) {
+		$metaQueryLocation[] = array(
+			'key' => $meta['meta_key'],
+			'value' => $meta['meta_value'],
+			'compare' => '='
+		);
 	}
-	else if ($searchBy == OutfitLocation::AREA3) {
-		$metaKey = POST_META_AREA3_TAG;
-	}
-	else if ($searchBy == OutfitLocation::AREA2) {
-		$metaKey = POST_META_AREA2_TAG;
-	}
-	else if ($searchBy == OutfitLocation::AREA1) {
-		$metaKey = POST_META_AREA1_TAG;
-	}
-	$metaQueryLocation = array(
-		'key' => $metaKey,
-		'value' => $locationSearchKey,
-		'compare' => '='
-	);
-	$metaQuery[] = $metaQueryLocation;
 }
+
+$metaQuery[] = $metaQueryLocation;
+
 if (!empty($metaQuery)) {
 	$args['meta_query'] = $metaQuery;
 }

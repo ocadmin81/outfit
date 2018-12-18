@@ -77,7 +77,7 @@ $args = array(
 
 if ($currentUserId) {
 	$searchPrefAge = get_user_meta($currentUserId, USER_META_SEARCH_PREF_AGE, true);
-	$searchPrefLocation = OutfitLocation::createFromJSON(get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true));
+	$searchPrefLocations = outfit_get_search_locations(get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true));
 
 	if (!empty($searchPrefAge)) {
 		$args['tax_query'] = [array(
@@ -88,37 +88,21 @@ if ($currentUserId) {
 		)];
 	}
 
-	$locationSearchTag = '';
-	$locationSearchKey = '';
+	$metaQueryLocation = array('relation' => 'OR');
 
-	if (null !== $searchPrefLocation && ($searchPrefLocation instanceof OutfitLocation)) {
-		$locationSearchKey = $searchPrefLocation->suggestSearchKey();
-		$locationSearchTag = $searchPrefLocation->getLastSearchKeyBy();
-
-		if (!empty($locationSearchTag) && !empty($locationSearchKey)) {
-
-			$metaKey = '';
-			if ($locationSearchTag == OutfitLocation::LOCALITY) {
-				$metaKey = POST_META_LOCALITY_TAG;
-			}
-			else if ($locationSearchTag == OutfitLocation::AREA3) {
-				$metaKey = POST_META_AREA3_TAG;
-			}
-			else if ($locationSearchTag == OutfitLocation::AREA2) {
-				$metaKey = POST_META_AREA2_TAG;
-			}
-			else if ($locationSearchTag == OutfitLocation::AREA1) {
-				$metaKey = POST_META_AREA1_TAG;
-			}
-			$args['meta_query'] = [array(
-				'key' => $metaKey,
-				'value' => $locationSearchKey,
+	// search by locations
+	foreach ($searchPrefLocation as $location) {
+		$meta = $location->suggestMetaKeyValue();
+		if (false !== $meta) {
+			$metaQueryLocation[] = array(
+				'key' => $meta['meta_key'],
+				'value' => $meta['meta_value'],
 				'compare' => '='
-			)];
-
-			//var_dump($args);
+			);
 		}
 	}
+
+	$metaQuery[] = $metaQueryLocation;
 }
 
 $outfitMainCat = outfit_get_cat_ancestors($catId);

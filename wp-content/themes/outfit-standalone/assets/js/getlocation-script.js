@@ -67,7 +67,16 @@ jQuery(document).ready(function(){
           parent.find(".aal2").val(ui.item.hash.aal2);
           parent.find(".aal1").val(ui.item.hash.aal1);
           elem.val(ui.item.value);
-          jQuery(this).trigger('addresschange');
+          var obj = {
+            address: ui.item.value,
+            latitude: ui.item.latitude,
+            longitude: ui.item.longitude,
+            locality: ui.item.hash.locality,
+            aal3: ui.item.hash.aal3,
+            aal2: ui.item.hash.aal2,
+            aal1: ui.item.hash.aal1
+          };
+          jQuery(this).trigger('addresschange', [obj]);
           //jQuery(this).trigger('blur', [ui.item.formatted_address]);
         },
         change: function(event, ui) {

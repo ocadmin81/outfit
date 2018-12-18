@@ -39,6 +39,33 @@ class OutfitLocation {
         }
     }
 
+    public function suggestMetaKeyValue() {
+
+        $meta = array('meta_key' => '', 'meta_value' => '');
+
+        if (!empty($this->locality)) {
+            $meta['meta_key'] = POST_META_LOCALITY_TAG;
+            $meta['meta_value'] = $this->locality;
+            return $meta;
+        }
+        if (!empty($this->aal3)) {
+            $meta['meta_key'] = POST_META_AREA3_TAG;
+            $meta['meta_value'] = $this->aal3;
+            return $meta;
+        }
+        if (!empty($this->aal2)) {
+            $meta['meta_key'] = POST_META_AREA2_TAG;
+            $meta['meta_value'] = $this->aal2;
+            return $meta;
+        }
+        if (!empty($this->aal1)) {
+            $meta['meta_key'] = POST_META_AREA1_TAG;
+            $meta['meta_value'] = $this->aal1;
+            return $meta;
+        }
+        return false;
+    }
+
     public function suggestSearchKey() {
         if (!empty($this->locality)) {
             $this->lastSearchKeyBy = self::LOCALITY;

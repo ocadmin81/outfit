@@ -2,6 +2,8 @@
 
 global $redux_demo;
 global $catId, $outfitMainCat, $subCategories;
+global $searchLocations, $searchLocationsStr;
+
 $filterBy = fetch_category_custom_fields(get_category($outfitMainCat));
 
 /* filters */
@@ -83,7 +85,7 @@ else {
 //var_dump(get_query_var('address'));
 ?>
 <!--SearchForm-->
-<form method="post" action="<?php echo home_url(); ?>">
+<form id="advanced-search-form" method="post" action="<?php echo home_url(); ?>">
 	<div class="search-form">
 		<div class="search-form-main-heading" style="display:none;">
 			<a href="#innerSearch" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="innerSearch">
@@ -126,44 +128,26 @@ else {
 			<div class="inner-search-box ab address">
 				<div class="inner-search-heading"><?php esc_html_e( 'איזור', 'outfit-standalone' ); ?></div>
 
-				<input type="hidden" id="address1" name="address1" value="">
-				<input type="hidden" id="address2" name="address2" value="">
-				<input type="hidden" id="address3" name="address3" value="">
-				<input type="hidden" id="address4" name="address4" value="">
-				<input type="hidden" id="address5" name="address5" value="">
-
-				<div>
-					<span id="address1-label" class="tag label label-info" style="display: none;">
-					  <span>text</span>
-					  <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
-					</span>
-					<span id="address2-label" class="tag label label-info" style="display: none;">
-					  <span>text</span>
-					  <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
-					</span>
-					<span id="address3-label" class="tag label label-info" style="display: none;">
-					  <span>text</span>
-					  <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
-					</span>
-					<span id="address4-label" class="tag label label-info" style="display: none;">
-					  <span>text</span>
-					  <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
-					</span>
-					<span id="address5-label" class="tag label label-info" style="display: none;">
-					  <span>text</span>
-					  <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
-					</span>
-				</div>
+				<textarea style="display: none" id="locations" name="locations"><?php echo $searchLocationsStr; ?></textarea>
 
 				<div class="inner-addon right-addon post_sub_loc">
-					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
-					<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
-					<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
-					<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
-					<input class="aal3" type="hidden" id="aal3" name="aal3" value="<?php echo esc_html($postArea3); ?>">
-					<input class="aal2" type="hidden" id="aal2" name="aal2" value="<?php echo esc_html($postArea2); ?>">
-					<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
-				</div>				
+					<input id="address" type="text" class="address form-control form-control-md" value="" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
+					<input class="latitude" type="hidden" id="latitude" value="">
+					<input class="longitude" type="hidden" id="longitude" value="">
+					<input class="locality" type="hidden" id="locality" value="">
+					<input class="aal3" type="hidden" id="aal3" value="">
+					<input class="aal2" type="hidden" id="aal2" value="">
+					<input class="aal1" type="hidden" id="aal1" value="">
+				</div>
+
+				<div class="">
+					<?php foreach ($searchLocations as $i => $l): ?>
+					<div class="address-label tag label label-info" style="display: inline-block;">
+						<span><?php echo esc_html(wp_trim_words($l->getAddress(), 4)); ?></span>
+						<a><i data-location-index="<?php echo $i; ?>" class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</div>
+					<?php endforeach; ?>
+				</div>
 			</div>
 			<!--<div><a class="clear-address-filter" href="javascript:void(0)">clear address</a></div>-->
 			<!--Locations-->
@@ -543,10 +527,31 @@ else {
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 
+		var locations = [];
+		var locationsJson = jQuery('#locations').val();
+
+		if (locationsJson != '') {
+			locations = JSON.parse(locations);
+		}
+
+		if (locations.length >=5) {
+			jQuery('#address').hide();
+		}
+
 		jQuery('.inner-search-box').on("change", "input:not(.address), select", function(){
 			jQuery(this).closest('form').submit();
 		});
-		jQuery('.inner-search-box').on("addresschange", "input.address", function(event){
+		jQuery('.inner-search-box').on("addresschange", "input.address", function(event, param){
+			locations.push(param.toString());
+			jQuery('#locations').val(locations.toString());
+			jQuery(this).closest('form').submit();
+		});
+		jQuery('.address-label i.remove').on("click", function () {
+			var index = jQuery(this).attr('data-location-index');
+			if (index >= 0 && index < locations.length) {
+				locations.splice(index);
+			}
+			jQuery('#locations').val(locations.toString());
 			jQuery(this).closest('form').submit();
 		});
 		jQuery('.clear-address-filter').on("click", function() {
@@ -563,6 +568,35 @@ else {
 		jQuery('.clear-age-filter').on("click", function() {
 			jQuery('#ageGroup').val('').trigger('change');
 			//jQuery(this).closest('form').submit();
+		});
+
+		var savingPrefs = false;
+
+		jQuery('#advanced-search-form').on('submit', function(event) {
+			if (savingPrefs) return false;
+			return true;
+		});
+
+		/* save search prefs */
+		jQuery('#outfit_save_search_prefs').on('click', function(event){
+			event.preventDefault();
+			var $btn = jQuery(this);
+			$btn.addClass('saving');
+			var age = (jQuery('#ageGroup')? jQuery('#ageGroup').val() : '');
+			var locations = jQuery('#locations').val();
+			var data = {
+				'action': 'outfit_save_search_filters',
+				'age': age,
+				'locations': locations
+			};
+			jQuery.ajax({
+				url: ajaxurl, //AJAX file path - admin_url('admin-ajax.php')
+				type: "POST",
+				data: data,
+				success: function(data){
+					$btn.removeClass('saving');
+				}
+			});
 		});
 	});
 </script>
