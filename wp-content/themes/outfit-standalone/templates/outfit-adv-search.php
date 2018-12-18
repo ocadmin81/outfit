@@ -124,7 +124,37 @@ else {
 
 			<!--Locations-->
 			<div class="inner-search-box ab address">
-				<div class="inner-search-heading"><?php esc_html_e( 'איזור', 'classiera' ); ?></div>
+				<div class="inner-search-heading"><?php esc_html_e( 'איזור', 'outfit-standalone' ); ?></div>
+
+				<input type="hidden" id="address1" name="address1" value="">
+				<input type="hidden" id="address2" name="address2" value="">
+				<input type="hidden" id="address3" name="address3" value="">
+				<input type="hidden" id="address4" name="address4" value="">
+				<input type="hidden" id="address5" name="address5" value="">
+
+				<div>
+					<span id="address1-label" class="tag label label-info" style="display: none;">
+					  <span>text</span>
+					  <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</span>
+					<span id="address2-label" class="tag label label-info" style="display: none;">
+					  <span>text</span>
+					  <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</span>
+					<span id="address3-label" class="tag label label-info" style="display: none;">
+					  <span>text</span>
+					  <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</span>
+					<span id="address4-label" class="tag label label-info" style="display: none;">
+					  <span>text</span>
+					  <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</span>
+					<span id="address5-label" class="tag label label-info" style="display: none;">
+					  <span>text</span>
+					  <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</span>
+				</div>
+
 				<div class="inner-addon right-addon post_sub_loc">
 					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
 					<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
@@ -504,7 +534,7 @@ else {
 			<input type="hidden" name="cat_id" value="<?php echo $catId; ?>">
 			<input type="hidden" name="search">
 			<input type="hidden" name="outfit_ad">
-			<button style="display: none;" type="submit" name="search" class="btn btn-primary sharp btn-sm btn-style-one btn-block" value="<?php esc_html_e( 'Search', 'classiera') ?>"><?php esc_html_e( 'Search', 'classiera') ?></button>
+			<button style="display: none;" type="submit" name="search" class="btn btn-primary sharp btn-sm btn-style-one btn-block" value="<?php esc_html_e( 'Search', 'outfit-standalone') ?>"><?php esc_html_e( 'Search', 'outfit-standalone') ?></button>
 		</div><!--innerSearch-->
 	</div><!--search-form-->
 </form>
