@@ -75,10 +75,17 @@ $args = array(
 	'cat' => $catId
 );
 
+// search locations
+global $searchLocations, $searchLocationsStr;
+$searchLocations = [];
+$searchLocationsStr = '';
+
+
 if ($currentUserId) {
 	$searchPrefAge = get_user_meta($currentUserId, USER_META_SEARCH_PREF_AGE, true);
-	$searchPrefLocations = outfit_get_search_locations(get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true));
+	$searchLocations = outfit_get_search_locations(get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true));
 
+	var_dump($searchLocations);
 	if (!empty($searchPrefAge)) {
 		$args['tax_query'] = [array(
 			'taxonomy' => 'age_groups',
@@ -88,10 +95,16 @@ if ($currentUserId) {
 		)];
 	}
 
+	$arr = array();
+	foreach ($searchLocations as $l) {
+		$arr[] = $l->toString();
+	}
+	$searchLocationsStr = json_encode($arr);
+
 	$metaQueryLocation = array('relation' => 'OR');
 
 	// search by locations
-	foreach ($searchPrefLocation as $location) {
+	foreach ($searchLocations as $location) {
 		$meta = $location->suggestMetaKeyValue();
 		if (false !== $meta) {
 			$metaQueryLocation[] = array(

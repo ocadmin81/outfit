@@ -12,6 +12,13 @@
 define('OUTFIT_AD_POST_TYPE', 'outfit_ad');
 define('OUTFIT_AD_STATUS_ACTIVE', 'outfit_active');
 define('OUTFIT_AD_STATUS_SOLD', 'outfit_sold');
+
+//if ( get_magic_quotes_gpc() ) {
+	$_POST      = array_map( 'stripslashes_deep', $_POST );
+	$_GET       = array_map( 'stripslashes_deep', $_GET );
+	$_COOKIE    = array_map( 'stripslashes_deep', $_COOKIE );
+	$_REQUEST   = array_map( 'stripslashes_deep', $_REQUEST );
+//}
 /*==========================
  Requried some Files.
  ===========================*/
@@ -1590,6 +1597,7 @@ function outfit_get_search_locations($str = '') {
 		return $locations;
 	}
 	$locationsArr = json_decode($locationStr);
+	var_dump($locationsArr);
 	if (null === $locationsArr || !is_array($locationsArr)) {
 		return $locations;
 	}

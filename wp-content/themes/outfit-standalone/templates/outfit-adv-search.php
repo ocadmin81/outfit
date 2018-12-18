@@ -531,7 +531,7 @@ else {
 		var locationsJson = jQuery('#locations').val();
 
 		if (locationsJson != '') {
-			locations = JSON.parse(locations);
+			locations = JSON.parse(locationsJson);
 		}
 
 		if (locations.length >=5) {
@@ -542,8 +542,8 @@ else {
 			jQuery(this).closest('form').submit();
 		});
 		jQuery('.inner-search-box').on("addresschange", "input.address", function(event, param){
-			locations.push(param.toString());
-			jQuery('#locations').val(locations.toString());
+			locations.push(JSON.stringify(param));
+			jQuery('#locations').val(JSON.stringify(locations));
 			jQuery(this).closest('form').submit();
 		});
 		jQuery('.address-label i.remove').on("click", function () {
@@ -551,7 +551,7 @@ else {
 			if (index >= 0 && index < locations.length) {
 				locations.splice(index);
 			}
-			jQuery('#locations').val(locations.toString());
+			jQuery('#locations').val(JSON.stringify(locations));
 			jQuery(this).closest('form').submit();
 		});
 		jQuery('.clear-address-filter').on("click", function() {
