@@ -85,7 +85,7 @@ if ($currentUserId) {
 	$searchPrefAge = get_user_meta($currentUserId, USER_META_SEARCH_PREF_AGE, true);
 	$searchLocations = outfit_get_preferred_locations($currentUserId);
 
-	var_dump($searchLocations);
+	//var_dump($searchLocations);
 	if (!empty($searchPrefAge)) {
 		$args['tax_query'] = [array(
 			'taxonomy' => 'age_groups',
@@ -138,7 +138,7 @@ get_header();
 <div style="display: none">
 	<?php
 	echo 'This category: '.$thisCategory->term_id;
-	var_dump($thisCategory);
+	//var_dump($thisCategory);
 	?>
 </div>
 <!-- page content -->
