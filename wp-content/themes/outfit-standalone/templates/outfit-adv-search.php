@@ -2,8 +2,6 @@
 
 global $redux_demo;
 global $catId, $outfitMainCat, $subCategories;
-global $searchLocations, $searchLocationsStr;
-
 $filterBy = fetch_category_custom_fields(get_category($outfitMainCat));
 
 /* filters */
@@ -85,7 +83,7 @@ else {
 //var_dump(get_query_var('address'));
 ?>
 <!--SearchForm-->
-<form id="advanced-search-form" method="post" action="<?php echo home_url(); ?>">
+<form method="post" action="<?php echo home_url(); ?>">
 	<div class="search-form">
 		<div class="search-form-main-heading" style="display:none;">
 			<a href="#innerSearch" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="innerSearch">
@@ -128,25 +126,43 @@ else {
 			<div class="inner-search-box ab address">
 				<div class="inner-search-heading"><?php esc_html_e( 'איזור', 'outfit-standalone' ); ?></div>
 
-				<textarea style="display: none" id="locations" name="locations"><?php echo $searchLocationsStr; ?></textarea>
+				<input type="hidden" id="address1" name="address1" value="">
+				<input type="hidden" id="address2" name="address2" value="">
+				<input type="hidden" id="address3" name="address3" value="">
+				<input type="hidden" id="address4" name="address4" value="">
+				<input type="hidden" id="address5" name="address5" value="">
 
 				<div class="inner-addon right-addon post_sub_loc">
-					<input id="address" type="text" class="address form-control form-control-md" value="" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
-					<input class="latitude" type="hidden" id="latitude" value="">
-					<input class="longitude" type="hidden" id="longitude" value="">
-					<input class="locality" type="hidden" id="locality" value="">
-					<input class="aal3" type="hidden" id="aal3" value="">
-					<input class="aal2" type="hidden" id="aal2" value="">
-					<input class="aal1" type="hidden" id="aal1" value="">
+					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
+					<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
+					<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
+					<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
+					<input class="aal3" type="hidden" id="aal3" name="aal3" value="<?php echo esc_html($postArea3); ?>">
+					<input class="aal2" type="hidden" id="aal2" name="aal2" value="<?php echo esc_html($postArea2); ?>">
+					<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
 				</div>
 
 				<div class="">
-					<?php foreach ($searchLocations as $i => $l): ?>
-					<div class="address-label tag label label-info" style="display: inline-block;">
-						<span><?php echo esc_html(wp_trim_words($l->getAddress(), 4)); ?></span>
-						<a><i data-location-index="<?php echo $i; ?>" class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					<div id="address1-label" class="" style="display: none;">
+						<span>text</span>
+						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
 					</div>
-					<?php endforeach; ?>
+					<div id="address2-label" class="" style="display: none;">
+						<span>text</span>
+						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</div>
+					<div id="address3-label" class="" style="display: none;">
+						<span>text</span>
+						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</div>
+					<div id="address4-label" class="" style="display: none;">
+						<span>text</span>
+						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</div>
+					<div id="address5-label" class="" style="display: none;">
+						<span>text</span>
+						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</div>
 				</div>
 			</div>
 			<!--<div><a class="clear-address-filter" href="javascript:void(0)">clear address</a></div>-->
@@ -235,9 +251,6 @@ else {
 								$bg = get_term_meta($c->term_id, 'color', true);
 							}
 						?>
-							<div style="display: none">
-								<?php //var_dump($imgSrcArr); ?>
-							</div>
 							<div class="checkbox <?php if(in_array($c->term_id, $postColor)): ?>active<?php endif; ?>">
 								<input type="checkbox" id="<?php echo esc_attr('color_'.$i); ?>" name="postColor[]" value="<?php echo $c->term_id; ?>" <?php echo $checked?>>
 								<label for="<?php echo esc_attr('color_'.$i); ?>" style="background: <?php echo esc_attr($bg); ?>" title="<?php esc_html_e($c->name); ?>"><?php esc_html_e($c->name); ?></label>
@@ -300,6 +313,7 @@ else {
 				}
 				?>
 				<!--Conditions-->
+				<?php if(count($liveconditions)): ?>
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מצב פריט', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
@@ -313,8 +327,8 @@ else {
 							</div>
 						<?php endforeach; ?>
 					</div>
-
 				</div>
+				<?php endif; ?>
 				<!--Conditions-->
 			<?php } ?>
 
@@ -327,6 +341,7 @@ else {
 					$livewriters = $writers;
 				}
 				?>
+				<?php if(count($livewriters)): ?>
 				<!--Writers-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'סופר', 'outfit-standalone' ); ?></div>
@@ -341,8 +356,8 @@ else {
 							</div>
 						<?php endforeach; ?>
 					</div>
-
 				</div>
+				<?php endif; ?>
 				<!--Writers-->
 			<?php } ?>
 
@@ -355,6 +370,7 @@ else {
 					$livecharacters = $characters;
 				}
 				?>
+				<?php if(count($livecharacters)): ?>
 				<!--Characters-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'דמות', 'outfit-standalone' ); ?></div>
@@ -369,8 +385,8 @@ else {
 							</div>
 						<?php endforeach; ?>
 					</div>
-
 				</div>
+				<?php endif; ?>
 				<!--Characters-->
 			<?php } ?>
 
@@ -383,6 +399,7 @@ else {
 					$livegenders = $genders;
 				}
 				?>
+				<?php if(count($livegenders)): ?>
 				<!--Genders-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></div>
@@ -397,8 +414,8 @@ else {
 							</div>
 						<?php endforeach; ?>
 					</div>
-
 				</div>
+				<?php endif; ?>
 				<!--Genders-->
 			<?php } ?>
 
@@ -412,6 +429,7 @@ else {
 					$livelanguages = $languages;
 				}
 				?>
+				<?php if(count($livelanguages)): ?>
 				<!--Languages-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'שפה', 'outfit-standalone' ); ?></div>
@@ -426,8 +444,8 @@ else {
 							</div>
 						<?php endforeach; ?>
 					</div>
-
 				</div>
+				<?php endif; ?>
 				<!--Languages-->
 			<?php } ?>
 
@@ -440,6 +458,7 @@ else {
 					$live = $shoeSizes;
 				}
 				?>
+				<?php if(count($live)): ?>
 				<!--Shoe Sizes-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></div>
@@ -454,8 +473,8 @@ else {
 							</div>
 						<?php endforeach; ?>
 					</div>
-
 				</div>
+				<?php endif; ?>
 				<!--Shoe Sizes-->
 			<?php } ?>
 
@@ -468,6 +487,7 @@ else {
 					$live = $maternitySizes;
 				}
 				?>
+				<?php if(count($live)): ?>
 				<!--Maternity Sizes-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></div>
@@ -482,8 +502,8 @@ else {
 							</div>
 						<?php endforeach; ?>
 					</div>
-
 				</div>
+				<?php endif; ?>
 				<!--Maternity Sizes-->
 			<?php } ?>
 
@@ -496,6 +516,7 @@ else {
 					$live = $bicycleSizes;
 				}
 				?>
+				<?php if(count($live)): ?>
 				<!--Bicycle Sizes-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></div>
@@ -510,8 +531,8 @@ else {
 							</div>
 						<?php endforeach; ?>
 					</div>
-
 				</div>
+				<?php endif; ?>
 				<!--Bicycle Sizes-->
 			<?php } ?>
 
@@ -527,31 +548,10 @@ else {
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 
-		var locations = [];
-		var locationsJson = jQuery('#locations').val();
-
-		if (locationsJson != '') {
-			locations = JSON.parse(locationsJson);
-		}
-
-		if (locations.length >=5) {
-			jQuery('#address').hide();
-		}
-
 		jQuery('.inner-search-box').on("change", "input:not(.address), select", function(){
 			jQuery(this).closest('form').submit();
 		});
-		jQuery('.inner-search-box').on("addresschange", "input.address", function(event, param){
-			locations.push(JSON.stringify(param));
-			jQuery('#locations').val(JSON.stringify(locations));
-			jQuery(this).closest('form').submit();
-		});
-		jQuery('.address-label i.remove').on("click", function () {
-			var index = jQuery(this).attr('data-location-index');
-			if (index >= 0 && index < locations.length) {
-				locations.splice(index);
-			}
-			jQuery('#locations').val(JSON.stringify(locations));
+		jQuery('.inner-search-box').on("addresschange", "input.address", function(event){
 			jQuery(this).closest('form').submit();
 		});
 		jQuery('.clear-address-filter').on("click", function() {
@@ -568,35 +568,6 @@ else {
 		jQuery('.clear-age-filter').on("click", function() {
 			jQuery('#ageGroup').val('').trigger('change');
 			//jQuery(this).closest('form').submit();
-		});
-
-		var savingPrefs = false;
-
-		jQuery('#advanced-search-form').on('submit', function(event) {
-			if (savingPrefs) return false;
-			return true;
-		});
-
-		/* save search prefs */
-		jQuery('#outfit_save_search_prefs').on('click', function(event){
-			event.preventDefault();
-			var $btn = jQuery(this);
-			$btn.addClass('saving');
-			var age = (jQuery('#ageGroup')? jQuery('#ageGroup').val() : '');
-			var locations = jQuery('#locations').val();
-			var data = {
-				'action': 'outfit_save_search_filters',
-				'age': age,
-				'locations': locations
-			};
-			jQuery.ajax({
-				url: ajaxurl, //AJAX file path - admin_url('admin-ajax.php')
-				type: "POST",
-				data: data,
-				success: function(data){
-					$btn.removeClass('saving');
-				}
-			});
 		});
 	});
 </script>
