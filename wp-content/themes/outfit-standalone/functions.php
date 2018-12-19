@@ -1615,7 +1615,7 @@ function outfit_get_preferred_locations($userId) {
 	$locationsArr = get_user_meta($userId, USER_META_SEARCH_PREF_LOCATION);
 	foreach ($locationsArr as $jsonstr) {
 		$l = OutfitLocation::createFromJSON($jsonstr);
-		var_dump($l);
+		//var_dump($l);
 		if (null !== $l && $l->isValid()) {
 			$locations[] = $l;
 		}

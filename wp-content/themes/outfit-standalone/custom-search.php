@@ -112,7 +112,7 @@ else if (!empty($postKeyword)) {
 // search locations
 global $searchLocations, $searchLocationsStr;
 $searchLocations = outfit_get_search_locations();
-var_dump($searchLocations);
+//var_dump($searchLocations);
 $searchLocationsStr = '';
 $arr = array();
 foreach ($searchLocations as $l) {
