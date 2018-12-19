@@ -91,6 +91,7 @@ $userId = $current_user->ID;
 			 * categories
 			 */
 			$postCategories = getCategoryPath($post->ID);
+			$comparePriceData = outfit_get_compare_price_data($postCategories);
 			$outfitMainCat = (isset($postCategories[0])? $postCategories[0] : 0);
 			$outfitSubCat = (isset($postCategories[1])? $postCategories[1] : 0);
 			$outfitSubSubCat = (isset($postCategories[2])? $postCategories[2] : 0);
@@ -389,6 +390,12 @@ $userId = $current_user->ID;
 								</li>
 							<?php endif; ?>
 						</ul>
+
+						<?php if (false !== $comparePriceData) ?>
+						<div class="price-compare">
+							<a href="<?php echo esc_html($comparePriceData['link']) ?>"><?php echo esc_url($comparePriceData['text']); ?></a>
+						</div>
+						<?php ?>
 					</div>
 					<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
 						<div class="wish-share mobile">

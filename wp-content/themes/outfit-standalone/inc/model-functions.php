@@ -662,3 +662,21 @@ function outfit_filter_live_terms($categoryId, $taxonomy, $terms) {
     }
     return $res;
 }
+
+function outfit_get_compare_price_data($cats) {
+    if (is_array($cats) && !empty($cats)) {
+        $index = count($cats) - 1;
+        while ($index >= 0) {
+            if (!empty($cats[$index])) {
+                $pod = pods('category');
+                $pod->fetch($cats[$index]);
+                $text = $pod->get_field('compare_price_text');
+                $link = $pod->get_field('compare_price_link');
+                if (!empty($text) && !empty($link)) {
+                    return array('text' => $text, 'link' => $link);
+                }
+            }
+        }
+        return false;
+    }
+}
