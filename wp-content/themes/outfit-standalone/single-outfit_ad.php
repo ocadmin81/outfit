@@ -393,7 +393,8 @@ $userId = $current_user->ID;
 
 						<?php if (false !== $comparePriceData) ?>
 						<div class="price-compare">
-							<a href="<?php echo esc_html($comparePriceData['link']) ?>"><?php echo esc_url($comparePriceData['text']); ?></a>
+							<a href="<?php echo esc_url($comparePriceData['link']) ?>">
+								<?php echo esc_html($comparePriceData['text']); ?></a>
 						</div>
 						<?php ?>
 					</div>
