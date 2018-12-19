@@ -215,15 +215,15 @@ class OutfitLocation {
 
     public function toString() {
 
-        //????????? ????
+        //
         $arr = (array) get_object_vars($this);
         foreach ($arr as $k => $v) {
             if ($k != 'latitude' && $k != 'longitude') {
-                //$arr[$k] = outfitEncodeUnicodeString($v);
+                $arr[$k] = outfitEncodeUnicodeString(str_replace('"', '[[quot]]', $v));
             }
         }
-        return json_encode($arr);
-        //return json_encode($arr, JSON_HEX_APOS);
+        //return json_encode($arr);
+        return json_encode($arr, JSON_HEX_APOS);
     }
 
     public static function toAssoc($jsonString) {
@@ -233,7 +233,7 @@ class OutfitLocation {
 
         foreach ($json as $k => $v) {
             if ($k != 'latitude' && $k != 'longitude') {
-                //$json[$k] = outfitDecodeUnicodeString($v);
+                $json[$k] = str_replace('[[quot]]', '"', outfitDecodeUnicodeString($v));
             }
         }
 
@@ -247,7 +247,7 @@ class OutfitLocation {
 
         foreach ($json as $k => $v) {
             if ($k != 'latitude' && $k != 'longitude') {
-                //$json[$k] = outfitDecodeUnicodeString($v);
+                $json[$k] = str_replace('[[quot]]', '"', outfitDecodeUnicodeString($v));
             }
         }
         $postAddress = (isset($json['address'])? $json['address'] : '');

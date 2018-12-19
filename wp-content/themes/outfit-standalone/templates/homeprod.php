@@ -46,7 +46,7 @@ if ($loggedIn) {
 	);*/
 
 	$searchPrefAge = get_user_meta($userId, USER_META_SEARCH_PREF_AGE, true);
-	$searchPrefLocations = outfit_get_search_locations(get_user_meta($userId, USER_META_SEARCH_PREF_LOCATION, true));
+	$searchPrefLocations = outfit_get_preferred_locations($userId);
 
 	//var_dump($searchPrefLocations);
 

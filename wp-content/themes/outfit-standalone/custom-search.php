@@ -219,7 +219,7 @@ if (!empty($postPrice)) {
 	}
 }
 
-$metaQueryLocation = array('relation' => 'OR');
+$metaQueryLocation = array();
 
 // search by locations
 foreach ($searchLocations as $location) {
@@ -231,6 +231,10 @@ foreach ($searchLocations as $location) {
 			'compare' => '='
 		);
 	}
+}
+
+if (count($metaQueryLocation)) {
+	$metaQueryLocation['relation'] = 'OR';
 }
 
 $metaQuery[] = $metaQueryLocation;
