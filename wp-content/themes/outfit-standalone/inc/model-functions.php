@@ -526,7 +526,7 @@ function outfit_get_posts_by_age_and_location($ageTermId, $locations, $count) {
     }
     if (!empty($locations)) {
 
-        $metaQueryLocation = array('relation' => 'OR');
+        $metaQueryLocation = array();
 
         // search by locations
         foreach ($locations as $location) {
@@ -538,6 +538,10 @@ function outfit_get_posts_by_age_and_location($ageTermId, $locations, $count) {
                     'compare' => '='
                 );
             }
+        }
+
+        if (count($metaQueryLocation)) {
+            $metaQueryLocation['relation'] = 'OR';
         }
 
         $args['meta_query'] = $metaQueryLocation;

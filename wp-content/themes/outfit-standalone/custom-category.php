@@ -101,7 +101,7 @@ if ($currentUserId) {
 	}
 	$searchLocationsStr = json_encode($arr);
 
-	$metaQueryLocation = array('relation' => 'OR');
+	$metaQueryLocation = array();
 
 	// search by locations
 	foreach ($searchLocations as $location) {
@@ -113,6 +113,10 @@ if ($currentUserId) {
 				'compare' => '='
 			);
 		}
+	}
+
+	if (count($metaQueryLocation)) {
+		$metaQueryLocation['relation'] = 'OR';
 	}
 
 	$metaQuery[] = $metaQueryLocation;
