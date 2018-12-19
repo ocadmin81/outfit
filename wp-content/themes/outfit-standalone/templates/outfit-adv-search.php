@@ -98,7 +98,7 @@ else {
 		</div>
 		<div id="innerSearch" class="classiera__inner">
 
-			<?php if ($filterBy && $filterBy->catFilterByAge) { ?>
+			<?php //if ($filterBy && $filterBy->catFilterByAge) { ?>
 				<?php
 				if (!empty($catId)) {
 					$liveAgeGroups = outfit_filter_live_terms($catId, 'age_groups', $ageGroups);
@@ -122,7 +122,7 @@ else {
 			</div>	
 			<!--<div><a class="clear-age-filter" href="javascript:void(0)">clear age</a></div>-->
 			<!--Age Groups-->
-			<?php } ?>
+			<?php //} if ($filterBy && $filterBy->catFilterByAge) ?>
 
 			<!--Locations-->
 			<div class="inner-search-box ab address">
