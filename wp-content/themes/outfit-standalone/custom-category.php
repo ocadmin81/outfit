@@ -83,7 +83,7 @@ $searchLocationsStr = '';
 
 if ($currentUserId) {
 	$searchPrefAge = get_user_meta($currentUserId, USER_META_SEARCH_PREF_AGE, true);
-	$searchLocations = outfit_get_search_locations(get_user_meta($currentUserId, USER_META_SEARCH_PREF_LOCATION, true));
+	$searchLocations = outfit_get_preferred_locations($currentUserId);
 
 	var_dump($searchLocations);
 	if (!empty($searchPrefAge)) {

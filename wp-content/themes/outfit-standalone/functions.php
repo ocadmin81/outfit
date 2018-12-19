@@ -1510,26 +1510,23 @@ function outfit_save_search_filters() {
 	$ageTermId = (isset($_POST['age']) && !empty($_POST['age']) ? intval($_POST['age']) : false);
 	$searchLocations = outfit_get_search_locations();
 
-	$searchLocationsStr = '';
-	$arr = array();
-	foreach ($searchLocations as $l) {
-		$arr[] = $l->toString();
-	}
-	$searchLocationsStr = json_encode($arr);
-
 	if ($ageTermId) {
 		update_user_meta($currentUser->ID, USER_META_SEARCH_PREF_AGE, $ageTermId);
 	}
 	else {
 		delete_user_meta($currentUser->ID, USER_META_SEARCH_PREF_AGE);
 	}
-	if ($searchLocationsStr != '') {
-		update_user_meta($currentUser->ID, USER_META_SEARCH_PREF_LOCATION, $searchLocationsStr);
+	if (!empty($searchLocations)) {
+
+		delete_user_meta($currentUser->ID, USER_META_SEARCH_PREF_LOCATION);
+		foreach ($searchLocations as $l) {
+			add_user_meta($currentUser->ID, USER_META_SEARCH_PREF_LOCATION, $l->toString());
+		}
 	}
 	else {
 		delete_user_meta($currentUser->ID, USER_META_SEARCH_PREF_LOCATION);
 	}
-	echo 'Age = '.$ageTermId.'; Location address = '.$searchLocationsStr;
+	//echo 'Age = '.$ageTermId.'; Location address = '.($searchLocationsStr);
 	wp_die();
 }
 
@@ -1589,15 +1586,17 @@ function outfit_get_search_locations($str = '') {
 	$locationStr = '';
 	if (!empty($str)) {
 		$locationStr = $str;
+		//var_dump($locationStr);
 	}
 	else if (isset($_REQUEST['locations']) && !empty($_REQUEST['locations'])) {
 		$locationStr = $_REQUEST['locations'];
+		//var_dump($locationStr);
 	}
 	else {
 		return $locations;
 	}
 	$locationsArr = json_decode($locationStr);
-	var_dump($locationsArr);
+	//var_dump($locationsArr);
 	if (null === $locationsArr || !is_array($locationsArr)) {
 		return $locations;
 	}
@@ -1607,5 +1606,20 @@ function outfit_get_search_locations($str = '') {
 			$locations[] = $l;
 		}
 	}
+	//var_dump($locations);
+	return $locations;
+}
+
+function outfit_get_preferred_locations($userId) {
+	$locations = array();
+	$locationsArr = get_user_meta($userId, USER_META_SEARCH_PREF_LOCATION);
+	foreach ($locationsArr as $jsonstr) {
+		$l = OutfitLocation::createFromJSON($jsonstr);
+		var_dump($l);
+		if (null !== $l && $l->isValid()) {
+			$locations[] = $l;
+		}
+	}
+	//var_dump($locationsArr);
 	return $locations;
 }
