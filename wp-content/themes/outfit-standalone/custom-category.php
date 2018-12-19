@@ -119,7 +119,9 @@ if ($currentUserId) {
 		$metaQueryLocation['relation'] = 'OR';
 	}
 
-	$metaQuery[] = $metaQueryLocation;
+	if (!empty($metaQueryLocation)) {
+		$args['meta_query'] = [$metaQueryLocation];
+	}
 }
 
 $outfitMainCat = outfit_get_cat_ancestors($catId);
