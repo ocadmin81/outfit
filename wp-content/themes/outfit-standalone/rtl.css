@@ -562,8 +562,9 @@ input[type="checkbox"] {
     font-style: normal;
 
 }
+input[type="checkbox"]:checked + label:before,input[type="checkbox"] + label:before{color: #191919;}
 .btn-primary:active, .btn-primary.active{    background: #fed3d6;}
-.loader_submit_form{z-index: 9999;}
+.loader_submit_form{z-index: 9999;height: 100%;width: 100%;}
 html[lang="he-IL"], html[lang="he-IL"] input,html[lang="he-IL"] button, body, button, input, select, textarea,
 html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{direction: rtl;text-align: right;}
 html[lang="he-IL"] *,html[lang="he-IL"] body, html[lang="he-IL"] button, html[lang="he-IL"] input, html[lang="he-IL"] select, html[lang="he-IL"] textarea{font-family:   "Assistant",sans-serif;}
@@ -893,7 +894,8 @@ body.page-two-column:not(.archive) #primary .post-241 .entry-content{width: 100%
 .single-post-ad .author-info .media-heading{    font-weight: 600;font-size: 16px;}
 .single-post-ad .author-info .media-heading a:hover{color:#191919}
 html[lang="he-IL"] .single-post-ad .classiera_follow_user button{background: transparent;border: 1px solid #dadada;padding: 0px 20px;color: #191919;font-size: 16px;height: 45px;width: 100%;text-align: center;}
-html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background: url(assets/images/add-to-seller.png) right 0 top -2px no-repeat;    margin: 0;font-size: 16px;display: block;padding-right: 20px;height: 30px;line-height: 30px;}
+html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background: url(assets/images/add-to-seller2.png) right 0 top 0 no-repeat;background-size: 34px;margin: 0;font-size: 16px;display: block;padding-right: 20px;height: 27px;line-height: 27px;}
+html[lang="he-IL"] .single-post-ad .classiera_follow_user button[name="unfollow"] span{background-position: right -27px;}
 .single-post-ad .author-info{    margin-bottom: 20px;}
 .single-post-ad .collect-points{    border-bottom: 1px solid #dadada;margin-bottom: 15px;padding-bottom: 5px;}
 .single-post-ad .collect-points h5,.single-post-ad .collect-details h5{font-weight: 600;font-size: 16px;}
