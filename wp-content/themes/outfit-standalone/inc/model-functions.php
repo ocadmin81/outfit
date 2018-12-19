@@ -676,6 +676,7 @@ function outfit_get_compare_price_data($cats) {
                     return array('text' => $text, 'link' => $link);
                 }
             }
+            $index--;
         }
         return false;
     }
