@@ -51,6 +51,7 @@ if(!function_exists('outfit_publish_post_email')) {
 			<?php
 			include(TEMPLATEPATH . '/templates/email/email-footer.php');	
 			$message = ob_get_contents();
+			write_log($message);
 			ob_end_clean();	
 			if( function_exists('outfit_send_wp_mail')){
 				outfit_send_wp_mail($author_email, $email_subject, $message);
