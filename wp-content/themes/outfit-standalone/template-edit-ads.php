@@ -793,7 +793,7 @@ get_header(); ?>
 									<label class="form-check-label" for="postAgreeToTerms">
 										<?php esc_html_e('קראתי ואני מסכימ/ה', 'outfit-standalone') ?> <a href="<?php echo esc_url( $termsandcondition ); ?>" target="_blank"><?php esc_html_e('לתנאי השימוש', 'outfit-standalone') ?></a>
 									</label>
-									<div class="left-side help-block with-errors"></div>
+									<div class="left-side help-block with-errors" style="color: red;padding-right: 15px;"></div>
 								</div>
 							</div>
 						</div>

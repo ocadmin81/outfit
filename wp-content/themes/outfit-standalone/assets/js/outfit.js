@@ -1331,7 +1331,11 @@ jQuery(document).ready(function(jQuery){
 	Show Loader on Submit Ad Form
 	======================================*/
 	jQuery('#primaryPostForm').validator({disable: false}).on('submit', function (e){
-		if (e.isDefaultPrevented()) {			
+		if (e.isDefaultPrevented()) {	
+			if (jQuery('#postAgreeToTerms').prop('checked', false)) {				
+				var eText = jQuery('#postAgreeToTerms').attr('data-error');				
+				jQuery('#postAgreeToTerms').parent().find('.with-errors').text(eText);
+			}
 		}else{
 			jQuery('.loader_submit_form').addClass('active');
 		}		
@@ -1507,7 +1511,8 @@ jQuery(document).ready(function(jQuery){
 		jQuery(this).toggleClass('active');
         btnSet.toggle();
     });
-	
+	//search form in no results page
+	jQuery('.search-no-items .search-form .search-field').val('');
     // confirm deleting product - by Milla
     var modalConfirmDelete = function(selector, title, content, callback){
 

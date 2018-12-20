@@ -2,8 +2,6 @@
 
 global $redux_demo;
 global $catId, $outfitMainCat, $subCategories;
-global $searchLocations, $searchLocationsStr;
-
 $filterBy = fetch_category_custom_fields(get_category($outfitMainCat));
 
 /* filters */
@@ -85,7 +83,7 @@ else {
 //var_dump(get_query_var('address'));
 ?>
 <!--SearchForm-->
-<form id="advanced-search-form" method="post" action="<?php echo home_url(); ?>">
+<form method="post" action="<?php echo home_url(); ?>">
 	<div class="search-form">
 		<div class="search-form-main-heading" style="display:none;">
 			<a href="#innerSearch" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="innerSearch">
@@ -128,25 +126,47 @@ else {
 			<div class="inner-search-box ab address">
 				<div class="inner-search-heading"><?php esc_html_e( 'איזור', 'outfit-standalone' ); ?></div>
 
-				<textarea style="display: none" id="locations" name="locations"><?php echo $searchLocationsStr; ?></textarea>
+				<input type="hidden" id="address1" name="address1" value="">
+				<input type="hidden" id="address2" name="address2" value="">
+				<input type="hidden" id="address3" name="address3" value="">
+				<input type="hidden" id="address4" name="address4" value="">
+				<input type="hidden" id="address5" name="address5" value="">
 
 				<div class="inner-addon right-addon post_sub_loc">
-					<input id="address" type="text" class="address form-control form-control-md" value="" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
-					<input class="latitude" type="hidden" id="latitude" value="">
-					<input class="longitude" type="hidden" id="longitude" value="">
-					<input class="locality" type="hidden" id="locality" value="">
-					<input class="aal3" type="hidden" id="aal3" value="">
-					<input class="aal2" type="hidden" id="aal2" value="">
-					<input class="aal1" type="hidden" id="aal1" value="">
+					<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
+					<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
+					<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
+					<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
+					<input class="aal3" type="hidden" id="aal3" name="aal3" value="<?php echo esc_html($postArea3); ?>">
+					<input class="aal2" type="hidden" id="aal2" name="aal2" value="<?php echo esc_html($postArea2); ?>">
+					<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
 				</div>
 
 				<div class="">
+					<div id="address1-label" class="" style="display: none;">
+						<span>text</span>
+						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</div>
+					<div id="address2-label" class="" style="display: none;">
+						<span>text</span>
+						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</div>
+					<div id="address3-label" class="" style="display: none;">
+						<span>text</span>
+						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</div>
+					<div id="address4-label" class="" style="display: none;">
+						<span>text</span>
+						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					</div>
+					<div id="address5-label" class="" style="display: none;">
+						<span>text</span>
+						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
 					<?php foreach ($searchLocations as $i => $l): ?>
 					<div class="address-label tag label label-info" style="display: inline-block;">
 						<span><?php echo esc_html(wp_trim_words($l->getAddress(), 4)); ?></span>
-						<a><i data-location-index="<?php echo $i; ?>" class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+						<a><i data-location-index="<?php echo $i; ?>" class="remove fa fa-times"></i></a>
 					</div>
-					<?php endforeach; ?>
 				</div>
 			</div>
 			<!--<div><a class="clear-address-filter" href="javascript:void(0)">clear address</a></div>-->
@@ -154,6 +174,7 @@ else {
 
 			<?php if (is_user_logged_in()) { ?>
 			<div class="inner-search-box save-pre">
+				<span style="display:none" class="save-done"><?php esc_html_e('ההגדרות נשמרו', 'outfit-standalone') ?></span>
 				<a id="outfit_save_search_prefs" href="javascript:void(0)"><?php esc_html_e('שמור את ההעדפות שלי', 'outfit-standalone') ?></a>
 			</div>
 			<?php } else { ?>
@@ -532,31 +553,10 @@ else {
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 
-		var locations = [];
-		var locationsJson = jQuery('#locations').val();
-
-		if (locationsJson != '') {
-			locations = JSON.parse(locationsJson);
-		}
-
-		if (locations.length >=5) {
-			jQuery('#address').hide();
-		}
-
 		jQuery('.inner-search-box').on("change", "input:not(.address), select", function(){
 			jQuery(this).closest('form').submit();
 		});
-		jQuery('.inner-search-box').on("addresschange", "input.address", function(event, param){
-			locations.push(JSON.stringify(param));
-			jQuery('#locations').val(JSON.stringify(locations));
-			jQuery(this).closest('form').submit();
-		});
-		jQuery('.address-label i.remove').on("click", function () {
-			var index = jQuery(this).attr('data-location-index');
-			if (index >= 0 && index < locations.length) {
-				locations.splice(index);
-			}
-			jQuery('#locations').val(JSON.stringify(locations));
+		jQuery('.inner-search-box').on("addresschange", "input.address", function(event){
 			jQuery(this).closest('form').submit();
 		});
 		jQuery('.clear-address-filter').on("click", function() {
@@ -599,6 +599,7 @@ else {
 				type: "POST",
 				data: data,
 				success: function(data){
+					jQuery('#outfit_save_search_prefs').text(jQuery('.save-done').text());
 					$btn.removeClass('saving');
 				}
 			});
