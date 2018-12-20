@@ -159,7 +159,7 @@
         As of Redux 3.5+, there is an extensive API. This API can be used in a mix/match mode allowing for
 
      */
-    Redux::setSection( $opt_name, array(
+    /*Redux::setSection( $opt_name, array(
         'title'            => __( 'Pages', 'outfit-standalone' ),
         'id'               => 'pages',
         'customizer_width' => '500px',
@@ -319,7 +319,7 @@
 				'default' => ''
 			),
 		)
-    ) );
+    ) );*/
 
     Redux::setSection( $opt_name, array(
         'title'            => __( 'Google API', 'outfit-standalone' ),
@@ -335,6 +335,53 @@
                 'desc' => __('The API key is used to track API requests associated with your project for quota, usage, and billing.', 'outfit-standalone'),
                 'default' => ''
             )
+        )
+    ) );
+
+    Redux::setSection( $opt_name, array(
+        'title'            => __( 'Email Settings', 'outfit-standalone' ),
+        'id'               => 'email_settings',
+        'customizer_width' => '500px',
+        'icon'             => 'fas fa-envelope',
+        'fields'     => array(
+            array(
+                'id'=>'new_user_title',
+                'type' => 'text',
+                'title' => __('New User Email Title', 'outfit-standalone'),
+                'default' => 'כיף שהצטרפת אלינו!'
+            ),
+            array(
+                'id'=>'new_user_text1',
+                'type' => 'text',
+                'title' => __('New User Email Paragraph 1', 'outfit-standalone'),
+                'default' => 'העלו את המודעה הראשונה ותתחילו למכור.'
+            ),
+            array(
+                'id'=>'new_user_text2',
+                'type' => 'text',
+                'title' => __('New User Email Paragraph 2', 'outfit-standalone'),
+                'default' => 'הוסיפו פרטים לפרופיל האישי.'.'כך נכיר אותך ונדע לייעל את החיפוש לך באתר.'
+            ),
+            array(
+                'id'=>'new_user_text3',
+                'type' => 'text',
+                'title' => __('New User Email Paragraph 3', 'outfit-standalone'),
+                'default' => 'שתפו את האתר עם הורים כמוך.'.'גלו להם על המקום החדש לקנות ולמכור פרטי ילדים.'
+            ),
+            array(
+                'id'=>'published_ad_notification_title',
+                'type' => 'text',
+                'title' => __('Published Ad Notification Title', 'outfit-standalone'),
+                'default' => 'מושלם ! המודעה שלך אושרה.'
+            ),
+            array(
+                'id'=>'published_ad_notification_text',
+                'type' => 'text',
+                'title' => __('Published Ad Notification Text', 'outfit-standalone'),
+                'default' => 'אנחנו שמחים להודיע לך שהמודעה שלך אושרה והיא מופיעה באתר.
+לפעמים (ולא לעיתים קרובות) אנחנו משנים דברים קטנים במודעה לפני פרסומה, בעיקר כדי שיהיה קל למחפשים אחרים למצוא אותה בקלות.
+היכנס לראות כיצד פורסמה מודעתך כאן:'
+            ),
         )
     ) );
 
