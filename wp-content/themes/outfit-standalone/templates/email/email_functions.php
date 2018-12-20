@@ -54,7 +54,8 @@ if(!function_exists('outfit_publish_post_email')) {
 			write_log($message);
 			ob_end_clean();	
 			if( function_exists('outfit_send_wp_mail')){
-				outfit_send_wp_mail($author_email, $email_subject, $message);
+				//outfit_send_wp_mail($author_email, $email_subject, $message);
+				outfit_send_wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
 			}
 		}    
 	}

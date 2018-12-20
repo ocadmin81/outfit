@@ -313,7 +313,7 @@ $userId = $current_user->ID;
 						<!--Edit Ads Button-->
 						<?php
 						if (
-						($post->post_author == $currentUser->ID && get_post_status ( $post->ID ) == 'publish') ||
+						($post->post_author == $current_user->ID && get_post_status ( $post->ID ) == 'publish') ||
 						current_user_can('administrator')
 						):
 						?>

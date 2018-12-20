@@ -670,8 +670,8 @@ function outfit_get_compare_price_data($cats) {
             if (!empty($cats[$index])) {
                 $pod = pods('category');
                 $pod->fetch($cats[$index]);
-                $text = $pod->get_field('compare_price_text');
-                $link = $pod->get_field('compare_price_link');
+                $text = $pod->field('compare_price_text');
+                $link = $pod->field('compare_price_link');
                 if (!empty($text) && !empty($link)) {
                     return array('text' => $text, 'link' => $link);
                 }
