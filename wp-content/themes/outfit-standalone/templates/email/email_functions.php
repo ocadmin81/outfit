@@ -41,7 +41,7 @@ if(!function_exists('outfit_publish_post_email')) {
 				$text = $redux_demo['published_ad_notification_text'];
 				$link_start = '<a href="'.get_permalink($post->ID).'">';
 				$link_end = '</a>';
-				$text = preg_replace('/\[ad_link](.*)\[\/ad_link]/', '$0 --> '.$link_start.'$1'.$link_end, $text);
+				$text = preg_replace('/\[ad_link](.*)\[\/ad_link]/', $link_start.'$1'.$link_end, $text);
 				?>
 				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
 					<?php echo $text; ?>
@@ -51,11 +51,9 @@ if(!function_exists('outfit_publish_post_email')) {
 			include(TEMPLATEPATH . '/templates/email/email-footer.php');	
 			$message = ob_get_contents();
 			write_log($message);
-			ob_end_clean();	
-			if( function_exists('outfit_send_wp_mail')){
-				//outfit_send_wp_mail($author_email, $email_subject, $message);
-				outfit_send_wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
-			}
+			ob_end_clean();
+			//outfit_send_wp_mail($author_email, $email_subject, $message);
+			wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
 		}    
 	}
 }
