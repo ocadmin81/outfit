@@ -1331,7 +1331,11 @@ jQuery(document).ready(function(jQuery){
 	Show Loader on Submit Ad Form
 	======================================*/
 	jQuery('#primaryPostForm').validator({disable: false}).on('submit', function (e){
-		if (e.isDefaultPrevented()) {			
+		if (e.isDefaultPrevented()) {	
+			if (jQuery('#postAgreeToTerms').prop('checked', false)) {				
+				var eText = jQuery('#postAgreeToTerms').attr('data-error');				
+				jQuery('#postAgreeToTerms').parent().find('.with-errors').text(eText);
+			}
 		}else{
 			jQuery('.loader_submit_form').addClass('active');
 		}		

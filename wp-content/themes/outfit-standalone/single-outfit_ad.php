@@ -389,14 +389,13 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-						</ul>
-
-						<?php if (false !== $comparePriceData) ?>
+						</ul>						
+						<?php if (false !== $comparePriceData): ?>
 						<div class="price-compare">
-							<a href="<?php echo esc_url($comparePriceData['link']) ?>">
-								<?php echo esc_html($comparePriceData['text']); ?></a>
+							<span><?php echo esc_html('סקר שוק?'); ?></span>
+							<a href="<?php echo esc_url($comparePriceData['link']) ?>" target="_blank"><?php echo esc_html($comparePriceData['text']); ?></a>
 						</div>
-						<?php ?>
+						<?php endif; ?>
 					</div>
 					<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
 						<div class="wish-share mobile">
