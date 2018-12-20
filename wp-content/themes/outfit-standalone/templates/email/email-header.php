@@ -1,3 +1,4 @@
+<?php global $redux_demo, $email_subject; ?>
 <!DOCTYPE html>
 <html lang="he">
 <head>
@@ -48,8 +49,8 @@
     </style>
 </head>	
 <body>
-	<div style="width: 100%;">
-		<div class="classiera-email-topbar" style="background:rgba(35, 35, 35, 0.21); padding: 5px 30px;">
+	<div style="width: 100%; background:rgba(155, 155, 155, 0.21);">
+		<div class="classiera-email-topbar" style="padding: 5px 30px;">
             <div class="" style="text-align: center">
 				<?php $logoImg = get_template_directory_uri() . '/assets/images/Logo_slogen.png'; ?>
                 <img src="<?php echo esc_url($logoImg); ?>" style="" alt="PERFIT">

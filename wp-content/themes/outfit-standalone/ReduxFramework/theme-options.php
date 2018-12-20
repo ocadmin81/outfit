@@ -352,19 +352,19 @@
             ),
             array(
                 'id'=>'new_user_text1',
-                'type' => 'text',
+                'type' => 'textarea',
                 'title' => __('New User Email Paragraph 1', 'outfit-standalone'),
                 'default' => 'העלו את המודעה הראשונה ותתחילו למכור.'
             ),
             array(
                 'id'=>'new_user_text2',
-                'type' => 'text',
+                'type' => 'textarea',
                 'title' => __('New User Email Paragraph 2', 'outfit-standalone'),
                 'default' => 'הוסיפו פרטים לפרופיל האישי.'.'כך נכיר אותך ונדע לייעל את החיפוש לך באתר.'
             ),
             array(
                 'id'=>'new_user_text3',
-                'type' => 'text',
+                'type' => 'textarea',
                 'title' => __('New User Email Paragraph 3', 'outfit-standalone'),
                 'default' => 'שתפו את האתר עם הורים כמוך.'.'גלו להם על המקום החדש לקנות ולמכור פרטי ילדים.'
             ),
@@ -376,7 +376,7 @@
             ),
             array(
                 'id'=>'published_ad_notification_text',
-                'type' => 'text',
+                'type' => 'textarea',
                 'title' => __('Published Ad Notification Text', 'outfit-standalone'),
                 'default' => 'אנחנו שמחים להודיע לך שהמודעה שלך אושרה והיא מופיעה באתר.
 לפעמים (ולא לעיתים קרובות) אנחנו משנים דברים קטנים במודעה לפני פרסומה, בעיקר כדי שיהיה קל למחפשים אחרים למצוא אותה בקלות.
