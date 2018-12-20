@@ -35,13 +35,13 @@ else if (isset($_POST['unfavorite'])) {
 }
 
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
-$perPage = 20;
+$perPage = 1000;
 
 $args = array(
 	'post_type' => OUTFIT_AD_POST_TYPE,
 	'post_status' => array('publish','sold'),
 	'posts_per_page' => $perPage,
-	'paged' => $paged
+	'paged' => 1
 );
 
 //$wp_query= null;
