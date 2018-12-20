@@ -144,7 +144,7 @@ else {
 					<?php foreach ($searchLocations as $i => $l): ?>
 					<div class="address-label tag label label-info" style="display: inline-block;">
 						<span><?php echo esc_html(wp_trim_words($l->getAddress(), 4)); ?></span>
-						<a><i data-location-index="<?php echo $i; ?>" class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+						<a><i data-location-index="<?php echo $i; ?>" class="remove fa fa-times"></i></a>
 					</div>
 					<?php endforeach; ?>
 				</div>
@@ -154,6 +154,7 @@ else {
 
 			<?php if (is_user_logged_in()) { ?>
 			<div class="inner-search-box save-pre">
+				<span style="display:none" class="save-done"><?php esc_html_e('ההגדרות נשמרו', 'outfit-standalone') ?></span>
 				<a id="outfit_save_search_prefs" href="javascript:void(0)"><?php esc_html_e('שמור את ההעדפות שלי', 'outfit-standalone') ?></a>
 			</div>
 			<?php } else { ?>
@@ -599,6 +600,7 @@ else {
 				type: "POST",
 				data: data,
 				success: function(data){
+					jQuery('#outfit_save_search_prefs').text(jQuery('.save-done').text());
 					$btn.removeClass('saving');
 				}
 			});
