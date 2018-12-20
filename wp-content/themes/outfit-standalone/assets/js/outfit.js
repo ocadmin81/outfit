@@ -1511,7 +1511,8 @@ jQuery(document).ready(function(jQuery){
 		jQuery(this).toggleClass('active');
         btnSet.toggle();
     });
-	
+	//search form in no results page
+	jQuery('.search-no-items .search-form .search-field').val('');
     // confirm deleting product - by Milla
     var modalConfirmDelete = function(selector, title, content, callback){
 

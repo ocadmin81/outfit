@@ -243,11 +243,13 @@ if (!empty($metaQuery)) {
 	$args['meta_query'] = $metaQuery;
 }
 
+$inSearch = $_GET["s"];
 ?>
 
 <!-- page content -->
 <section class="inner-page-content top-pad-50">
-	<div class="wrap">		
+	<div class="wrap">	
+			<?php if(!$inSearch): ?>
 			<div class="view-head cat-tabs">
 					<div class="row">
 						<div class="col-md-4 col-lg-3">&nbsp;</div>
@@ -269,51 +271,54 @@ if (!empty($metaQuery)) {
 						</div><!--col-lg-6 col-sm-8-->
 					</div><!--row-->
 			</div><!--view-head-->	
+			<?php endif; ?>
 			<div class="cat-content">
 			<div class="row">
-				<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
-					<h1 class="cat-title"><?php echo esc_html($pageTitle); ?></h1>
+				<?php if(!$inSearch): ?>
+					<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
+						<h1 class="cat-title"><?php echo esc_html($pageTitle); ?></h1>
+					<?php endif; ?>
+					<div class="col-md-4 col-lg-3 col-sm-4">
+						<aside class="sidebar cat-sidebar">
+							<div class="row">
+								<!--subcategory-->
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<div class="widget-box">
+										<div class="widget-title title-desk"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
+										<div class="box-title-mobile">
+											<div class="widget-title pop-form"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i> <?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
+											<div class="widget-title pop-map"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/addr.png" /><a href="#map" aria-controls="map" role="tab" data-toggle="tab"><?php esc_html_e( 'מפה', 'outfit-standalone' ); ?></a></div>
+										</div>
+										<div class="filter-fixed-title"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
+										<div class="widget-content" style="display:none;">
+											<ul class="category">
+											<?php
+												foreach($subCategories as $sub) {
+											?>
+												<li>
+													<a href="<?php echo esc_url(get_category_link( $sub->term_id ));?>">
+														<i class="fa fa-angle-right"></i>
+														<?php echo esc_html($sub->name); ?>
+
+													</a>
+												</li>
+											<?php } ?>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!--subcategory-->
+
+								<div class="col-lg-12 col-md-12 col-sm-12">
+									<div class="widget-box">
+										<?php get_template_part( 'templates/outfit-adv-search' );?>
+									</div>
+								</div>
+							</div><!--row-->
+						</aside>
+					</div><!--row-->
 				<?php endif; ?>
-				<div class="col-md-4 col-lg-3 col-sm-4">
-					<aside class="sidebar cat-sidebar">
-						<div class="row">
-							<!--subcategory-->
-							<div class="col-lg-12 col-md-12 col-sm-12">
-								<div class="widget-box">
-									<div class="widget-title title-desk"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
-									<div class="box-title-mobile">
-										<div class="widget-title pop-form"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i> <?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
-										<div class="widget-title pop-map"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/addr.png" /><a href="#map" aria-controls="map" role="tab" data-toggle="tab"><?php esc_html_e( 'מפה', 'outfit-standalone' ); ?></a></div>
-									</div>
-									<div class="filter-fixed-title"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
-									<div class="widget-content" style="display:none;">
-										<ul class="category">
-										<?php
-											foreach($subCategories as $sub) {
-										?>
-											<li>
-												<a href="<?php echo esc_url(get_category_link( $sub->term_id ));?>">
-													<i class="fa fa-angle-right"></i>
-													<?php echo esc_html($sub->name); ?>
-
-												</a>
-											</li>
-										<?php } ?>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<!--subcategory-->
-
-							<div class="col-lg-12 col-md-12 col-sm-12">
-								<div class="widget-box">
-									<?php get_template_part( 'templates/outfit-adv-search' );?>
-								</div>
-							</div>
-						</div><!--row-->
-					</aside>
-				</div><!--row-->		
-				<div class="col-md-8 col-lg-9 col-sm-8">
+				<div class="col-md-8 col-lg-9 col-sm-8 product-list">
 					<!-- advertisement -->
 					<section class="classiera-advertisement advertisement-v7 section-pad">
 							<div class="tab-content">
@@ -323,16 +328,18 @@ if (!empty($metaQuery)) {
 
 											</script>
 											<!-- Posts-->
-											<?php if (!$detect->isMobile() || $detect->isTablet()): ?>
-												<h1 class="cat-title"><?php echo esc_html($pageTitle); ?></h1>
+											<?php if(!$inSearch): ?>
+												<?php if (!$detect->isMobile() || $detect->isTablet()): ?>
+													<h1 class="cat-title"><?php echo esc_html($pageTitle); ?></h1>
+												<?php endif; ?>
 											<?php endif; ?>
 											<?php
-
+											$countPosts = 0;
 											$wp_query= null;
-											$wp_query = new WP_Query($args);
+											$wp_query = new WP_Query($args);											
 											while ($wp_query->have_posts()) : $wp_query->the_post();
 												get_template_part( 'templates/loops/product');
-
+												$countPosts++;
 												$postLocations = [];
 												$loc1 = OutfitLocation::createFromJSON(get_post_meta($post->ID, POST_META_LOCATION, true));
 												if (null !== $loc1) {
@@ -375,7 +382,12 @@ if (!empty($metaQuery)) {
 											endwhile;
 											?>
 											<!-- Posts-->
-
+										<?php if(!$countPosts && $inSearch): ?>
+											<div class="search-no-items">												
+												<?php echo do_shortcode("[do_widget id=text-17]"); ?>
+												<?php get_search_form(); ?>
+											</div>
+										<?php endif; ?>
 										</div><!--row-->
 										<?php outfit_pagination(); ?>
 									<?php wp_reset_query(); ?>
