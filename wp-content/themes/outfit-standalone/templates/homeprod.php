@@ -22,7 +22,7 @@ if ($isMobile)
 $catslugs = [
 	'clothing' => 'Shop for clothes',
 	'toys' => 'Shop for toys',
-	'and-safety-chairs-strollers' => 'Shop for strollers'
+	'stroller' => 'Shop for strollers'
 ];
 
 wp_get_current_user();

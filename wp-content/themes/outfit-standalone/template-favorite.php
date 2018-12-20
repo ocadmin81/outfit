@@ -20,6 +20,8 @@ wp_get_current_user();
 $currentUser = $current_user;
 $userId = $user_id = $currentUser->ID;
 
+$categories = outfit_get_main_cats(true);
+
 if (isset($_POST['favorite'])) {
 	if (!empty($userId)) {
 		outfit_insert_author_favorite($userId, $_POST['post_id']);
@@ -42,17 +44,13 @@ $args = array(
 	'paged' => $paged
 );
 
-$wp_query= null;
-$wp_query = new WP_Query();
+//$wp_query= null;
+//$wp_query = new WP_Query();
 
 $favoritearray = outfit_authors_all_favorite($userId);
 
 $args['post__in'] = $favoritearray;
 
-if(!empty($favoritearray)) {
-	// The Query
-	$wp_query = new WP_Query( $args );
-}
 get_header(); ?>
 <section class="user-pages section-gray-bg wish-page">
 	<div class="wrap ad-page user-page">
@@ -68,63 +66,73 @@ get_header(); ?>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads favorite-ads">
-						<h1 class="user-detail-section-heading text-uppercase <?php if(!$wp_query->have_posts()): ?>center<?php endif; ?>"><?php esc_html_e("WISHLIST", 'outfit-standalone') ?></h1>
-						<div class="my-ads products">
-							<div class="row">
-								<?php if($wp_query->have_posts()): ?>
-									<?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
-										<div class="col-lg-4 col-md-4 col-sm-6 item">
-											<div class="classiera-box-div classiera-box-div-v1">
-												<figure class="clearfix">
+					<?php if(!empty($favoritearray)) { ?>
+						<?php
+						foreach ($categories as $c):
+							$wp_query= null;
+							$wp_query = new WP_Query();
 
-													<form method="post" class="fav-form clearfix">
-														<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
-														<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
-															<span><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
-														</button>
-													</form>
-													<div class="premium-img">
-														<?php if ($post->post_status == 'sold') { ?>
-														<div class="featured">
-															<p>Sold</p>
-														</div>
-														<?php } ?>
-														<a href="<?php the_permalink(); ?>">
-															<?php
-															$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
-															$postAuthorId = $post->post_author;
-															$postAuthorName = getAuthorFullNameCat($postAuthorId);
-															$postAuthorNameTitle = getAuthorFullName($postAuthorId);
+								$args['cat'] = $c->term_id;
+								$wp_query = new WP_Query( $args );
+								if($wp_query->have_posts()) { ?>
 
-															$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
-															$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
-															if( has_post_thumbnail()){
-																$imageurl = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'classiera-370');
-																$thumb_id = get_post_thumbnail_id($post->ID);
-																?>
-																<img class="img-responsive" src="<?php echo esc_url( $imageurl[0] ); ?>" alt="<?php the_title() ?>">
-																<?php
-															}else{
-																?>
-																<img class="img-responsive" src="<?php echo get_template_directory_uri() . '/assets/images/nothumb.png' ?>" alt="No Thumb"/>
-																<?php
-															}
-															?>
-														</a>
-														<div class="cat-wish-brand">
-															<div class="cat-wish">&nbsp;</div>
-															<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
-														</div>
-													</div><!--premium-img-->
-													<div class="au-price">
-														<div class="au">
-															<a href="<?php echo get_author_posts_url( $postAuthorId ); ?>">
-																<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorNameTitle); ?>">
-																<?php echo esc_attr($postAuthorName); ?>
-															</a>
-														</div>												
-														<?php if(!empty($postPrice)){?>
-															<div class="price">
+								<h1 class="user-detail-section-heading text-uppercase center"><?php echo esc_html($c->name) ?></h1>
+								<div class="my-ads products">
+									<div class="row">
+
+										<?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
+												<div class="col-lg-4 col-md-4 col-sm-6 item">
+													<div class="classiera-box-div classiera-box-div-v1">
+														<figure class="clearfix">
+
+															<form method="post" class="fav-form clearfix">
+																<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
+																<button type="submit" value="unfavorite" name="unfavorite" class="watch-later text-uppercase">
+																	<span><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
+																</button>
+															</form>
+															<div class="premium-img">
+																<?php if ($post->post_status == 'sold') { ?>
+																	<div class="featured">
+																		<p>Sold</p>
+																	</div>
+																<?php } ?>
+																<a href="<?php the_permalink(); ?>">
+																	<?php
+																	$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
+																	$postAuthorId = $post->post_author;
+																	$postAuthorName = getAuthorFullNameCat($postAuthorId);
+																	$postAuthorNameTitle = getAuthorFullName($postAuthorId);
+
+																	$authorAvatarUrl = outfit_get_user_picture($postAuthorId, 50);
+																	$postBrand = implode(',', getPostTermNames($post->ID, 'brands'));
+																	if( has_post_thumbnail()){
+																		$imageurl = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'classiera-370');
+																		$thumb_id = get_post_thumbnail_id($post->ID);
+																		?>
+																		<img class="img-responsive" src="<?php echo esc_url( $imageurl[0] ); ?>" alt="<?php the_title() ?>">
+																		<?php
+																	}else{
+																		?>
+																		<img class="img-responsive" src="<?php echo get_template_directory_uri() . '/assets/images/nothumb.png' ?>" alt="No Thumb"/>
+																		<?php
+																	}
+																	?>
+																</a>
+																<div class="cat-wish-brand">
+																	<div class="cat-wish">&nbsp;</div>
+																	<div class="ad-brand"><?php echo esc_attr($postBrand); ?></div>
+																</div>
+															</div><!--premium-img-->
+															<div class="au-price">
+																<div class="au">
+																	<a href="<?php echo get_author_posts_url( $postAuthorId ); ?>">
+																		<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorNameTitle); ?>">
+																		<?php echo esc_attr($postAuthorName); ?>
+																	</a>
+																</div>
+																<?php if(!empty($postPrice)){?>
+																	<div class="price">
 																<span class="">
 																	<?php
 																	if(is_numeric($postPrice)){
@@ -134,23 +142,34 @@ get_header(); ?>
 																	}
 																	?>
 																</span>
+																	</div>
+																<?php } ?>
 															</div>
-														<?php } ?>
-													</div>
 
-												</figure>
-											</div><!--classiera-box-div-->
-										</div><!--col-lg-4-->
-									<?php endwhile; ?>
-								<?php else: ?>
-									<div class="no-items">
-										<?php echo do_shortcode("[do_widget id=text-12]"); ?>
+														</figure>
+													</div><!--classiera-box-div-->
+												</div><!--col-lg-4-->
+											<?php endwhile; ?>
+
 									</div>
-								<?php endif; ?>
-							</div>
-							<?php outfit_pagination(); ?>
-							<?php wp_reset_query(); ?>
+
+
+								</div>
+
+							<?php
+								}
+
+					?>
+					<?php wp_reset_query(); ?>
+					<?php endforeach; ?>
+					<?php
+					} // if(!empty($favoritearray))
+					else
+					{ ?>
+						<div class="no-items">
+							<?php echo do_shortcode("[do_widget id=text-12]"); ?>
 						</div>
+					<?php } ?>
 					</div><!--user-ads user-profile-settings-->
 				</div><!--user-detail-section-->
 			</div><!--col-lg-9-->
