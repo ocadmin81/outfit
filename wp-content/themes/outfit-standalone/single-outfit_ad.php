@@ -283,7 +283,7 @@ $userId = $current_user->ID;
 										</div>										
 									</div>
 								<?php else: ?>
-									<?php //if(!empty($attachments)){ ?>
+									<?php if(!empty($attachments)){ ?>
 										<div class="thumbs-img-m <?php if(count($attachments) > 1): ?>owl-carousel<?php endif; ?>">
 											<?php
 											$count = 1;
@@ -300,7 +300,7 @@ $userId = $current_user->ID;
 											}
 											?>
 										</div>										
-									<?php //} ?>									
+									<?php } ?>
 								<?php endif; ?>
 							</div>
 						</div>						
