@@ -1041,7 +1041,7 @@ background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);   
 .classiera-box-div-v1 figure .premium-img{height: auto;}
 .wish-page .fav-form{position: absolute;top: -15px;z-index: 100;right: -15px;}
 .wish-page .fav-form button{padding: 0;background: transparent;}
-#map{width: 100%;position: fixed;    border: none;right: 0;left: 0;height: auto;}
+#map{width: 100%;position: fixed;z-index: 10000;border: none;right: 0;left: 0;height: auto;}
 form .search-form #innerSearch .inner-search-box{position: relative;float: right;width: 100%;border-color:#ededef;}
 form .search-form #innerSearch .inner-search-box .link{margin-bottom: 3px;}
 form .search-form #innerSearch .inner-search-box .link a:hover{color:#f19ea4;}
@@ -1062,6 +1062,9 @@ form .search-form #innerSearch .inner-search-box.ab input[type="text"]{backgroun
 form .search-form #innerSearch .inner-search-box.address{padding-bottom: 0;    border-bottom: none;margin-bottom: 0;}
 .inner-search-box.save-pre{text-align: center;}
 .inner-search-box.save-pre a{    display: block;width: 100%;height: 45px;background: #f8ead8;line-height: 45px;}
+.inner-search-box.save-pre a.saving{    background: #f5f5f6;}
+.inner-search-box .label-info{background-color: #fed3d6;color: #3d3d3d;font-size: 15px;font-weight: normal;border-radius: 0;width: 100%;margin-bottom: 15px;text-align: right;padding: 10px 15px;}
+.inner-search-box .label-info a{    float: right;margin-left: 5px;cursor: pointer;}
 form .search-form #innerSearch .inner-search-box.color label:before{display:none;}
 form .search-form #innerSearch .inner-search-box.color label{width: 30px;height: 30px;font-size: 0;border: 1px solid #e0e0e0;}
 form .search-form #innerSearch .inner-search-box.color .checkbox{margin: 0;float: right;width: auto;margin: 2px 4px;}
@@ -1367,7 +1370,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.cat-tab-content.products .item:nth-child(even){padding-right: 15px;padding-left: 5px;}
 	.cat-tab-content.products .item:nth-child(odd){padding-left: 15px;padding-right: 5px;}
 	.cat-tab-content.products .row{    margin-right: -15px;margin-left: -15px;}
-	.cat-sidebar .search-form{position: fixed;top: 0;background: #fff;z-index: 150000;padding-top: 10px;left: 0;right: 0;width: 100%;display: none;    max-height: 555px;overflow: hidden;padding-bottom: 15px;overflow-y: scroll;}
+	.cat-sidebar .search-form{position: fixed;top: 0;background: #fff;z-index: 15000000;padding-top: 10px;left: 0;right: 0;width: 100%;display: none;    max-height: 555px;overflow: hidden;padding-bottom: 15px;overflow-y: scroll;}
 	.cat-sidebar .search-form.active{display:block}
 	.cat-sidebar form .search-form #innerSearch{padding: 10px 15px 0;}
 	.cat-sidebar .filter-close,.filter-close-map{border-bottom: 1px solid #ededef;padding: 0 10px 10px;  text-align: left;    background: #fff;}
@@ -1385,7 +1388,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.start-selling .elementor-text-editor p{font-size: 16px;}
 	body.page-two-column:not(.archive) #primary .entry-header .textwidget ul{display: none;}
 	body.page-two-column:not(.archive) #primary .entry-header .textwidget ul.active{display:block}
-	#map{top: 0;z-index: 150000;}
+	#map{top: 0;z-index: 15000000;}
 	.modal-footer button{margin: 0 0 15px!important;width: 85%;}
 	.modal-footer{padding-bottom: 50px;}
 	.modal-content{    padding: 0 15px;}
@@ -1397,4 +1400,5 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.select2-container{z-index: 1000000;}
 	.remove-post-buttons{    top: 28px;right: 0;}
 	.wish-share button span{padding-right: 40px;}
+	.site-header{    z-index: 10000000;}
 }

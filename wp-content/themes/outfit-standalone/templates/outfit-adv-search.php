@@ -162,6 +162,10 @@ else {
 					<div id="address5-label" class="" style="display: none;">
 						<span>text</span>
 						<a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a>
+					<?php foreach ($searchLocations as $i => $l): ?>
+					<div class="address-label tag label label-info" style="display: inline-block;">
+						<span><?php echo esc_html(wp_trim_words($l->getAddress(), 4)); ?></span>
+						<a><i data-location-index="<?php echo $i; ?>" class="remove fa fa-times"></i></a>
 					</div>
 				</div>
 			</div>
@@ -170,6 +174,7 @@ else {
 
 			<?php if (is_user_logged_in()) { ?>
 			<div class="inner-search-box save-pre">
+				<span style="display:none" class="save-done"><?php esc_html_e('ההגדרות נשמרו', 'outfit-standalone') ?></span>
 				<a id="outfit_save_search_prefs" href="javascript:void(0)"><?php esc_html_e('שמור את ההעדפות שלי', 'outfit-standalone') ?></a>
 			</div>
 			<?php } else { ?>
@@ -568,6 +573,36 @@ else {
 		jQuery('.clear-age-filter').on("click", function() {
 			jQuery('#ageGroup').val('').trigger('change');
 			//jQuery(this).closest('form').submit();
+		});
+
+		var savingPrefs = false;
+
+		jQuery('#advanced-search-form').on('submit', function(event) {
+			if (savingPrefs) return false;
+			return true;
+		});
+
+		/* save search prefs */
+		jQuery('#outfit_save_search_prefs').on('click', function(event){
+			event.preventDefault();
+			var $btn = jQuery(this);
+			$btn.addClass('saving');
+			var age = (jQuery('#ageGroup')? jQuery('#ageGroup').val() : '');
+			var locations = jQuery('#locations').val();
+			var data = {
+				'action': 'outfit_save_search_filters',
+				'age': age,
+				'locations': locations
+			};
+			jQuery.ajax({
+				url: ajaxurl, //AJAX file path - admin_url('admin-ajax.php')
+				type: "POST",
+				data: data,
+				success: function(data){
+					jQuery('#outfit_save_search_prefs').text(jQuery('.save-done').text());
+					$btn.removeClass('saving');
+				}
+			});
 		});
 	});
 </script>

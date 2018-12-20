@@ -24,34 +24,25 @@ function outfit_mail_from() {
 if(!function_exists('outfit_publish_post_email')) { 
 	add_action( 'transition_post_status', 'outfit_publish_post_email', 10, 3 );
 	function outfit_publish_post_email( $new_status, $old_status, $post ){
-		if($new_status == 'publish' && $old_status != 'publish' && $post->post_type == 'post'){
+		if($new_status == 'publish' && $old_status != 'publish' && $post->post_type == 'outfit_ad'){
 			$post = get_post($post->ID);
 			$author = get_userdata($post->post_author);
-			global $redux_demo;
-			$outfitEmailIMG = $redux_demo['outfit_email_header_img']['url'];
-			$trns_listing_published = $redux_demo['trns_listing_published'];
-			$email_subject = $trns_listing_published;
+
+			$email_subject = "מודעה מאושרת";
 			$author_email = $author->user_email;
 			ob_start();
 			include(TEMPLATEPATH . '/templates/email/email-header.php');
 			?>
-			<div class="classiera-email-welcome" style="padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
-				<h4 style="font-size:18px; color: #232323; text-align: center; font-family: 'Ubuntu', sans-serif; font-weight: normal; text-transform: uppercase;"><?php echo esc_html($trns_listing_published); ?></h4>
-				<span class="email-seprator" style="width:100px; height: 2px; background: #b6d91a; margin: 0 auto; display: block;"></span>
-				<h3 style="font-family: 'Ubuntu', sans-serif; font-size:24px; text-align: center; text-transform: uppercase;">
-					<?php esc_html_e( 'Hi', 'outfit-standalone' ); ?>, <?php echo esc_attr($author->display_name) ?>. <?php esc_html_e( 'Congratulations your item has been listed', 'outfit-standalone' ); ?>!
-				</h3>
-			</div>
-			<div class="classiera-email-content" style="padding: 50px 0; width:600px; margin:0 auto;">
+
+			<div class="classiera-email-content" style="padding: 50px 0; width:100%; margin:0 auto;">
+				<h1>מושלם ! המודעה שלך אושרה.
+				</h1>
 				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
-					<?php esc_html_e( 'Hi', 'outfit-standalone' ); ?>, <?php echo esc_attr($author->display_name) ?>. <?php esc_html_e( 'Congratulations your item has been listed', 'outfit-standalone' ); ?>! 
-					<strong>(<?php echo esc_html($post->post_title) ?>)</strong> <?php esc_html_e( 'on', 'outfit-standalone' ); ?> <?php echo  $blog_title = get_bloginfo('name'); ?>!
-				</p>
-				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
-					<?php esc_html_e( 'You have successfully listed your item on', 'outfit-standalone' ); ?> <strong><?php echo  $blog_title = get_bloginfo('name'); ?></strong>, <?php esc_html_e( 'now sit back and let us do the hard work.', 'outfit-standalone' ); ?>
+					אנחנו שמחים להודיע לך שהמודעה שלך אושרה והיא מופיעה באתר.
+					לפעמים (ולא לעיתים קרובות) אנחנו משנים דברים קטנים במודעה לפני פרסומה, בעיקר כדי שיהיה קל למחפשים אחרים למצוא אותה בקלות.
+					היכנס לראות כיצד פורסמה מודעתך כאן:
 				</p>
 				<p>
-					<span style="display: block;font-family: 'Lato', sans-serif; font-size: 16px; font-weight: bold; color: #232323; margin-bottom: 10px;"><?php esc_html_e( 'If you like to take a look', 'outfit-standalone' ); ?> : </span>
 					<a href="<?php echo get_permalink($post->ID) ?>" style="color: #0d7cb0; font-family: 'Lato', sans-serif; font-size: 14px; ">
 						<?php esc_html_e( 'Click Here', 'outfit-standalone' ); ?>
 					</a>
@@ -60,9 +51,11 @@ if(!function_exists('outfit_publish_post_email')) {
 			<?php
 			include(TEMPLATEPATH . '/templates/email/email-footer.php');	
 			$message = ob_get_contents();
+			write_log($message);
 			ob_end_clean();	
 			if( function_exists('outfit_send_wp_mail')){
-				outfit_send_wp_mail($author_email, $email_subject, $message);
+				//outfit_send_wp_mail($author_email, $email_subject, $message);
+				outfit_send_wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
 			}
 		}    
 	}

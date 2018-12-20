@@ -13,6 +13,17 @@ define('OUTFIT_AD_POST_TYPE', 'outfit_ad');
 define('OUTFIT_AD_STATUS_ACTIVE', 'outfit_active');
 define('OUTFIT_AD_STATUS_SOLD', 'outfit_sold');
 
+if ( ! function_exists('write_log')) {
+	function write_log ( $log )  {
+		if ( is_array( $log ) || is_object( $log ) ) {
+			error_log( print_r( $log, true ) );
+		} else {
+			error_log( $log );
+		}
+	}
+}
+
+
 //if ( get_magic_quotes_gpc() ) {
 	$_POST      = array_map( 'stripslashes_deep', $_POST );
 	$_GET       = array_map( 'stripslashes_deep', $_GET );
