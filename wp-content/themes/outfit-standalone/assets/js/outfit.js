@@ -1521,8 +1521,8 @@ jQuery(document).ready(function(jQuery){
 
         jQuery("#remove-post-modal-yes").on("click", function(){
             callback(true, jQuery('#remove-post-modal-data').val());
-            jQuery('#remove-post-modal-data').val('');
-            jQuery("#remove-post-modal").modal('hide');
+            //jQuery('#remove-post-modal-data').val('');
+            //jQuery("#remove-post-modal").modal('hide');
         });
 
         jQuery("#remove-post-modal-no").on("click", function(){
@@ -1539,7 +1539,8 @@ jQuery(document).ready(function(jQuery){
         soldLink.attr('data-content'),
         function(confirm, loc) {
             if(confirm){
-                window.location.replace(loc);
+                //jQuery('#modal-form').attr('action', loc).submit();
+                window.location.replace(loc.replace('/?', '?'));
             }else{
                 // not confirmed
             }
@@ -1553,7 +1554,7 @@ jQuery(document).ready(function(jQuery){
         removeLink.attr('data-content'),
         function(confirm, loc) {
             if(confirm){
-                window.location.replace(loc);
+                window.location.replace(loc.replace('/?', '?'));
             }else{
                 // not confirmed
             }
