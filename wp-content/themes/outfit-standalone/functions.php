@@ -1563,8 +1563,9 @@ function outfit_show_pending_ad_to_author($query) {
 	global $current_user;
 	wp_get_current_user();
 	$currentUserId = $current_user->ID;
-	if (is_single()) {
-		if (isset($_GET['p'])) {
+	//echo get_current_template();
+	//if ('single-outfit_ad.php' == get_current_template()) {
+		if (isset($_GET['p']) && isset($_GET['post_type']) && $_GET['post_type'] == 'outfit_ad') {
 			$p = get_post($_GET['p']);
 			if ($p) {
 				if (!is_admin() && $p->post_author == $currentUserId) {
@@ -1572,7 +1573,7 @@ function outfit_show_pending_ad_to_author($query) {
 				}
 			}
 		}
-	}
+	//}
 
 }
 add_action( 'pre_get_posts', 'outfit_show_pending_ad_to_author' );

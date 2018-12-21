@@ -26,9 +26,9 @@ $thisCategory = get_category($catId);
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $perPage = 20;
 
-$pagepermalink = get_permalink($post->ID);
+$pagepermalink = get_category_link($catId);//get_permalink($post->ID);
 global $currPageId;
-$currPageId = $post->ID;
+//$currPageId = $post->ID;
 
 global $currentUserFavoriteAds, $currentUserId;
 wp_get_current_user();
@@ -144,7 +144,7 @@ get_header();
 <div style="display: none">
 	<?php
 	echo 'This category: '.$thisCategory->term_id;
-	//var_dump($thisCategory);
+	var_dump(get_permalink());
 	?>
 </div>
 <!-- page content -->
