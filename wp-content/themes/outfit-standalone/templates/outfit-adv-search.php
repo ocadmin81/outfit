@@ -555,7 +555,7 @@ else {
 		jQuery('.address-label i.remove').on("click", function () {
 			var index = jQuery(this).attr('data-location-index');
 			if (index >= 0 && index < locations.length) {
-				locations.splice(index);
+				locations.splice(index, 1);
 			}
 			jQuery('#locations').val(JSON.stringify(locations));
 			jQuery(this).closest('form').submit();

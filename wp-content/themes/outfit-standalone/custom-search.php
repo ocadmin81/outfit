@@ -243,7 +243,7 @@ if (!empty($metaQuery)) {
 	$args['meta_query'] = $metaQuery;
 }
 
-$inSearch = $_GET["s"];
+$inSearch = isset($_GET["s"]);
 ?>
 
 <!-- page content -->
