@@ -69,6 +69,22 @@ if (null !== $postLocation2 && isset($postLocation2['address'])) {
 	$postSecArea3 = $postLocation2['aal3'];
 }
 
+// post third location
+$postLocation2 = OutfitLocation::toAssoc(get_user_meta($userId, USER_META_THIRD_ADDRESS, true));
+$postThirdAddress = '';
+$postThirdLatitude = '';
+$postThirdLongitude = '';
+$postThirdLocality = $postThirdArea1 = $postThirdArea2 = $postThirdArea3 = '';
+if (null !== $postLocation3 && isset($postLocation3['address'])) {
+	$postThirdAddress = $postLocation3['address'];
+	$postThirdLatitude = $postLocation3['latitude'];
+	$postThirdLongitude = $postLocation3['longitude'];
+	$postThirdLocality = $postLocation3['locality'];
+	$postThirdArea1 = $postLocation3['aal1'];
+	$postThirdArea2 = $postLocation3['aal2'];
+	$postThirdArea3 = $postLocation3['aal3'];
+}
+
 $brands = getListOfAllBrands();
 
 $page = get_page($post->ID);
@@ -147,6 +163,29 @@ if ($userId) {
 			if ($location2->isValid()) {
 
 				update_user_meta($userId, USER_META_SECONDARY_ADDRESS, $location2->toString());
+			}
+		}
+
+		// post third location
+		$postThirdAddress = trim(getPostInput('address_3'));
+		$postThirdLatitude = getPostInput('latitude_3');
+		$postThirdLongitude = getPostInput('longitude_3');
+		$postThirdLocality = getPostInput('locality_3');
+		$postThirdArea1 = getPostInput('aal1_3');
+		$postThirdArea2 = getPostInput('aal2_3');
+		$postThirdArea3 = getPostInput('aal3_3');
+
+		if ($postThirdAddress) {
+			$location3 = new OutfitLocation($postThirdAddress, $postThirdLongitude, $postThirdLatitude, [
+				'locality' => $postThirdLocality,
+				'aal3' => $postThirdArea3,
+				'aal2' => $postThirdArea2,
+				'aal1' => $postThirdArea1
+			]);
+
+			if ($location3->isValid()) {
+
+				update_user_meta($userId, USER_META_THIRD_ADDRESS, $location3->toString());
 			}
 		}
 

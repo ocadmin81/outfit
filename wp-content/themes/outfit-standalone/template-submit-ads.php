@@ -48,6 +48,7 @@ $userPhone = get_user_meta($userId, USER_META_PHONE, true);
 $userPreferredHours = get_user_meta($userId, USER_META_PREFERRED_HOURS, true);
 $userPrimaryLocation = OutfitLocation::createFromJSON(get_user_meta($userId, USER_META_PRIMARY_ADDRESS, true));
 $userSecondaryLocation = OutfitLocation::createFromJSON(get_user_meta($userId, USER_META_SECONDARY_ADDRESS, true));
+$userThirdLocation = OutfitLocation::createFromJSON(get_user_meta($userId, USER_META_THIRD_ADDRESS, true));
 
 $termsandcondition = '/תנאי-שימוש-באתר';
 
@@ -182,6 +183,33 @@ if(isset( $_POST['postTitle'] )) {
 					update_post_meta($postId, POST_META_AREA1_TAG, $postSecArea1);
 					update_post_meta($postId, POST_META_AREA2_TAG, $postSecArea2);
 					update_post_meta($postId, POST_META_AREA3_TAG, $postSecArea3);
+				}
+			}
+
+			// post third optional location
+			$postThirdAddress = trim(getPostInput('address_3'));
+			$postThirdLatitude = getPostInput('latitude_3');
+			$postThirdLongitude = getPostInput('longitude_3');
+			$postThirdLocality = getPostInput('locality_3');
+			$postThirdArea1 = getPostInput('aal1_3');
+			$postThirdArea2 = getPostInput('aal2_3');
+			$postThirdArea3 = getPostInput('aal3_3');
+
+			$location3 = null;
+			if ($postThirdAddress) {
+				$location3 = new OutfitLocation($postThirdAddress, $postThirdLongitude, $postThirdLatitude, [
+					'locality' => $postThirdLocality,
+					'aal3' => $postThirdArea3,
+					'aal2' => $postThirdArea2,
+					'aal1' => $postThirdArea1
+				]);
+
+				if ($location3->isValid()) {
+					update_post_meta($postId, POST_META_LOCATION_3, $location3->toString());
+					update_post_meta($postId, POST_META_LOCALITY_TAG, $postThirdLocality);
+					update_post_meta($postId, POST_META_AREA1_TAG, $postThirdArea1);
+					update_post_meta($postId, POST_META_AREA2_TAG, $postThirdArea2);
+					update_post_meta($postId, POST_META_AREA3_TAG, $postThirdArea3);
 				}
 			}
 
@@ -587,6 +615,27 @@ get_header(); ?>
 										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getAal2() : ''); ?>">
 									<input class="aal1" type="hidden" id="aal1_2" name="aal1_2"
 										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getAal1() : ''); ?>">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> </label>
+								<div class="item">
+									<input class="address form-control form-control-md" id="address_3" type="text"
+										   name="address_3" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>"
+										   value="<?php echo (null != $userThirdLocation? $userThirdLocation->getAddress() : ''); ?>">
+									<input class="latitude" type="hidden" id="latitude_3" name="latitude_3"
+										   value="<?php echo (null != $userThirdLocation? $userThirdLocation->getLatitude() : ''); ?>">
+									<input class="longitude" type="hidden" id="longitude_3" name="longitude_3"
+										   value="<?php echo (null != $userThirdLocation? $userThirdLocation->getLongitude() : ''); ?>">
+									<input class="locality" type="hidden" id="locality_3" name="locality_3"
+										   value="<?php echo (null != $userThirdLocation? $userThirdLocation->getLocality() : ''); ?>">
+									<input class="aal3" type="hidden" id="aal3_3" name="aal3_3"
+										   value="<?php echo (null != $userThirdLocation? $userThirdLocation->getAal3() : ''); ?>">
+									<input class="aal2" type="hidden" id="aal2_3" name="aal2_3"
+										   value="<?php echo (null != $userThirdLocation? $userThirdLocation->getAal2() : ''); ?>">
+									<input class="aal1" type="hidden" id="aal1_3" name="aal1_3"
+										   value="<?php echo (null != $userThirdLocation? $userThirdLocation->getAal1() : ''); ?>">
 								</div>
 							</div>
 

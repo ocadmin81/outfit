@@ -116,7 +116,7 @@ if (null !== $postLocation && isset($postLocation['address'])) {
 	$postArea2 = $postLocation['aal2'];
 	$postArea3 = $postLocation['aal3'];
 }
-// post secondary location
+// post second location
 $postLocation2 = OutfitLocation::toAssoc(get_post_meta($post->ID, POST_META_LOCATION_2, true));
 $postSecAddress = '';
 $postSecLatitude = '';
@@ -131,6 +131,23 @@ if (null !== $postLocation2 && isset($postLocation2['address'])) {
 	$postSecArea2 = $postLocation2['aal2'];
 	$postSecArea3 = $postLocation2['aal3'];
 }
+
+// post third location
+$postLocation3 = OutfitLocation::toAssoc(get_post_meta($post->ID, POST_META_LOCATION_3, true));
+$postThirdAddress = '';
+$postThirdLatitude = '';
+$postThirdLongitude = '';
+$postThirdLocality = $postThirdArea1 = $postThirdArea2 = $postThirdArea3 = '';
+if (null !== $postLocation3 && isset($postLocation3['address'])) {
+	$postThirdAddress = $postLocation3['address'];
+	$postThirdLatitude = $postLocation3['latitude'];
+	$postThirdLongitude = $postLocation3['longitude'];
+	$postThirdLocality = $postLocation3['locality'];
+	$postThirdArea1 = $postLocation3['aal1'];
+	$postThirdArea2 = $postLocation3['aal2'];
+	$postThirdArea3 = $postLocation3['aal3'];
+}
+
 $postColor = getPostColors($postId);
 $postAgeGroup = getPostAgeGroups($postId);
 $postBrand = getPostBrands($postId);
@@ -256,7 +273,7 @@ if(isset( $_POST['postTitle'] )) {
 				add_post_meta($postId, POST_META_AREA3_TAG, $postArea3);
 			}
 
-			// post secondary location
+			// post second optional location
 			$postSecAddress = trim(getPostInput('address_2'));
 			$postSecLatitude = getPostInput('latitude_2');
 			$postSecLongitude = getPostInput('longitude_2');
@@ -280,6 +297,33 @@ if(isset( $_POST['postTitle'] )) {
 					add_post_meta($postId, POST_META_AREA1_TAG, $postSecArea1);
 					add_post_meta($postId, POST_META_AREA2_TAG, $postSecArea2);
 					add_post_meta($postId, POST_META_AREA3_TAG, $postSecArea3);
+				}
+			}
+
+			// post third optional location
+			$postThirdAddress = trim(getPostInput('address_3'));
+			$postThirdLatitude = getPostInput('latitude_3');
+			$postThirdLongitude = getPostInput('longitude_3');
+			$postThirdLocality = getPostInput('locality_3');
+			$postThirdArea1 = getPostInput('aal1_3');
+			$postThirdArea2 = getPostInput('aal2_3');
+			$postThirdArea3 = getPostInput('aal3_3');
+
+			if ($postThirdAddress) {
+				$location3 = new OutfitLocation($postThirdAddress, $postThirdLongitude, $postThirdLatitude, [
+					'locality' => $postThirdLocality,
+					'aal3' => $postThirdArea3,
+					'aal2' => $postThirdArea2,
+					'aal1' => $postThirdArea1
+				]);
+
+				if ($location3->isValid()) {
+
+					add_post_meta($postId, POST_META_LOCATION_3, $location3->toString());
+					add_post_meta($postId, POST_META_LOCALITY_TAG, $postThirdLocality);
+					add_post_meta($postId, POST_META_AREA1_TAG, $postThirdArea1);
+					add_post_meta($postId, POST_META_AREA2_TAG, $postThirdArea2);
+					add_post_meta($postId, POST_META_AREA3_TAG, $postThirdArea3);
 				}
 			}
 
@@ -755,6 +799,19 @@ get_header(); ?>
 									<input class="aal3" type="hidden" id="aal3_2" name="aal3_2" value="<?php echo esc_html($postSecArea3); ?>">
 									<input class="aal2" type="hidden" id="aal2_2" name="aal2_2" value="<?php echo esc_html($postSecArea2); ?>">
 									<input class="aal1" type="hidden" id="aal1_2" name="aal1_2" value="<?php echo esc_html($postSecArea1); ?>">
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> : </label>
+								<div class="item">
+									<input id="address_3" type="text" name="address_3" class="address form-control form-control-md" value="<?php echo esc_html($postThirdAddress); ?>" placeholder="<?php esc_html_e('כתובת או עיר	', 'outfit-standalone') ?>">
+									<input class="latitude" type="hidden" id="latitude_3" name="latitude_3" value="<?php echo esc_html($postThirdLatitude); ?>">
+									<input class="longitude" type="hidden" id="longitude_3" name="longitude_3" value="<?php echo esc_html($postThirdLongitude); ?>">
+									<input class="locality" type="hidden" id="locality_3" name="locality_3" value="<?php echo esc_html($postThirdLocality); ?>">
+									<input class="aal3" type="hidden" id="aal3_3" name="aal3_3" value="<?php echo esc_html($postThirdArea3); ?>">
+									<input class="aal2" type="hidden" id="aal2_3" name="aal2_3" value="<?php echo esc_html($postThirdArea2); ?>">
+									<input class="aal1" type="hidden" id="aal1_3" name="aal1_3" value="<?php echo esc_html($postThirdArea1); ?>">
 								</div>
 							</div>
 
