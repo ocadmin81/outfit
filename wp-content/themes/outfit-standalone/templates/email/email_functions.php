@@ -104,7 +104,8 @@ if(!function_exists('outfitUserNotification')) {
 		$message = ob_get_contents();
 		ob_end_clean();
 
-		wp_mail($email, $email_subject, $message);
+		//wp_mail($email, $email_subject, $message);
+		wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
 
 	}
 }
@@ -262,45 +263,35 @@ if(!function_exists('contactToAuthor')) {
 /*==========================
 	Reset Password email
  ===========================*/	
-if(!function_exists('outfit_reset_password')) {
-	function outfit_reset_password($new_password, $userName, $userEmail ){
+if(!function_exists('outfit_reset_password_email')) {
+	function outfit_reset_password_email($new_password, $userEmail ){
 		$blog_title = get_bloginfo('name');
 		$blog_url = esc_url( home_url() ) ;
 		$emailTo = $userEmail;
 		$adminEmail =  get_bloginfo('admin_email');
 		global $redux_demo;
-		$outfitEmailIMG = $redux_demo['outfit_email_header_img']['url'];
 		$email_subject = esc_html__( 'Password Reset', 'outfit-standalone' );
 		
 		ob_start();
 		include(get_template_directory() . '/templates/email/email-header.php');
 		?>
-		<div class="classiera-email-welcome" style="padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
-			<h4 style="font-size:18px; color: #232323; text-align: center; font-family: 'Ubuntu', sans-serif; font-weight: normal; text-transform: uppercase;"><?php echo esc_attr($email_subject); ?></h4>
-			<span class="email-seprator" style="width:100px; height: 2px; background: #b6d91a; margin: 0 auto; display: block;"></span>
-			<h3 style="font-family: 'Ubuntu', sans-serif; font-size:24px; text-align: center; text-transform: uppercase;">
-				<?php esc_html_e( 'Keep Your Password Always safe..!', 'outfit-standalone' ); ?>, <?php echo esc_attr($userName); ?>
-			</h3>
-		</div>
-		<div class="classiera-email-content" style="padding: 50px 0; width:600px; margin:0 auto;">
-			<p>
-				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #232323;"><?php esc_html_e( 'Your UserName Was', 'outfit-standalone' ); ?> : </span>
-				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #0d7cb0;">
-				<?php echo esc_attr($userName); ?></span>
-			</p>
-			<p>
-				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #232323;"><?php esc_html_e( 'Your New Password is', 'outfit-standalone' ); ?> : </span>
-				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #0d7cb0;">
-				<?php echo esc_attr($new_password); ?></span>
+
+		<div class="classiera-email-content" style="padding: 20px 0; width:100%; margin:0 auto;">
+			<h1><?php echo esc_html($redux_demo['password_reset_title']); ?>
+			</h1>
+			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+				<?php echo 'הסיסמה החדשה שלך: '; ?>
+				<?php echo esc_attr($new_password); ?>
 			</p>
 		</div>
+
 		<?php
 		include(get_template_directory() . '/templates/email/email-footer.php');
 		$message = ob_get_contents();
 		ob_end_clean();	
-		if( function_exists('outfit_send_wp_mail')){
-			outfit_send_wp_mail($emailTo, $email_subject, $message);
-		}
+
+		wp_mail($emailTo, $email_subject, $message, ["From: $blog_title <$adminEmail>"]);
+
 	}	
 }
 

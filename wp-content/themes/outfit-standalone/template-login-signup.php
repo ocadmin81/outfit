@@ -25,6 +25,8 @@ if ( is_user_logged_in() ) {
 
 global $user_ID, $username, $password, $remember;
 
+$firstname = $lastname = $email = '';
+
 //We shall SQL escape all inputs
 $username = esc_sql(isset($_REQUEST['username']) ? $_REQUEST['username'] : '');
 $password = esc_sql(isset($_REQUEST['password']) ? $_REQUEST['password'] : '');
@@ -97,9 +99,10 @@ if (!$user_ID){
 						$headers = 'From: '.$from . "\r\n";
 						$subject = "Password reset!";
 						$msg = "Reset password.\nYour login details\nNew Password: $new_password";
-						if (function_exists('outfit_send_mail_with_headers')) {
+						/*if (function_exists('outfit_send_mail_with_headers')) {
 							outfit_send_mail_with_headers($email_addr, $subject, $msg, $headers);
-						}
+						}*/
+						outfit_reset_password_email($new_password, $email_addr);
 
 						$resetSuccess = 1;
 
@@ -116,6 +119,7 @@ if (!$user_ID){
 			}
 
 		}
+
 		if($_POST['submit'] == 'Register'){
 			
 			$message =  esc_html__( 'Registration successful.', 'outfit-standalone' );
