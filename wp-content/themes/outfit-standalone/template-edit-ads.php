@@ -302,6 +302,7 @@ if(isset( $_POST['postTitle'] )) {
 
 			// post third optional location
 			$postThirdAddress = trim(getPostInput('address_3'));
+
 			$postThirdLatitude = getPostInput('latitude_3');
 			$postThirdLongitude = getPostInput('longitude_3');
 			$postThirdLocality = getPostInput('locality_3');

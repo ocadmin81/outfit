@@ -132,12 +132,14 @@ $userId = $current_user->ID;
 
 			// post third location
 			$postLocation3 = OutfitLocation::toAssoc(get_post_meta($post->ID, POST_META_LOCATION_3, true));
+
 			$postThirdAddress = '';
 			$postThirdLatitude = '';
 			$postThirdLongitude = '';
 			$postThirdLocality = $postThirdArea1 = $postThirdArea2 = $postThirdArea3 = '';
 			if (null !== $postLocation3 && isset($postLocation3['address'])) {
 				$postThirdAddress = $postLocation3['address'];
+				//var_dump($postThirdAddress);
 				$postThirdLatitude = $postLocation3['latitude'];
 				$postThirdLongitude = $postLocation3['longitude'];
 				$postThirdLocality = $postLocation3['locality'];
@@ -492,6 +494,9 @@ $userId = $current_user->ID;
 										<?php } ?>
 										<?php if (!empty($postSecAddress)) { ?>
 											<li><span><?php echo esc_html($postSecAddress);?></span></li>
+										<?php } ?>
+										<?php if (!empty($postThirdAddress)) { ?>
+											<li><span><?php echo esc_html($postThirdAddress);?></span></li>
 										<?php } ?>
 									</ul>
 								</div>
