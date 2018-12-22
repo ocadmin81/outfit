@@ -214,12 +214,12 @@ if (!$user_ID){
 
 					update_user_meta($status, USER_META_FIRSTNAME, $firstname);
 					update_user_meta($status, USER_META_LASTNAME, $lastname);
-					outfitUserNotification( $email, $password, $username );
-					global $redux_demo; 
-					$newUsernotification = $redux_demo['newusernotification'];	
-					if($newUsernotification == 1){
-						outfitNewUserNotifiy($email, $username);	
-					}
+					outfitUserNotification( $email, $password, $status );
+					//global $redux_demo;
+					//$newUsernotification = $redux_demo['newusernotification'];
+					//if($newUsernotification == 1){
+					//	outfitNewUserNotifiy($email, $username);
+					//}
 				}
 				
 				/*If Turn OFF Email verification*/

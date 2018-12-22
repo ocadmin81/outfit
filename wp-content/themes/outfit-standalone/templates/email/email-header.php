@@ -13,6 +13,7 @@
         body{
             margin: 0;
             padding: 0;
+            direction: rtl;
         }
         .primary-color{
             color: rgba(172, 188, 236, 0.35) !important;
@@ -50,7 +51,7 @@
 </head>	
 <body>
 	<div style="width: 100%; background:rgba(155, 155, 155, 0.21);">
-		<div class="classiera-email-topbar" style="padding: 5px 30px;">
+		<div class="classiera-email-topbar" style="padding: 15px 30px; border-bottom: solid 1px #cccccc;">
             <div class="" style="text-align: center">
 				<?php $logoImg = get_template_directory_uri() . '/assets/images/Logo_slogen.png'; ?>
                 <img src="<?php echo esc_url($logoImg); ?>" style="" alt="PERFIT">

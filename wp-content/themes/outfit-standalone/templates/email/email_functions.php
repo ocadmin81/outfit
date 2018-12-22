@@ -34,7 +34,7 @@ if(!function_exists('outfit_publish_post_email')) {
 			include(TEMPLATEPATH . '/templates/email/email-header.php');
 			?>
 
-			<div class="classiera-email-content" style="padding: 50px 0; width:100%; margin:0 auto;">
+			<div class="classiera-email-content" style="padding: 20px 0; width:100%; margin:0 auto;">
 				<h1><?php echo esc_html($redux_demo['published_ad_notification_title']); ?>
 				</h1>
 				<?php
@@ -61,51 +61,46 @@ if(!function_exists('outfit_publish_post_email')) {
  Email template New User Registration Function
  ===========================*/
 if(!function_exists('outfitUserNotification')) {  
-	function outfitUserNotification($email, $password, $username){
+	function outfitUserNotification($email, $password, $userId){
 		$blog_title = get_bloginfo('name');
 		$blog_url = esc_url( home_url() ) ;
 		$adminEmail =  get_bloginfo('admin_email');
-		global $redux_demo;
-		$outfitEmailIMG = $redux_demo['outfit_email_header_img']['url'];
-		$welComeUser = $redux_demo['trns_welcome_user_title'];	
-		$email_subject = $welComeUser." ".$username."!";
+		global $redux_demo, $email_subject;
+		$email_subject = $redux_demo['new_user_title'];
 		
 		ob_start();	
 		include(get_template_directory() . '/templates/email/email-header.php');
 		
 		?>
-		<div class="classiera-email-welcome" style="padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
-			<h4 style="font-size:18px; color: #232323; text-align: center; font-family: 'Ubuntu', sans-serif; font-weight: normal; text-transform: uppercase;"><?php echo esc_html($welComeUser); ?></h4>
-			<span class="email-seprator" style="width:100px; height: 2px; background: #b6d91a; margin: 0 auto; display: block;"></span>
-			<h3 style="font-family: 'Ubuntu', sans-serif; font-size:24px; text-align: center; text-transform: uppercase;">
-				<?php esc_html_e( 'A very special welcome to you', 'outfit-standalone' ); ?>, <?php echo esc_attr($username) ?>
-			</h3>
-		</div>
-		<div class="classiera-email-content" style="padding: 50px 0; width:600px; margin:0 auto;">
-			<h3 style="font-family: 'Ubuntu', sans-serif; font-size:24px; font-weight: normal; text-transform: capitalize;">
-				<?php esc_html_e( 'A very special welcome to you', 'outfit-standalone' ); ?>, <?php echo esc_attr($username) ?>. <?php esc_html_e( 'Thank you for joining', 'outfit-standalone' ); ?> <?php echo esc_html($blog_title); ?>!
-			</h3>
-			<p>
-				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #232323;"><?php esc_html_e( 'Your username is', 'outfit-standalone' ); ?> : </span>
-				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #0d7cb0;">
-				<?php echo esc_attr($username); ?>
-				</span>
-			</p>
-			<p>
-				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #232323;"><?php esc_html_e( 'Your password is', 'outfit-standalone' ); ?> : </span>
-				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #0d7cb0;">
-					<?php echo esc_attr($password) ?>
-				</span>
+
+		<div class="classiera-email-content" style="padding: 20px 0; width:100%; margin:0 auto;">
+			<?php
+			$text1 = $redux_demo['new_user_text1'];
+			$text2 = $redux_demo['new_user_text2'];
+			$text3 = $redux_demo['new_user_text3'];
+			$submit_ad_link_start = '<a href="'.outfit_get_page_url('submit_ad').'">';
+			$user_profile_link_start = '<a href="'.get_author_posts_url( $userId ).'">';
+			$share_link_start = '<a href="'.$blog_url.'">';
+			$link_end = '</a>';
+			$text1 = preg_replace('/\[new_ad](.*)\[\/new_ad]/', $submit_ad_link_start.'$1'.$link_end, $text1);
+			$text2 = preg_replace('/\[user_profile](.*)\[\/user_profile]/', $user_profile_link_start.'$1'.$link_end, $text2);
+			$text3 = preg_replace('/\[share](.*)\[\/share]/', $share_link_start.'$1'.$link_end, $text3);
+			?>
+			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+				<img src="<?php echo esc_url(TEMPLATEPATH . '/assets/images/selling.png'); ?>">
+				<?php echo $text1; ?>
 			</p>
 			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
-				<?php esc_html_e( 'We hope you enjoy your stay at', 'outfit-standalone' ); ?> <a href="<?php echo esc_url($blog_url); ?>"><?php echo esc_html($blog_title); ?></a>. <?php esc_html_e( 'If you have any problems, questions, opinions, praise, comments, suggestions, please feel free to contact us at', 'outfit-standalone' ); ?> 
-			 <strong><?php echo sanitize_email($adminEmail); ?> </strong><?php esc_html_e( 'any time!', 'outfit-standalone' ); ?>
+				<img src="<?php echo esc_url(TEMPLATEPATH . '/assets/images/profile.png'); ?>">
+				<?php echo $text2; ?>
+			</p>
+			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+				<img src="<?php echo esc_url(TEMPLATEPATH . '/assets/images/share.png'); ?>">
+				<?php echo $text3; ?>
 			</p>
 		</div>
 		<?php
-		
-		include(get_template_directory() . '/templates/email/email-footer.php');
-		
+		include(TEMPLATEPATH . '/templates/email/email-footer.php');
 		$message = ob_get_contents();
 		ob_end_clean();
 
