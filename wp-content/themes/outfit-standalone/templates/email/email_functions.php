@@ -18,6 +18,41 @@ function outfit_mail_from() {
 	$sendemail =  get_bloginfo('admin_email');
 	return $sendemail;
 }
+if(!function_exists('outfit_new_ad_email')) {
+	add_action( 'transition_post_status', 'outfit_new_ad_email', 10, 3 );
+	function outfit_new_ad_email( $new_status, $old_status, $post ){
+		if($new_status == 'pending' && ($old_status == 'new' || $old_status == 'publish') && $post->post_type == 'outfit_ad'){
+			$post = get_post($post->ID);
+			$author = get_userdata($post->post_author);
+			global $redux_demo, $email_subject;
+			$email_subject = 'הודעה חדשה ממתינה לאישור';
+			$author_email = $author->user_email;
+			ob_start();
+			include(TEMPLATEPATH . '/templates/email/email-header.php');
+			?>
+
+			<div class="classiera-email-content" style="padding: 20px 0; width:100%; margin:0 auto;">
+				<h1><?php echo esc_html($email_subject); ?>
+				</h1>
+				<?php
+				$link_start = '<a href="'.get_permalink($post->ID).'">';
+				$link_end = '</a>';
+				$text = $link_start.esc_html($post->post_title).$link_end;
+				?>
+				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+					<?php echo $text; ?>
+				</p>
+			</div>
+			<?php
+			include(TEMPLATEPATH . '/templates/email/email-footer.php');
+			$message = ob_get_contents();
+			write_log($message);
+			ob_end_clean();
+			//outfit_send_wp_mail($author_email, $email_subject, $message);
+			wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
+		}
+	}
+}
 /*==========================
  Email template which sent When Email is Published
  ===========================*/	
@@ -196,7 +231,7 @@ if(!function_exists('outfitRejectedPost')) {
 			}
 		}
 	}
-	add_action(  'transition_post_status',  'outfitRejectedPost', 10, 3 );
+	//add_action(  'transition_post_status',  'outfitRejectedPost', 10, 3 );
 }
 /*==========================
 	Email to Post Author
@@ -290,8 +325,8 @@ if(!function_exists('outfit_reset_password_email')) {
 		$message = ob_get_contents();
 		ob_end_clean();	
 
-		wp_mail($emailTo, $email_subject, $message, ["From: $blog_title <$adminEmail>"]);
-
+		//wp_mail($emailTo, $email_subject, $message, ["From: $blog_title <$adminEmail>"]);
+		wp_mail("milla@originalconcepts.co.il", $email_subject, $message, ["From: $blog_title <$adminEmail>"]);
 	}	
 }
 
