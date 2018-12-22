@@ -35,10 +35,10 @@ $postsRows = array();
 
 if ($loggedIn) {
 
-	$postsRows[] = array(
-		'title' => 'New in',
-		'data' => $recentCatsPosts = outfit_get_recent_cats_posts($currentUser->ID, $count)
-	);
+	//$postsRows[] = array(
+	//	'title' => 'New in',
+	//	'data' => $recentCatsPosts = outfit_get_recent_cats_posts($currentUser->ID, $count)
+	//);
 
 	/*$postsRows[] = array(
 		'title' => '',
@@ -55,19 +55,19 @@ if ($loggedIn) {
 		$postsByAgeAndLocation = outfit_get_posts_by_age_and_location($searchPrefAge, $searchPrefLocations, $count);
 	}
 	$postsRows[] = array(
-		'title' => 'לפי גיל ואיזור',
+		'title' => 'New items to love',
 		'data' => $postsByAgeAndLocation
 	);
 	$postsRows[] = array(
-		'title' => 'חדש מאנשים שאת אוהבת',
+		'title' => 'From your favorite sellers',
 		'data' => $favSellersPosts = outfit_get_posts_of_favorite_sellers($currentUser->ID,$count)
 	);
 	$postsRows[] = array(
-		'title' => 'אהבת אותם לאחרונה',
+		'title' => 'Your latest loved ones',
 		'data' => $wishlist = outfit_get_wishlist_posts($currentUser->ID, $count)
 	);
 	$postsRows[] = array(
-		'title' => 'צפית בהם לאחרונה',
+		'title' => 'Seen lately',
 		'data' => $recentPosts = outfit_get_recent_products($currentUser->ID, $count)
 	);
 
