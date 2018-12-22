@@ -129,6 +129,22 @@ $userId = $current_user->ID;
 				$postSecArea2 = $postLocation2['aal2'];
 				$postSecArea3 = $postLocation2['aal3'];
 			}
+
+			// post third location
+			$postLocation3 = OutfitLocation::toAssoc(get_post_meta($post->ID, POST_META_LOCATION_3, true));
+			$postThirdAddress = '';
+			$postThirdLatitude = '';
+			$postThirdLongitude = '';
+			$postThirdLocality = $postThirdArea1 = $postThirdArea2 = $postThirdArea3 = '';
+			if (null !== $postLocation3 && isset($postLocation3['address'])) {
+				$postThirdAddress = $postLocation3['address'];
+				$postThirdLatitude = $postLocation3['latitude'];
+				$postThirdLongitude = $postLocation3['longitude'];
+				$postThirdLocality = $postLocation3['locality'];
+				$postThirdArea1 = $postLocation3['aal1'];
+				$postThirdArea2 = $postLocation3['aal2'];
+				$postThirdArea3 = $postLocation3['aal3'];
+			}
 			$postColor = getPostTermNames($post->ID, 'colors');
 			$postAgeGroup = getPostTermNames($post->ID, 'age_groups');
 			$postBrand = getPostTermNames($post->ID, 'brands');
@@ -183,6 +199,9 @@ $userId = $current_user->ID;
 											<?php } ?>
 											<?php if (!empty($postSecAddress)) { ?>
 												<li><span><?php echo esc_html($postSecAddress);?></span></li>
+											<?php } ?>
+											<?php if (!empty($postThirdAddress)) { ?>
+												<li><span><?php echo esc_html($postThirdAddress);?></span></li>
 											<?php } ?>
 										</ul>
 									</div>

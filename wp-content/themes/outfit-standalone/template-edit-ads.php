@@ -427,6 +427,10 @@ if(isset( $_POST['postTitle'] )) {
 				if (null !== $location2 && $location2->isValid()) {
 					update_user_meta($userId, USER_META_SECONDARY_ADDRESS, $location2->toString());
 				}
+
+				if (null !== $location3 && $location3->isValid()) {
+					update_user_meta($userId, USER_META_THIRD_ADDRESS, $location3->toString());
+				}
 			}
 
 			wp_redirect( outfit_get_thank_you_link() );
