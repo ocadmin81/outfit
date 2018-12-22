@@ -379,6 +379,9 @@ get_header();
 									<input class="aal2" type="hidden" id="aal2_2" name="aal2_2" value="<?php echo esc_html($postSecArea2); ?>">
 									<input class="aal1" type="hidden" id="aal1_2" name="aal1_2" value="<?php echo esc_html($postSecArea1); ?>">
 								</div>
+							</div>
+
+							<div class="form-group col-sm-6">
 
 								<div class="inner-addon" id="plus-location-hidden">
 
