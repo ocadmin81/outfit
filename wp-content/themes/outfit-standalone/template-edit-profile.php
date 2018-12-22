@@ -70,7 +70,7 @@ if (null !== $postLocation2 && isset($postLocation2['address'])) {
 }
 
 // post third location
-$postLocation2 = OutfitLocation::toAssoc(get_user_meta($userId, USER_META_THIRD_ADDRESS, true));
+$postLocation3 = OutfitLocation::toAssoc(get_user_meta($userId, USER_META_THIRD_ADDRESS, true));
 $postThirdAddress = '';
 $postThirdLatitude = '';
 $postThirdLongitude = '';
@@ -378,6 +378,17 @@ get_header();
 									<input class="aal3" type="hidden" id="aal3_2" name="aal3_2" value="<?php echo esc_html($postSecArea3); ?>">
 									<input class="aal2" type="hidden" id="aal2_2" name="aal2_2" value="<?php echo esc_html($postSecArea2); ?>">
 									<input class="aal1" type="hidden" id="aal1_2" name="aal1_2" value="<?php echo esc_html($postSecArea1); ?>">
+								</div>
+
+								<div class="inner-addon" id="plus-location-hidden">
+
+									<input id="address_3" type="text" name="address_3" class="address form-control form-control-sm" value="<?php echo esc_html($postThirdAddress); ?>" placeholder="<?php esc_html_e('', 'outfit-standalone') ?>">
+									<input class="latitude" type="hidden" id="latitude_3" name="latitude_3" value="<?php echo esc_html($postThirdLatitude); ?>">
+									<input class="longitude" type="hidden" id="longitude_3" name="longitude_3" value="<?php echo esc_html($postThirdLongitude); ?>">
+									<input class="locality" type="hidden" id="locality_3" name="locality_3" value="<?php echo esc_html($postThirdLocality); ?>">
+									<input class="aal3" type="hidden" id="aal3_3" name="aal3_3" value="<?php echo esc_html($postThirdArea3); ?>">
+									<input class="aal2" type="hidden" id="aal2_3" name="aal2_3" value="<?php echo esc_html($postThirdArea2); ?>">
+									<input class="aal1" type="hidden" id="aal1_3" name="aal1_3" value="<?php echo esc_html($postThirdArea1); ?>">
 								</div>
 							</div>
 							</div>
