@@ -1101,7 +1101,7 @@ form .search-form #innerSearch .inner-search-box.color .checkbox:nth-child(22){c
 .home-cats .user-detail-section-heading{display:none;}
 html[lang="he-IL"] .home-cats h3{color: #6e6e6e;font-size: 26px;font-weight: 600;margin-bottom: 15px;}
 html[lang="he-IL"] .home-cats.guest h3{font-family: 'vogueregular';font-weight: 500;}
-html[lang="he-IL"] .home-cats:first-child h3{font-family: 'vogueregular';font-weight: 500;}
+html[lang="he-IL"] .home-cats h3{font-family: 'vogueregular';font-weight: 500;}
 .home-cats .products .row{    margin-right: -5px;margin-left: -5px;}
 .home-cats .products .item{padding: 0 10px;width: 20%;}
 .home-cats .my-ads{margin-top: 0;}
