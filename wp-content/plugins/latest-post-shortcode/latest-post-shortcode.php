@@ -195,8 +195,8 @@ class Latest_Post_Shortcode {
 				'orderby' => 'date',
 			),
 			'dateA'  => array(
-				'title'   => esc_html__( 'Date Ascending', 'lps' ),
-				'order'   => 'ASC',
+				'title'   => esc_html__( 'Date Descending', 'lps' ),
+				'order'   => 'DESC',
 				'orderby' => 'date',
 			),
 			'menuD'  => array(

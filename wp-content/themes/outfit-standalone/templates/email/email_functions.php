@@ -122,16 +122,16 @@ if(!function_exists('outfitUserNotification')) {
 			$text2 = preg_replace('/\[user_profile](.*)\[\/user_profile]/', $user_profile_link_start.'$1'.$link_end, $text2);
 			$text3 = preg_replace('/\[share](.*)\[\/share]/', $share_link_start.'$1'.$link_end, $text3);
 			?>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
-				<img src="<?php echo esc_url(TEMPLATEPATH . '/assets/images/selling.png'); ?>">
+			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
+				<img style="width: 35px;display:inline-block;vertical-align: middle;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/selling.png">
 				<?php echo $text1; ?>
 			</p>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
-				<img src="<?php echo esc_url(TEMPLATEPATH . '/assets/images/profile.png'); ?>">
+			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
+				<img style="width: 35px;display:inline-block;vertical-align: middle;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/profile.png">
 				<?php echo $text2; ?>
 			</p>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
-				<img src="<?php echo esc_url(TEMPLATEPATH . '/assets/images/share.png'); ?>">
+			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
+				<img style="width: 35px;display:inline-block;vertical-align: middle;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/share.png">
 				<?php echo $text3; ?>
 			</p>
 		</div>
@@ -162,7 +162,7 @@ if(!function_exists('outfitNewUserNotifiy')) {
 		include(get_template_directory() . '/templates/email/email-header.php');
 		
 		?>
-		<div class="classiera-email-welcome" style="padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
+		<div class="classiera-email-welcome" style="direction: rtl;padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
 			<h4 style="font-size:18px; color: #232323; text-align: center; font-family: 'Ubuntu', sans-serif; font-weight: normal; text-transform: uppercase;"><?php esc_html_e( 'New User has been Registered !', 'outfit-standalone' ); ?></h4>
 			<span class="email-seprator" style="width:100px; height: 2px; background: #b6d91a; margin: 0 auto; display: block;"></span>
 			<h3 style="font-family: 'Ubuntu', sans-serif; font-size:24px; text-align: center; text-transform: uppercase;">
@@ -170,12 +170,12 @@ if(!function_exists('outfitNewUserNotifiy')) {
 			</h3>
 		</div>
 		<div class="classiera-email-content" style="padding: 50px 0; width:600px; margin:0 auto;">
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;">
 				<?php esc_html_e( 'Hello, New User has been Registred on', 'outfit-standalone' ); ?>, <?php echo esc_html($blog_title) ?>. <?php esc_html_e( 'By using this email', 'outfit-standalone' ); ?> <?php echo sanitize_email($email); ?>!
 			</p>
 			<p>
-				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #232323;"><?php esc_html_e( 'His User name is:', 'outfit-standalone' ); ?> : </span>
-				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #0d7cb0;">
+				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #232323;direction: rtl;"><?php esc_html_e( 'His User name is:', 'outfit-standalone' ); ?> : </span>
+				<span style="font-family: 'Ubuntu', sans-serif; font-size: 14px; color: #0d7cb0;direction: rtl;">
 					<?php echo esc_attr($username); ?>
 				</span>
 			</p>
@@ -209,14 +209,14 @@ if(!function_exists('outfitRejectedPost')) {
 			ob_start();
 			include(TEMPLATEPATH . '/templates/email/email-header.php');
 			?>
-			<div class="classiera-email-welcome" style="padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
+			<div class="classiera-email-welcome" style="direction: rtl;padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
 				<h4 style="font-size:18px; color: #232323; text-align: center; font-family: 'Ubuntu', sans-serif; font-weight: normal; text-transform: uppercase;"><?php echo esc_html($email_subject); ?></h4>
 				<span class="email-seprator" style="width:100px; height: 2px; background: #b6d91a; margin: 0 auto; display: block;"></span>
 				<h3 style="font-family: 'Ubuntu', sans-serif; font-size:24px; text-align: center; text-transform: uppercase;">
 					<?php esc_html_e( 'Hello', 'outfit-standalone' ); ?>, <?php echo esc_attr($author_display); ?>
 				</h3>
 			</div>
-			<div class="classiera-email-content" style="padding: 50px 0; width:600px; margin:0 auto;">
+			<div class="classiera-email-content" style="direction: rtl;padding: 50px 0; width:600px; margin:0 auto;">
 				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
 					<?php esc_html_e( 'We want to inform you, your ad is rejected, which you have posts on', 'outfit-standalone' ); ?> &nbsp;<?php echo get_bloginfo('name'); ?>!
 				</p>
@@ -252,14 +252,14 @@ if(!function_exists('contactToAuthor')) {
 		include(get_template_directory() . '/templates/email/email-header.php');
 		
 		?>
-		<div class="classiera-email-welcome" style="padding: 50px 0; background: url('<?php echo esc_attr($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_attr($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
+		<div class="classiera-email-welcome" style="direction: rtl;padding: 50px 0; background: url('<?php echo esc_attr($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_attr($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
 			<h4 style="font-size:18px; color: #232323; text-align: center; font-family: 'Ubuntu', sans-serif; font-weight: normal; text-transform: uppercase;"><?php echo esc_attr($email_subject); ?></h4>
 			<span class="email-seprator" style="width:100px; height: 2px; background: #b6d91a; margin: 0 auto; display: block;"></span>
 			<h3 style="font-family: 'Ubuntu', sans-serif; font-size:24px; text-align: center; text-transform: uppercase;">
 				<?php esc_html_e( 'You have received email from', 'outfit-standalone' ); ?>, <?php echo esc_attr($name); ?>
 			</h3>
 		</div>
-		<div class="classiera-email-content" style="padding: 50px 0; width:600px; margin:0 auto;">
+		<div class="classiera-email-content" style="direction: rtl;padding: 50px 0; width:600px; margin:0 auto;">
 			<h3 style="font-family: 'Ubuntu', sans-serif; font-size:24px; font-weight: normal; text-transform: capitalize;">
 				<?php esc_html_e( 'Your have received this email from', 'outfit-standalone' ); ?>
 			</h3>
@@ -346,14 +346,14 @@ if(!function_exists('outfit_reportAdtoAdmin')) {
 		ob_start();
 		include(get_template_directory() . '/templates/email/email-header.php');
 		?>
-		<div class="classiera-email-welcome" style="padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
+		<div class="classiera-email-welcome" style="direction: rtl;padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
 			<h4 style="font-size:18px; color: #232323; text-align: center; font-family: 'Ubuntu', sans-serif; font-weight: normal; text-transform: uppercase;"><?php echo esc_html($email_subject); ?></h4>
 			<span class="email-seprator" style="width:100px; height: 2px; background: #b6d91a; margin: 0 auto; display: block;"></span>
 			<h3 style="font-family: 'Ubuntu', sans-serif; font-size:24px; text-align: center; text-transform: uppercase;">
 				<?php esc_html_e( 'Hello Admin, DMCA/Copyright', 'outfit-standalone' ); ?>
 			</h3>
 		</div>
-		<div class="classiera-email-content" style="padding: 50px 0; width:600px; margin:0 auto;">
+		<div class="classiera-email-content" style="direction: rtl;padding: 50px 0; width:600px; margin:0 auto;">
 			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
 				<?php esc_html_e( 'Hi Someone Report an Ad which is posted on your website.', 'outfit-standalone' ); ?>
 			</p>
@@ -402,11 +402,11 @@ if(!function_exists('outfit_contact_us_page')) {
 		ob_start();
 		include(get_template_directory() . '/templates/email/email-header.php');
 		?>
-		<div class="classiera-email-welcome" style="padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
+		<div class="classiera-email-welcome" style="direction: rtl;padding: 50px 0; background: url('<?php echo esc_url($outfitEmailIMG); ?>'); background-size: cover; background-image:url('<?php echo esc_url($outfitEmailIMG); ?>'); background-repeat:repeat-x;">
 			<h4 style="font-size:18px; color: #232323; text-align: center; font-family: 'Ubuntu', sans-serif; font-weight: normal; text-transform: uppercase;"><?php echo esc_html($email_subject); ?></h4>
 			<span class="email-seprator" style="width:100px; height: 2px; background: #b6d91a; margin: 0 auto; display: block;"></span>
 		</div>
-		<div class="classiera-email-content" style="padding: 50px 0; width:600px; margin:0 auto;">
+		<div class="classiera-email-content" style="direction: rtl;padding: 50px 0; width:600px; margin:0 auto;">
 			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
 				<?php echo esc_html($comments); ?>
 			</p>
