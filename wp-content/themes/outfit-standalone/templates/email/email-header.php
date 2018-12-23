@@ -15,6 +15,9 @@
             padding: 0;
             direction: rtl;
         }
+        .classiera-email-content{
+            text-align: right !important;
+        }
         .primary-color{
             color: rgba(172, 188, 236, 0.35) !important;
         }

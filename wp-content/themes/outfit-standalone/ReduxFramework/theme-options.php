@@ -345,6 +345,12 @@
         'icon'             => 'fas fa-envelope',
         'fields'     => array(
             array(
+                'id'=>'admin_email',
+                'type' => 'email',
+                'title' => __('Admin Email for Notifications', 'outfit-standalone'),
+                'default' => ''
+            ),
+            array(
                 'id'=>'new_user_title',
                 'type' => 'text',
                 'title' => __('New User Email Title', 'outfit-standalone'),

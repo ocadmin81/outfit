@@ -26,7 +26,8 @@ if(!function_exists('outfit_new_ad_email')) {
 			$author = get_userdata($post->post_author);
 			global $redux_demo, $email_subject;
 			$email_subject = 'הודעה חדשה ממתינה לאישור';
-			$author_email = $author->user_email;
+			$admin_email = $redux_demo['admin_email'];
+			if (empty($admin_email)) return;
 			ob_start();
 			include(TEMPLATEPATH . '/templates/email/email-header.php');
 			?>
@@ -48,7 +49,7 @@ if(!function_exists('outfit_new_ad_email')) {
 			$message = ob_get_contents();
 			write_log($message);
 			ob_end_clean();
-			//outfit_send_wp_mail($author_email, $email_subject, $message);
+			//outfit_send_wp_mail($admin_email, $email_subject, $message);
 			wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
 		}
 	}
