@@ -1503,6 +1503,7 @@ jQuery(document).ready(function(jQuery){
 		}
 	});
 	jQuery('.mobile-seller .seller-info .seller-icon').click(function() {
+		jQuery('.mobile-seller .seller-info .seller-icon').parent().removeClass('active');
 		jQuery(this).parent().toggleClass('active');
 	});
     jQuery('.remove-post-button.post-rmv a').on("click", function(event){
