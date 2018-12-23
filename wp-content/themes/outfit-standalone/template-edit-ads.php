@@ -876,6 +876,6 @@ get_header(); ?>
 </section><!--user-pages-->
 <?php endwhile; ?>
 <div class="loader_submit_form">
-	<img src="<?php echo get_template_directory_uri().'/assets/images/loader180.gif' ?>">
+	<img src="<?php echo get_template_directory_uri().'/assets/images/loader-thin.gif' ?>">
 </div>
 <?php get_footer(); ?>
