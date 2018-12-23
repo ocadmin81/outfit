@@ -35,6 +35,14 @@
 					<?php endif; ?>					
 				</div>
 			</div>
+			<div class="footer-review">
+				<div class="wrap">
+					<div class="sign-form">
+						<?php echo do_shortcode("[do_widget id=text-19]"); ?>
+						<?php echo do_shortcode('[contact-form-7 id="1009" title="ללא כותרת"]'); ?>
+					</div>
+				</div>
+			</div>
 			<div class="wrap">
 				<?php
 				get_template_part( 'template-parts/footer/footer', 'widgets' );

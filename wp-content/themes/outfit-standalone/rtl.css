@@ -621,6 +621,11 @@ html[lang="he-IL"] button.btn-primary{width: 100%;text-align: center;color: #3d3
 .center{text-align:center;}
 a:hover, a:focus{color: #191919;}
 button, input[type="button"], input[type="submit"]{background-color: #fed3d6;color: #191919;font-weight: normal;font-size: 17px;}
+button:hover, button:focus, input[type="button"]:hover, input[type="button"]:focus, input[type="submit"]:hover, input[type="submit"]:focus {
+    background: #fed3d6;
+}
+.ui-widget.ui-widget-content {z-index: 100000001 !important;}
+div.wpcf7-response-output{font-size: 15px;}
 button, input[type="button"], input[type="submit"],input[type="text"], input[type="email"], input[type="url"], input[type="password"], input[type="search"], input[type="number"], input[type="tel"], input[type="range"], input[type="date"], input[type="month"], input[type="week"], input[type="time"], input[type="datetime"], input[type="datetime-local"], input[type="color"], textarea{border-radius: 0;}
 .site-header{background-color: #fff;    z-index: 100000;}
 .header-right,.header-left{float: right;width: 33.333%;}
@@ -692,6 +697,9 @@ html[lang="he-IL"] .start-selling h3{text-transform: uppercase;font-size: 27px;f
 .footer-newsletter .form .field input[type="email"]{    width: 360px;border: none;border-radius: 0;font-size: 16px;color: #4d4d4d;padding-right: 10px;height: 50px;}
 .footer-newsletter .form .field input[type="submit"]{background: #fed3d6;color: #191919;font-size: 18px;font-weight: 600;height: 50px;padding: 0;width: 120px;text-align: center;margin-right: -2px;border-radius: 0;}
 .footer-newsletter{padding: 15px 0;}
+.footer-review{padding: 15px 0 5px;text-align: center;border-bottom: 1px solid #f3f3f3;}
+.footer-review p{margin:0;font-size: 17px;}
+.footer-review p strong{font-size: 22px;font-weight: 600;}
 .social-navigation a{font-size: 0;background-color: transparent;height: 34px;width: 34px;}
 .social-navigation li.google a{background:url(assets/images/google.png) 0 0 no-repeat;}
 .social-navigation li.pin a{background:url(assets/images/pin.png) 0 0 no-repeat;}
