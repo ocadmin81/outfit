@@ -49,8 +49,8 @@ if(!function_exists('outfit_new_ad_email')) {
 			$message = ob_get_contents();
 			write_log($message);
 			ob_end_clean();
-			//outfit_send_wp_mail($admin_email, $email_subject, $message);
-			wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
+			wp_mail($admin_email, $email_subject, $message);
+			//wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
 		}
 	}
 }
@@ -88,8 +88,8 @@ if(!function_exists('outfit_publish_post_email')) {
 			$message = ob_get_contents();
 			write_log($message);
 			ob_end_clean();
-			//outfit_send_wp_mail($author_email, $email_subject, $message);
-			wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
+			wp_mail($author_email, $email_subject, $message);
+			//wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
 		}    
 	}
 }
@@ -140,8 +140,8 @@ if(!function_exists('outfitUserNotification')) {
 		$message = ob_get_contents();
 		ob_end_clean();
 
-		//wp_mail($email, $email_subject, $message);
-		wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
+		wp_mail($email, $email_subject, $message);
+		//wp_mail("milla@originalconcepts.co.il", $email_subject, $message);
 
 	}
 }
@@ -326,8 +326,8 @@ if(!function_exists('outfit_reset_password_email')) {
 		$message = ob_get_contents();
 		ob_end_clean();	
 
-		//wp_mail($emailTo, $email_subject, $message, ["From: $blog_title <$adminEmail>"]);
-		wp_mail("milla@originalconcepts.co.il", $email_subject, $message, ["From: $blog_title <$adminEmail>"]);
+		wp_mail($emailTo, $email_subject, $message, ["From: $blog_title <$adminEmail>"]);
+		//wp_mail("milla@originalconcepts.co.il", $email_subject, $message, ["From: $blog_title <$adminEmail>"]);
 	}	
 }
 

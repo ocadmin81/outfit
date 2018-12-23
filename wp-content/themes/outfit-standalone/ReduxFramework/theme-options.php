@@ -346,7 +346,7 @@
         'fields'     => array(
             array(
                 'id'=>'admin_email',
-                'type' => 'email',
+                'type' => 'text',
                 'title' => __('Admin Email for Notifications', 'outfit-standalone'),
                 'default' => ''
             ),
