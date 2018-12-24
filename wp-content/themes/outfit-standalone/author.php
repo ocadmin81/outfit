@@ -92,7 +92,9 @@ get_header();
 									<h5 class="media-heading text-uppercase">
 										<?php echo esc_attr($authorName); ?>
 									</h5>
-									<div class="desc"><?php echo esc_html($authorAbout); ?></div>
+									<?php if($authorAbout): ?>
+										<div class="desc"><?php echo esc_html($authorAbout); ?></div>
+									<?php endif; ?>
 									<div>
 										<?php if (!empty($currentUserId) && $currentUserId != $authorId) { ?>
 											<?php
