@@ -101,6 +101,7 @@ $postStatus = get_post_status($postId);
 $postPhone = get_post_meta($post->ID, POST_META_PHONE, true);
 $postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 $postPreferredHours = get_post_meta($post->ID, POST_META_PREFERRED_HOURS, true);
+$featuredimg = get_post_meta($post->ID, POST_META_FEATURED_IMAGE, true);
 // post location
 $postLocation = OutfitLocation::toAssoc(get_post_meta($post->ID, POST_META_LOCATION, true));
 $postAddress = '';

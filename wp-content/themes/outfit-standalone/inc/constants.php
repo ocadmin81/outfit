@@ -29,3 +29,4 @@ define('POST_META_AREA1_TAG', 'outfit_post_area1_tag');
 define('POST_META_AREA2_TAG', 'outfit_post_area2_tag');
 define('POST_META_AREA3_TAG', 'outfit_post_area3_tag');
 define('POST_META_OUTFIT_STATUS', 'outfit_post_status');
+define('POST_META_FEATURED_IMAGE', 'outfit_post_featured_image');

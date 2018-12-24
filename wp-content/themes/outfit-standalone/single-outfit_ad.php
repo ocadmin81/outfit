@@ -247,7 +247,7 @@ $userId = $current_user->ID;
 							'post_type' => 'attachment',
 							'post_mime_type' => 'image',
 							'order' => 'ASC',
-							'orderby' => 'menu_order ID'
+							//'orderby' => 'menu_order ID'
 						)
 					);
 					?>

@@ -10,7 +10,10 @@
  */
 
 if ( !is_user_logged_in() ) {
-	wp_redirect( outfit_get_page_url('login') );
+	//wp_redirect( outfit_get_page_url('login') );
+	//exit;
+	$loginUrl = outfit_login_url_back('');
+	wp_redirect($loginUrl);
 	exit;
 }
 $postTitleError = '';
@@ -291,6 +294,7 @@ if(isset( $_POST['postTitle'] )) {
                             $attachmentId = outfit_insert_attachment($file, $postId);
                             if($count == $featuredimg){
                                 set_post_thumbnail( $postId, $attachmentId );
+								update_post_meta($postId, POST_META_FEATURED_IMAGE, $featuredimg);
                             }
                             $count++;
                         }
