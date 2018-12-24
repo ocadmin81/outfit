@@ -74,10 +74,12 @@ if ($loggedIn) {
 	$catSlugsKeys = array_keys($catslugs);
 	$catSlugsIndex = 0;
 	$catSlugsCount = count($catSlugsKeys);
+
 	foreach ($postsRows as $i => $postRow) {
-		if (empty($postRow['data']) && $catSlugsIndex < $catSlugsCount) {
-			$postRows[$i]['data'] = outfit_get_category_posts($catSlugsKeys[$catSlugsIndex], $count);
-			$postRows[$i]['title'] = $catslugs[$catSlugsKeys[$catSlugsIndex]];
+		if (count($postRow['data']) == 0 && ($catSlugsIndex < $catSlugsCount)) {
+			$postsRows[$i]['data'] = outfit_get_category_posts($catSlugsKeys[$catSlugsIndex], $count);
+			$postsRows[$i]['title'] = $catslugs[$catSlugsKeys[$catSlugsIndex]];
+			$postsRows[$i]['slug'] = $catSlugsKeys[$catSlugsIndex];
 			$catSlugsIndex++;
 		}
 	}

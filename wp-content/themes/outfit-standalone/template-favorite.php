@@ -93,8 +93,8 @@ get_header(); ?>
 															</form>
 															<div class="premium-img">
 																<?php if ($post->post_status == 'sold') { ?>
-																	<div class="featured">
-																		<p>Sold</p>
+																	<div class="sold">
+																		<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/SOLD.png" />
 																	</div>
 																<?php } ?>
 																<a href="<?php the_permalink(); ?>">
