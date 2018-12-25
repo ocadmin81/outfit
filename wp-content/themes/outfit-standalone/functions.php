@@ -1569,7 +1569,7 @@ function outfit_show_pending_ad_to_author($query) {
 			$p = get_post($_GET['p']);
 			if ($p) {
 				if (!is_admin() && $p->post_author == $currentUserId) {
-					$query->set('post_status', array('publish','pending','sold'));
+					$query->set('post_status', array('publish','pending','sold','inherit'));
 				}
 			}
 		}
