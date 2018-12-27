@@ -28,6 +28,8 @@ $subCategories = array();
 $thisCategory = null;
 $outfitMainCat = '';
 
+outfit_strip_slashes_from_input();
+
 if (isset($_REQUEST['cat_id']) && !empty($_REQUEST['cat_id'])) {
 	$catId = intval($_REQUEST['cat_id']);
 	$thisCategory = get_category($catId);
@@ -97,6 +99,11 @@ $postWriter = getRequestMultiple('postWriter', true);;
 $postCharacter = getRequestMultiple('postCharacter', true);;
 $postKeyword = getGetInput('s', '');
 $postPrice = getRequestMultiple('priceRange', true);
+$postGender = getRequestMultiple('postGender', true);
+$postLanguage = getRequestMultiple('postLanguage', true);
+$postShoeSize = getRequestMultiple('postShoeSize', true);
+$postMaternitySize = getRequestMultiple('postMaternitySize', true);
+$postBicycleSize = getRequestMultiple('postBicycleSize', true);
 
 $pageTitle = '';
 if (isset($_REQUEST['bpg']) && count($postBrand) > 0) {
@@ -126,11 +133,47 @@ if (!empty($postKeyword)) {
 
 $taxQuery = array();
 
-if (!empty($postColor)) {
+if (!empty($postGender)) {
 	$taxQuery[] = array(
-		'taxonomy' => 'colors',
+		'taxonomy' => 'genders',
 		'field'    => 'term_id',
-		'terms'    => $postColor,
+		'terms'    => $postGender,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($postLanguage)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'languages',
+		'field'    => 'term_id',
+		'terms'    => $postLanguage,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($postShoeSize)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'shoe_sizes',
+		'field'    => 'term_id',
+		'terms'    => $postShoeSize,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($postMaternitySize)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'maternity_sizes',
+		'field'    => 'term_id',
+		'terms'    => $postMaternitySize,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($postBicycleSize)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'bicycle_sizes',
+		'field'    => 'term_id',
+		'terms'    => $postBicycleSize,
 		'operator' => 'IN'
 	);
 }
@@ -176,6 +219,15 @@ if (!empty($postCharacter)) {
 		'taxonomy' => 'characters',
 		'field'    => 'term_id',
 		'terms'    => $postCharacter,
+		'operator' => 'IN'
+	);
+}
+
+if (!empty($postColor)) {
+	$taxQuery[] = array(
+		'taxonomy' => 'colors',
+		'field'    => 'term_id',
+		'terms'    => $postColor,
 		'operator' => 'IN'
 	);
 }

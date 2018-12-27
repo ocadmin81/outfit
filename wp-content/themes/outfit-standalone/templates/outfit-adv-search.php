@@ -4,6 +4,8 @@ global $redux_demo;
 global $catId, $outfitMainCat, $subCategories;
 global $searchLocations, $searchLocationsStr;
 
+outfit_strip_slashes_from_input();
+
 $filterBy = fetch_category_custom_fields(get_category($outfitMainCat));
 
 /* filters */
@@ -98,7 +100,7 @@ else {
 		</div>
 		<div id="innerSearch" class="classiera__inner">
 
-			<?php //if ($filterBy && $filterBy->catFilterByAge) { ?>
+			<?php if ($filterBy && $filterBy->catFilterByAge) { ?>
 				<?php
 				if (!empty($catId)) {
 					$liveAgeGroups = outfit_filter_live_terms($catId, 'age_groups', $ageGroups);
@@ -122,7 +124,7 @@ else {
 			</div>	
 			<!--<div><a class="clear-age-filter" href="javascript:void(0)">clear age</a></div>-->
 			<!--Age Groups-->
-			<?php //} if ($filterBy && $filterBy->catFilterByAge) ?>
+			<?php } if ($filterBy && $filterBy->catFilterByAge) ?>
 
 			<!--Locations-->
 			<div class="inner-search-box ab address">

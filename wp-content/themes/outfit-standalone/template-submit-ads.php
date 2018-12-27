@@ -72,6 +72,7 @@ $termsandcondition = '/תנאי-שימוש-באתר';
  * address, latitude, longitude, locality, aal3, aal2, aal1
  *
  */
+outfit_strip_slashes_from_input();
 if(isset( $_POST['postTitle'] )) {
 
 	if(

@@ -23,13 +23,15 @@ if ( ! function_exists('write_log')) {
 	}
 }
 
-
-//if ( get_magic_quotes_gpc() ) {
+function outfit_strip_slashes_from_input() {
+	//if ( get_magic_quotes_gpc() ) {
 	$_POST      = array_map( 'stripslashes_deep', $_POST );
 	$_GET       = array_map( 'stripslashes_deep', $_GET );
 	$_COOKIE    = array_map( 'stripslashes_deep', $_COOKIE );
 	$_REQUEST   = array_map( 'stripslashes_deep', $_REQUEST );
-//}
+	//}
+}
+
 /*==========================
  Requried some Files.
  ===========================*/
@@ -1602,7 +1604,7 @@ function outfit_get_search_locations($str = '') {
 		//var_dump($locationStr);
 	}
 	else if (isset($_REQUEST['locations']) && !empty($_REQUEST['locations'])) {
-		$locationStr = $_REQUEST['locations'];
+		$locationStr = stripslashes_deep($_REQUEST['locations']);
 		//var_dump($locationStr);
 	}
 	else {

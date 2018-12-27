@@ -282,6 +282,18 @@ function getPostLanguages($postId) {
     return getPostTermIds($postId, 'languages');
 }
 
+function getPostShoeSizes($postId) {
+    return getPostTermIds($postId, 'shoe_sizes');
+}
+
+function getPostMaternitySizes($postId) {
+    return getPostTermIds($postId, 'maternity_sizes');
+}
+
+function getPostBicycleSizes($postId) {
+    return getPostTermIds($postId, 'bicycle_sizes');
+}
+
 function getCategoryPath($postId) {
 
     $terms = get_the_category($postId);

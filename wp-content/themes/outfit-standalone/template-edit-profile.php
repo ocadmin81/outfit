@@ -104,7 +104,7 @@ $currentPageId = $page->ID;
  * favorite brands
  * password change
  */
-
+outfit_strip_slashes_from_input();
 if ($userId) {
 	if ($_POST) {
 		$message =  esc_html__( 'הפרופיל שלך עודכן בהצלחה.', 'outfit-standalone' );

@@ -155,6 +155,11 @@ $userId = $current_user->ID;
 			$postCondition = (isset($postConditions[0])? $postConditions[0] : '');
 			$postWriter = getPostTermNames($post->ID, 'writers');
 			$postCharacter = getPostTermNames($post->ID, 'characters');
+			$postGender = getPostTermNames($post->ID, 'genders');
+			$postLanguage = getPostTermNames($post->ID, 'languages');
+			$postShoeSize = getPostTermNames($post->ID, 'shoe_sizes');
+			$postMaternitySize = getPostTermNames($post->ID, 'maternity_sizes');
+			$postBicycleSize = getPostTermNames($post->ID, 'bicycle_sizes');
 
 			/* post author */
 			$postAuthorId = $post->post_author;
@@ -409,6 +414,46 @@ $userId = $current_user->ID;
 									<strong><?php esc_html_e( 'מצב הפריט', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php echo esc_attr($postCondition); ?>
+									</span>
+								</li>
+							<?php endif; ?>
+							<?php if(!empty( $postGender )): ?>
+								<li>
+									<strong><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></strong>
+									<span class="pull-right flip">
+										<?php echo esc_attr($postGender); ?>
+									</span>
+								</li>
+							<?php endif; ?>
+							<?php if(!empty( $postLanguage )): ?>
+								<li>
+									<strong><?php esc_html_e( 'שפה', 'outfit-standalone' ); ?></strong>
+									<span class="pull-right flip">
+										<?php echo esc_attr($postLanguage); ?>
+									</span>
+								</li>
+							<?php endif; ?>
+							<?php if(!empty( $postShoeSize )): ?>
+								<li>
+									<strong><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></strong>
+									<span class="pull-right flip">
+										<?php echo esc_attr($postShoeSize); ?>
+									</span>
+								</li>
+							<?php endif; ?>
+							<?php if(!empty( $postMaternitySize )): ?>
+								<li>
+									<strong><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></strong>
+									<span class="pull-right flip">
+										<?php echo esc_attr($postMaternitySize); ?>
+									</span>
+								</li>
+							<?php endif; ?>
+							<?php if(!empty( $postBicycleSize )): ?>
+								<li>
+									<strong><?php esc_html_e( 'גודל', 'outfit-standalone' ); ?></strong>
+									<span class="pull-right flip">
+										<?php echo esc_attr($postBicycleSize); ?>
 									</span>
 								</li>
 							<?php endif; ?>

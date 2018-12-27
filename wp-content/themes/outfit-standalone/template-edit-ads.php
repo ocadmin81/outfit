@@ -158,6 +158,9 @@ $postWriter = getPostWriters($postId);
 $postCharacter = getPostCharacters($postId);
 $postGender = getPostGenders($postId);
 $postLanguage = getPostLanguages($postId);
+$postShoeSize = getPostShoeSizes($postId);
+$postMaternitySize = getPostMaternitySizes($postId);
+$postBicycleSize = getPostBicycleSizes($postId);
 /*
  * upload_attachment[]
  * postTitle
@@ -175,6 +178,7 @@ $postLanguage = getPostLanguages($postId);
  * address, latitude, longitude, locality, aal3, aal2, aal1
  *
  */
+outfit_strip_slashes_from_input();
 if(isset( $_POST['postTitle'] )) {
 
 	if(
