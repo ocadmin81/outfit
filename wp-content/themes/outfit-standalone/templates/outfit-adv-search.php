@@ -131,7 +131,8 @@ else {
 				<textarea style="display: none" id="locations" name="locations"><?php echo $searchLocationsStr; ?></textarea>
 
 				<div class="inner-addon right-addon post_sub_loc">
-					<input id="address" type="text" class="address form-control form-control-md" value="" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
+					<input id="address" type="text" class="address form-control form-control-md" value=""
+						   placeholder="<?php count($searchLocations) > 0? esc_html_e('הקלד אזור נוסף', 'outfit-standalone') : esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
 					<input class="latitude" type="hidden" id="latitude" value="">
 					<input class="longitude" type="hidden" id="longitude" value="">
 					<input class="locality" type="hidden" id="locality" value="">
