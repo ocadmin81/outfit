@@ -365,7 +365,9 @@ $userId = $current_user->ID;
 									<strong><?php esc_html_e( 'מותג', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php foreach ($postBrandObjects as $termObj): ?>
-										<a href="<?php echo outfit_get_brand_link($termObj->term_id) ?>"><?php echo esc_attr($termObj->name); ?></a>
+											<?php if (!strstr($termObj->name, 'other')) : ?>
+											<a href="<?php echo outfit_get_brand_link($termObj->term_id) ?>"><?php echo esc_attr($termObj->name); ?></a>
+											<?php endif; ?>
 										<?php endforeach; ?>
 									</span>
 								</li>

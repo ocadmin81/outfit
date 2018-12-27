@@ -169,7 +169,7 @@ foreach ($postsRows as $i => $postRow) { ?>
 														</div>				
 														<div class="cat-brand">
 															<?php foreach ($postBrandObjects as $termObj): ?>
-																<?php if (!strstr('other', $termObj->name)) : ?>
+																<?php if (!strstr($termObj->name, 'other')) : ?>
 																<a href="<?php echo outfit_get_brand_link($termObj->term_id) ?>"><?php echo esc_attr($termObj->name); ?></a>
 																<?php endif; ?>
 															<?php endforeach; ?>
