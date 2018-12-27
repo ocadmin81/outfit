@@ -833,6 +833,7 @@ add_filter('comment_form_defaults', 'wpsites_change_comment_form_submit_label');
 define('MY_CATEGORY_FIELDS', 'my_category_fields_option');
 // your fields (the form)
 function outfit_my_category_fields($tag) {
+	if (!($tag instanceof WP_Term)) return;
 	$tag_extra_fields = get_option(MY_CATEGORY_FIELDS);
 	$catFilterByColor = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_color'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_color'] : false;
 	$catFilterByBrand = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_brand'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_brand'] : false;
