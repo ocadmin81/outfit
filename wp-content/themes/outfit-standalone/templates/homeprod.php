@@ -1,12 +1,10 @@
 <?php
 /**
- * Template name: Perfit Home
+ * Template name: Perfit Home Products
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
- * @subpackage classiera
- * @since classiera 1.0
  */
 $loggedIn = is_user_logged_in();
 global $current_user, $user_id;
