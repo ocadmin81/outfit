@@ -444,13 +444,16 @@ get_header();
 								<div class="form-group col-sm-6">
 									<label for="favbrands"><?php esc_html_e('מותגים אהובים', 'outfit-standalone') ?> </label>
 									<div class="">
+										<div style="display: none">
+											<?php //var_dump($brands); ?>
+										</div>
 										<select id="favbrands" name="favbrands[]" class="form-control form-control-md" multiple>
 											<option value=""><?php esc_html_e('בחרו מותגים מהרשימה', 'outfit-standalone'); ?></option>
 											<?php
 											foreach ($brands as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"
 													<?php echo (in_array($c->term_id, $userFavBrands)? 'selected' : ''); ?>>
-													<?php esc_html_e($c->name); ?></option>
+													<?php echo esc_html($c->name); ?></option>
 											<?php endforeach; ?>
 										</select>
 									</div>
