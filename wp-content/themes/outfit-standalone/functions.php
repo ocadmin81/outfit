@@ -700,7 +700,7 @@ function outfit_get_wishlist_count($userId) {
 	if (count($favoritearray) == 0) return 0;
 
 	$args['post__in'] = $favoritearray;
-	$wp_query = new WP_Query();
+	$wp_query = new WP_Query($args);
 	$count = count($wp_query->get_posts());
 	wp_reset_query();
 	return $count;
