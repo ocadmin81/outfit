@@ -687,9 +687,22 @@ function outfit_get_user_picture($userId, $size=150) {
 
 function outfit_get_wishlist_count($userId) {
 	if (empty($userId)) return 0;
-	global $wpdb;
-	$prepared_statement = $wpdb->prepare("SELECT COUNT(DISTINCT post_id) FROM {$wpdb->prefix}author_favorite WHERE  author_id = %d", $userId);
-	$count = $wpdb->get_var($prepared_statement);
+	//global $wpdb;
+	//$prepared_statement = $wpdb->prepare("SELECT COUNT(DISTINCT post_id) FROM {$wpdb->prefix}author_favorite WHERE  author_id = %d", $userId);
+	//$count = $wpdb->get_var($prepared_statement);
+	//return $count;
+	$args = array(
+		'post_type' => OUTFIT_AD_POST_TYPE,
+		'post_status' => array('publish','sold'),
+		'posts_per_page' => -1,
+	);
+	$favoritearray = outfit_authors_all_favorite($userId);
+	if (count($favoritearray) == 0) return 0;
+
+	$args['post__in'] = $favoritearray;
+	$wp_query = new WP_Query();
+	$count = count($wp_query->get_posts());
+	wp_reset_query();
 	return $count;
 }
 

@@ -442,7 +442,7 @@ jQuery(document).ready(function(jQuery){
 
         var dataS = {
             'action': 'outfitGetSubCatOnClick',
-            'mainCat': subCatId,
+            'mainCat': subCatId
         };
 
         jQuery.post(ajaxurl, dataS, function(response){

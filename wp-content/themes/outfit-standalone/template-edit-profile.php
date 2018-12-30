@@ -255,7 +255,7 @@ if ($userId) {
 		}/*Foreach*/
 	}
 	$outfitAuthorThumb = outfit_get_user_picture($userId, 130);
-}
+
 
 get_header();
 
@@ -268,7 +268,7 @@ get_header();
 				<?php get_template_part( 'templates/profile/profile-sidebar' );?>
 			</div><!--col-lg-3-->
 			<div class="col-lg-9 col-md-8 user-content-height">
-				<?php if($_POST){?>
+				<?php if($_POST && isset($message)){?>
 					<div class="alert alert-success" role="alert">
 						<?php echo esc_html( $message ); ?>
 					</div>
@@ -506,62 +506,64 @@ get_header();
 		</div><!--row-->
 	</div><!--container-->
 </section><!--user-pages section-gray-bg-->
-	<!--Verify Profile Modal-->
-	<div class="modal fade" id="verifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		<?php
-		$authorEmail = $userInfo->user_email;
-		$dbcode = get_the_author_meta('author_vcode', $userId);
-		$outfitVerifyCode = md5($authorEmail);
-		?>
-		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title text-uppercase text-center" id="myModalLabel">
-						<?php esc_html_e('Verify Your Account Now', 'outfit-standalone') ?>
-					</h4>
-					<p class="text-uppercase text-center">
-						<?php esc_html_e('Following these Steps', 'outfit-standalone') ?>
-					</p>
-				</div><!--modal-header-->
-				<div class="modal-body">
-					<form method="post" class="form-inline row classiera_get_code_form">
-						<span class="classiera--loader"><img src="<?php echo get_template_directory_uri().'/assets/images/loader.gif' ?>" alt="classiera loader"></span>
-						<div class="form-group col-sm-9">
-							<input type="text" class="form-control verify_email" placeholder="<?php esc_html_e('example@email.com', 'outfit-standalone') ?>" value="<?php echo sanitize_email( $authorEmail ); ?>" disabled>
-							<input type="hidden" value="<?php echo esc_html( $outfitVerifyCode ); ?>" name="" class="verify_code">
-							<input type="hidden" value="<?php echo esc_attr( $userId ); ?>" name="" class="verify_user_id">
-						</div>
-						<div class="form-group col-sm-3">
-							<button type="submit" class="btn btn-primary sharp btn-sm btn-style-one verify_get_code">
-								<?php esc_html_e('Get verification Code', 'outfit-standalone') ?>
-							</button>
-						</div>
-					</form><!--classiera_get_code_form-->
-					<form method="post" class="form-inline row classiera_verify_form" <?php if($dbcode){ ?>style="display:block;" <?php } ?>>
-						<span class="classiera--loader"><img src="<?php echo get_template_directory_uri().'/images/loader.gif' ?>" alt="classiera loader"></span>
-						<h5 class="text-center text-uppercase">
-							<?php esc_html_e('Check your email inbox and paste code below', 'outfit-standalone') ?>
-						</h5>
-						<div class="form-group col-sm-9">
-							<input type="text" class="form-control verification_code" placeholder="<?php esc_html_e('Enter your verified code', 'outfit-standalone') ?>" value="" required>
-							<input type="hidden" value="<?php echo esc_attr( $userId ); ?>" name="" class="verify_user_id">
-							<input type="hidden" value="<?php echo sanitize_email( $authorEmail ); ?>" name="" class="verify_email">
-						</div>
-						<div class="form-group col-sm-3">
-							<button type="submit" class="btn btn-primary sharp btn-sm btn-style-one verify_code_btn">
-								<?php esc_html_e('Verify Now', 'outfit-standalone') ?>
-							</button>
-						</div>
-					</form><!--classiera_verify_form-->
-					<div class="classiera_verify_congrats text-center">
+<!--Verify Profile Modal-->
+<div class="modal fade" id="verifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<?php
+	$authorEmail = $userInfo->user_email;
+	$dbcode = get_the_author_meta('author_vcode', $userId);
+	$outfitVerifyCode = md5($authorEmail);
+	?>
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title text-uppercase text-center" id="myModalLabel">
+					<?php esc_html_e('Verify Your Account Now', 'outfit-standalone') ?>
+				</h4>
+				<p class="text-uppercase text-center">
+					<?php esc_html_e('Following these Steps', 'outfit-standalone') ?>
+				</p>
+			</div><!--modal-header-->
+			<div class="modal-body">
+				<form method="post" class="form-inline row classiera_get_code_form">
+					<span class="classiera--loader"><img src="<?php echo get_template_directory_uri().'/assets/images/loader.gif' ?>" alt="classiera loader"></span>
+					<div class="form-group col-sm-9">
+						<input type="text" class="form-control verify_email" placeholder="<?php esc_html_e('example@email.com', 'outfit-standalone') ?>" value="<?php echo sanitize_email( $authorEmail ); ?>" disabled>
+						<input type="hidden" value="<?php echo esc_html( $outfitVerifyCode ); ?>" name="" class="verify_code">
+						<input type="hidden" value="<?php echo esc_attr( $userId ); ?>" name="" class="verify_user_id">
+					</div>
+					<div class="form-group col-sm-3">
+						<button type="submit" class="btn btn-primary sharp btn-sm btn-style-one verify_get_code">
+							<?php esc_html_e('Get verification Code', 'outfit-standalone') ?>
+						</button>
+					</div>
+				</form><!--classiera_get_code_form-->
+				<form method="post" class="form-inline row classiera_verify_form" <?php if($dbcode){ ?>style="display:block;" <?php } ?>>
+					<span class="classiera--loader"><img src="<?php echo get_template_directory_uri().'/images/loader.gif' ?>" alt="classiera loader"></span>
+					<h5 class="text-center text-uppercase">
+						<?php esc_html_e('Check your email inbox and paste code below', 'outfit-standalone') ?>
+					</h5>
+					<div class="form-group col-sm-9">
+						<input type="text" class="form-control verification_code" placeholder="<?php esc_html_e('Enter your verified code', 'outfit-standalone') ?>" value="" required>
+						<input type="hidden" value="<?php echo esc_attr( $userId ); ?>" name="" class="verify_user_id">
+						<input type="hidden" value="<?php echo sanitize_email( $authorEmail ); ?>" name="" class="verify_email">
+					</div>
+					<div class="form-group col-sm-3">
+						<button type="submit" class="btn btn-primary sharp btn-sm btn-style-one verify_code_btn">
+							<?php esc_html_e('Verify Now', 'outfit-standalone') ?>
+						</button>
+					</div>
+				</form><!--classiera_verify_form-->
+				<div class="classiera_verify_congrats text-center">
 
-					</div><!--classiera_verify_congrats-->
-				</div><!--modal-body-->
-			</div><!--modal-content-->
-		</div><!--modal-dialog modal-lg-->
-	</div><!--modal fade-->
-	<!--Verify Profile Modal-->
+				</div><!--classiera_verify_congrats-->
+			</div><!--modal-body-->
+		</div><!--modal-content-->
+	</div><!--modal-dialog modal-lg-->
+</div><!--modal fade-->
+<!--Verify Profile Modal-->
+
+<?php } // if ($userId) ?>
 <?php get_footer(); ?>
