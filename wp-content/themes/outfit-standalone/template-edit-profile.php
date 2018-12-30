@@ -198,6 +198,10 @@ if ($userId) {
 			}
 		}
 		updateUserKidsBirthdays($userId, $validBirthdays);
+		$userKidsBirthdays = getUserKidsBirthdays($userId);
+		$birthday1 = (isset($userKidsBirthdays[0])? $userKidsBirthdays[0] : '');
+		$birthday2 = (isset($userKidsBirthdays[1])? $userKidsBirthdays[1] : '');
+		$birthday3 = (isset($userKidsBirthdays[2])? $userKidsBirthdays[2] : '');
 
 		// user brands
 		$userFavBrands = getPostMultiple('favbrands');
