@@ -2,10 +2,10 @@
 /**
  * Plugin Name: Latest Post Shortcode
  * Plugin URI: https://iuliacazan.ro/latest-post-shortcode/
- * Description: This plugin allows you to create a dynamic content selection from your posts, pages and custom post types that can be embedded with a UI configurable shortcode.
+ * Description: This plugin allows you to create a dynamic content selection from your posts, pages and custom post types that can be embedded with a UI configurable shortcode. When used with WordPress >= 5.0 + Gutenberg, the plugin shortcode can be configured from any Classic block, using the plugin button.
  * Text Domain: lps
  * Domain Path: /langs
- * Version: 8.4
+ * Version: 8.61
  * Author: Iulia Cazan
  * Author URI: https://profiles.wordpress.org/iulia-cazan
  * Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=JJA37EHZXWUTJ
@@ -30,7 +30,7 @@
  */
 
 // Define the plugin version.
-define( 'LPS_PLUGIN_VERSION', 8.4 );
+define( 'LPS_PLUGIN_VERSION', 8.61 );
 
 /**
  * Class for Latest Post Shortcode.
@@ -254,7 +254,7 @@ class Latest_Post_Shortcode {
 	 * @return void
 	 */
 	public static function load_textdomain() {
-		load_plugin_textdomain( 'lps', false, basename( dirname( __FILE__ ) ) . '/langs/' );
+		load_plugin_textdomain( 'lps', false, basename( dirname( __FILE__ ) ) . '/langs' );
 	}
 
 	/**
@@ -265,7 +265,7 @@ class Latest_Post_Shortcode {
 	public static function load_assets() {
 		wp_enqueue_style(
 			'lps-style',
-			plugins_url( '/assets/css/style.css', __FILE__ ),
+			plugins_url( '/assets/css/style.min.css', __FILE__ ),
 			array(),
 			LPS_PLUGIN_VERSION,
 			false
@@ -949,11 +949,12 @@ class Latest_Post_Shortcode {
 										<tr>
 											<td><?php esc_html_e( 'CSS Class', 'lps' ); ?></td>
 											<td>
-												<input type="text" name="lps_css" id="lps_css" onchange="lpsRefresh()" placeholder="<?php esc_attr_e( 'Ex: two-columns, three-columns', 'lps' ); ?>" size="32" />
-												<p class="comment">(<?php esc_html_e( 'The CSS class/classes you can use to customize the appearance of the shortcode output.', 'lps' ); ?></p>
+												<input type="text" name="lps_css" id="lps_css" onchange="lpsRefresh()" placeholder="<?php esc_attr_e( 'Ex: two-columns, three-columns, four-columns', 'lps' ); ?>" size="32" />
+												<p class="comment"><?php esc_html_e( 'The CSS class/classes you can use to customize the appearance of the shortcode output.', 'lps' ); ?></p>
 											</td>
 										</tr>
 									</table>
+									<p class="comment"><?php esc_html_e( 'Currently, the plugin offers out of the box support for two, three and four columns for the tiles and the overlay option. If, for example, you would like to display the tiles as four columns and the images as backgrounds, you can user `four-columns as-overlay`. Extra options for the overlay usage: `light` (for the overlay color), `tall` (to make the height of the tiles a bit bigger, so it fits more content).', 'lps' ); ?></p>
 								</div>
 							</div>
 						</div>
@@ -1424,53 +1425,15 @@ class Latest_Post_Shortcode {
 	/**
 	 * Dynamic relative time.
 	 *
-	 * @param string|integer $time  The time to be computed.
-	 * @param boolean        $small True to use the small format.
+	 * @param integer $id The post ID.
 	 * @return string
 	 */
-	public static function relative_time( $time, $small = true ) {
-		if ( ! is_integer( $time ) ) {
-			$time = get_date_from_gmt( $time, 'U' );
-		}
-		// String seconds,minutes,hours,days,weeks,months,years plural, then singular.
-		$t = explode( ',', esc_html__( 'seconds,minutes,hours,days,weeks,months,years', 'lps' ) );
-		$s = explode( ',', esc_html__( 'second,minute,hour,day,week,month,year', 'lps' ) );
-
-		$d = array(
-			array( 1, $t[0], $s[0] ),
-			array( 60, $t[1], $s[1] ),
-			array( 3600, $t[2], $s[2] ),
-			array( 86400, $t[3], $s[3] ),
-			array( 604800, $t[4], $s[4] ),
-			array( 2592000, $t[5], $s[5] ),
-			array( 31104000, $t[6], $s[6] ),
+	public static function relative_time( $id = null ) {
+		return sprintf(
+			// Translators: %s the date difference.
+			_x( '%s ago', '%s = human-readable time difference', 'lps' ),
+			strtolower( human_time_diff( get_the_time( 'U', $id ), current_time( 'timestamp' ) ) )
 		);
-		$w = array();
-
-		$return = '';
-		$now    = current_time( 'timestamp' );
-		$diff   = $now - $time;
-		$sleft  = $diff;
-
-		for ( $i = 6; $i > -1; $i -- ) {
-			$w[ $i ] = intval( $sleft / $d[ $i ][0] );
-			$sleft  -= ( $w[ $i ] * $d[ $i ][0] );
-			if ( ! empty( $w[ $i ] ) ) {
-				$return .= ( ! empty( $return ) ) ? ', ' : '';
-				$return .= abs( $w[ $i ] ) . ' ' . ( ( 1 === $w[ $i ] ) ? $d[ $i ][2] : $d[ $i ][1] );
-				if ( true === $small ) {
-					break;
-				}
-			}
-		}
-
-		if ( $diff > 0 ) {
-			// Translators: %s computed time.
-			return sprintf( __( '%s ago', 'lps' ), $return );
-		} else {
-			// Translators: %s computed time.
-			return sprintf( __( '%s left', 'lps' ), $return );
-		}
 	}
 
 	/**
@@ -1610,7 +1573,7 @@ class Latest_Post_Shortcode {
 				array(
 					'taxonomy' => 'post_tag',
 					'field'    => 'slug',
-					'terms'    => ( ! empty( $args['tag'] ) ) ? $args['tag'] : 'homenews',
+					'terms'    => ( ! empty( $args['tag'] ) ) ? explode( ',', $args['tag'] ) : 'homenews',
 				)
 			);
 		}
@@ -1652,7 +1615,7 @@ class Latest_Post_Shortcode {
 				array(
 					'taxonomy' => $args['taxonomy'],
 					'field'    => 'slug',
-					'terms'    => $args['term'],
+					'terms'    => explode( ',', $args['term'] ),
 				)
 			);
 		}
@@ -1781,7 +1744,7 @@ class Latest_Post_Shortcode {
 				}
 			}
 			$tile_pattern = self::positions_from_extra( $show_extra, $tile_pattern, $args, $extra_display );
-			$count=1;
+			global $last_tiles_img;
 			foreach ( $posts as $post ) {
 				// Collect the IDs for the current page from the shortcode results.
 				array_push( $lps_current_post_embedded_item_ids, $post->ID );
@@ -1793,11 +1756,12 @@ class Latest_Post_Shortcode {
 				} else {
 					$a_start = '';
 					$a_end   = '';
-					if ( $linkurl ) {
+					if ( $linkurl || substr_count( $class, 'as-overlay' ) ) {
 						$link_target = ( 'yes_blank' === $args['url'] ) ? ' target="_blank"' : '';
-						$a_start     = '<a href="' . get_permalink( $post->ID ) . '"' . $read_more_class . $link_target . '>';
+						$a_start     = '<a href="' . esc_url( get_permalink( $post->ID ) ) . '"' . $read_more_class . $link_target . ' title="' . esc_attr( $post->post_title ) . '">';
 						$a_end       = '</a>';
 					}
+
 					$tile = str_replace( '[a]', $a_start, $tile );
 					$tile = str_replace( '[/a]', $a_end, $tile );
 
@@ -1807,7 +1771,7 @@ class Latest_Post_Shortcode {
 					// Tile date markup.
 					if ( in_array( 'date', $extra_display, true ) ) {
 						if ( in_array( 'date_diff', $show_extra, true ) ) {
-							$date_value = self::relative_time( $post->post_date );
+							$date_value = self::relative_time( $post->ID );
 						} else {
 							$date_value = date_i18n( $date_format, strtotime( $post->post_date ), true );
 						}
@@ -1841,7 +1805,7 @@ class Latest_Post_Shortcode {
 							if ( ! empty( $tax_obj ) ) {
 								$terms_list = get_the_term_list( $post->ID, $tax, '<span class="lps-terms ' . esc_attr( $tax ) . '">', ', ', '</span>' );
 								if ( 'category' === $tax && in_array( 'hide_uncategorized_category', $show_extra, true ) ) {
-									if ( substr_count( $terms_list, 'uncategorized' ) ) {
+									if ( substr_count( strtolower( $terms_list ), 'uncategorized' ) ) {
 										$terms_list = '';
 									}
 								}
@@ -1855,7 +1819,7 @@ class Latest_Post_Shortcode {
 
 					// Tile title markup.
 					if ( in_array( 'title', $extra_display, true ) ) {
-						$tile = str_replace( '[title]', '<h3><a href="' . get_permalink( $post->ID ) . '" class="lps-author-link">' . esc_html( $post->post_title ) . '</a></h3>', $tile );
+						$tile = str_replace( '[title]', '<h3><a href="' . esc_url( get_permalink( $post->ID ) ) . '"' . $read_more_class . $link_target . ' title="' . esc_attr( $post->post_title ) . '">' . esc_attr( $post->post_title ) . '</a></h3>', $tile );
 					}
 					$tile = str_replace( '[title]', '', $tile );
 
@@ -1893,11 +1857,14 @@ class Latest_Post_Shortcode {
 					// Cleanup the remanining tags.
 					$tile = preg_replace( '/\[(.*)\]/', '', $tile );
 
-					echo '<article>' . $tile . '<div class="clear"></div></article>'; // WPCS: XSS OK.
-					
-					$count++;
-					
-					if($count==4) break;					
+					if ( substr_count( $class, 'as-overlay' ) ) {
+						if ( ! empty( $last_tiles_img ) ) {
+							$last_tiles_img = esc_url( $last_tiles_img );
+						}
+						echo '<article style="background-image:url(\'' . $last_tiles_img . '\')"><div class="lps-ontopof-overlay">' . $a_start . strip_tags( $tile, '<div><span><em><b><p><h1><h2><h3>' ) . '</div>' . $a_end . '<div class="clear"></div></article>'; // WPCS: XSS OK.
+					} else {
+						echo '<article>' . $tile . '<div class="clear"></div></article>'; // WPCS: XSS OK.
+					}
 				}
 			}
 
@@ -1982,9 +1949,12 @@ class Latest_Post_Shortcode {
 	 * @return string
 	 */
 	public static function set_tile_image( $post, $args, $tile ) {
+		global $last_tiles_img;
 		if ( empty( $post ) ) {
 			return;
 		}
+		$last_tiles_img = '';
+
 		// Tile image markup.
 		if ( ! empty( $args['image'] ) ) {
 			$img_html = apply_filters( 'post_thumbnail_html', '', (int) $post->ID, 0, $args['image'], array(
@@ -2000,8 +1970,9 @@ class Latest_Post_Shortcode {
 				$img_url = $args['image_placeholder'];
 			}
 			if ( ! empty( $img_url ) ) {
-				$img_html = '<a href="' . get_permalink( $post->ID ) . '" class="lps-author-link"><img src="' . esc_url( $img_url ) . '" /></a>';
+				$img_html = '<a href="' .esc_url( get_permalink( $post->ID ) ). '"><img src="' . esc_url( $img_url ) . '" /></a>';
 				$img_html = apply_filters( 'post_thumbnail_html', $img_html, (int) $post->ID, $th_id, $args['image'], array() );
+				$last_tiles_img = $img_url;
 			}
 			$tile = str_replace( '[image]', $img_html, $tile );
 		}
@@ -2132,6 +2103,9 @@ class Latest_Post_Shortcode {
 							$image[0] = plugins_url( '/assets/images/slider-default.png', __FILE__ );
 						} else {
 							$image = wp_get_attachment_image_src( get_post_thumbnail_id( intval( $post->ID ) ), $imgsize );
+						}
+						if ( empty( $image[0] ) && ! empty( $args['image_placeholder'] ) ) {
+							$image[0] = esc_attr( $args['image_placeholder'] );
 						}
 						if ( ! empty( $image[0] ) ) :
 							$a_start = '';

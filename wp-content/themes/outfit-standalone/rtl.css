@@ -10,7 +10,7 @@ https://codex.wordpress.org/Right-to-Left_Language_Support
 */
 
 /* Reset */
-
+#wpadminbar{z-index: 999999;}
 body {
 	direction: rtl;
 	unicode-bidi: embed;
@@ -668,6 +668,7 @@ a.custom-logo-link{float: right;width: 33.333%;padding: 0;text-align: center;mar
 .home-features{padding: 20px 0;}
 .home-features ul{text-align: center;list-style: none;}
 .home-features ul li{float: right;width: 20%;}
+.home-features ul li br{display:none;}
 .home-features ul li h3{font-size: 17px;padding-top: 5px;}
 .no-svg .search-submit .screen-reader-text{display:none;}
 .home-features ul li p{color: #191919;font-size: 16px;padding: 0 30px;line-height: 19px;}
@@ -701,6 +702,7 @@ html[lang="he-IL"] .start-selling h3{text-transform: uppercase;font-size: 27px;f
 .footer-review p{margin:0;font-size: 17px;}
 .footer-review p strong{font-size: 22px;font-weight: 600;}
 .social-navigation a{font-size: 0;background-color: transparent;height: 34px;width: 34px;}
+.widget_text ul.social-navigation{margin: 0;margin-top: 10px}
 .social-navigation li.google a{background:url(assets/images/google.png) 0 0 no-repeat;}
 .social-navigation li.pin a{background:url(assets/images/pin.png) 0 0 no-repeat;}
 .social-navigation li.face a{background:url(assets/images/face.png) 0 0 no-repeat;}
@@ -970,7 +972,7 @@ html[lang="he-IL"] .user-pages h1,.user-pages .user-detail-section .user-detail-
 .user-pages .user-detail-section h4.user-detail-section-heading{margin-top: 0;margin-bottom: 20px;}
 .user-page .ex p{    margin: 0;}
 .user-pages input[type="date"]{background: url(assets/images/calendar-small.png) 15px 50% no-repeat;}
-.user-pages aside.mobile-user-menu{display:none;    margin-top: -20px;    margin-bottom: 20px;}
+.user-pages aside.mobile-user-menu{/*display:none; */margin-top: -20px;    margin-bottom: 20px;}
 .user-pages aside.mobile-user-menu.active{display:block;}
 .user-menu-heading{background: #fff url(assets/images/select-arrow.png) 18px 50% no-repeat;margin-bottom: 20px;height: 55px;line-height: 55px;text-align: right;padding-right: 18px;font-size: 25px;}
 .user-menu-heading .user{background: url(assets/images/user-menu-user-icon.png) right 5px no-repeat;}
@@ -1181,6 +1183,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 .alert-success {color: #191919;background-color: #fed3d6;border-color: #fed3d6;border-radius: 0;}
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary, .btn-primary.active:hover, .btn-primary:active:hover,
 .btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus{background: #fed3d6;color: #191919;}
+.latest-post-selection article .read-more{float:none!important;}
 @media only screen and (max-width: 959px) and (min-width: 768px){
 	.inner-page-content .col-md-8{    margin-bottom: 0;}
 }
@@ -1233,6 +1236,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 @media screen and (min-width: 768px){
 	.cat-sidebar .search-form .collapse{display: block!important;}
 	.box-title-mobile,.filter-close-map{display:none;}
+	.static-sidebar .widget-title{display:none;}
 }
 @media screen and (min-width: 992px){
 		.user-pages .user-detail-section .user-ads{margin-bottom: 0;min-height: 550px;}
@@ -1315,7 +1319,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.main-navigation li.menu-top div{display: inline-block;vertical-align: middle;position: relative;margin-left: 20px;}
 	.main-navigation li.menu-top .favourites span{position: absolute;font-size: 13px;top: 5px;background: #fed3d6;border-radius: 50%;width: 17px;height: 17px;text-align: center;right: -7px;line-height: 17px;}
 	.home-features ul li{float: right;display: block;width: 50%;}
-	.home-features ul li:last-child{display:none;}
+	.home-features ul li:last-child{float: none;display: inline-block;}
 	.home-features ul li p{padding: 0 10px;}
 	.start-selling{background: #f5f5f6 url(assets/images/start-selling-bg.jpg) 0px bottom no-repeat;background-size: contain;}
 	..start-selling-text{padding: 15px 13px 35px;}
@@ -1415,7 +1419,6 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.classiera_map_div h5{margin: 0;}
 	.classiera_map_div.img img{max-width: 100%;height: 75px;}
 	.classiera_map_div .map-author{position: static;margin-top: 15px;}
-	.user-pages .user-detail-section .user-detail-section-heading{display: none;}
 	.select2-container{z-index: 100000000;}
 	.remove-post-buttons{    top: 28px;right: 0;}
 	.wish-share button span{padding-right: 40px;}

@@ -22,17 +22,11 @@
 					<div class="sign-form">
 						<?php echo do_shortcode('[mc4wp_form id="399"]'); ?>
 					</div>
-					<?php if ( has_nav_menu( 'social' ) ) : ?>
+					<?php //if ( has_nav_menu( 'social' ) ) : ?>
 						<nav class="social-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Social Links Menu', 'twentyseventeen' ); ?>">
-							<?php
-								wp_nav_menu( array(
-									'theme_location' => 'social',
-									'menu_class'     => 'social-links-menu',
-									'depth'          => 1,
-								) );
-							?>
+							<?php echo do_shortcode("[do_widget id=text-15]"); ?>
 						</nav><!-- .social-navigation -->
-					<?php endif; ?>					
+					<?php //endif; ?>					
 				</div>
 			</div>
 			<div class="footer-review">
