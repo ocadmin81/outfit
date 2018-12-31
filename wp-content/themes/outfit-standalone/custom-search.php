@@ -404,7 +404,7 @@ $inSearch = isset($_GET["s"]);
 													$postLocations[] = array($loc2->getLatitude(), $loc2->getLongitude());
 												}
 
-												$pThumb = esc_url(outfit_get_post_thumb_url($post->ID));
+												$pThumb = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 												$pPrice = outfit_format_post_price(get_post_meta($post->ID, POST_META_PRICE, true));
 												$pBrand = esc_attr(implode(', ', getPostTermNames($post->ID, 'brands')));
 												$pAuthorName = esc_attr(getAuthorFullName($post->post_author));
@@ -415,12 +415,12 @@ $inSearch = isset($_GET["s"]);
 													'author_name' => $pAuthorName,
 													'title' => get_the_title(),
 													'price' => $pPrice,
-													'thumb_img_url' => $pThumb,
+													'thumb_img_url' => $pThumb[0],
 													'author_img_url' => $authorAvatarUrl,
 													'brand' => $pBrand,
 													'locations' => $postLocations,
 													'content' => '<div class="classiera_map_div img"><a href="'.get_the_permalink().'">'
-														.'<img class="classiera_map_div__img" src="'.$pThumb.'" alt="images">'
+														.'<img class="classiera_map_div__img" src="'.$pThumb[0].'" alt="images">'
 														.'</a></div>'
 														//.'<p class="classiera_map_div__cat">'.__( "Brand", 'outfit-standalone').' : '.$pBrand.'</p></div></a>'
 														.'<div class="classiera_map_div content">'
