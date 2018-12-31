@@ -72,6 +72,7 @@ $termsandcondition = '/תנאי-שימוש-באתר';
  * address, latitude, longitude, locality, aal3, aal2, aal1
  *
  */
+outfit_strip_slashes_from_input();
 if(isset( $_POST['postTitle'] )) {
 
 	if(
@@ -111,7 +112,7 @@ if(isset( $_POST['postTitle'] )) {
 			//Check Category//
 			$outfitMainCat = $_POST['postCategory'];
 			$outfitSubCat = getPostInput('postSubcategory');
-			$outfitSubSubCat = getPostInput('postSubsubcategory');
+			$outfitSubSubCat = getPostInput('postSubSubcategory');
 			$outfitCategory = $outfitMainCat;
 			if (!empty($outfitSubSubCat)) {
 				$outfitCategory = $outfitSubSubCat;
@@ -428,6 +429,13 @@ get_header(); ?>
 									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?> </label>
 									<div class="item">
 										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md"></select>
+									</div>
+								</div><!-- /Ad Sub Category-->
+
+								<div class="form-group post-sub-sub-cat-container toggle-required" style="display: none;">
+									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?> </label>
+									<div class="item">
+										<select id="subsubcategory" name="postSubSubcategory" class="reg form-control form-control-md"></select>
 									</div>
 								</div><!-- /Ad Sub Category-->
 

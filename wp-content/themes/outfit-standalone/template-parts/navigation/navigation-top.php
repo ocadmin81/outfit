@@ -22,8 +22,9 @@ $userFirstName = do_shortcode('[userfirstname]');
 			</a>
 		</div>
 		<div class="login">
+			<?php $outfitAllAds = outfit_get_page_url('user_all_ads'); ?>
 			<?php if(is_user_logged_in()): ?>	
-				<a href="<?php echo get_site_url(); ?>/profile-settings"><?php _e( "היי, ", 'outfit-standalone' ); ?><?php echo $userFirstName; ?></a>
+				<a href="<?php echo esc_url( $outfitAllAds ); ?>"><?php _e( "היי, ", 'outfit-standalone' ); ?><?php echo $userFirstName; ?></a>
 			<?php else: ?>
 				<a href="<?php echo get_site_url(); ?>/login"><?php _e( "היי, התחבר/י", 'twentyseventeen' ); ?></a>
 			<?php endif; ?>

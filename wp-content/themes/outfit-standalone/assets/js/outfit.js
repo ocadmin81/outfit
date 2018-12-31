@@ -410,7 +410,8 @@ jQuery(document).ready(function(jQuery){
 			'action': 'outfitGetSubCatOnClick',
 			'mainCat': mainCatId,
 		};
-		jQuery.post(ajaxurl, data, function(response){
+
+        jQuery.post(ajaxurl, data, function(response){
 			jQuery('.post-sub-cat-container select').html(response);
 			if(response){
 				jQuery('.post-sub-cat-container').show();
@@ -427,6 +428,27 @@ jQuery(document).ready(function(jQuery){
                 if (brandFilter == '1') {
                     jQuery('.post-brands-container').toggleRequired(1);
                 }
+            }
+        });
+
+    });
+
+    jQuery(".post-sub-cat-container select").on('change', function (event){
+        event.preventDefault();
+        jQuery('.toggle-required').toggleRequired(0);
+
+        var selected = jQuery(this).find(":selected");
+        var subCatId = selected.val();
+
+        var dataS = {
+            'action': 'outfitGetSubCatOnClick',
+            'mainCat': subCatId
+        };
+
+        jQuery.post(ajaxurl, dataS, function(response){
+            jQuery('.post-sub-sub-cat-container select').html(response);
+            if(response){
+                jQuery('.post-sub-sub-cat-container').show();
             }
         });
 

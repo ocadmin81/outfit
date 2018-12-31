@@ -23,13 +23,15 @@ if ( ! function_exists('write_log')) {
 	}
 }
 
-
-//if ( get_magic_quotes_gpc() ) {
+function outfit_strip_slashes_from_input() {
+	//if ( get_magic_quotes_gpc() ) {
 	$_POST      = array_map( 'stripslashes_deep', $_POST );
 	$_GET       = array_map( 'stripslashes_deep', $_GET );
 	$_COOKIE    = array_map( 'stripslashes_deep', $_COOKIE );
 	$_REQUEST   = array_map( 'stripslashes_deep', $_REQUEST );
-//}
+	//}
+}
+
 /*==========================
  Requried some Files.
  ===========================*/
@@ -685,9 +687,22 @@ function outfit_get_user_picture($userId, $size=150) {
 
 function outfit_get_wishlist_count($userId) {
 	if (empty($userId)) return 0;
-	global $wpdb;
-	$prepared_statement = $wpdb->prepare("SELECT COUNT(DISTINCT post_id) FROM {$wpdb->prefix}author_favorite WHERE  author_id = %d", $userId);
-	$count = $wpdb->get_var($prepared_statement);
+	//global $wpdb;
+	//$prepared_statement = $wpdb->prepare("SELECT COUNT(DISTINCT post_id) FROM {$wpdb->prefix}author_favorite WHERE  author_id = %d", $userId);
+	//$count = $wpdb->get_var($prepared_statement);
+	//return $count;
+	$args = array(
+		'post_type' => OUTFIT_AD_POST_TYPE,
+		'post_status' => array('publish','sold'),
+		'posts_per_page' => -1,
+	);
+	$favoritearray = outfit_authors_all_favorite($userId);
+	if (count($favoritearray) == 0) return 0;
+
+	$args['post__in'] = $favoritearray;
+	$wp_query = new WP_Query($args);
+	$count = count($wp_query->get_posts());
+	wp_reset_query();
 	return $count;
 }
 
@@ -833,6 +848,7 @@ add_filter('comment_form_defaults', 'wpsites_change_comment_form_submit_label');
 define('MY_CATEGORY_FIELDS', 'my_category_fields_option');
 // your fields (the form)
 function outfit_my_category_fields($tag) {
+	if (!($tag instanceof WP_Term)) return;
 	$tag_extra_fields = get_option(MY_CATEGORY_FIELDS);
 	$catFilterByColor = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_color'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_color'] : false;
 	$catFilterByBrand = isset( $tag_extra_fields[$tag->term_id]['category_filter_by_brand'] ) ? $tag_extra_fields[$tag->term_id]['category_filter_by_brand'] : false;
@@ -1601,7 +1617,7 @@ function outfit_get_search_locations($str = '') {
 		//var_dump($locationStr);
 	}
 	else if (isset($_REQUEST['locations']) && !empty($_REQUEST['locations'])) {
-		$locationStr = $_REQUEST['locations'];
+		$locationStr = stripslashes_deep($_REQUEST['locations']);
 		//var_dump($locationStr);
 	}
 	else {

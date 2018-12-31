@@ -4,6 +4,8 @@ global $redux_demo;
 global $catId, $outfitMainCat, $subCategories;
 global $searchLocations, $searchLocationsStr;
 
+outfit_strip_slashes_from_input();
+
 $filterBy = fetch_category_custom_fields(get_category($outfitMainCat));
 
 /* filters */
@@ -98,7 +100,7 @@ else {
 		</div>
 		<div id="innerSearch" class="classiera__inner">
 
-			<?php //if ($filterBy && $filterBy->catFilterByAge) { ?>
+			<?php if ($filterBy && $filterBy->catFilterByAge) { ?>
 				<?php
 				if (!empty($catId)) {
 					$liveAgeGroups = outfit_filter_live_terms($catId, 'age_groups', $ageGroups);
@@ -122,7 +124,7 @@ else {
 			</div>	
 			<!--<div><a class="clear-age-filter" href="javascript:void(0)">clear age</a></div>-->
 			<!--Age Groups-->
-			<?php //} if ($filterBy && $filterBy->catFilterByAge) ?>
+			<?php } if ($filterBy && $filterBy->catFilterByAge) ?>
 
 			<!--Locations-->
 			<div class="inner-search-box ab address">
@@ -131,7 +133,8 @@ else {
 				<textarea style="display: none" id="locations" name="locations"><?php echo $searchLocationsStr; ?></textarea>
 
 				<div class="inner-addon right-addon post_sub_loc">
-					<input id="address" type="text" class="address form-control form-control-md" value="" placeholder="<?php esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
+					<input id="address" type="text" class="address form-control form-control-md" value=""
+						   placeholder="<?php count($searchLocations) > 0? esc_html_e('הקלד אזור נוסף', 'outfit-standalone') : esc_html_e('עיר או יישוב', 'outfit-standalone') ?>">
 					<input class="latitude" type="hidden" id="latitude" value="">
 					<input class="longitude" type="hidden" id="longitude" value="">
 					<input class="locality" type="hidden" id="locality" value="">

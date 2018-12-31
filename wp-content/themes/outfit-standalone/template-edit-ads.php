@@ -91,9 +91,13 @@ $outfitMainCat = (isset($postCategories[0])? $postCategories[0] : 0);
 $outfitSubCat = (isset($postCategories[1])? $postCategories[1] : 0);
 $outfitSubSubCat = (isset($postCategories[2])? $postCategories[2] : 0);
 $subCategories = array();
+$subSubCategories = array();
 if ($outfitMainCat) {
 	$subCategories = getSubCategories($outfitMainCat);
 	$brands = getBrandsByCategory($outfitMainCat);
+	if ($outfitSubCat) {
+		$subSubCategories = getSubCategories($outfitSubCat);
+	}
 }
 $filterBy = null;
 
@@ -158,6 +162,9 @@ $postWriter = getPostWriters($postId);
 $postCharacter = getPostCharacters($postId);
 $postGender = getPostGenders($postId);
 $postLanguage = getPostLanguages($postId);
+$postShoeSize = getPostShoeSizes($postId);
+$postMaternitySize = getPostMaternitySizes($postId);
+$postBicycleSize = getPostBicycleSizes($postId);
 /*
  * upload_attachment[]
  * postTitle
@@ -175,6 +182,7 @@ $postLanguage = getPostLanguages($postId);
  * address, latitude, longitude, locality, aal3, aal2, aal1
  *
  */
+outfit_strip_slashes_from_input();
 if(isset( $_POST['postTitle'] )) {
 
 	if(
@@ -214,7 +222,7 @@ if(isset( $_POST['postTitle'] )) {
 			//Check Category//
 			$outfitMainCat = $_POST['postCategory'];
 			$outfitSubCat = getPostInput('postSubcategory');
-			$outfitSubSubCat = getPostInput('postSubsubcategory');
+			$outfitSubSubCat = getPostInput('postSubSubcategory');
 			$outfitCategory = $outfitMainCat;
 			if (!empty($outfitSubSubCat)) {
 				$outfitCategory = $outfitSubSubCat;
@@ -579,6 +587,22 @@ get_header(); ?>
 											<?php foreach ($subCategories as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"
 													<?php if ($outfitSubCat && $c->term_id == $outfitSubCat) {
+														echo 'selected';
+													} ?>
+													><?php esc_html_e($c->name); ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div><!-- /Ad Sub Category-->
+
+								<div class="form-group post-sub-sub-cat-container toggle-required" style="<?php echo (count($subSubCategories)? '' : 'display: none;'); ?>">
+									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?></label>
+									<div class="item">
+										<select id="subsubcategory" name="postSubSubcategory" class="reg form-control form-control-md">
+											<option value=""><?php esc_html_e('בחירת תת קטגוריה', 'outfit-standalone'); ?></option>
+											<?php foreach ($subSubCategories as $c): ?>
+												<option value="<?php echo $c->term_id; ?>"
+													<?php if ($outfitSubSubCat && $c->term_id == $outfitSubSubCat) {
 														echo 'selected';
 													} ?>
 													><?php esc_html_e($c->name); ?></option>
