@@ -1,5 +1,14 @@
 <?php
 
+function array_of_empties($arr) {
+    foreach ($arr as $item) {
+        if (!empty($item)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 function outfit_get_main_cats($excludeDefault = false) {
 
     $exclude = array();

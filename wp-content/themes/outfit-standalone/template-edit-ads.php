@@ -201,15 +201,24 @@ if(isset( $_POST['postTitle'] )) {
 			$hasError = true;
 		}
 		//Image Count check//
-		$files = $_FILES['upload_attachment'];
-		$count = count($files['name']);
-		if($count == 0){
+		$imgargs = array(
+			'post_parent' => $postId,
+			'post_status' => 'inherit',
+			'post_type'   => 'attachment',
+			'post_mime_type'   => 'image',
+			'order' => 'ASC',
+			'orderby' => 'menu_order ID',
+		);
+		$attachments = get_children($imgargs);
+		$count = count($attachments);
+
+		if(!$count && (!isset($_FILES['upload_attachment']) || array_of_empties($_FILES['upload_attachment']['name']))) {
 			$imageError = esc_html__( 'יש לעלות תמונה אחת לפחות', 'outfit-standalone' );
 			$hasError = true;
 		}
 		//Image Count check//
 
-		if ($hasError != true) {
+		if ($hasError === false) {
 
 			//Set Post Status//
 			if (is_super_admin() ) {
@@ -528,6 +537,7 @@ get_header(); ?>
 										<input type="hidden" name="outfit_featured_img" id="outfit_featured_img" value="0">
 										<!--Imageloop-->
 									</div>
+
 									<?php if ($imageError) { ?>
 									<div class="left-side help-block with-errors" style="color: red;padding-right: 15px;"><?php echo esc_html($imageError); ?></div>
 									<?php } ?>

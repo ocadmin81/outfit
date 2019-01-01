@@ -91,9 +91,7 @@ if(isset( $_POST['postTitle'] )) {
 			$hasError = true;
 		}
 		//Image Count check//
-		$files = $_FILES['upload_attachment'];
-		$count = count($files['name']);
-		if($count == 0){
+		if(!isset($_FILES['upload_attachment']) || array_of_empties($_FILES['upload_attachment']['name'])) {
 			$imageError = esc_html__( 'יש לעלות תמונה אחת לפחות', 'outfit-standalone' );
 			$hasError = true;
 		}
