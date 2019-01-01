@@ -395,7 +395,7 @@ $userId = $current_user->ID;
 							<?php endif; ?>
 							<?php if(!empty( $postWriter )): ?>
 								<li>
-									<strong><?php esc_html_e( 'Writer', 'outfit-standalone' ); ?></strong>
+									<strong><?php esc_html_e( 'סופר', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php echo esc_attr(join(',', $postWriter)); ?>
 									</span>
@@ -403,7 +403,7 @@ $userId = $current_user->ID;
 							<?php endif; ?>
 							<?php if(!empty( $postCharacter )): ?>
 								<li>
-									<strong><?php esc_html_e( 'Character', 'outfit-standalone' ); ?></strong>
+									<strong><?php esc_html_e( 'דמות', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php echo esc_attr(join(',', $postCharacter)); ?>
 									</span>
