@@ -971,7 +971,7 @@ html[lang="he-IL"] .user-pages h1,.user-pages .user-detail-section .user-detail-
 .user-pages .user-detail-section .user-profile-settings form .form-group .inner-addon{margin-bottom: 0;}
 .user-pages .user-detail-section h4.user-detail-section-heading{margin-top: 0;margin-bottom: 20px;}
 .user-page .ex p{    margin: 0;}
-.user-pages input[type="date"]{background: url(assets/images/calendar-small.png) 15px 50% no-repeat;}
+.user-pages .date-section input{background: url(assets/images/calendar-small.png) 15px 50% no-repeat;}
 .user-pages aside.mobile-user-menu{/*display:none; */margin-top: -20px;    margin-bottom: 20px;}
 .user-pages aside.mobile-user-menu.active{display:block;}
 .user-menu-heading{background: #fff url(assets/images/select-arrow.png) 18px 50% no-repeat;margin-bottom: 20px;height: 55px;line-height: 55px;text-align: right;padding-right: 18px;font-size: 25px;}

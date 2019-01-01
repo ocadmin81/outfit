@@ -24,6 +24,15 @@ $userInfo = get_userdata($userId);
 
 $userName = $userInfo->display_name;
 
+require_once 'Mobile_Detect.php';
+$detect = new Mobile_Detect;
+$typeDate = 'date';
+$classDate = 'date-mobile';
+if (!$detect->isMobile() || $detect->isTablet()){
+	$typeDate = 'text';
+	$classDate = 'date-desktop';
+}
+
 $userFirstName = get_user_meta($userId, USER_META_FIRSTNAME, true);
 $userLastName = get_user_meta($userId, USER_META_LASTNAME, true);
 
@@ -405,10 +414,10 @@ get_header();
 							<h4 class="user-detail-section-heading text-uppercase">
 								<?php esc_html_e( 'תאריך לידה של הילדים', 'outfit-standalone' ); ?>
 							</h4>
-							<div class="form-inline form-group row">
+							<div class="form-inline form-group date-section row">
 								<div class="inner-addon col-sm-4">
-									<input type="date"
-										   class="form-control form-control-sm"
+									<input type="<?php echo $typeDate; ?>"
+										   class="form-control form-control-sm <?php echo $classDate; ?>"
 										   id="birthday1"
 										   name="birthdays[]"
 										   value="<?php echo esc_attr($birthday1); ?>"
@@ -416,8 +425,8 @@ get_header();
 										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
 								<div class="inner-addon col-sm-4">
-									<input type="date"
-										   class="form-control form-control-sm"
+									<input type="<?php echo $typeDate; ?>"
+										   class="form-control form-control-sm <?php echo $classDate; ?>"
 										   id="birthday2"
 										   name="birthdays[]"
 										   value="<?php echo esc_attr($birthday2); ?>"
@@ -425,8 +434,8 @@ get_header();
 										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
 								</div>
 								<div class="inner-addon col-sm-4">
-									<input type="date"
-										   class="form-control form-control-sm"
+									<input type="<?php echo $typeDate; ?>"
+										   class="form-control form-control-sm <?php echo $classDate; ?>"
 										   id="birthday3"
 										   name="birthdays[]"
 										   value="<?php echo esc_attr($birthday3); ?>"
