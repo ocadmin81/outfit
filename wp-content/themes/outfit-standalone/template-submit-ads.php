@@ -21,7 +21,7 @@ $postPriceError = '';
 $catError = '';
 $imageError = '';
 $postContent = '';
-$hasError = '';
+$hasError = false;
 $allowed = '';
 global $redux_demo;
 global $wpdb;
@@ -378,7 +378,9 @@ get_header(); ?>
 										<input type="hidden" name="outfit_featured_img" id="outfit_featured_img" value="0">
 										<!--Imageloop-->
 									</div>
-
+									<?php if ($imageError) { ?>
+										<div class="left-side help-block with-errors" style="color: red;padding-right: 15px;"><?php echo esc_html($imageError); ?></div>
+									<?php } ?>
 								</div>
 							</div>
 						<!-- add photos and media -->						
