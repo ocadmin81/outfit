@@ -435,14 +435,14 @@ jQuery(document).ready(function(jQuery){
 
     jQuery(".post-sub-cat-container select").on('change', function (event){
         event.preventDefault();
-        jQuery('.toggle-required').toggleRequired(0);
+        //jQuery('.toggle-required').toggleRequired(0);
 
         var selected = jQuery(this).find(":selected");
         var subCatId = selected.val();
 
         var dataS = {
             'action': 'outfitGetSubCatOnClick',
-            'mainCat': subCatId,
+            'mainCat': subCatId
         };
 
         jQuery.post(ajaxurl, dataS, function(response){
