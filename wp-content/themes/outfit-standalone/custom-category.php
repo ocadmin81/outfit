@@ -19,6 +19,8 @@ global $allowed_html;
 global $catId;
 global $paged, $wp_query, $wp, $post;
 global $outfitMainCat, $subCategories;
+global $thisCategory;
+$thisCategory = null;
 
 $catId = get_queried_object_id();
 $thisCategory = get_category($catId);

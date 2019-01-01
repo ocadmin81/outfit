@@ -95,6 +95,16 @@ $userId = $current_user->ID;
 			$outfitMainCat = (isset($postCategories[0])? $postCategories[0] : 0);
 			$outfitSubCat = (isset($postCategories[1])? $postCategories[1] : 0);
 			$outfitSubSubCat = (isset($postCategories[2])? $postCategories[2] : 0);
+			$closestCat = false;
+			$catsCount = count($postCategories);
+			if ($catsCount > 0) {
+				$closestCat = $postCategories[$catsCount-1];
+			}
+			$filterBy = false;
+			if ($closestCat) {
+				$filterBy = fetch_category_custom_fields(get_category($closestCat));
+			}
+
 			$postStatus = get_post_status($post->ID);
 			$postPhone = get_post_meta($post->ID, POST_META_PHONE, true);
 			$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
@@ -377,7 +387,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postAgeGroup )): ?>
+							<?php if(!empty( $postAgeGroup ) && ($filterBy && $filterBy->catFilterByAge)): ?>
 								<li>
 									<strong><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
@@ -385,7 +395,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postColor )): ?>
+							<?php if(!empty( $postColor ) && ($filterBy && $filterBy->catFilterByColor)): ?>
 								<li>
 									<strong><?php esc_html_e( 'צבע', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
@@ -393,7 +403,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postWriter )): ?>
+							<?php if(!empty( $postWriter ) && ($filterBy && $filterBy->catFilterByWriter)): ?>
 								<li>
 									<strong><?php esc_html_e( 'סופר', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
@@ -401,7 +411,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postCharacter )): ?>
+							<?php if(!empty( $postCharacter ) && ($filterBy && $filterBy->catFilterByCharacter)): ?>
 								<li>
 									<strong><?php esc_html_e( 'דמות', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
@@ -409,7 +419,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postCondition )): ?>
+							<?php if(!empty( $postCondition ) && ($filterBy && $filterBy->catFilterByCondition)): ?>
 								<li>
 									<strong><?php esc_html_e( 'מצב הפריט', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
@@ -417,7 +427,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postGender )): ?>
+							<?php if(!empty( $postGender ) && ($filterBy && $filterBy->catFilterByGender)): ?>
 								<li>
 									<strong><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
@@ -425,7 +435,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postLanguage )): ?>
+							<?php if(!empty( $postLanguage ) && ($filterBy && $filterBy->catFilterByLanguage)): ?>
 								<li>
 									<strong><?php esc_html_e( 'שפה', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
@@ -433,7 +443,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postShoeSize )): ?>
+							<?php if(!empty( $postShoeSize ) && ($filterBy && $filterBy->catFilterByShoeSize)): ?>
 								<li>
 									<strong><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
@@ -441,7 +451,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postMaternitySize )): ?>
+							<?php if(!empty( $postMaternitySize ) && ($filterBy && $filterBy->catFilterByMaternitySize)): ?>
 								<li>
 									<strong><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
@@ -449,7 +459,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postBicycleSize )): ?>
+							<?php if(!empty( $postBicycleSize ) && ($filterBy && $filterBy->catFilterByBicycleSize)): ?>
 								<li>
 									<strong><?php esc_html_e( 'גודל', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">

@@ -585,8 +585,10 @@ get_header(); ?>
 										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md">
 											<option value=""><?php esc_html_e('בחירת תת קטגוריה', 'outfit-standalone'); ?></option>
 											<?php foreach ($subCategories as $c): ?>
+												<?php $c = fetch_category_custom_fields($c); ?>
 												<option value="<?php echo $c->term_id; ?>"
 													<?php if ($outfitSubCat && $c->term_id == $outfitSubCat) {
+														$filterBy = $c;
 														echo 'selected';
 													} ?>
 													><?php esc_html_e($c->name); ?></option>
@@ -601,8 +603,10 @@ get_header(); ?>
 										<select id="subsubcategory" name="postSubSubcategory" class="reg form-control form-control-md">
 											<option value=""><?php esc_html_e('בחירת תת קטגוריה', 'outfit-standalone'); ?></option>
 											<?php foreach ($subSubCategories as $c): ?>
+												<?php $c = fetch_category_custom_fields($c); ?>
 												<option value="<?php echo $c->term_id; ?>"
 													<?php if ($outfitSubSubCat && $c->term_id == $outfitSubSubCat) {
+														$filterBy = $c;
 														echo 'selected';
 													} ?>
 													><?php esc_html_e($c->name); ?></option>

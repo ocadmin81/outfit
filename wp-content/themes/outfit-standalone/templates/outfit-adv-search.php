@@ -1,12 +1,18 @@
 <?php
 
 global $redux_demo;
-global $catId, $outfitMainCat, $subCategories;
+global $catId, $outfitMainCat, $subCategories, $thisCategory;
 global $searchLocations, $searchLocationsStr;
 
 outfit_strip_slashes_from_input();
 
-$filterBy = fetch_category_custom_fields(get_category($outfitMainCat));
+$filterBy = false;
+if (null !== $thisCategory) {
+	$filterBy = fetch_category_custom_fields(get_category($thisCategory->term_id));
+}
+else if ($outfitMainCat) {
+	$filterBy = fetch_category_custom_fields(get_category($outfitMainCat));
+}
 
 /* filters */
 $ageGroups = outfit_get_list_of_age_groups();
@@ -124,7 +130,7 @@ else {
 			</div>	
 			<!--<div><a class="clear-age-filter" href="javascript:void(0)">clear age</a></div>-->
 			<!--Age Groups-->
-			<?php } if ($filterBy && $filterBy->catFilterByAge) ?>
+			<?php } //if ($filterBy && $filterBy->catFilterByAge) ?>
 
 			<!--Locations-->
 			<div class="inner-search-box ab address">
