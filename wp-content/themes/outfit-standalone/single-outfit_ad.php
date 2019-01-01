@@ -421,7 +421,7 @@ $userId = $current_user->ID;
 								<li>
 									<strong><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
-										<?php echo esc_attr($postGender); ?>
+										<?php echo esc_attr(join(',', $postGender)); ?>
 									</span>
 								</li>
 							<?php endif; ?>
@@ -429,7 +429,7 @@ $userId = $current_user->ID;
 								<li>
 									<strong><?php esc_html_e( 'שפה', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
-										<?php echo esc_attr($postLanguage); ?>
+										<?php echo esc_attr(join(',', $postLanguage)); ?>
 									</span>
 								</li>
 							<?php endif; ?>
@@ -437,7 +437,7 @@ $userId = $current_user->ID;
 								<li>
 									<strong><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
-										<?php echo esc_attr($postShoeSize); ?>
+										<?php echo esc_attr(join(',', $postShoeSize)); ?>
 									</span>
 								</li>
 							<?php endif; ?>
@@ -445,7 +445,7 @@ $userId = $current_user->ID;
 								<li>
 									<strong><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
-										<?php echo esc_attr($postMaternitySize); ?>
+										<?php echo esc_attr(join(',', $postMaternitySize)); ?>
 									</span>
 								</li>
 							<?php endif; ?>
@@ -453,7 +453,7 @@ $userId = $current_user->ID;
 								<li>
 									<strong><?php esc_html_e( 'גודל', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
-										<?php echo esc_attr($postBicycleSize); ?>
+										<?php echo esc_attr(join(',', $postBicycleSize)); ?>
 									</span>
 								</li>
 							<?php endif; ?>
