@@ -25,16 +25,16 @@
 <?php endif; ?>
 <aside id="sideBarAffix-not" class="section-bg-white affix-top <?php if ($detect->isMobile()): ?>mobile-user-menu<?php endif; ?>">
 	<ul class="user-page-list list-unstyled">
+		<li class="ads <?php if($path == '/user_all_ads/'){echo "active";}?>">
+			<a href="<?php echo esc_url( $outfitAllAds ); ?>">
+				<span><?php esc_html_e("המודעות שלי", 'outfit-standalone') ?></span>				
+			</a>
+		</li><!--My Ads-->	
 		<li class="user <?php if($path == '/profile-settings/'){echo "active";}?>">
 			<a href="<?php echo esc_url( $outfitEditProfile ); ?>">
 				<span><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></span>
 			</a>
 		</li><!--About-->
-		<li class="ads <?php if($path == '/user_all_ads/'){echo "active";}?>">
-			<a href="<?php echo esc_url( $outfitAllAds ); ?>">
-				<span><?php esc_html_e("המודעות שלי", 'outfit-standalone') ?></span>				
-			</a>
-		</li><!--My Ads-->
 		<li class="wish <?php if($path == '/favorite_ads/'){echo "active";}?>">
 			<a href="<?php echo esc_url( $outfitUserFavorite ); ?>">
 				<?php esc_html_e("WISHLIST", 'outfit-standalone') ?></span>
