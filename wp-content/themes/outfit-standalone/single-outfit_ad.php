@@ -22,6 +22,8 @@ $detect = new Mobile_Detect;
 wp_get_current_user();
 $userId = $current_user->ID;
 
+$filterByGender = false;
+
 ?>
 
 <?php //echo 'curr templ' . $GLOBALS['current_theme_template'] ?>
@@ -427,7 +429,7 @@ $userId = $current_user->ID;
 									</span>
 								</li>
 							<?php endif; ?>
-							<?php if(!empty( $postGender ) && ($filterBy && $filterBy->catFilterByGender)): ?>
+							<?php if(!empty( $postGender ) && ($filterByGender && $filterBy && $filterBy->catFilterByGender)): ?>
 								<li>
 									<strong><?php esc_html_e( 'מין', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">

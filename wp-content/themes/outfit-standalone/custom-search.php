@@ -29,8 +29,6 @@ $subCategories = array();
 $thisCategory = null;
 $outfitMainCat = '';
 
-outfit_strip_slashes_from_input();
-
 if (isset($_REQUEST['cat_id']) && !empty($_REQUEST['cat_id'])) {
 	$catId = intval($_REQUEST['cat_id']);
 	$thisCategory = get_category($catId);
@@ -92,6 +90,19 @@ if ($thisCategory) {
 
 $products = array();
 
+// search locations
+global $searchLocations, $searchLocationsStr;
+$searchLocations = outfit_get_search_locations();
+//var_dump($searchLocations);
+$searchLocationsStr = '';
+$arr = array();
+foreach ($searchLocations as $l) {
+	$arr[] = $l->toString();
+}
+$searchLocationsStr = json_encode($arr);
+
+outfit_strip_slashes_from_input();
+
 $postColor = getRequestMultiple('postColor', true);
 $postAgeGroup = getRequestMultiple('postAgeGroup', true);;
 $postBrand = getRequestMultiple('postBrand', true);;
@@ -117,16 +128,7 @@ else if (!empty($postKeyword)) {
 	$pageTitle = $postKeyword;
 }
 
-// search locations
-global $searchLocations, $searchLocationsStr;
-$searchLocations = outfit_get_search_locations();
-//var_dump($searchLocations);
-$searchLocationsStr = '';
-$arr = array();
-foreach ($searchLocations as $l) {
-	$arr[] = $l->toString();
-}
-$searchLocationsStr = json_encode($arr);
+
 
 if (!empty($postKeyword)) {
 	$args['s'] = $postKeyword;
