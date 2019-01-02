@@ -7,6 +7,8 @@ global $searchLocations, $searchLocationsStr;
 outfit_strip_slashes_from_input();
 
 $filterBy = false;
+$filterByGender = false;
+
 if (null !== $thisCategory) {
 	$filterBy = fetch_category_custom_fields(get_category($thisCategory->term_id));
 }
@@ -207,7 +209,7 @@ else {
 						?>
 						<div class="checkbox">
 							<input type="checkbox" id="<?php echo esc_attr('brand_'.$i); ?>" name="postBrand[]" value="<?php echo $c->term_id; ?>" <?php echo $checked?>>
-							<label for="<?php echo esc_attr('brand_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+							<label for="<?php echo esc_attr('brand_'.$i); ?>"><?php echo esc_html($c->name); ?></label>
 						</div>
 					<?php endforeach; ?>
 					</div>
@@ -384,7 +386,7 @@ else {
 				<!--Characters-->
 			<?php } ?>
 
-			<?php if ($filterBy && $filterBy->catFilterByGender) { ?>
+			<?php if ($filterByGender && $filterBy && $filterBy->catFilterByGender) { ?>
 				<?php
 				if (!empty($catId)) {
 					$livegenders = outfit_filter_live_terms($catId, 'genders', $genders);
