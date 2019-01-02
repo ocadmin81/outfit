@@ -41,7 +41,7 @@ $favoritearray = outfit_authors_all_favorite_sellers($userId);
 get_header(); ?>
 
 <section class="user-pages section-gray-bg fa-sellers">
-	<div class="wrap ad-page user-page">
+	<div class="wrap ad-page user-page user-follow">
 		<div class="row">
 			<div class="col-lg-3 col-md-4">
 				<?php get_template_part( 'templates/profile/profile-sidebar' );?>
@@ -65,13 +65,13 @@ get_header(); ?>
 										$unfollowUrl = ($wp_rewrite->permalink_structure == '')? $pagepermalink."&unfollow_id=".$aid : $pagepermalink."?unfollow_id=".$aid;
 										$authorName = getAuthorFullName($aid);
 										?>
-										<div class="col-lg-4 col-md-4 col-sm-6 match-height item">
+										<div class="col-lg-4 col-md-4 col-sm-6 item">
 											<div class="classiera-box-div classiera-box-div-v1">
 												<figure class="clearfix">
 
 													<div class="remove-post-button">
-														<a href="<?php echo esc_url($unfollowUrl) ?>"
-														<span class="remove-post"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/post_image_remove.png" /></span>
+														<a href="<?php echo esc_url($unfollowUrl) ?>">
+														<span class="remove-post">&nbsp;</span>
 														<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
 													</div><!--remove-post-button-->
 													<div class="premium-img">
