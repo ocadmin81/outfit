@@ -7,6 +7,8 @@ global $searchLocations, $searchLocationsStr;
 outfit_strip_slashes_from_input();
 
 $filterBy = false;
+$filterByGender = false;
+
 if (null !== $thisCategory) {
 	$filterBy = fetch_category_custom_fields(get_category($thisCategory->term_id));
 }
@@ -384,7 +386,7 @@ else {
 				<!--Characters-->
 			<?php } ?>
 
-			<?php if ($filterBy && $filterBy->catFilterByGender) { ?>
+			<?php if ($filterByGender && $filterBy && $filterBy->catFilterByGender) { ?>
 				<?php
 				if (!empty($catId)) {
 					$livegenders = outfit_filter_live_terms($catId, 'genders', $genders);
