@@ -209,7 +209,7 @@ else {
 						?>
 						<div class="checkbox">
 							<input type="checkbox" id="<?php echo esc_attr('brand_'.$i); ?>" name="postBrand[]" value="<?php echo $c->term_id; ?>" <?php echo $checked?>>
-							<label for="<?php echo esc_attr('brand_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+							<label for="<?php echo esc_attr('brand_'.$i); ?>"><?php echo esc_html($c->name); ?></label>
 						</div>
 					<?php endforeach; ?>
 					</div>
