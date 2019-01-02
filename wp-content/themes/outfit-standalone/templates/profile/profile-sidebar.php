@@ -9,7 +9,7 @@
 	$path = $_SERVER['REQUEST_URI'];
 ?>
 <?php if ($detect->isMobile()): ?>
-	<div class="user-menu-heading">
+	<div class="user-menu-heading" style="display:none;">
 		<?php if($path == '/profile-settings/'): ?>
 			<span class="user"><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></span>
 		<?php elseif($path == '/user_all_ads/'): ?>
