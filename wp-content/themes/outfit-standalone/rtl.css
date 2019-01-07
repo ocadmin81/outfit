@@ -1185,6 +1185,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 .btn-primary:active:hover, .btn-primary.active:hover, .open > .dropdown-toggle.btn-primary:hover, .btn-primary:active:focus, .btn-primary.active:focus, .open > .dropdown-toggle.btn-primary:focus, .btn-primary:active.focus, .btn-primary.active.focus, .open > .dropdown-toggle.btn-primary.focus{background: #fed3d6;color: #191919;}
 .latest-post-selection article .read-more{float:none!important;}
 .user-pages .user-follow .user-detail-section .item{width:auto;}
+.footer-review .cf7sr-g-recaptcha div{margin:0 auto!important}
 @media only screen and (max-width: 959px) and (min-width: 768px){
 	.inner-page-content .col-md-8{    margin-bottom: 0;}
 }
