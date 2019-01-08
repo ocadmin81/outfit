@@ -362,9 +362,10 @@ jQuery(document).ready(function(jQuery){
 		jQuery('.toggle-required').toggleRequired(0);
 
         var thisSelectElement = jQuery(this);
-        var isMainCatSelected = thisSelectElement.hasClass('post-cat-container');
-        var isChildCatSelected = thisSelectElement.hasClass('post-sub-cat-container');
-        var isGrandChildCatSelected = thisSelectElement.hasClass('post--sub-sub-cat-container');
+        var containerElement = thisSelectElement.closest(".perfit-cats");
+        var isMainCatSelected = containerElement.hasClass('post-cat-container');
+        var isChildCatSelected = containerElement.hasClass('post-sub-cat-container');
+        var isGrandChildCatSelected = containerElement.hasClass('post-sub-sub-cat-container');
 
         var selected = thisSelectElement.find(":selected");
         var mainCatId = selected.val();
@@ -441,6 +442,10 @@ jQuery(document).ready(function(jQuery){
         }
         else if (isChildCatSelected) {
 
+            jQuery('.post-sub-cat-container').show();
+            if (brandFilter == '1') {
+                jQuery('.post-brands-container').toggleRequired(1);
+            }
             jQuery.post(ajaxurl, data, function(response){
                 jQuery('.post-sub-sub-cat-container select').html(response);
                 if(response){
@@ -449,7 +454,11 @@ jQuery(document).ready(function(jQuery){
             });
         }
         else if (isGrandChildCatSelected) {
-
+            jQuery('.post-sub-cat-container').show();
+            jQuery('.post-sub-sub-cat-container').show();
+            if (brandFilter == '1') {
+                jQuery('.post-brands-container').toggleRequired(1);
+            }
         }
 
 

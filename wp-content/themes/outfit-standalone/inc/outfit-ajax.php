@@ -31,7 +31,7 @@ function outfitGetSubCatOnClick()
                     'data-language-enabled="' . ($cat->catFilterByLanguage ? '1' : '0') . '" ' .
                     'data-shoesize-enabled="' . ($cat->catFilterByShoeSize ? '1' : '0') . '" ' .
                     'data-maternitysize-enabled="' . ($cat->catFilterByMaternitySize ? '1' : '0') . '" ' .
-                    'data-bicyclesize-enabled="' . ($cat->catFilterByBicycleSize ? '1' : '0') . '" ';
+                    'data-bicyclesize-enabled="' . ($cat->catFilterByBicycleSize ? '1' : '0') . '" >';
 
                 $option .= $cat->name;
                 $option .= '</option>';
