@@ -15,8 +15,11 @@
             padding: 0;
             direction: rtl;
         }
+        p {
+            color: #000000;font-size: 16px; font-family: 'Lato', sans-serif; direction: rtl;text-align:center;
+        }
         .classiera-email-content{
-            text-align: right !important;
+            text-align: center !important;
         }
         .primary-color{
             color: rgba(172, 188, 236, 0.35) !important;
@@ -53,10 +56,10 @@
     </style>
 </head>	
 <body>
-	<div style="width: 100%; background:rgba(155, 155, 155, 0.21);">
+	<div style="max-width: 640px; width: 100%; background-color: white;">
 		<div class="classiera-email-topbar" style="padding: 15px 30px; border-bottom: solid 1px #cccccc;">
             <div class="" style="text-align: center">
 				<?php $logoImg = get_template_directory_uri() . '/assets/images/logo-perfit.png'; ?>
-                <img src="<?php echo esc_url($logoImg); ?>" style="" alt="PERFIT">
+                <img src="<?php echo esc_url($logoImg); ?>" style="width: 120px;" alt="PERFIT">
             </div>
         </div>

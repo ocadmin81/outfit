@@ -40,7 +40,7 @@ if(!function_exists('outfit_new_ad_email')) {
 				$link_end = '</a>';
 				$text = $link_start.esc_html($post->post_title).$link_end;
 				?>
-				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+				<p style="">
 					<?php echo $text; ?>
 				</p>
 			</div>
@@ -71,18 +71,63 @@ if(!function_exists('outfit_publish_post_email')) {
 			?>
 
 			<div class="classiera-email-content" style="padding: 20px 0; width:100%; margin:0 auto;">
-				<h1><?php echo esc_html($redux_demo['published_ad_notification_title']); ?>
-				</h1>
 				<?php
-				$text = $redux_demo['published_ad_notification_text'];
-				$link_start = '<a href="'.get_permalink($post->ID).'">';
-				$link_end = '</a>';
-				$text = preg_replace('/\[ad_link](.*)\[\/ad_link]/', $link_start.'$1'.$link_end, $text);
+
+				$texts = [
+					[
+						'text' => 'מושלם! המודעה שלך אושרה',
+						'link' => ''
+					],
+					[
+						'text' => '*אנחנו שמחים שבחרתם לפרסם אצלינו*',
+						'link' => ''
+					],
+					[
+						'text' => '*כל מודעה שעולה אצלינו עוברת בדיקה*',
+						'link' => ''
+					],
+					[
+						'text' => 'לפעמים (ולא לעיתים קרובות)
+אנחנו משנים דברים קטנים
+במודעה לפני פרסומה
+כדי שיהיה קל למחשפים אחרים למצוא אותה בקלות
+',
+						'link' => ''
+					],
+					[
+						'text' => '*הכנסו לראות כיצד פורסמה מודעתכם*',
+						'link' => ''
+					]
+				];
+
 				?>
-				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
-					<?php echo $text; ?>
+
+				<?php foreach ($texts as $i => $entry) { ?>
+					<?php if ($i == 0) { ?>
+						<p style="">
+							<span style="font-size: 22px;"><?php echo $entry['text']; ?></span>
+						</p>
+						<p style="">
+							<img style="height: 22px; line-height: 22px; margin-top: -7px; display:inline-block;vertical-align: middle;"
+								 src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/love.png">
+						</p>
+					<?php } else if ($i < (count($texts)-1)) { ?>
+						<p style="">
+							<span style=""><?php echo $entry['text']; ?></span>
+						</p>
+					<?php } else { ?>
+						<p style="">
+							<span style="font-size: 24px;"><?php echo $entry['text']; ?></span>
+						</p>
+					<?php } ?>
+				<?php } ?>
+				<p style="">
+					<a href="<?php echo esc_url(get_permalink($post->ID)); ?>">
+						<img style="width: 100%; padding: 0 15px;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/email_img2.jpg">
+					</a>
 				</p>
 			</div>
+
 			<?php
 			include(TEMPLATEPATH . '/templates/email/email-footer.php');	
 			$message = ob_get_contents();
@@ -139,20 +184,22 @@ if (!function_exists('outfitUserNotification')) {
 			?>
 
 			<?php foreach ($texts as $i => $entry) { ?>
-				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
+				<p style="">
 					<?php if ($i == 0) { ?>
-						<img style="width: 18px; display:inline-block;vertical-align: middle;"
-							 src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/favorite-heart-pink.svg">
-						<span style="font-size: 18px;"><?php echo $entry['text']; ?></span>
-						<img style="width: 18px; display:inline-block;vertical-align: middle;"
-							 src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/favorite-heart-pink.svg">
+						<img style="height: 22px; line-height: 22px; margin-top: -7px; display:inline-block;vertical-align: middle;"
+							 src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/love.png">
+						<span style="font-size: 22px;"><?php echo $entry['text']; ?></span>
+						<img style="height: 22px; line-height: 22px; margin-top: -7px; display:inline-block;vertical-align: middle;"
+							 src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/love.png">
 					<?php } else { ?>
 						<span style=""><?php echo $entry['text']; ?></span>
 					<?php } ?>
 				</p>
 			<?php } ?>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
-				<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/email_img1.jpg">
+			<p style="">
+				<a href="<?php echo esc_url(outfit_get_page_url('submit_ad')); ?>">
+					<img style="width: 100%; padding: 0 15px;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/email_img1.jpg">
+				</a>
 			</p>
 		</div>
 		<?php
@@ -190,7 +237,7 @@ if(!function_exists('outfitNewUserNotifiy')) {
 			</h3>
 		</div>
 		<div class="classiera-email-content" style="padding: 50px 0; width:600px; margin:0 auto;">
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;">
+			<p style="">
 				<?php esc_html_e( 'Hello, New User has been Registred on', 'outfit-standalone' ); ?>, <?php echo esc_html($blog_title) ?>. <?php esc_html_e( 'By using this email', 'outfit-standalone' ); ?> <?php echo sanitize_email($email); ?>!
 			</p>
 			<p>
@@ -237,10 +284,10 @@ if(!function_exists('outfitRejectedPost')) {
 				</h3>
 			</div>
 			<div class="classiera-email-content" style="direction: rtl;padding: 50px 0; width:600px; margin:0 auto;">
-				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+				<p style="">
 					<?php esc_html_e( 'We want to inform you, your ad is rejected, which you have posts on', 'outfit-standalone' ); ?> &nbsp;<?php echo get_bloginfo('name'); ?>!
 				</p>
-				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;"><?php esc_html_e( 'Please visit your Dashboard to see post status, For more information contact with website admin at this email.', 'outfit-standalone' ); ?> <a href="mailto:<?php echo sanitize_email($adminEmail); ?>"><?php echo sanitize_email($adminEmail); ?></a> </p>
+				<p style=""><?php esc_html_e( 'Please visit your Dashboard to see post status, For more information contact with website admin at this email.', 'outfit-standalone' ); ?> <a href="mailto:<?php echo sanitize_email($adminEmail); ?>"><?php echo sanitize_email($adminEmail); ?></a> </p>
 			</div>
 			<?php
 			include(TEMPLATEPATH . '/templates/email/email-footer.php');
@@ -335,7 +382,7 @@ if(!function_exists('outfit_reset_password_email')) {
 		<div class="classiera-email-content" style="padding: 20px 0; width:100%; margin:0 auto;">
 			<h1><?php echo esc_html($redux_demo['password_reset_title']); ?>
 			</h1>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+			<p style="">
 				<?php echo 'הסיסמה החדשה שלך: '; ?>
 				<?php echo esc_attr($new_password); ?>
 			</p>
@@ -374,7 +421,7 @@ if(!function_exists('outfit_reportAdtoAdmin')) {
 			</h3>
 		</div>
 		<div class="classiera-email-content" style="direction: rtl;padding: 50px 0; width:600px; margin:0 auto;">
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+			<p style="">
 				<?php esc_html_e( 'Hi Someone Report an Ad which is posted on your website.', 'outfit-standalone' ); ?>
 			</p>
 			<p>
@@ -393,7 +440,7 @@ if(!function_exists('outfit_reportAdtoAdmin')) {
 					<?php echo esc_url($outfitPostURL); ?>
 				</span>
 			</p>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+			<p style="">
 				<?php echo esc_html($message); ?>
 			</p>
 		</div>
@@ -427,7 +474,7 @@ if(!function_exists('outfit_contact_us_page')) {
 			<span class="email-seprator" style="width:100px; height: 2px; background: #b6d91a; margin: 0 auto; display: block;"></span>
 		</div>
 		<div class="classiera-email-content" style="direction: rtl;padding: 50px 0; width:600px; margin:0 auto;">
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+			<p style="">
 				<?php echo esc_html($comments); ?>
 			</p>
 			<p>
