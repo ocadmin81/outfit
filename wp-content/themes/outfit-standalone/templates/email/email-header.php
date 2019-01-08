@@ -15,7 +15,7 @@
             padding: 0;
             direction: rtl;
         }
-        p {
+        .classiera-email-content p {
             color: #000000;font-size: 16px; font-family: 'Lato', sans-serif; direction: rtl;text-align:center;
         }
         .classiera-email-content{
