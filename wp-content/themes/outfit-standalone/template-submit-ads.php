@@ -439,7 +439,7 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Sub Category-->
 
-								<div class="form-group post-colors-container" style="display: none;">
+								<div class="form-group post-colors-container toggle-required" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('צבע', 'outfit-standalone') ?> <span>*</span></label>
 									<div class="item">
 										<select id="color" name="postColor[]" class="reg form-control form-control-md">	
