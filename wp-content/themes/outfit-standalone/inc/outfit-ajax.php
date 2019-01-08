@@ -14,7 +14,7 @@ function outfitGetSubCatOnClick(){
 		}
 		$cat_child = get_term_children($mainCatID, 'category' );
 		if (!empty($cat_child)) {	
-			$categories = get_categories('child_of='.$mainCatID.'&hide_empty=0');
+			$categories = get_categories('parent='.$mainCatID.'&hide_empty=0');
 
 			  foreach ($categories as $cat) {				
 				$option .= '<option value="'.$cat->term_id.'">';

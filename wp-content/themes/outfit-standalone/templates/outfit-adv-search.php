@@ -200,6 +200,7 @@ else {
 				?>
 
 				<!--Brands-->
+				<?php if(count($livebrands)): ?>
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מותגים', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
@@ -215,6 +216,7 @@ else {
 					</div>
 
 				</div>
+				<?php endif; ?>
 				<!--Brands-->
 			<?php } ?>
 
@@ -228,6 +230,7 @@ else {
 				}
 				?>
 				<!--Colors-->
+				<?php if (count($livecolors)): ?>
 				<div class="inner-search-box color">
 					<div class="inner-search-heading"><?php esc_html_e( 'צבע', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
@@ -255,6 +258,7 @@ else {
 					</div>
 
 				</div>
+				<?php endif; ?>
 				<!--Colors-->
 			<?php } ?>
 
@@ -475,6 +479,7 @@ else {
 			<?php } ?>
 
 			<?php if ($filterBy && $filterBy->catFilterByMaternitySize) { ?>
+				<!-- if ($filterBy && $filterBy->catFilterByMaternitySize) -->
 				<?php
 				if (!empty($catId)) {
 					$live = outfit_filter_live_terms($catId, 'maternity_sizes', $maternitySizes);
@@ -483,8 +488,8 @@ else {
 					$live = $maternitySizes;
 				}
 				?>
+				<!--Maternity Sizes cat id <?php echo $catId; ?>-->
 				<?php if(count($live)): ?>
-				<!--Maternity Sizes-->
 				<div class="inner-search-box">
 					<div class="inner-search-heading"><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
