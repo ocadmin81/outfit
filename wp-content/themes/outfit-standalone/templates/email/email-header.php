@@ -56,7 +56,7 @@
 	<div style="width: 100%; background:rgba(155, 155, 155, 0.21);">
 		<div class="classiera-email-topbar" style="padding: 15px 30px; border-bottom: solid 1px #cccccc;">
             <div class="" style="text-align: center">
-				<?php $logoImg = get_template_directory_uri() . '/assets/images/Logo_slogen.png'; ?>
+				<?php $logoImg = get_template_directory_uri() . '/assets/images/logo-perfit.png'; ?>
                 <img src="<?php echo esc_url($logoImg); ?>" style="" alt="PERFIT">
             </div>
         </div>

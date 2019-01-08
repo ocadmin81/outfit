@@ -96,43 +96,63 @@ if(!function_exists('outfit_publish_post_email')) {
 /*==========================
  Email template New User Registration Function
  ===========================*/
-if(!function_exists('outfitUserNotification')) {  
-	function outfitUserNotification($email, $password, $userId){
+if (!function_exists('outfitUserNotification')) {
+	function outfitUserNotification($email, $password, $userId)
+	{
 		$blog_title = get_bloginfo('name');
-		$blog_url = esc_url( home_url() ) ;
-		$adminEmail =  get_bloginfo('admin_email');
+		$blog_url = esc_url(home_url());
+		$adminEmail = get_bloginfo('admin_email');
 		global $redux_demo, $email_subject;
 		$email_subject = $redux_demo['new_user_title'];
-		
-		ob_start();	
+
+		ob_start();
 		include(get_template_directory() . '/templates/email/email-header.php');
-		
+
 		?>
 
 		<div class="classiera-email-content" style="padding: 20px 0; width:100%; margin:0 auto;">
 			<?php
-			$text1 = $redux_demo['new_user_text1'];
-			$text2 = $redux_demo['new_user_text2'];
-			$text3 = $redux_demo['new_user_text3'];
-			$submit_ad_link_start = '<a href="'.outfit_get_page_url('submit_ad').'">';
-			$user_profile_link_start = '<a href="'.get_author_posts_url( $userId ).'">';
-			$share_link_start = '<a href="'.$blog_url.'">';
-			$link_end = '</a>';
-			$text1 = preg_replace('/\[new_ad](.*)\[\/new_ad]/', $submit_ad_link_start.'$1'.$link_end, $text1);
-			$text2 = preg_replace('/\[user_profile](.*)\[\/user_profile]/', $user_profile_link_start.'$1'.$link_end, $text2);
-			$text3 = preg_replace('/\[share](.*)\[\/share]/', $share_link_start.'$1'.$link_end, $text3);
+
+			$texts = [
+				[
+					'text' => 'העלו את המודעה הראשונה שלכם',
+					'link' => outfit_get_page_url('submit_ad')
+				],
+				[
+					'text' => '*הוסיפו פרטים לפרופיל שלכם*',
+					'link' => get_author_posts_url($userId)
+				],
+				[
+					'text' => '*החיפוש והפרסום יותאם לכם באופן אישי*',
+					'link' => ''
+				],
+				[
+					'text' => '*הפיצו את הבשורה*',
+					'link' => ''
+				],
+				[
+					'text' => '*שתפו את האתר החדש עם הורים כמוכם*',
+					'link' => ''
+				]
+			];
+
 			?>
+
+			<?php foreach ($texts as $i => $entry) { ?>
+				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
+					<?php if ($i == 0) { ?>
+						<img style="width: 18px; display:inline-block;vertical-align: middle;"
+							 src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/favorite-heart-pink.svg">
+						<span style="font-size: 18px;"><?php echo $entry['text']; ?></span>
+						<img style="width: 18px; display:inline-block;vertical-align: middle;"
+							 src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/favorite-heart-pink.svg">
+					<?php } else { ?>
+						<span style=""><?php echo $entry['text']; ?></span>
+					<?php } ?>
+				</p>
+			<?php } ?>
 			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
-				<img style="width: 35px;display:inline-block;vertical-align: middle;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/selling.png">
-				<?php echo $text1; ?>
-			</p>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
-				<img style="width: 35px;display:inline-block;vertical-align: middle;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/profile.png">
-				<?php echo $text2; ?>
-			</p>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
-				<img style="width: 35px;display:inline-block;vertical-align: middle;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/share.png">
-				<?php echo $text3; ?>
+				<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/email_img1.jpg">
 			</p>
 		</div>
 		<?php
