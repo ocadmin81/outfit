@@ -357,11 +357,16 @@ jQuery(document).ready(function(jQuery){
 		list When click on main category.
 	======================================*/
     var mainCatText;
-    jQuery(".post-cat-container select").on('change', function (event){
+    jQuery(".perfit-cats select").on('change', function (event){
         event.preventDefault();
 		jQuery('.toggle-required').toggleRequired(0);
 
-        var selected = jQuery(this).find(":selected");
+        var thisSelectElement = jQuery(this);
+        var isMainCatSelected = thisSelectElement.hasClass('post-cat-container');
+        var isChildCatSelected = thisSelectElement.hasClass('post-sub-cat-container');
+        var isGrandChildCatSelected = thisSelectElement.hasClass('post--sub-sub-cat-container');
+
+        var selected = thisSelectElement.find(":selected");
         var mainCatId = selected.val();
         var ageFilter = selected.attr('data-age-enabled');
         if (ageFilter == '1') {
@@ -406,34 +411,51 @@ jQuery(document).ready(function(jQuery){
         }
 
         mainCatText = selected.text();
-		var data = {
-			'action': 'outfitGetSubCatOnClick',
-			'mainCat': mainCatId,
-		};
-
-        jQuery.post(ajaxurl, data, function(response){
-			jQuery('.post-sub-cat-container select').html(response);
-			if(response){
-				jQuery('.post-sub-cat-container').show();
-			}			
-		});
-
+        var data = {
+            'action': 'outfitGetSubCatOnClick',
+            'mainCat': mainCatId,
+        };
         var data1 = {
             'action': 'outfitGetBrandsByCat',
             'mainCat': mainCatId,
         };
-        jQuery.post(ajaxurl, data1, function(response){
-            jQuery('.post-brands-container select').html(response);
-            if(response){
-                if (brandFilter == '1') {
-                    jQuery('.post-brands-container').toggleRequired(1);
+
+        if (isMainCatSelected) {
+
+            jQuery.post(ajaxurl, data, function(response){
+                jQuery('.post-sub-cat-container select').html(response);
+                if(response){
+                    jQuery('.post-sub-cat-container').show();
                 }
-            }
-        });
+            });
+
+
+            jQuery.post(ajaxurl, data1, function(response){
+                jQuery('.post-brands-container select').html(response);
+                if(response){
+                    if (brandFilter == '1') {
+                        jQuery('.post-brands-container').toggleRequired(1);
+                    }
+                }
+            });
+        }
+        else if (isChildCatSelected) {
+
+            jQuery.post(ajaxurl, data, function(response){
+                jQuery('.post-sub-sub-cat-container select').html(response);
+                if(response){
+                    jQuery('.post-sub-sub-cat-container').show();
+                }
+            });
+        }
+        else if (isGrandChildCatSelected) {
+
+        }
+
 
     });
 
-    jQuery(".post-sub-cat-container select").on('change', function (event){
+    /*jQuery(".post-sub-cat-container select").on('change', function (event){
         event.preventDefault();
         //jQuery('.toggle-required').toggleRequired(0);
 
@@ -452,7 +474,7 @@ jQuery(document).ready(function(jQuery){
             }
         });
 
-    });
+    });*/
     var subCatText;
 
 

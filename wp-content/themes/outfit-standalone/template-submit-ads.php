@@ -399,7 +399,7 @@ get_header(); ?>
 							</div><!-- /Ad price-->
 							
 							<div class="ad-categories">
-								<div class="form-group post-cat-container">
+								<div class="form-group post-cat-container perfit-cats">
 									<label class="text-left flip"><?php esc_html_e('קטגוריה', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="category" name="postCategory" class="reg form-control select2-container form-control-md category-select" required>
@@ -425,14 +425,14 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Category-->
 
-								<div class="form-group post-sub-cat-container toggle-required" style="display: none;">
+								<div class="form-group post-sub-cat-container perfit-cats toggle-required" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?> </label>
 									<div class="item">
 										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md"></select>
 									</div>
 								</div><!-- /Ad Sub Category-->
 
-								<div class="form-group post-sub-sub-cat-container toggle-required" style="display: none;">
+								<div class="form-group post-sub-sub-cat-container perfit-cats toggle-required" style="display: none;">
 									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?> </label>
 									<div class="item">
 										<select id="subsubcategory" name="postSubSubcategory" class="reg form-control form-control-md"></select>
