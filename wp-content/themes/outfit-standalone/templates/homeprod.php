@@ -33,8 +33,15 @@ if (isset($_POST['favorite'])) {
 	}
 	else {
 		$loginUrl = outfit_login_url_back('', 'favorite', $_POST['post_id']);
-		wp_redirect($loginUrl);
-		exit;
+
+		?>
+		<script type="text/javascript">
+			window.location.href = '<?php echo $loginUrl; ?>';
+		</script>
+		<?php
+
+		//wp_redirect($loginUrl);
+		exit();
 	}
 }
 else if (isset($_POST['unfavorite'])) {

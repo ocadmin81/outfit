@@ -1645,6 +1645,16 @@ jQuery(document).ready(function(jQuery){
         }
     );
 
+    var advSearchForm = jQuery('#advanced-search-form');
+    if (advSearchForm.length) {
+        jQuery('ul.pagination a').on('click', function (event) {
+            event.preventDefault();
+            var pageNumber = jQuery(this).attr('data-page');
+            jQuery('#paged').val(pageNumber);
+            advSearchForm.submit();
+        });
+    }
+
 });
 jQuery(window).on('load', function () {	
     var mqxs = window.matchMedia( "(max-width: 1024px)" );
