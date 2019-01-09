@@ -97,6 +97,7 @@ else {
 <!--SearchForm-->
 <form id="advanced-search-form" method="post" action="<?php echo home_url(); ?>">
 	<div class="search-form">
+		<input type="hidden" name="paged" value="1">
 		<div class="search-form-main-heading" style="display:none;">
 			<a href="#innerSearch" role="button" data-toggle="collapse" aria-expanded="true" aria-controls="innerSearch">
 				<i class="fa fa-search"></i>
