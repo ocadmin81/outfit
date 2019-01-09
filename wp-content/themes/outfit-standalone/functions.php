@@ -1651,3 +1651,9 @@ function outfit_get_preferred_locations($userId) {
 	//var_dump($locationsArr);
 	return $locations;
 }
+
+function outfit_author_archive( &$query ) {
+	if ($query->is_author)
+		$query->set( 'post_type', array( OUTFIT_AD_POST_TYPE ) );
+}
+add_action( 'pre_get_posts', 'outfit_author_archive' );
