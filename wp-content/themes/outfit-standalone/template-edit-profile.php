@@ -288,7 +288,7 @@ get_header();
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
 					<div class="user-ads user-profile-settings">
-						<form data-toggle="validator" role="form" method="POST" id="primaryPostForm" action="" enctype="multipart/form-data">
+						<form data-toggle="validator" role="form" method="POST" id="primaryProfileForm" action="" enctype="multipart/form-data">
 							<!-- upload avatar -->								
 							<h1 class="user-detail-section-heading text-uppercase border-bottom"><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></h1>
 							<div class="media">
