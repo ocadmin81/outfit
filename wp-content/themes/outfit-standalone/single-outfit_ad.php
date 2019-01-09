@@ -377,7 +377,7 @@ $filterByGender = false;
 					<div class="post-details">
 						<ul class="list-unstyled clearfix">
 
-							<?php if(!empty( $postBrandObjects )): ?>
+							<?php if(!empty( $postBrandObjects ) && ($filterBy && $filterBy->catFilterByBrand)): ?>
 								<li>
 									<strong><?php esc_html_e( 'מותג', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">

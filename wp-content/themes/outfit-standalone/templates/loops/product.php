@@ -1,7 +1,28 @@
 <?php 
 	global $redux_demo;
 	global $post;
-	global $currentUserFavoriteAds, $currentUserId;
+	global $currentUserFavoriteAds, $currentUserId, $thisCategory;
+
+	$filterBy = false;
+	$filterByGender = false;
+
+	if (null !== $thisCategory) {
+		$filterBy = fetch_category_custom_fields(get_category($thisCategory->term_id));
+	}
+	else {
+		$postCategories = getCategoryPath($post->ID);
+		$outfitMainCat = (isset($postCategories[0])? $postCategories[0] : 0);
+		$outfitSubCat = (isset($postCategories[1])? $postCategories[1] : 0);
+		$outfitSubSubCat = (isset($postCategories[2])? $postCategories[2] : 0);
+		$closestCat = false;
+		$catsCount = count($postCategories);
+		if ($catsCount > 0) {
+			$closestCat = $postCategories[$catsCount-1];
+		}
+		if ($closestCat) {
+			$filterBy = fetch_category_custom_fields(get_category($closestCat));
+		}
+	}
 
 	$postPrice = get_post_meta($post->ID, POST_META_PRICE, true);
 	$postAuthorId = $post->post_author;
@@ -52,6 +73,7 @@
 							</form>
 						<?php //endif; ?>
 					</div>				
+					<?php if (count($postBrandObjects) && $filterBy && $filterBy->catFilterByBrand) { ?>
 					<div class="cat-brand">
 						<?php foreach ($postBrandObjects as $termObj): ?>
 							<?php if (!strstr($termObj->slug, 'other')) : ?>
@@ -59,6 +81,7 @@
 							<?php endif; ?>
 						<?php endforeach; ?>
 					</div>
+					<?php } ?>
 				</div>
 			</div><!--premium-img-->
 			<div class="au-price">
