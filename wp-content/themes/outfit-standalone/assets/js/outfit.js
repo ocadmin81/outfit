@@ -1530,7 +1530,7 @@ jQuery(document).ready(function(jQuery){
 	jQuery( "input.date-desktop" ).datepicker({
 		changeMonth: true,
 		changeYear: true,
-		yearRange: "-60:+0"		
+		yearRange: "-60:+0"
 	});
 	jQuery(function($){
 		$.datepicker.regional['he'] = {

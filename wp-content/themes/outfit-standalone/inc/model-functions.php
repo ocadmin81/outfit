@@ -409,8 +409,7 @@ function getListOfAllBrands() {
     return $bs;
 }
 
-function validateDateInput($input) {
-    $format = 'Y-m-d';
+function validateDateInput($input, $format = 'Y-m-d') {
     $date = DateTime::createFromFormat($format, $input);
     return $date && DateTime::getLastErrors()['warning_count'] == 0 && DateTime::getLastErrors()['error_count'] == 0;
 }

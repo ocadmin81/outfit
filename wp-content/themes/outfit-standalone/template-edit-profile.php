@@ -202,7 +202,7 @@ if ($userId) {
 		$validBirthdays = array();
 
 		foreach ($birthdays as $b) {
-			if (validateDateInput($b)) {
+			if (validateDateInput($b, 'd/m/Y')) {
 				$validBirthdays[] = $b;
 			}
 		}
@@ -421,8 +421,7 @@ get_header();
 										   id="birthday1"
 										   name="birthdays[]"
 										   value="<?php echo esc_attr($birthday1); ?>"
-										   title="יש להשתמש בפורמט תאריך DD.MM.YYYY"
-										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
+										   title="יש להשתמש בפורמט תאריך DD/MM/YYYY">
 								</div>
 								<div class="inner-addon col-sm-4">
 									<input type="<?php echo $typeDate; ?>"
@@ -430,8 +429,7 @@ get_header();
 										   id="birthday2"
 										   name="birthdays[]"
 										   value="<?php echo esc_attr($birthday2); ?>"
-										   title="יש להשתמש בפורמט תאריך DD.MM.YYYY"
-										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
+										   title="יש להשתמש בפורמט תאריך DD/MM/YYYY">
 								</div>
 								<div class="inner-addon col-sm-4">
 									<input type="<?php echo $typeDate; ?>"
@@ -439,8 +437,7 @@ get_header();
 										   id="birthday3"
 										   name="birthdays[]"
 										   value="<?php echo esc_attr($birthday3); ?>"
-										   title="יש להשתמש בפורמט תאריך DD.MM.YYYY"
-										   pattern="(3[01]|[21][0-9]|0[1-9])\.(1[0-2]|0[1-9])\.(19[0-9][0-9]|20[0-9][0-9])">
+										   title="יש להשתמש בפורמט תאריך DD/MM/YYYY">
 								</div>
 							</div>
 							<!-- Kids Birthdays -->
