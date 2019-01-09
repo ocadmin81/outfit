@@ -28,7 +28,7 @@ $currentUser = $current_user;
 $currentUserId = $userId = $user_id = $currentUser->ID;
 
 if (isset($_POST['favorite'])) {
-	if (!empty($currentUserId)) {
+	if ($loggedIn) {
 		outfit_insert_author_favorite($currentUserId, $_POST['post_id']);
 	}
 	else {
