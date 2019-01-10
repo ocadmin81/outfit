@@ -1022,7 +1022,7 @@ background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);   
 .products .classiera-box-div-v1 figure .premium-img .cat-wish-brand .cat-wish button{background-color: transparent;    transition: none;background-image: url(assets/images/favorite-heart-white.svg);float: right;background-repeat: no-repeat;padding: 0;    width: 24px;height: 24px;margin-right: 10px;margin-bottom: 5px;}
 .products .classiera-box-div-v1 figure .premium-img .cat-wish-brand .cat-wish button:hover,
 .products .classiera-box-div-v1 figure .premium-img .cat-wish-brand .cat-wish button.in-wish{background-image: url(assets/images/favorite-heart-pink.svg);}
-.products .classiera-box-div-v1 figure .premium-img .cat-wish-brand .cat-brand{float: left;margin-left: 10px;}
+.products .classiera-box-div-v1 figure .premium-img .cat-wish-brand .cat-brand{    float: left;margin-left: 10px;max-width: 60%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;text-align: left;direction: ltr;color: #fff;}
 .products .classiera-box-div-v1 figure .premium-img .cat-wish-brand .cat-brand a{color: #fff;font-size: 14px;letter-spacing: 1px!important;}
 .products .classiera-box-div-v1 figure .au-price{margin-top: 10px;}
 .products .classiera-box-div-v1 figure .au-price .au{float: right;}
@@ -1054,7 +1054,7 @@ background-image:  linear-gradient(rgba(0,0,0, 0) 0%,rgba(0,0,0,  0.5) 100%);   
 .my-ads .item .remove-post-button{position: absolute;top: -15px;right: -15px;z-index: 100;}
 .my-ads .item .remove-post-button .remove-post{background: url(assets/images/pop-close-ads.png) 0 0 no-repeat;    width: 36px;height: 37px;display: block;border: none;}
 .my-ads .item .remove-post-button .remove-post:hover,.my-ads .item .remove-post-button a.active .remove-post{background-position:0 -50px;}
-.my-ads .item .ad-brand{position: absolute;bottom: 8px;left: 15px;color: #fff;font-size: 14px;letter-spacing: 1px!important;}
+.my-ads .item .ad-brand{position: absolute;bottom: 8px;left: 15px;color: #fff;font-size: 14px;letter-spacing: 1px!important;max-width: 60%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;text-align: left;direction: ltr;color: #fff;}
 .my-ads .item .edit-price{    margin-top: 10px;}
 .my-ads .item .edit-price .edit{float: right;}
 .my-ads .item .edit-price .edit a{padding-right: 21px;background:url(assets/images/edit-ad.png) right 1px no-repeat;}

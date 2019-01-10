@@ -1589,8 +1589,12 @@ jQuery(document).ready(function(jQuery){
 			jQuery('.mobile-seller').removeClass('active');	
 		}
 	});
-	jQuery('.mobile-seller .seller-info .seller-icon').click(function() {
-		jQuery('.mobile-seller .seller-info .seller-icon').parent().removeClass('active');
+	jQuery('.mobile-seller .seller-info .area .seller-icon').click(function() {
+		jQuery('.mobile-seller .seller-info .phone').removeClass('active');
+		jQuery(this).parent().toggleClass('active');
+	});	
+	jQuery('.mobile-seller .seller-info .phone .seller-icon').click(function() {
+		jQuery('.mobile-seller .seller-info .area').removeClass('active');
 		jQuery(this).parent().toggleClass('active');
 	});
     jQuery('.remove-post-button.post-rmv a').on("click", function(event){
