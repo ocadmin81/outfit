@@ -1385,13 +1385,22 @@ jQuery(document).ready(function(jQuery){
 	======================================*/
 	jQuery('#primaryPostForm').validator({disable: false}).on('submit', function (e){
 		if (e.isDefaultPrevented()) {	
-			if (jQuery('#postAgreeToTerms').prop('checked', false)) {				
+			/* bug!!! */
+            /*if (jQuery('#postAgreeToTerms').prop('checked', false)) {
 				var eText = jQuery('#postAgreeToTerms').attr('data-error');				
 				jQuery('#postAgreeToTerms').parent().find('.with-errors').text(eText);
-			}
-		}else{
+			}*/
+            if (jQuery('.imgInp').length >= 4 && jQuery('#imgInp0').val() == '') {
+                jQuery('#attachment-error').text('תעלו לפחות תמונה אחת');
+            }
+            if (jQuery('#postAgreeToTerms').prop('checked') == false) {
+                var eText = jQuery('#postAgreeToTerms').attr('data-error');
+                jQuery('#postAgreeToTerms').parent().find('.with-errors').text(eText);
+            }
+		}
+        else {
 			jQuery('.loader_submit_form').addClass('active');
-		}		
+		}
 	});
 	//mobile menu width
 	var Swisth = jQuery( window ).width();

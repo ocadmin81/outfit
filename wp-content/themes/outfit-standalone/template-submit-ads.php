@@ -364,7 +364,7 @@ get_header(); ?>
 											<div class="classiera-image-box" id="index-<?php echo $i; ?>">
 												<div class="classiera-upload-box">
 													<input name="image-count" type="hidden" value="<?php echo esc_attr( $imageLimit ); ?>" />
-													<input class="classiera-input-file imgInp" id="imgInp<?php echo esc_attr( $i ); ?>" type="file" name="upload_attachment[]">
+													<input class="classiera-input-file imgInp" id="imgInp<?php echo esc_attr( $i ); ?>" type="file" name="upload_attachment[]" <?php echo ($i == 0? 'required' : '') ?>>
 													<label class="img-label" for="imgInp<?php echo esc_attr( $i ); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/upload-icon.png" /></label>
 													<div class="classiera-image-preview">
 														<img class="my-image" src=""/>
@@ -376,6 +376,9 @@ get_header(); ?>
 										<input type="hidden" name="outfit_featured_img" id="outfit_featured_img" value="0">
 										<!--Imageloop-->
 									</div>
+
+									<div id="attachment-error" class="left-side help-block with-errors" style="color: red;padding-right: 15px;"></div>
+
 									<?php if ($imageError) { ?>
 										<div class="left-side help-block with-errors" style="color: red;padding-right: 15px;"><?php echo esc_html($imageError); ?></div>
 									<?php } ?>
