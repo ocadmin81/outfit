@@ -283,8 +283,19 @@ get_header();
 											?>
 											<!-- Posts-->
 											<?php if(!$countPosts) { ?>
-												<div class="search-no-items">
-													<?php echo do_shortcode("[do_widget id=text-17]"); ?>
+												<div class="col-xm-12">
+													<div class="textwidget">
+														<p>
+															<img class="alignnone size-full wp-image-999 aligncenter"
+																 src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/search_icon.png') ?>"
+																 alt="" width="54" height="54">
+														</p>
+														<p style="text-align: center;"><strong>לא נמצאו מוצרים</strong></p>
+														<p style="text-align: center;">
+															לא נמצאו מוצרים התואמים את הסינון שלך,
+															אנו ממליצים להוסיף איזורי איסוף נוספים או לשנות את הסינון.
+														</p>
+													</div>
 												</div>
 											<?php } //if(!$countPosts) ?>
 
