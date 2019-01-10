@@ -977,7 +977,7 @@ function outfit_update_my_category_fields($term_id) {
 			$tag_extra_fields[$term_id]['category_filter_by_language'] = isset($_POST['category_filter_by_language'])? true : false;
 			$tag_extra_fields[$term_id]['category_filter_by_shoesize'] = isset($_POST['category_filter_by_shoesize'])? true : false;
 			$tag_extra_fields[$term_id]['category_filter_by_maternitysize'] = isset($_POST['category_filter_by_maternitysize'])? true : false;
-			$tag_extra_fields[$term_id]['category_filter_by_bicycle'] = isset($_POST['category_filter_by_bicycle'])? true : false;
+			$tag_extra_fields[$term_id]['category_filter_by_bicyclesize'] = isset($_POST['category_filter_by_bicyclesize'])? true : false;
 
 			update_option(MY_CATEGORY_FIELDS, $tag_extra_fields);
 		endif;
@@ -1651,3 +1651,9 @@ function outfit_get_preferred_locations($userId) {
 	//var_dump($locationsArr);
 	return $locations;
 }
+
+function outfit_author_archive( &$query ) {
+	if ($query->is_author)
+		$query->set( 'post_type', array( OUTFIT_AD_POST_TYPE ) );
+}
+add_action( 'pre_get_posts', 'outfit_author_archive' );

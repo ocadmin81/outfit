@@ -561,7 +561,7 @@ get_header(); ?>
 								</div>
 							</div><!-- /Ad price-->
 							<div class="ad-categories">
-								<div class="form-group post-cat-container">
+								<div class="form-group post-cat-container perfit-cats">
 									<label class="text-left flip"><?php esc_html_e('קטגוריה', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
 										<select id="category" name="postCategory" class="reg form-control form-control-md category-select" required>
@@ -591,7 +591,7 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Category-->
 
-								<div class="form-group post-sub-cat-container toggle-required" style="<?php echo (count($subCategories)? '' : 'display: none;'); ?>">
+								<div class="form-group post-sub-cat-container perfit-cats toggle-required" style="<?php echo (count($subCategories)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?></label>
 									<div class="item">
 										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md">
@@ -599,6 +599,17 @@ get_header(); ?>
 											<?php foreach ($subCategories as $c): ?>
 												<?php $c = fetch_category_custom_fields($c); ?>
 												<option value="<?php echo $c->term_id; ?>"
+														data-color-enabled="<?php echo ($c->catFilterByColor? '1' : '0'); ?>"
+														data-brand-enabled="<?php echo ($c->catFilterByBrand? '1' : '0'); ?>"
+														data-writer-enabled="<?php echo ($c->catFilterByWriter? '1' : '0'); ?>"
+														data-character-enabled="<?php echo ($c->catFilterByCharacter? '1' : '0'); ?>"
+														data-age-enabled="<?php echo ($c->catFilterByAge? '1' : '0'); ?>"
+														data-condition-enabled="<?php echo ($c->catFilterByCondition? '1' : '0'); ?>"
+														data-gender-enabled="<?php echo ($c->catFilterByGender? '1' : '0'); ?>"
+														data-language-enabled="<?php echo ($c->catFilterByLanguage? '1' : '0'); ?>"
+														data-shoesize-enabled="<?php echo ($c->catFilterByShoeSize? '1' : '0'); ?>"
+														data-maternitysize-enabled="<?php echo ($c->catFilterByMaternitySize? '1' : '0'); ?>"
+														data-bicyclesize-enabled="<?php echo ($c->catFilterByBicycleSize? '1' : '0'); ?>"
 													<?php if ($outfitSubCat && $c->term_id == $outfitSubCat) {
 														$filterBy = $c;
 														echo 'selected';
@@ -609,7 +620,7 @@ get_header(); ?>
 									</div>
 								</div><!-- /Ad Sub Category-->
 
-								<div class="form-group post-sub-sub-cat-container toggle-required" style="<?php echo (count($subSubCategories)? '' : 'display: none;'); ?>">
+								<div class="form-group post-sub-sub-cat-container perfit-cats toggle-required" style="<?php echo (count($subSubCategories)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?></label>
 									<div class="item">
 										<select id="subsubcategory" name="postSubSubcategory" class="reg form-control form-control-md">
@@ -617,6 +628,17 @@ get_header(); ?>
 											<?php foreach ($subSubCategories as $c): ?>
 												<?php $c = fetch_category_custom_fields($c); ?>
 												<option value="<?php echo $c->term_id; ?>"
+														data-color-enabled="<?php echo ($c->catFilterByColor? '1' : '0'); ?>"
+														data-brand-enabled="<?php echo ($c->catFilterByBrand? '1' : '0'); ?>"
+														data-writer-enabled="<?php echo ($c->catFilterByWriter? '1' : '0'); ?>"
+														data-character-enabled="<?php echo ($c->catFilterByCharacter? '1' : '0'); ?>"
+														data-age-enabled="<?php echo ($c->catFilterByAge? '1' : '0'); ?>"
+														data-condition-enabled="<?php echo ($c->catFilterByCondition? '1' : '0'); ?>"
+														data-gender-enabled="<?php echo ($c->catFilterByGender? '1' : '0'); ?>"
+														data-language-enabled="<?php echo ($c->catFilterByLanguage? '1' : '0'); ?>"
+														data-shoesize-enabled="<?php echo ($c->catFilterByShoeSize? '1' : '0'); ?>"
+														data-maternitysize-enabled="<?php echo ($c->catFilterByMaternitySize? '1' : '0'); ?>"
+														data-bicyclesize-enabled="<?php echo ($c->catFilterByBicycleSize? '1' : '0'); ?>"
 													<?php if ($outfitSubSubCat && $c->term_id == $outfitSubSubCat) {
 														$filterBy = $c;
 														echo 'selected';

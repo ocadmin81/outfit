@@ -63,15 +63,14 @@ else if (isset($_POST['unfavorite'])) {
 	}
 }
 
-global $paged;
-global $post;
+global $paged, $wp_query, $wp, $post;
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $perPage = 10;
 
 global $currentUserFavoriteAds;
 $currentUserFavoriteAds = outfit_authors_all_favorite($currentUserId);
 
-$authorPosts = getOutfitAdsByAuthor($authorId, $paged, $perPage);
+//$authorPosts = getOutfitAdsByAuthor($authorId, $paged, $perPage);
 
 get_header();
 
@@ -178,13 +177,31 @@ get_header();
 			</div><!--view-head-->
 			<div class="tab-content">
 				<div class="row">
-				<?php foreach ( $authorPosts as $post ) : setup_postdata( $post ); ?>
+				<?php
+
+				$args = array(
+					'paged' => $paged,
+					'posts_per_page' => $perPage,
+					'post_type' => array( OUTFIT_AD_POST_TYPE ),
+					'author' => $authorId,
+					'post_status' => 'publish',
+					'order'                  => 'DESC',
+					'orderby'                => 'modified'
+				);
+
+				query_posts($args);
+				?>
+				<?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
 					<?php get_template_part('templates/loops/product'); ?>
 				<?php
-				endforeach;
-				wp_reset_postdata();
+				endwhile;
 				?>
-				</div><!--row-->			
+				</div><!--row-->
+				<?php
+				if( function_exists('outfit_pagination') ){
+					outfit_pagination();
+				}
+				?>
 				<?php wp_reset_query(); ?>
 			</div><!--tab-content-->
 		</div>

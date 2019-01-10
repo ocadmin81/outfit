@@ -53,9 +53,6 @@ $args = array(
 	'paged' => $paged
 );
 
-$wp_query= null;
-// The Query
-$wp_query = new WP_Query( $args );
 get_header(); ?>
 
 <section class="user-pages section-gray-bg">
@@ -75,8 +72,16 @@ get_header(); ?>
 						<h1 class="user-detail-section-heading text-uppercase <?php if(!$wp_query->have_posts()): ?>center<?php endif; ?>"><?php esc_html_e("המודעות שלי", 'outfit-standalone') ?></h1>
 						<div class="my-ads products">
 							<div class="row">
+								<?php
+								$wp_query= null;
+								// The Query
+								$wp_query = new WP_Query( $args );
+								?>
 								<?php if($wp_query->have_posts()): ?>
 									<?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
+										<div style="display: none">
+											<?php var_dump($post) ?>
+										</div>
 										<div class="col-lg-4 col-md-4 col-sm-6 item">
 											<div class="classiera-box-div classiera-box-div-v1">
 												<figure class="clearfix">

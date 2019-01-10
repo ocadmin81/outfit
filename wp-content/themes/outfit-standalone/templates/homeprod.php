@@ -25,7 +25,30 @@ $catslugs = [
 
 wp_get_current_user();
 $currentUser = $current_user;
-$userId = $user_id = $currentUser->ID;
+$currentUserId = $userId = $user_id = $currentUser->ID;
+
+if (isset($_POST['favorite'])) {
+	if ($loggedIn) {
+		outfit_insert_author_favorite($currentUserId, $_POST['post_id']);
+	}
+	else {
+		$loginUrl = outfit_login_url_back('', 'favorite', $_POST['post_id']);
+
+		?>
+		<script type="text/javascript">
+			window.location.href = '<?php echo $loginUrl; ?>';
+		</script>
+		<?php
+
+		//wp_redirect($loginUrl);
+		exit();
+	}
+}
+else if (isset($_POST['unfavorite'])) {
+	if (!empty($currentUserId)) {
+		outfit_delete_author_favorite($currentUserId, $_POST['post_id']);
+	}
+}
 
 $currentUserFavoriteAds = outfit_authors_all_favorite($userId);
 
@@ -169,7 +192,7 @@ foreach ($postsRows as $i => $postRow) { ?>
 														</div>				
 														<div class="cat-brand">
 															<?php foreach ($postBrandObjects as $termObj): ?>
-																<?php if (!strstr($termObj->name, 'other')) : ?>
+																<?php if (!strstr($termObj->slug, 'other')) : ?>
 																<a href="<?php echo outfit_get_brand_link($termObj->term_id) ?>"><?php echo esc_attr($termObj->name); ?></a>
 																<?php endif; ?>
 															<?php endforeach; ?>

@@ -40,7 +40,7 @@ if(!function_exists('outfit_new_ad_email')) {
 				$link_end = '</a>';
 				$text = $link_start.esc_html($post->post_title).$link_end;
 				?>
-				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+				<p style="">
 					<?php echo $text; ?>
 				</p>
 			</div>
@@ -71,18 +71,63 @@ if(!function_exists('outfit_publish_post_email')) {
 			?>
 
 			<div class="classiera-email-content" style="padding: 20px 0; width:100%; margin:0 auto;">
-				<h1><?php echo esc_html($redux_demo['published_ad_notification_title']); ?>
-				</h1>
 				<?php
-				$text = $redux_demo['published_ad_notification_text'];
-				$link_start = '<a href="'.get_permalink($post->ID).'">';
-				$link_end = '</a>';
-				$text = preg_replace('/\[ad_link](.*)\[\/ad_link]/', $link_start.'$1'.$link_end, $text);
+
+				$texts = [
+					[
+						'text' => 'מושלם! המודעה שלך אושרה',
+						'link' => ''
+					],
+					[
+						'text' => '*אנחנו שמחים שבחרתם לפרסם אצלינו*',
+						'link' => ''
+					],
+					[
+						'text' => '*כל מודעה שעולה אצלינו עוברת בדיקה*',
+						'link' => ''
+					],
+					[
+						'text' => 'לפעמים (ולא לעיתים קרובות)
+אנחנו משנים דברים קטנים
+במודעה לפני פרסומה
+כדי שיהיה קל למחשפים אחרים למצוא אותה בקלות
+',
+						'link' => ''
+					],
+					[
+						'text' => '*הכנסו לראות כיצד פורסמה מודעתכם*',
+						'link' => ''
+					]
+				];
+
 				?>
-				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
-					<?php echo $text; ?>
+
+				<?php foreach ($texts as $i => $entry) { ?>
+					<?php if ($i == 0) { ?>
+						<p style="">
+							<span style="font-size: 22px;"><?php echo $entry['text']; ?></span>
+						</p>
+						<p style="">
+							<img style="height: 22px; line-height: 22px; margin-top: -7px; display:inline-block;vertical-align: middle;"
+								 src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/love.png">
+						</p>
+					<?php } else if ($i < (count($texts)-1)) { ?>
+						<p style="">
+							<span style=""><?php echo $entry['text']; ?></span>
+						</p>
+					<?php } else { ?>
+						<p style="">
+							<span style="font-size: 24px;"><?php echo $entry['text']; ?></span>
+						</p>
+					<?php } ?>
+				<?php } ?>
+				<p style="">
+					<a href="<?php echo esc_url(get_permalink($post->ID)); ?>">
+						<img style="width: 100%; padding: 0 15px;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/email_img2.jpg">
+					</a>
 				</p>
 			</div>
+
 			<?php
 			include(TEMPLATEPATH . '/templates/email/email-footer.php');	
 			$message = ob_get_contents();
@@ -96,43 +141,65 @@ if(!function_exists('outfit_publish_post_email')) {
 /*==========================
  Email template New User Registration Function
  ===========================*/
-if(!function_exists('outfitUserNotification')) {  
-	function outfitUserNotification($email, $password, $userId){
+if (!function_exists('outfitUserNotification')) {
+	function outfitUserNotification($email, $password, $userId)
+	{
 		$blog_title = get_bloginfo('name');
-		$blog_url = esc_url( home_url() ) ;
-		$adminEmail =  get_bloginfo('admin_email');
+		$blog_url = esc_url(home_url());
+		$adminEmail = get_bloginfo('admin_email');
 		global $redux_demo, $email_subject;
 		$email_subject = $redux_demo['new_user_title'];
-		
-		ob_start();	
+
+		ob_start();
 		include(get_template_directory() . '/templates/email/email-header.php');
-		
+
 		?>
 
 		<div class="classiera-email-content" style="padding: 20px 0; width:100%; margin:0 auto;">
 			<?php
-			$text1 = $redux_demo['new_user_text1'];
-			$text2 = $redux_demo['new_user_text2'];
-			$text3 = $redux_demo['new_user_text3'];
-			$submit_ad_link_start = '<a href="'.outfit_get_page_url('submit_ad').'">';
-			$user_profile_link_start = '<a href="'.get_author_posts_url( $userId ).'">';
-			$share_link_start = '<a href="'.$blog_url.'">';
-			$link_end = '</a>';
-			$text1 = preg_replace('/\[new_ad](.*)\[\/new_ad]/', $submit_ad_link_start.'$1'.$link_end, $text1);
-			$text2 = preg_replace('/\[user_profile](.*)\[\/user_profile]/', $user_profile_link_start.'$1'.$link_end, $text2);
-			$text3 = preg_replace('/\[share](.*)\[\/share]/', $share_link_start.'$1'.$link_end, $text3);
+
+			$texts = [
+				[
+					'text' => 'העלו את המודעה הראשונה שלכם',
+					'link' => outfit_get_page_url('submit_ad')
+				],
+				[
+					'text' => '*הוסיפו פרטים לפרופיל שלכם*',
+					'link' => get_author_posts_url($userId)
+				],
+				[
+					'text' => '*החיפוש והפרסום יותאם לכם באופן אישי*',
+					'link' => ''
+				],
+				[
+					'text' => '*הפיצו את הבשורה*',
+					'link' => ''
+				],
+				[
+					'text' => '*שתפו את האתר החדש עם הורים כמוכם*',
+					'link' => ''
+				]
+			];
+
 			?>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
-				<img style="width: 35px;display:inline-block;vertical-align: middle;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/selling.png">
-				<?php echo $text1; ?>
-			</p>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
-				<img style="width: 35px;display:inline-block;vertical-align: middle;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/profile.png">
-				<?php echo $text2; ?>
-			</p>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;text-align:center;">
-				<img style="width: 35px;display:inline-block;vertical-align: middle;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/share.png">
-				<?php echo $text3; ?>
+
+			<?php foreach ($texts as $i => $entry) { ?>
+				<p style="">
+					<?php if ($i == 0) { ?>
+						<img style="height: 22px; line-height: 22px; margin-top: -7px; display:inline-block;vertical-align: middle;"
+							 src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/love.png">
+						<span style="font-size: 22px;"><?php echo $entry['text']; ?></span>
+						<img style="height: 22px; line-height: 22px; margin-top: -7px; display:inline-block;vertical-align: middle;"
+							 src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/love.png">
+					<?php } else { ?>
+						<span style=""><?php echo $entry['text']; ?></span>
+					<?php } ?>
+				</p>
+			<?php } ?>
+			<p style="">
+				<a href="<?php echo esc_url(outfit_get_page_url('submit_ad')); ?>">
+					<img style="width: 100%; padding: 0 15px;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/email_img1.jpg">
+				</a>
 			</p>
 		</div>
 		<?php
@@ -170,7 +237,7 @@ if(!function_exists('outfitNewUserNotifiy')) {
 			</h3>
 		</div>
 		<div class="classiera-email-content" style="padding: 50px 0; width:600px; margin:0 auto;">
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;direction: rtl;">
+			<p style="">
 				<?php esc_html_e( 'Hello, New User has been Registred on', 'outfit-standalone' ); ?>, <?php echo esc_html($blog_title) ?>. <?php esc_html_e( 'By using this email', 'outfit-standalone' ); ?> <?php echo sanitize_email($email); ?>!
 			</p>
 			<p>
@@ -217,10 +284,10 @@ if(!function_exists('outfitRejectedPost')) {
 				</h3>
 			</div>
 			<div class="classiera-email-content" style="direction: rtl;padding: 50px 0; width:600px; margin:0 auto;">
-				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+				<p style="">
 					<?php esc_html_e( 'We want to inform you, your ad is rejected, which you have posts on', 'outfit-standalone' ); ?> &nbsp;<?php echo get_bloginfo('name'); ?>!
 				</p>
-				<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;"><?php esc_html_e( 'Please visit your Dashboard to see post status, For more information contact with website admin at this email.', 'outfit-standalone' ); ?> <a href="mailto:<?php echo sanitize_email($adminEmail); ?>"><?php echo sanitize_email($adminEmail); ?></a> </p>
+				<p style=""><?php esc_html_e( 'Please visit your Dashboard to see post status, For more information contact with website admin at this email.', 'outfit-standalone' ); ?> <a href="mailto:<?php echo sanitize_email($adminEmail); ?>"><?php echo sanitize_email($adminEmail); ?></a> </p>
 			</div>
 			<?php
 			include(TEMPLATEPATH . '/templates/email/email-footer.php');
@@ -315,7 +382,7 @@ if(!function_exists('outfit_reset_password_email')) {
 		<div class="classiera-email-content" style="padding: 20px 0; width:100%; margin:0 auto;">
 			<h1><?php echo esc_html($redux_demo['password_reset_title']); ?>
 			</h1>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+			<p style="">
 				<?php echo 'הסיסמה החדשה שלך: '; ?>
 				<?php echo esc_attr($new_password); ?>
 			</p>
@@ -354,7 +421,7 @@ if(!function_exists('outfit_reportAdtoAdmin')) {
 			</h3>
 		</div>
 		<div class="classiera-email-content" style="direction: rtl;padding: 50px 0; width:600px; margin:0 auto;">
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+			<p style="">
 				<?php esc_html_e( 'Hi Someone Report an Ad which is posted on your website.', 'outfit-standalone' ); ?>
 			</p>
 			<p>
@@ -373,7 +440,7 @@ if(!function_exists('outfit_reportAdtoAdmin')) {
 					<?php echo esc_url($outfitPostURL); ?>
 				</span>
 			</p>
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+			<p style="">
 				<?php echo esc_html($message); ?>
 			</p>
 		</div>
@@ -407,7 +474,7 @@ if(!function_exists('outfit_contact_us_page')) {
 			<span class="email-seprator" style="width:100px; height: 2px; background: #b6d91a; margin: 0 auto; display: block;"></span>
 		</div>
 		<div class="classiera-email-content" style="direction: rtl;padding: 50px 0; width:600px; margin:0 auto;">
-			<p style="font-size: 16px; font-family: 'Lato', sans-serif; color: #6c6c6c;">
+			<p style="">
 				<?php echo esc_html($comments); ?>
 			</p>
 			<p>

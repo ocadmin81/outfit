@@ -377,12 +377,12 @@ $filterByGender = false;
 					<div class="post-details">
 						<ul class="list-unstyled clearfix">
 
-							<?php if(!empty( $postBrandObjects )): ?>
+							<?php if(!empty( $postBrandObjects ) && ($filterBy && $filterBy->catFilterByBrand)): ?>
 								<li>
 									<strong><?php esc_html_e( 'מותג', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php foreach ($postBrandObjects as $termObj): ?>
-											<?php if (!strstr($termObj->name, 'other')) : ?>
+											<?php if (!strstr($termObj->slug, 'other')) : ?>
 											<a href="<?php echo outfit_get_brand_link($termObj->term_id) ?>"><?php echo esc_attr($termObj->name); ?></a>
 											<?php endif; ?>
 										<?php endforeach; ?>

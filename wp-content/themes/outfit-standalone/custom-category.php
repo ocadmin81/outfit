@@ -233,9 +233,11 @@ get_header();
 											<?php endif; ?>
 											<?php
 
+											$countPosts = 0;
 											$wp_query= null;
 											$wp_query = new WP_Query($args);
 											while ($wp_query->have_posts()) : $wp_query->the_post();
+												$countPosts++;
 												get_template_part( 'templates/loops/product');
 
 												$postLocations = [];
@@ -280,6 +282,22 @@ get_header();
 											endwhile;
 											?>
 											<!-- Posts-->
+											<?php if(!$countPosts) { ?>
+												<div class="col-xm-12">
+													<div class="textwidget">
+														<p>
+															<img class="alignnone size-full wp-image-999 aligncenter"
+																 src="<?php echo esc_url(get_template_directory_uri() . '/assets/images/search_icon.png') ?>"
+																 alt="" width="54" height="54">
+														</p>
+														<p style="text-align: center;"><strong>לא נמצאו מוצרים</strong></p>
+														<p style="text-align: center;">
+															לא נמצאו מוצרים התואמים את הסינון שלך,
+															אנו ממליצים להוסיף איזורי איסוף נוספים או לשנות את הסינון.
+														</p>
+													</div>
+												</div>
+											<?php } //if(!$countPosts) ?>
 
 										</div><!--row-->
 										<?php outfit_pagination(); ?>

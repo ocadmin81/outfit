@@ -48,28 +48,28 @@ function outfit_pagination( $args = array() ) {
     }
     
     $echo = '';
-    $previous = intval($page) - 1;
+    $previous = $prevPageNumber = intval($page) - 1;
     $previous = esc_attr( get_pagenum_link($previous) );
     
     $firstpage = esc_attr( get_pagenum_link(1) );
     
     if ( $previous && (1 != $page) )
-        $echo .= '<li><a href="' . $previous . '" title="' . __( 'previous', 'outfit-standalone') . '">' . $args['previous_string'] . '</a></li>';
+        $echo .= '<li><a data-page="' . $prevPageNumber . '" href="' . $previous . '" title="' . __( 'previous', 'outfit-standalone') . '">' . $args['previous_string'] . '</a></li>';
     
     if ( !empty($min) && !empty($max) ) {
         for( $i = $min; $i <= $max; $i++ ) {
             if ($page == $i) {                
 				$echo .= '<li class="active"><span class="active">' . $i . '</span></li>';
             } else {
-                $echo .= sprintf( '<li><a href="%s">%d</a></li>', esc_attr( get_pagenum_link($i) ), $i );
+                $echo .= sprintf( '<li><a data-page="' . $i . '" href="%s">%d</a></li>', esc_attr( get_pagenum_link($i) ), $i );
             }
         }
     }
     
-    $next = intval($page) + 1;
+    $next = $nextPageNumber = intval($page) + 1;
     $next = esc_attr( get_pagenum_link($next) );
     if ($next && ($count != $page) )
-        $echo .= '<li><a href="' . $next . '" title="' . __( 'next', 'outfit-standalone') . '">' . $args['next_string'] . '</a></li>';
+        $echo .= '<li><a data-page="' . $nextPageNumber . '" href="' . $next . '" title="' . __( 'next', 'outfit-standalone') . '">' . $args['next_string'] . '</a></li>';
     
     $lastpage = esc_attr( get_pagenum_link($count) );   
     if ( isset($echo) )
