@@ -233,9 +233,11 @@ get_header();
 											<?php endif; ?>
 											<?php
 
+											$countPosts = 0;
 											$wp_query= null;
 											$wp_query = new WP_Query($args);
 											while ($wp_query->have_posts()) : $wp_query->the_post();
+												$countPosts++;
 												get_template_part( 'templates/loops/product');
 
 												$postLocations = [];
@@ -280,6 +282,11 @@ get_header();
 											endwhile;
 											?>
 											<!-- Posts-->
+											<?php if(!$countPosts) { ?>
+												<div class="search-no-items">
+													<?php echo do_shortcode("[do_widget id=text-17]"); ?>
+												</div>
+											<?php } //if(!$countPosts) ?>
 
 										</div><!--row-->
 										<?php outfit_pagination(); ?>

@@ -437,12 +437,18 @@ $inSearch = isset($_GET["s"]);
 											endwhile;
 											?>
 											<!-- Posts-->
-										<?php if(!$countPosts && $inSearch): ?>
-											<div class="search-no-items">												
+										<?php if(!$countPosts) { ?>
+											<?php if($inSearch) { ?>
+											<div class="search-no-items">
 												<?php echo do_shortcode("[do_widget id=text-17]"); ?>
 												<?php get_search_form(); ?>
 											</div>
-										<?php endif; ?>
+											<?php } else { ?>
+												<div class="search-no-items">
+													<?php echo do_shortcode("[do_widget id=text-17]"); ?>
+												</div>
+											<?php } ?>
+										<?php } ?>
 										</div><!--row-->
 										<?php outfit_pagination(); ?>
 									<?php wp_reset_query(); ?>
