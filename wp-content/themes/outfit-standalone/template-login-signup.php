@@ -23,27 +23,32 @@ if ( is_user_logged_in() ) {
 
 }
 
-global $user_ID, $username, $password, $remember;
+//global $user_ID, $username, $password, $remember;
+global $redux_demo;
+$login = outfit_get_page_url('login');
+$outfitSocialLogin = $redux_demo['outfit_social_login'];
+//$termsandcondition = $redux_demo['termsandcondition'];
+$termsandcondition = '/תנאי-שימוש-באתר';
+$outfitEmailVerify = $redux_demo['registor-email-verify'];
+$outfitSocialLogin = $redux_demo['outfit_social_login'];
+$rand1 = rand(0,9);
+$rand2 = rand(0,9);
+$rand_answer = $rand1 + $rand2;
+global $resetSuccess;
+$login_message = $register_message = $reset_message = '';
 
-$firstname = $lastname = $email = '';
-
-//We shall SQL escape all inputs
-$username = esc_sql(isset($_REQUEST['username']) ? $_REQUEST['username'] : '');
-$password = esc_sql(isset($_REQUEST['password']) ? $_REQUEST['password'] : '');
-$remember = esc_sql(isset($_REQUEST['rememberme']) ? $_REQUEST['rememberme'] : '');
-	
-if($remember) $remember = "true";
-else $remember = "false";
-$login_data = array();
-$login_data['user_login'] = $username;
-$login_data['user_password'] = $password;
-$login_data['remember'] = $remember;
-$user_verify = wp_signon( $login_data, false ); 
-//wp_signon is a wordpress function which authenticates a user. It accepts user info parameters as an array.
-if(isset($_POST['op_outfit']) ){
-	if($_POST['submit'] == 'Login'){
+if(isset($_POST['op_outfit']) && isset($_POST['submit'])) {
+	// login
+	if($_POST['submit'] == 'Login') {
+		$username = esc_sql(isset($_POST['username']) ? $_POST['username'] : '');
+		$password = esc_sql(isset($_POST['password']) ? $_POST['password'] : '');
+		$login_data = array();
+		$login_data['user_login'] = $username;
+		$login_data['user_password'] = $password;
+		$login_data['remember'] = false;
+		$user_verify = wp_signon( $login_data, false );
 		if ( is_wp_error($user_verify) ) {
-			$UserError = "Invalid username or password. Please try again!";
+			$login_message = "שם משתמש או סיסמה שגויים. נא לנסות שוב";
 		} else {
 
 			if (isset($_GET['favorite'])) {
@@ -57,204 +62,185 @@ if(isset($_POST['op_outfit']) ){
 
 		}
 	}
-}	
-global $redux_demo; 
-$login = outfit_get_page_url('login');
-$outfitSocialLogin = $redux_demo['outfit_social_login'];
-//$termsandcondition = $redux_demo['termsandcondition'];
-$termsandcondition = '/תנאי-שימוש-באתר';
-$outfitEmailVerify = $redux_demo['registor-email-verify'];
-$outfitSocialLogin = $redux_demo['outfit_social_login'];
-$rand1 = rand(0,9);
-$rand2 = rand(0,9);
-$rand_answer = $rand1 + $rand2;
+	else if ($_POST['submit'] == 'Reset') {
+		// First, make sure the email address is set
+		if ( isset( $_POST['email'] ) && ! empty( $_POST['email'] ) ) {
 
+			// Next, sanitize the data
+			$email_addr = trim( strip_tags( stripslashes( $_POST['email'] ) ) );
 
-global $resetSuccess;
+			$user = get_user_by( 'email', $email_addr );
+			$user_ID = $user->ID;
 
-if (!$user_ID){
-	if(isset($_POST['op_outfit']) ){
-		if($_POST['submit'] == 'Reset'){
+			if( !empty($user_ID)) {
 
-			// First, make sure the email address is set
-			if ( isset( $_POST['email'] ) && ! empty( $_POST['email'] ) ) {
+				$new_password = wp_generate_password( 12, false );
 
-				// Next, sanitize the data
-				$email_addr = trim( strip_tags( stripslashes( $_POST['email'] ) ) );
+				if ( isset($new_password) ) {
 
-				$user = get_user_by( 'email', $email_addr );
-				$user_ID = $user->ID;
+					wp_set_password( $new_password, $user_ID );
 
-				if( !empty($user_ID)) {
+					$reset_message = "בדוק את תיבת המייל שלך";
 
-					$new_password = wp_generate_password( 12, false ); 
+					$from = get_option('admin_email');
+					$headers = 'From: '.$from . "\r\n";
+					$subject = "Password reset!";
+					$msg = "Reset password.\nYour login details\nNew Password: $new_password";
+					/*if (function_exists('outfit_send_mail_with_headers')) {
+                        outfit_send_mail_with_headers($email_addr, $subject, $msg, $headers);
+                    }*/
+					outfit_reset_password_email($new_password, $email_addr);
 
-					if ( isset($new_password) ) {
+					$resetSuccess = 1;
 
-						wp_set_password( $new_password, $user_ID );
-
-						$message = "בדוק את תיבת המייל שלך";
-
-						$from = get_option('admin_email');
-						$headers = 'From: '.$from . "\r\n";
-						$subject = "Password reset!";
-						$msg = "Reset password.\nYour login details\nNew Password: $new_password";
-						/*if (function_exists('outfit_send_mail_with_headers')) {
-							outfit_send_mail_with_headers($email_addr, $subject, $msg, $headers);
-						}*/
-						outfit_reset_password_email($new_password, $email_addr);
-
-						$resetSuccess = 1;
-
-					}
-
-				} else {
-
-					$message = "אין שם משתמש עם כתובת מייל זה";
-
-				} // end if/else
+				}
 
 			} else {
-				$message = "כתבות מייל הוא שדה חובה";
-			}
 
-		}
+				$reset_message = "אין שם משתמש עם כתובת מייל זה";
 
-		if($_POST['submit'] == 'Register'){
-			
-			$message =  esc_html__( 'Registration successful.', 'outfit-standalone' );
+			} // end if/else
 
-			//$username = $wpdb->escape($_POST['username']);
-			//$email = $wpdb->escape($_POST['email']);
-			//$username = isset($_POST['username']) ? trim( wp_unslash( $_POST['username'] ) ) : '';
-			$username = '';
-			$email  = isset( $_POST['email']  ) ? trim( wp_unslash( $_POST['email'] ) ) : null;
-
-			$firstname = isset( $_POST['firstname']  ) ? trim( wp_unslash( $_POST['firstname'] ) ) : '';
-			$lastname = isset( $_POST['lastname']  ) ? trim( wp_unslash( $_POST['lastname'] ) ) : '';
-
-			//$password = $wpdb->escape($_POST['password']);
-			//$confirm_password = $wpdb->escape($_POST['confirm']);
-
-			$password = isset( $_POST['password']  ) ? trim( $_POST['password'] ) : null;
-			$confirm_password = isset( $_POST['confirm']  ) ? trim( $_POST['confirm'] ) : '';
-			
-			$agree = $wpdb->escape($_POST['agree']);
-
-			$registerSuccess = 1;
-
-
-			if(!empty($agree)) {
-				
-				/*if(empty($username)){
-					$message =  esc_html__( 'User name should not be empty.', 'outfit-standalone' );
-					$registerSuccess = 0;
-				}
-				elseif ( $username != sanitize_user( $username, true ) ) {
-					$message =  esc_html__( 'The username you provided has invalid characters.', 'outfit-standalone' );
-					$registerSuccess = 0;
-				}
-				else*/
-				if(empty($firstname)){
-					$message =  esc_html__( 'שם פרטי הוא שדה חובה', 'outfit-standalone' );
-					$registerSuccess = 0;
-				}
-				elseif(empty($lastname)){
-					$message =  esc_html__( 'שם משפחה הוא שדה חובה', 'outfit-standalone' );
-					$registerSuccess = 0;
-				}
-				if ($registerSuccess) {
-					if(isset($email)) {
-
-						if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email)){
-
-							//wp_update_user( array ('ID' => $user_ID, 'user_email' => $email) ) ;
-							$username = $email;
-
-						}else {
-							$message =  esc_html__( 'יש להכניס כתובת מייל תקינה', 'outfit-standalone' );
-							$registerSuccess = 0;
-						}
-
-					}else{
-						$registerSuccess = 0;
-						$message =  esc_html__( 'יש להכניס כתובת מייל תקינה', 'outfit-standalone' );
-					}
-				}
-				if ($registerSuccess) {
-					/*If Admin Turn Of Email Verification then this code will work*/
-					if($password){
-
-						if (strlen($password) < 5 || strlen($password) > 15) {
-							$message =  esc_html__( 'סיסמא חייבת להיות בין 5-15 תווים', 'outfit-standalone' );
-							$registerSuccess = 0;
-
-						}elseif(isset($password) && $password != $confirm_password) {
-
-							$message =  esc_html__( 'הסיסמאות אינן תואמות', 'outfit-standalone' );
-
-							$registerSuccess = 0;
-
-						}elseif ( isset($password) && !empty($password) ) {
-
-							$update = wp_set_password( $password, $user_ID );
-							$message =  esc_html__( 'נרשמת בהצלחה', 'outfit-standalone' );
-							$registerSuccess = 1;
-
-						}
-
-					}
-				}
-
-				if ($registerSuccess) {
-					$status = wp_create_user( $username, $password, $email );
-					if ( is_wp_error($status) ) {
-						$registerSuccess = 0;
-						$message =  esc_html__( 'שם משתמש או כתובת מייל כבר קיים.', 'outfit-standalone' );
-					}
-				}
-
-				if ( $registerSuccess ) {
-
-					update_user_meta($status, USER_META_FIRSTNAME, $firstname);
-					update_user_meta($status, USER_META_LASTNAME, $lastname);
-					outfitUserNotification( $email, $password, $status );
-					//global $redux_demo;
-					//$newUsernotification = $redux_demo['newusernotification'];
-					//if($newUsernotification == 1){
-					//	outfitNewUserNotifiy($email, $username);
-					//}
-				}
-				
-				/*If Turn OFF Email verification*/
-				if($registerSuccess == 1) {
-					$login_data = array();
-					$login_data['user_login'] = $username;
-					$login_data['user_password'] = $password;
-					$user_verify = wp_signon( $login_data, false );
-					if (isset($_GET['favorite'])) {
-						$pid = (int) $_GET['favorite'];
-						if (!empty($pid)) {
-							outfit_insert_author_favorite($user_verify->ID, $pid);
-						}
-					}
-					wp_redirect( $redirectAfterSuccess );
-					exit;
-					
-				}
-			}else{			
-				$message =  esc_html__( 'יש לאשר את תנאי השימוש.', 'outfit-standalone' );
-				$registerSuccess = 0;
-			}
+		} else {
+			$reset_message = "כתבות מייל הוא שדה חובה";
 		}
 	}
-}
+	else if($_POST['submit'] == 'Register'){
+
+		$register_message =  esc_html__( 'Registration successful.', 'outfit-standalone' );
+
+		//$username = $wpdb->escape($_POST['username']);
+		//$email = $wpdb->escape($_POST['email']);
+		//$username = isset($_POST['username']) ? trim( wp_unslash( $_POST['username'] ) ) : '';
+		$username = '';
+		$email  = isset( $_POST['email']  ) ? trim( wp_unslash( $_POST['email'] ) ) : null;
+
+		$firstname = isset( $_POST['firstname']  ) ? trim( wp_unslash( $_POST['firstname'] ) ) : '';
+		$lastname = isset( $_POST['lastname']  ) ? trim( wp_unslash( $_POST['lastname'] ) ) : '';
+
+		//$password = $wpdb->escape($_POST['password']);
+		//$confirm_password = $wpdb->escape($_POST['confirm']);
+
+		$password = isset( $_POST['password']  ) ? trim( $_POST['password'] ) : null;
+		$confirm_password = isset( $_POST['confirm']  ) ? trim( $_POST['confirm'] ) : '';
+
+		$agree = $wpdb->escape($_POST['agree']);
+
+		$registerSuccess = 1;
+
+
+		if(!empty($agree)) {
+
+			/*if(empty($username)){
+                $message =  esc_html__( 'User name should not be empty.', 'outfit-standalone' );
+                $registerSuccess = 0;
+            }
+            elseif ( $username != sanitize_user( $username, true ) ) {
+                $message =  esc_html__( 'The username you provided has invalid characters.', 'outfit-standalone' );
+                $registerSuccess = 0;
+            }
+            else*/
+			if(empty($firstname)){
+				$register_message =  esc_html__( 'שם פרטי הוא שדה חובה', 'outfit-standalone' );
+				$registerSuccess = 0;
+			}
+			elseif(empty($lastname)){
+				$register_message =  esc_html__( 'שם משפחה הוא שדה חובה', 'outfit-standalone' );
+				$registerSuccess = 0;
+			}
+			if ($registerSuccess) {
+				if(isset($email)) {
+
+					if (preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/", $email)){
+
+						//wp_update_user( array ('ID' => $user_ID, 'user_email' => $email) ) ;
+						$username = $email;
+
+					}else {
+						$register_message =  esc_html__( 'יש להכניס כתובת מייל תקינה', 'outfit-standalone' );
+						$registerSuccess = 0;
+					}
+
+				}else{
+					$registerSuccess = 0;
+					$register_message =  esc_html__( 'יש להכניס כתובת מייל תקינה', 'outfit-standalone' );
+				}
+			}
+			if ($registerSuccess) {
+				/*If Admin Turn Of Email Verification then this code will work*/
+				if($password){
+
+					if (strlen($password) < 5 || strlen($password) > 15) {
+						$register_message =  esc_html__( 'סיסמא חייבת להיות בין 5-15 תווים', 'outfit-standalone' );
+						$registerSuccess = 0;
+
+					}elseif(isset($password) && $password != $confirm_password) {
+
+						$register_message =  esc_html__( 'הסיסמאות אינן תואמות', 'outfit-standalone' );
+
+						$registerSuccess = 0;
+
+					}elseif ( isset($password) && !empty($password) ) {
+
+						wp_set_password( $password, $user_ID );
+						$register_message =  esc_html__( 'נרשמת בהצלחה', 'outfit-standalone' );
+						$registerSuccess = 1;
+
+					}
+
+				}
+			}
+
+			if ($registerSuccess) {
+				$status = wp_create_user( $username, $password, $email );
+				if ( is_wp_error($status) ) {
+					$registerSuccess = 0;
+					$register_message =  esc_html__( 'שם משתמש או כתובת מייל כבר קיים.', 'outfit-standalone' );
+				}
+			}
+
+			if ( $registerSuccess ) {
+
+				update_user_meta($status, USER_META_FIRSTNAME, $firstname);
+				update_user_meta($status, USER_META_LASTNAME, $lastname);
+				outfitUserNotification( $email, $password, $status );
+				//global $redux_demo;
+				//$newUsernotification = $redux_demo['newusernotification'];
+				//if($newUsernotification == 1){
+				//	outfitNewUserNotifiy($email, $username);
+				//}
+			}
+
+			/*If Turn OFF Email verification*/
+			if($registerSuccess == 1) {
+				$login_data = array();
+				$login_data['user_login'] = $username;
+				$login_data['user_password'] = $password;
+				$user_verify = wp_signon( $login_data, false );
+				if (isset($_GET['favorite'])) {
+					$pid = (int) $_GET['favorite'];
+					if (!empty($pid)) {
+						outfit_insert_author_favorite($user_verify->ID, $pid);
+					}
+				}
+				wp_redirect( $redirectAfterSuccess );
+				exit;
+
+			}
+		}else{
+			$register_message =  esc_html__( 'יש לאשר את תנאי השימוש.', 'outfit-standalone' );
+			$registerSuccess = 0;
+		}
+	}
+}	
+
 ?>
 <?php get_header(); ?>
 <?php 
 	$page = get_post($post->ID);
 	$current_page_id = $page->ID;
 	$isRegistration = (isset($_POST['submit']) && $_POST['submit'] == 'Register');
+	$isReset = (isset($_POST['submit']) && $_POST['submit'] == 'Reset');
 ?>
 <!-- page content -->
 <img class="login-bg" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/login-bg.jpg" />
@@ -269,14 +255,7 @@ if (!$user_ID){
 						<div id="tab1" class="<?php echo ($isRegistration? '' : 'active') ?>"><?php esc_html_e('כניסה לחשבונך', 'outfit-standalone') ?></div>
 						<div id="tab2" class="<?php echo ($isRegistration? 'active' : '') ?>"><?php esc_html_e('הצטרפות', 'outfit-standalone') ?></div>
 					</div>
-							<?php if($_POST){?>
-							<?php if($registerSuccess == 0){?>
-							<div class="alert alert-danger" role="alert">
-							  <strong><?php //esc_html_e('אופס, ', 'outfit-standalone') ?></strong> <?php echo esc_html( $message ); ?>
-							</div>
-							<?php } ?>
-							<?php }							
-							?>
+
 						<div class="login-section <?php echo ($isRegistration? '' : 'active') ?>">
 							<div class="social-login-link">
 								<a class="fb-login fb" href="<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1" onclick="window.location = '<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1&redirect='+window.location.href; return false;"><?php esc_html_e('כניסה באמצעות פייסבוק', 'outfit-standalone') ?></a>														
@@ -303,9 +282,16 @@ if (!$user_ID){
                                 </div>								
                             </div><!--social-login-->							
 							<form data-toggle="validator" role="form" method="POST" enctype="multipart/form-data">
+								<?php if (!empty($login_message)) { ?>
+								<div class="alert alert-danger" role="alert">
+									<?php echo esc_html( $login_message ); ?>
+								</div>
+								<?php } ?>
 								<div class="form-group">
                                     <div class="inner-addon left-addon">
-                                        <input type="text" class="form-control form-control-md sharp-edge" name="username" placeholder="<?php esc_html_e( 'אימייל', 'outfit-standalone' ); ?>" data-error="<?php esc_html_e( 'זה שדה חובה', 'outfit-standalone' ); ?>" required>
+                                        <input type="text" class="form-control form-control-md sharp-edge" name="username"
+											   value="<?php echo esc_html(isset($username)? wp_unslash($username) : '') ?>"
+											   placeholder="<?php esc_html_e( 'אימייל', 'outfit-standalone' ); ?>" data-error="<?php esc_html_e( 'זה שדה חובה', 'outfit-standalone' ); ?>" required>
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div><!--username-->
@@ -363,6 +349,11 @@ if (!$user_ID){
                                 </div>								
                             </div><!--social-login-->						
                             <form data-toggle="validator" role="form" method="POST" enctype="multipart/form-data">
+								<?php if (!empty($register_message)) { ?>
+									<div class="alert alert-danger" role="alert">
+										<?php echo esc_html( $register_message ); ?>
+									</div>
+								<?php } ?>
 								<div class="form-group">
 									<div class="inner-addon left-addon">
 										<input type="text" name="firstname"
@@ -433,12 +424,17 @@ if (!$user_ID){
                             </form>
                         </div>
 						<!--Register-->
-                        <div class="forgot-section">
+                        <div class="forgot-section <?php echo ($isReset? 'active' : '') ?>">
                             <div class="social-login-v2 forgot-title">
                                 <h5 class="text-uppercase"><?php esc_html_e('איפוס סיסמא', 'outfit-standalone') ?></h5>
                             </div>
                             <form data-toggle="validator" role="form" method="POST" enctype="multipart/form-data">
-                                <div class="form-group">
+								<?php if (!empty($reset_message)) { ?>
+									<div class="alert alert-danger" role="alert">
+										<?php echo esc_html( $reset_message ); ?>
+									</div>
+								<?php } ?>
+								<div class="form-group">
                                     <div class="inner-addon left-addon">                                        
                                         <input type="email" name="email" class="form-control form-control-md sharp-edge" placeholder="<?php esc_html_e( 'אימייל', 'outfit-standalone' ); ?>" data-error="<?php esc_html_e( 'זה שדה חובה', 'outfit-standalone' ); ?>" required>
                                         <div class="help-block with-errors"></div>
