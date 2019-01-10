@@ -216,27 +216,20 @@ if ($userId) {
 		$userFavBrands = getPostMultiple('favbrands');
 		updateUserFavoriteBrands($userId, $userFavBrands);
 
-		$password = $_POST['pwd'];
-		$confirm_password = $_POST['confirm'];
+		$password = $_POST['confirm'];
+		$confirm_password = $_POST['confirm2'];
 
 		if($password){
 
 			if (strlen($password) < 5 || strlen($password) > 25) {
 				$message =  esc_html__( 'סיסמא חייבת להיות בין 5-20 תווים.', 'outfit-standalone' );
 			}
-
-			//elseif( $password == $confirm_password ) {
-			$confirmPWD = $_POST['confirm'];
-			$confirmPWD2 = $_POST['confirm2'];
-			if(isset($confirmPWD) && $confirmPWD != $confirmPWD2) {
-
+			else if ($password != $confirm_password) {
 				$message =  esc_html__( 'הסיסמאות לא שוות', 'outfit-standalone' );
-
-			} elseif ( isset($confirmPWD) && !empty($password) ) {
-
-				wp_set_password( $confirmPWD, $userId );
+			}
+			else {
+				wp_set_password( $password, $userId );
 				$message =  esc_html__( 'הפרופיל שלך עודכן בהצלחה.', 'outfit-standalone' );
-
 			}
 		}
 	}
