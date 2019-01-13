@@ -1442,6 +1442,7 @@ jQuery(document).ready(function(jQuery){
 	//mobile search click
 	jQuery( '.m-search' ).click(function() {
 		jQuery('.header-left').addClass('active');
+		jQuery('.menu-toggle').addClass('hide');
 	});	
 	//menu overlay
 	setTimeout(function(){
