@@ -436,7 +436,7 @@ get_header(); ?>
 								</div><!-- /Ad Sub Category-->
 
 								<div class="form-group post-sub-sub-cat-container perfit-cats toggle-required" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?> </label>
+									<label class="text-left flip"><?php esc_html_e('סוג', 'outfit-standalone') ?> </label>
 									<div class="item">
 										<select id="subsubcategory" name="postSubSubcategory" class="reg form-control form-control-md"></select>
 									</div>

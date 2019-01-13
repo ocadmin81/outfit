@@ -621,7 +621,7 @@ get_header(); ?>
 								</div><!-- /Ad Sub Category-->
 
 								<div class="form-group post-sub-sub-cat-container perfit-cats toggle-required" style="<?php echo (count($subSubCategories)? '' : 'display: none;'); ?>">
-									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?></label>
+									<label class="text-left flip"><?php esc_html_e('סוג', 'outfit-standalone') ?></label>
 									<div class="item">
 										<select id="subsubcategory" name="postSubSubcategory" class="reg form-control form-control-md">
 											<option value=""><?php esc_html_e('בחירת תת קטגוריה', 'outfit-standalone'); ?></option>
