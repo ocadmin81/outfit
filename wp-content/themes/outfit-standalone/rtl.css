@@ -609,7 +609,7 @@ body{font-size:16px;}
 .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span{    background: #fed3d6;}
 .owl-theme .owl-dots .owl-dot span{width: 13px;height: 13px;  margin: 0 4px;background: #fff;border: 1px solid #cac2c3;}
 .owl-theme .owl-dots{    position: absolute;bottom: 10px;left: 0;right: 0;}
-.dropdown-toggle{left: 0;}
+.dropdown-toggle{right: 0;left: auto;}
 .form-inline select.form-control{background: url(assets/images/select-arrow.png) 18px 18px no-repeat;width: 100%;font-size: 16px;color: #191919;border-radius: 0;height: 45px;border-color: #e2e2e4;}
 .form-inline select.form-control[multiple]{background:none;height: auto;}
 .no-border{    border-bottom: none;}
@@ -1300,7 +1300,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 }
 @media screen and (max-width: 767px){
 	.header-right div{margin-left: 15px;}
-	.header-right .publish{    margin-left: 12px;float: left;margin-top: 2px;}
+	.header-right .publish{margin-right: 25px;float: right;margin-top: 2px;margin-left: 0;}
 	.site-content{padding: 15px 0 0;}
 	header.site-header{border-bottom: 1px solid #f3f3f3;}
 	.top-pad-50{padding-bottom: 0;padding-top: 0;}
@@ -1310,17 +1310,19 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.navigation-top nav .menu-toggle img{    width: 85%;}
 	.navigation-top nav .menu-toggle img.m-open{    width: 80%;}
 	.site-branding {margin-bottom: 0!important;padding: 15px 0;}
-	.header-left .search-form{display: none;    position: absolute;    left: 12px;top: -5px;width: 78%;z-index: 100;}
+	.header-left .search-form{display: none;    position: absolute;    left: 12px;top: -5px;width: 95.5%;z-index: 100;}
 	.header-left.active .search-form{display:block}
 	.search-form .search-submit{background: url(assets/images/search-m.png) 0 0 no-repeat;background-size: 85%;top: 9px;width: auto;height: auto;}
 	.header-left .search-field{height: 45px;width: 100%;border: 1px solid #f1efef;padding-right: 15px;}
 	.header-left{display: inline-block;width: auto;padding: 3px 0 0 0;float: left;margin-left: 55px;}
 	.header-left .m-search,.header-left .favourites,.header-left .login { width: 17%;float: left;margin-right: 20px;position: relative;}
+	.header-left .m-search img,.header-left .favourites img,.header-left .login img{max-width: 24px;}
 	.header-left .favourites .count{    position: absolute;font-size: 13px;top: -6px;background: #fed3d6;border-radius: 50%;width: 17px;text-align: center;right: -10px;line-height: 17px;}
 	.header-left.active .m-search{display:none;}
-	.navigation-top{position: absolute;top: 20px;background: transparent;max-width: 50px;right: 0;}
+	.navigation-top{position: absolute;top: 20px;background: transparent;max-width: 50px;right: 0;z-index: 10;}
 	.header-right, .header-left{width: 37.5%;margin: 0;}
 	.menu-toggle .m-open{display:none;}
+	.menu-toggle.hide{display:none;}
 	.menu-toggle{padding: 0;margin: 0;width: auto;max-width: 55%;float: left;    position: relative;left: 15px;}	
 	.main-navigation > div > ul{border-top: none;    padding: 0;}
 	.main-navigation a{padding: 10px 0;}
@@ -1445,4 +1447,8 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.search-no-items .search-form .search-submit{background-size: 65%;}
 	.fa-sellers .user-follow .classiera-box-div-v1 figure .premium-img img{width: auto;margin: 0;}
 	.user-follow .classiera-box-div-v1 figure .premium-img{border: none;}
+}
+@media screen and (max-width: 320px){
+	.header-left .m-search, .header-left .favourites, .header-left .login{margin-right: 17px;}
+	.header-right .publish a{    font-size: 11px;}
 }
