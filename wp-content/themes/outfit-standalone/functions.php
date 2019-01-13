@@ -1427,6 +1427,8 @@ function outfit_template_check( $template ) {
 			$new_template = get_template_directory() . '/custom-search.php';
 			if ( !empty( $new_template ) ) {
 				status_header( 200 );
+				$wp_query->is_page = true;
+				$wp_query->is_404=false;
 				return $new_template;
 			}
 		}
