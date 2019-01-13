@@ -378,8 +378,13 @@ $filterByGender = false;
 					<?php endif; ?>
 					<div class="post-details">
 						<ul class="list-unstyled clearfix">
-
-							<?php if(!empty( $postBrandObjects ) && ($filterBy && $filterBy->catFilterByBrand)): ?>
+							<?php
+							$otherBrandOnly = false;
+							if (count($postBrandObjects) == 1 && strstr($postBrandObjects[0]->slug, 'other')) {
+								$otherBrandOnly = true;
+							}
+							?>
+							<?php if(!empty( $postBrandObjects ) && ($filterBy && $filterBy->catFilterByBrand) && !$otherBrandOnly): ?>
 								<li>
 									<strong><?php esc_html_e( 'מותג', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
