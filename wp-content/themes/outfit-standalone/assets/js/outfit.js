@@ -1434,11 +1434,11 @@ jQuery(document).ready(function(jQuery){
 		});		
 	}	
 	//mobile menu top row
-	if(Swisth<=767){
-		var Trow = jQuery( '.m-menu-top' ).html();
-		jQuery('.menu-top-menu-container .menu').prepend('<li class="menu-top">'+Trow+'</li>');
-		jQuery('.m-menu-top').remove();
-	}
+	//if(Swisth<=767){
+	//	var Trow = jQuery( '.m-menu-top' ).html();
+	//	jQuery('.menu-top-menu-container .menu').prepend('<li class="menu-top">'+Trow+'</li>');
+	//	jQuery('.m-menu-top').remove();
+	//}
 	//mobile search click
 	jQuery( '.m-search' ).click(function() {
 		jQuery('.header-left').addClass('active');

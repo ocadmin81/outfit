@@ -11,7 +11,7 @@
 ?>
 
 <?php $unique_id = esc_attr( uniqid( 'search-form-' ) ); ?>
-<div class="m-search hidden-lg hidden-md hidden-sm"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/search-m.png" /></div>
+<div class="m-search hidden-lg hidden-md hidden-sm"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/search.svg" /></div>
 <form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 	<label for="<?php echo $unique_id; ?>">
 		<span class="screen-reader-text"><?php echo _x( 'Search for:', 'label', 'twentyseventeen' ); ?></span>
