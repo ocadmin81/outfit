@@ -281,7 +281,9 @@ $filterByGender = false;
 											$full_img_url = wp_get_attachment_url($attachment->ID);
 											?>
 											<div class="item <?php if($count == 1){ echo "active"; }?>">
-												<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
+												<a href="<?php echo esc_url($full_img_url); ?>" class="fancybox">
+													<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
+												</a>
 											</div>
 											<?php
 											$count++;
@@ -295,7 +297,7 @@ $filterByGender = false;
 											<a href="<?php echo esc_url($image[0]); ?>" class="fancybox">
 												<img class="img-responsive" src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
 											</a>
-										</div>	
+										</div>
 										<div class="wish-share">
 											<?php //if (!empty($userId)): ?>
 											<form method="post" class="fav-form clearfix">
