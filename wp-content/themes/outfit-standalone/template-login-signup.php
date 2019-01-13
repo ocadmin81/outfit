@@ -308,7 +308,7 @@ if(isset($_POST['op_outfit']) && isset($_POST['submit'])) {
                                     </div>
                                 </div>--><!--remember-->
 								<div class="form-group form-group-forgot">
-									<a href="#"><?php esc_html_e( 'שכחתם את הסיסמא', 'outfit-standalone' ); ?>?</a>
+									<a href="#"><?php esc_html_e( 'שכחת את סיסמתך?', 'outfit-standalone' ); ?></a>
 								</div>
 								<div class="form-group">
 									<input type="hidden" name="submit" value="Login" id="submit" />

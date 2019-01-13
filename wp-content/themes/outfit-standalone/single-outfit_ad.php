@@ -304,11 +304,11 @@ $filterByGender = false;
 												<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
 												<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
 													<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase">
-														<span><?php esc_html_e( 'הוסף ל- WISHLIST', 'outfit-standalone' ); ?></span>
+														<span><?php //esc_html_e( 'הוסף ל- WISHLIST', 'outfit-standalone' ); ?></span>
 													</button>
 												<?php } else { ?>
 													<button type="submit" value="unfavorite" name="unfavorite" class="watch-later in-fa text-uppercase">
-														<span><?php esc_html_e( 'הסרה מה- WISHLIST', 'outfit-standalone' ); ?></span>
+														<span><?php //esc_html_e( 'הסרה מה- WISHLIST', 'outfit-standalone' ); ?></span>
 													</button>
 												<?php } ?>
 											</form>
@@ -341,12 +341,28 @@ $filterByGender = false;
 											?>
 										</div>										
 									<?php } ?>
+								<div class="wish-share mobile">
+									<?php if (!empty($userId)): ?>
+										<form method="post" class="fav-form clearfix">
+											<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
+											<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
+											<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase">
+												<span><?php //esc_html_e( 'הוסף ל- WISHLIST', 'outfit-standalone' ); ?></span>
+											</button>
+											<?php } else { ?>
+											<button type="submit" value="unfavorite" name="unfavorite" class="watch-later in-fa text-uppercase">
+												<span><?php //esc_html_e( 'הסרה מה- WISHLIST', 'outfit-standalone' ); ?></span>
+											</button>
+											<?php } ?>
+										</form>
+									<?php endif; ?>								
+								</div>									
 								<?php endif; ?>
-							</div>
-						</div>						
+							</div>						
 					<?php } ?>
 					<!-- single post carousel-->
-				</div>			
+					</div>		
+				</div>	
 				<div class="col-md-4 col-sm-6 middle-ad-column">
 					<h1 class="text-uppercase">
 						<?php the_title(); ?>
@@ -384,7 +400,7 @@ $filterByGender = false;
 								$otherBrandOnly = true;
 							}
 							?>
-							<?php if(!empty( $postBrandObjects ) && ($filterBy && $filterBy->catFilterByBrand) && !$otherBrandOnly): ?>
+							<?php if(!empty( $postBrandObjects ) && ($filterBy && $filterBy->catFilterByBrand)  && !$otherBrandOnly): ?>
 								<li>
 									<strong><?php esc_html_e( 'מותג', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
@@ -486,20 +502,6 @@ $filterByGender = false;
 					</div>
 					<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
 						<div class="wish-share mobile">
-							<?php if (!empty($userId)): ?>
-								<form method="post" class="fav-form clearfix">
-									<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
-									<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
-									<button type="submit" value="favorite" name="favorite" class="watch-later text-uppercase">
-										<span><?php esc_html_e( 'הוסף ל- WISHLIST', 'outfit-standalone' ); ?></span>
-									</button>
-									<?php } else { ?>
-									<button type="submit" value="unfavorite" name="unfavorite" class="watch-later in-fa text-uppercase">
-										<span><?php esc_html_e( 'הסרה מה- WISHLIST', 'outfit-standalone' ); ?></span>
-									</button>
-									<?php } ?>
-								</form>
-							<?php endif; ?>
 							<div class="whatsapp-share">
 								<a title="<?php echo the_title(); ?>" class="whatsapp-share-image" href="whatsapp://send?text=<?php //echo $watsappmessage; ?> » <?php echo the_title(); ?> » <?php echo get_permalink(); ?>"><span><?php esc_html_e( 'שיתוף ב- WhatsApp', 'outfit-standalone' ); ?></span></a>
 							</div>							

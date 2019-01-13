@@ -24,15 +24,6 @@ $userInfo = get_userdata($userId);
 
 $userName = $userInfo->display_name;
 
-require_once 'Mobile_Detect.php';
-$detect = new Mobile_Detect;
-$typeDate = 'date';
-$classDate = 'date-mobile';
-if (!$detect->isMobile() || $detect->isTablet()){
-	$typeDate = 'text';
-	$classDate = 'date-desktop';
-}
-
 $userFirstName = get_user_meta($userId, USER_META_FIRSTNAME, true);
 $userLastName = get_user_meta($userId, USER_META_LASTNAME, true);
 
@@ -363,7 +354,7 @@ get_header();
 							<div class="form-group col-sm-6">
 								<label class="text-left flip"><?php esc_html_e('אזור עיקרי', 'outfit-standalone'); ?></label>
 								<div class="inner-addon">
-									<input id="address" type="text" name="address" class="form-control form-control-sm address" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>">
+									<input id="address" type="text" name="address" class="form-control form-control-sm address" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('כתובת מלאה', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude" name="longitude" value="<?php echo esc_html($postLongitude); ?>">
 									<input class="locality" type="hidden" id="locality" name="locality" value="<?php echo esc_html($postLocality); ?>">
@@ -371,6 +362,7 @@ get_header();
 									<input class="aal2" type="hidden" id="aal2" name="aal2" value="<?php echo esc_html($postArea2); ?>">
 									<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
 								</div>
+								<div><small><?php echo do_shortcode("[do_widget id=text-21]"); ?></small></div>
 							</div>
 
 							<div class="form-group col-sm-6">
@@ -410,26 +402,26 @@ get_header();
 							<div class="form-inline form-group date-section row">
 								<div class="inner-addon col-sm-4">
 									<input type="<?php echo $typeDate; ?>"
-										   class="form-control form-control-sm <?php echo $classDate; ?>"
+										   class="form-control form-control-sm date-desktop"
 										   id="birthday1"
 										   name="birthdays[]"
 										   value="<?php echo esc_attr($birthday1); ?>"
 										   title="יש להשתמש בפורמט תאריך DD/MM/YYYY">
 								</div>
 								<div class="inner-addon col-sm-4">
-									<input type="<?php echo $typeDate; ?>"
-										   class="form-control form-control-sm <?php echo $classDate; ?>"
+									<input type="text"
+										   class="form-control form-control-sm date-desktop"
 										   id="birthday2"
 										   name="birthdays[]"
-										   value="<?php echo esc_attr($birthday2); ?>"
+										   value="text?>"
 										   title="יש להשתמש בפורמט תאריך DD/MM/YYYY">
 								</div>
 								<div class="inner-addon col-sm-4">
 									<input type="<?php echo $typeDate; ?>"
-										   class="form-control form-control-sm <?php echo $classDate; ?>"
+										   class="form-control form-control-sm date-desktop"
 										   id="birthday3"
 										   name="birthdays[]"
-										   value="<?php echo esc_attr($birthday3); ?>"
+										   value="text"
 										   title="יש להשתמש בפורמט תאריך DD/MM/YYYY">
 								</div>
 							</div>
@@ -460,7 +452,7 @@ get_header();
 								<div class="form-group col-sm-12">
 									<label for="bio"><?php esc_html_e( 'כמה מילים עליי', 'outfit-standalone' ); ?></label>
 									<div class="inner-addon">
-										<textarea name="desc" id="bio" placeholder="<?php esc_html_e( 'אני אמא לשניים, אוהבת עיצוב...', 'outfit-standalone' ); ?>"><?php echo esc_html( $userAbout ); ?></textarea>
+										<textarea name="desc" id="bio" placeholder="<?php esc_html_e( 'אמא לשניים, אוהבת עיצוב / אני אבא לשניים, אוהב את אמא...', 'outfit-standalone' ); ?>"><?php echo esc_html( $userAbout ); ?></textarea>
 									</div>
 								</div><!--biography-->
 							</div>
