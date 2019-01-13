@@ -466,6 +466,7 @@ get_header(); ?>
 											<?php endforeach; ?>
 										</select>
 									</div>
+									<div class="age-text"><?php echo do_shortcode("[do_widget id=text-20]"); ?></div>
 								</div><!-- /Ad Age Groups-->
 
 								<div class="form-group post-brands-container toggle-required" style="display: none;">
@@ -597,9 +598,10 @@ get_header(); ?>
 							<!--Address-->
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף עיקרית', 'outfit-standalone'); ?> <span>*</span></label>
+								<div><small><?php echo do_shortcode("[do_widget id=text-21]"); ?></small></div>
 								<div class="item">
 									<input class="address form-control form-control-md" id="address" type="text"
-										   name="address" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>"
+										   name="address" placeholder="<?php esc_html_e('כתובת מלאה', 'outfit-standalone') ?>"
 										   value="<?php echo (null != $userPrimaryLocation? $userPrimaryLocation->getAddress() : ''); ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude"
 										   value="<?php echo (null != $userPrimaryLocation? $userPrimaryLocation->getLatitude() : ''); ?>">

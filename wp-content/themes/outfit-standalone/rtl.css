@@ -866,7 +866,10 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box .classiera-input-file + label{padding-top: 30px;padding-bottom: 0;margin: 0;background: none;}
 .submit-post form .form-main-section .classiera-image-upload{border: none;background: #fff;padding: 0;}
 .submit-post form .form-group{margin: 0;margin-bottom: 20px;position: relative;}
+.submit-post form .form-group.main-address label{    margin-bottom: 0;}
 .submit-post form .ad-categories .form-group{border-bottom: 1px solid #e2e2e4;margin-bottom: 5px;padding-bottom: 5px;}
+.submit-post form .ad-categories .form-group.post-age-groups-container{margin-bottom: 30px;}
+.submit-post form .ad-categories .form-group.post-age-groups-container .age-text{position: absolute;margin-top: 10px;}
 .has-error .form-control{box-shadow: none;}
 .submit-post form .ad-categories .form-group label{position: absolute;margin: 0;padding: 0;top: 13px;right: 0;}
 .submit-post form .ad-categories .form-group select{    border: none;border-bottom: 1px solid #e2e2e4;padding-right: 90px;}
@@ -896,9 +899,12 @@ body.page-two-column:not(.archive) #primary .post-241 .entry-content{width: 100%
 .single-post-ad .thumbs-img-m .item img{    width: 100%;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
 .single-post-ad .img-box .thumbs-img{padding-left: 0;}
 .wish-share button{font-size: 16px;padding-right: 0;background: transparent;}
-.wish-share button span{background: url(assets/images/add-to-wish.png) right 0 no-repeat;    background-size: 33px;padding-right: 41px;height: 20px;display: block;}
-.wish-share button.in-fa span{background: url(assets/images/add-to-wish-in.png) right 0 no-repeat;    background-size: 33px;}
+/*.wish-share button span{background: url(assets/images/add-to-wish.png) right 0 no-repeat;    background-size: 33px;padding-right: 41px;height: 20px;display: block;}
+.wish-share button.in-fa span{background: url(assets/images/add-to-wish-in.png) right 0 no-repeat;    background-size: 33px;}*/
 .wish-share{margin-top: 10px;}
+.wish-share .fav-form{position: absolute;bottom: 45px;right: 15px;z-index: 100;}
+.wish-share .fav-form button{background-color: transparent;transition: none;background-image: url(assets/images/favorite-heart-white.svg);float: right;background-repeat: no-repeat;padding: 0;width: 24px;height: 24px;margin-right: 15px;margin-bottom: 10px;}
+.wish-share .fav-form button:hover,.wish-share .fav-form button.in-fa{    background-image: url(assets/images/favorite-heart-pink.svg);}
 .middle-ad-column h1{margin: 0;font-weight: 500;font-size: 20px;line-height: 20px;}
 .middle-ad-column .price-compare{background: url(assets/images/compare.png) right 0 no-repeat;padding-right: 45px;    margin-top: 25px;}
 /*.middle-ad-column .price-compare:hover{background-position: right -91px;}*/
@@ -931,8 +937,8 @@ html[lang="he-IL"] .single-post-ad .classiera_follow_user button[name="unfollow"
 .single-post-ad .wish-share .share ul{list-style: none;margin: 0;}
 .single-post-ad .wish-share .share ul li{float: left;margin-right: 10px;margin-top: 10px;}
 .single-post-ad .wish-share .share ul li a{    color: #707070;}
-.single-post-ad .wish-share.mobile form{width: 100%;}
-.single-post-ad .wish-share.mobile button{border: 1px solid #f3f3f3;padding-right: 0;    padding-left: 0;width: 100%;text-align: center;}
+.single-post-ad .wish-share.mobile form{width: auto;bottom: 20px;}
+.single-post-ad .wish-share.mobile button{margin: 0;}
 .single-post-ad .wish-share.mobile button span{display: inline-block;}
 .single-post-ad .whatsapp-share{float: right;width: 100%;margin-top: 20px;}
 .single-post-ad .whatsapp-share a{display: block;border: 1px solid #f3f3f3;height: 50px;line-height: 50px;text-align: center;}
@@ -1270,6 +1276,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.author-page .author-info .media-img{width: 110px;}
 	.main-navigation a{padding: 0 15px;}
 	.header-right div{margin-left: 8px;}
+	.wish-share .fav-form{    bottom: 65px;}
 }
 @media screen and (max-width: 991px){	
 	.header-right div.login{margin: 0;}
