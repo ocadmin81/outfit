@@ -642,6 +642,39 @@ function outfit_get_category_posts_by_id($catId, $count) {
     return $posts;
 }
 
+function outfit_get_category_posts_by_id_and_age($catId, $count, $termIds) {
+
+    $posts = array();
+    if (empty($catId)) {
+        return $posts;
+    }
+    if (!is_array($termIds)) {
+        $termIds = array(intval($termIds));
+    }
+    $args = array(
+        'post_type' => OUTFIT_AD_POST_TYPE,
+        'post_status' => 'publish',
+        'posts_per_page' => $count,
+        'paged' => 1,
+        'cat' => $catId
+    );
+    $taxQuery = array();
+    if (!empty($termIds)) {
+        $taxQuery[] = array(
+            'taxonomy' => 'age_groups',
+            'field'    => 'term_id',
+            'terms'    => $termIds,
+            'operator' => 'IN'
+        );
+    }
+    if (!empty($taxQuery)) {
+        $args['tax_query'] = $taxQuery;
+    }
+
+    $posts = get_posts($args);
+    return $posts;
+}
+
 function outfit_get_posts_count_by_term($categoryId, $taxonomy) {
 
     global $wpdb;

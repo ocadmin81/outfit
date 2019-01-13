@@ -183,7 +183,12 @@ $filterByGender = false;
 
 			$authorPosts = getOutfitAdsByAuthor($postAuthorId, 1, 5);
 
-			$categoryPosts = outfit_get_category_posts_by_id($outfitMainCat, 5);
+			if(!empty( $postAgeGroup ) && ($filterBy && $filterBy->catFilterByAge)) {
+				$categoryPosts = outfit_get_category_posts_by_id_and_age($outfitMainCat, 5, $postAgeGroup);
+			}
+			else {
+				$categoryPosts = outfit_get_category_posts_by_id($outfitMainCat, 5);
+			}
 
 			?>
 			<?php if ( get_post_status ( $post->ID ) == 'pending' ) {?>

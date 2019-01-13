@@ -1660,7 +1660,7 @@ add_action( 'pre_get_posts', 'outfit_author_archive' );
 
 
 // fix 404 pagination wordpress
-function remove_page_from_query_string($query_string) {
+/*function remove_page_from_query_string($query_string) {
 	if (is_admin()) return $query_string;
 	if ($query_string['name'] == 'page' && isset($query_string['page'])) {
 		unset($query_string['name']);
@@ -1671,4 +1671,4 @@ function remove_page_from_query_string($query_string) {
 	return $query_string;
 }
 
-add_filter('request', 'remove_page_from_query_string');
+add_filter('request', 'remove_page_from_query_string');*/
