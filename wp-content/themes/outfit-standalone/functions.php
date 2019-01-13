@@ -100,7 +100,7 @@ function twentyseventeen_setup() {
 	 * hard-coded <title> tag in the document head, and expect WordPress to
 	 * provide it for us.
 	 */
-	add_theme_support( 'title-tag' );
+	//add_theme_support( 'title-tag' );
 
 	/*
 	 * Enable support for Post Thumbnails on posts and pages.
@@ -1658,7 +1658,17 @@ function outfit_author_archive( &$query ) {
 }
 add_action( 'pre_get_posts', 'outfit_author_archive' );
 
+function outfit_change_title($title, $sep) {
+	return get_current_template();
+	/*if (isset($_REQUEST['bpg'])) {
+		return 'brand page';
+	}
+	else if (isset($_REQUEST['s']) && isset($_REQUEST['search'])) {
+		return 'search results';
+	}*/
+}
 
+add_action( 'wp_title', 'outfit_change_title', 10, 3 );
 // fix 404 pagination wordpress
 /*function remove_page_from_query_string($query_string) {
 	if (is_admin()) return $query_string;
