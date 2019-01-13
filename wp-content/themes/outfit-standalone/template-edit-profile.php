@@ -401,7 +401,7 @@ get_header();
 							</h4>
 							<div class="form-inline form-group date-section row">
 								<div class="inner-addon col-sm-4">
-									<input type="<?php echo $typeDate; ?>"
+									<input type="text"
 										   class="form-control form-control-sm date-desktop"
 										   id="birthday1"
 										   name="birthdays[]"
@@ -413,15 +413,15 @@ get_header();
 										   class="form-control form-control-sm date-desktop"
 										   id="birthday2"
 										   name="birthdays[]"
-										   value="text?>"
+										   value="<?php echo esc_attr($birthday2); ?>"
 										   title="יש להשתמש בפורמט תאריך DD/MM/YYYY">
 								</div>
 								<div class="inner-addon col-sm-4">
-									<input type="<?php echo $typeDate; ?>"
+									<input type="text"
 										   class="form-control form-control-sm date-desktop"
 										   id="birthday3"
 										   name="birthdays[]"
-										   value="text"
+										   value="<?php echo esc_attr($birthday3); ?>"
 										   title="יש להשתמש בפורמט תאריך DD/MM/YYYY">
 								</div>
 							</div>
