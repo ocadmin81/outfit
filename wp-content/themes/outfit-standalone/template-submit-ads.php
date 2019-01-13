@@ -301,7 +301,7 @@ if(isset( $_POST['postTitle'] )) {
                     }
                 }
             }
-			if (isset($_POST['postSavePrefs'])) {
+			//if (isset($_POST['postSavePrefs'])) {
 
 				// save user prefs
 				if (!empty($postPhone)) {
@@ -320,7 +320,7 @@ if(isset( $_POST['postTitle'] )) {
 				if (null !== $location3 && $location3->isValid()) {
 					update_user_meta($userId, USER_META_THIRD_ADDRESS, $location3->toString());
 				}
-			}
+			//}
 
 			wp_redirect( outfit_get_thank_you_link() );
 			exit;
@@ -681,10 +681,10 @@ get_header(); ?>
 							</div>						
 
 
-							<div class="row">
+							<div class="row" style="display: none;">
 								<div class="item">
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input" name="postSavePrefs" id="postSavePrefs">
+										<input type="checkbox" class="form-check-input" name="postSavePrefs" id="postSavePrefs" checked>
 										<label class="form-check-label" for="postSavePrefs">
 											<?php esc_html_e('שמרו את הפרטים שלי באתר לפעמים הבאות', 'outfit-standalone') ?>
 										</label>
