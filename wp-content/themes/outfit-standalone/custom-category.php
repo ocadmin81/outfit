@@ -22,9 +22,9 @@ global $outfitMainCat, $subCategories;
 global $thisCategory;
 $thisCategory = null;
 
-status_header( 200 );
-$wp_query->is_page = true;
-$wp_query->is_404=false;
+//status_header( 200 );
+//$wp_query->is_page = true;
+//$wp_query->is_404=false;
 
 $catId = get_queried_object_id();
 $thisCategory = get_category($catId);

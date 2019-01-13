@@ -1414,7 +1414,7 @@ function outfit_template_check( $template ) {
 		if ( isset($_GET['outfit_ad']) || isset($_POST['outfit_ad']) ){
 			$new_template = get_template_directory() . '/custom-category.php';
 			if ( !empty( $new_template ) ) {
-				//status_header( 200 );
+				status_header( 200 );
 				//$wp_query->is_page = true;
 				//$wp_query->is_404=false;
 				return $new_template;
@@ -1426,6 +1426,7 @@ function outfit_template_check( $template ) {
 		if ( isset($_GET['outfit_ad']) || isset($_POST['outfit_ad']) ){
 			$new_template = get_template_directory() . '/custom-search.php';
 			if ( !empty( $new_template ) ) {
+				status_header( 200 );
 				return $new_template;
 			}
 		}

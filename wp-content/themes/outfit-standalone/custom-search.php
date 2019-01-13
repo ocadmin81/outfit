@@ -21,9 +21,9 @@ global $paged, $wp_query, $wp, $post;
 global $outfitMainCat, $subCategories;
 global $thisCategory;
 
-status_header( 200 );
-$wp_query->is_page = true;
-$wp_query->is_404=false;
+//status_header( 200 );
+//$wp_query->is_page = true;
+//$wp_query->is_404=false;
 
 require_once 'Mobile_Detect.php';
 $detect = new Mobile_Detect;
