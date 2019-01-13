@@ -1408,11 +1408,15 @@ function posts_in_category($query){
 //add_filter('pre_get_posts', 'posts_in_category');
 add_filter( 'template_include', 'outfit_template_check', 99 );
 function outfit_template_check( $template ) {
+	global $wp_query;
 	if ( is_category() ){
 
 		if ( isset($_GET['outfit_ad']) || isset($_POST['outfit_ad']) ){
 			$new_template = get_template_directory() . '/custom-category.php';
 			if ( !empty( $new_template ) ) {
+				//status_header( 200 );
+				//$wp_query->is_page = true;
+				//$wp_query->is_404=false;
 				return $new_template;
 			}
 		}
