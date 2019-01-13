@@ -161,6 +161,7 @@ $filterByGender = false;
 			}
 			$postColor = getPostTermNames($post->ID, 'colors');
 			$postAgeGroup = getPostTermNames($post->ID, 'age_groups');
+			$postAgeGroupIds = getPostTermIds($post->ID, 'age_groups');
 			$postBrand = getPostTermNames($post->ID, 'brands');
 			$postBrandObjects = wp_get_post_terms($post->ID, 'brands');
 			$postConditions = getPostTermNames($post->ID, 'conditions');
@@ -183,8 +184,8 @@ $filterByGender = false;
 
 			$authorPosts = getOutfitAdsByAuthor($postAuthorId, 1, 5);
 
-			if(!empty( $postAgeGroup ) && ($filterBy && $filterBy->catFilterByAge)) {
-				$categoryPosts = outfit_get_category_posts_by_id_and_age($outfitMainCat, 5, $postAgeGroup);
+			if(!empty( $postAgeGroupIds ) && ($filterBy && $filterBy->catFilterByAge)) {
+				$categoryPosts = outfit_get_category_posts_by_id_and_age($outfitMainCat, 5, $postAgeGroupIds);
 			}
 			else {
 				$categoryPosts = outfit_get_category_posts_by_id($outfitMainCat, 5);
