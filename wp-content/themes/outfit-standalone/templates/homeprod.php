@@ -84,7 +84,7 @@ if ($loggedIn) {
 		'data' => $favSellersPosts = outfit_get_posts_of_favorite_sellers($currentUser->ID,$count)
 	);
 	$postsRows[] = array(
-		'title' => 'Your latest loved ones',
+		'title' => 'RECENTLY LOVED',
 		'data' => $wishlist = outfit_get_wishlist_posts($currentUser->ID, $count)
 	);
 	$postsRows[] = array(

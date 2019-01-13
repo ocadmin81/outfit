@@ -189,7 +189,7 @@ $filterByGender = false;
 			<?php if ( get_post_status ( $post->ID ) == 'pending' ) {?>
 				<div class="alert alert-info" role="alert">
 					<p>
-						<strong><?php esc_html_e('ברכות!', 'outfit-standalone') ?></strong> <?php esc_html_e('המודעה שלך הועלתה ומחכה לאישור', 'outfit-standalone') ?>
+						<strong><?php //esc_html_e('ברכות!', 'outfit-standalone') ?></strong> <?php esc_html_e('המודעה שלך הועלתה ומחכה לאישור', 'outfit-standalone') ?>
 					</p>
 				</div>
 			<?php } ?>
@@ -400,7 +400,7 @@ $filterByGender = false;
 								$otherBrandOnly = true;
 							}
 							?>
-							<?php if(!empty( $postBrandObjects ) && ($filterBy && $filterBy->catFilterByBrand)  && !$otherBrandOnly): ?>
+							<?php if(!empty( $postBrandObjects ) && ($filterBy && $filterBy->catFilterByBrand) && !$otherBrandOnly): ?>
 								<li>
 									<strong><?php esc_html_e( 'מותג', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
