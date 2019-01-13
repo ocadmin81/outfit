@@ -1,6 +1,6 @@
 <?php
 /**
- * The template for displaying Category pages.
+ * Template name: Custom Search
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
@@ -57,7 +57,7 @@ else {
 }
 
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
-$perPage = 20;
+$perPage = 10;
 
 global $currentUserFavoriteAds, $currentUserId;
 wp_get_current_user();

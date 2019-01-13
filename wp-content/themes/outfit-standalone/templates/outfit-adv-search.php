@@ -95,7 +95,7 @@ else {
 //var_dump(get_query_var('address'));
 ?>
 <!--SearchForm-->
-<form id="advanced-search-form" method="post" action="<?php echo home_url(); ?>">
+<form id="advanced-search-form" method="post" action="<?php echo esc_url(outfit_get_page_url('advsearch')); ?>">
 	<div class="search-form">
 		<input type="hidden" id="paged" name="paged" value="1">
 		<div class="search-form-main-heading" style="display:none;">
