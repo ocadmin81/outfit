@@ -1657,3 +1657,18 @@ function outfit_author_archive( &$query ) {
 		$query->set( 'post_type', array( OUTFIT_AD_POST_TYPE ) );
 }
 add_action( 'pre_get_posts', 'outfit_author_archive' );
+
+
+// fix 404 pagination wordpress
+function remove_page_from_query_string($query_string) {
+	if (is_admin()) return $query_string;
+	if ($query_string['name'] == 'page' && isset($query_string['page'])) {
+		unset($query_string['name']);
+		// 'page' in the query_string looks like '/2', so i'm spliting it out
+		list($delim, $page_index) = split('/', $query_string['page']);
+		$query_string['paged'] = $page_index;
+	}
+	return $query_string;
+}
+
+add_filter('request', 'remove_page_from_query_string');
