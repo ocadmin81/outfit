@@ -342,7 +342,7 @@ $filterByGender = false;
 										</div>										
 									<?php } ?>
 								<div class="wish-share mobile">
-									<?php if (!empty($userId)): ?>
+									<?php //if (!empty($userId)): ?>
 										<form method="post" class="fav-form clearfix">
 											<input type="hidden" name="post_id" value="<?php echo esc_attr($post->ID); ?>"/>
 											<?php if (!outfit_is_favorite_post($userId, $post->ID)) { ?>
@@ -355,7 +355,7 @@ $filterByGender = false;
 											</button>
 											<?php } ?>
 										</form>
-									<?php endif; ?>								
+									<?php //endif; ?>								
 								</div>									
 								<?php endif; ?>
 							</div>						
