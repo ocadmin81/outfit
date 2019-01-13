@@ -733,11 +733,11 @@ get_header(); ?>
 
 								<div class="form-group post-characters-container toggle-required"
 									 style="<?php echo (($filterBy && $filterBy->catFilterByCharacter)? '' : 'display: none;'); ?>">
-									<label class="text-left flip"><?php esc_html_e('Character', 'outfit-standalone') ?><span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('נושא', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
 										<select id="character" name="postCharacter[]" class="reg form-control form-control-md"
 											<?php echo (($filterBy && $filterBy->catFilterByCharacter)? 'required' : ''); ?>>
-											<option value=""><?php esc_html_e('Select Characters', 'outfit-standalone'); ?></option>
+											<option value=""><?php esc_html_e('בחירת נושא', 'outfit-standalone'); ?></option>
 											<option></option>
 											<?php
 											foreach ($characters as $c): ?>

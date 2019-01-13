@@ -374,7 +374,7 @@ else {
 				<?php if(count($livecharacters)): ?>
 				<!--Characters-->
 				<div class="inner-search-box">
-					<div class="inner-search-heading"><?php esc_html_e( 'דמות', 'outfit-standalone' ); ?></div>
+					<div class="inner-search-heading"><?php esc_html_e( 'נושא', 'outfit-standalone' ); ?></div>
 					<div class="inner-addon right-addon">
 						<?php
 						foreach ($livecharacters as $i => $c):

@@ -415,7 +415,7 @@ $filterByGender = false;
 							<?php endif; ?>
 							<?php if(!empty( $postCharacter ) && ($filterBy && $filterBy->catFilterByCharacter)): ?>
 								<li>
-									<strong><?php esc_html_e( 'דמות', 'outfit-standalone' ); ?></strong>
+									<strong><?php esc_html_e( 'נושא', 'outfit-standalone' ); ?></strong>
 									<span class="pull-right flip">
 										<?php echo esc_attr(join(',', $postCharacter)); ?>
 									</span>

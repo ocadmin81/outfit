@@ -508,10 +508,10 @@ get_header(); ?>
 								</div><!-- /Ad Book Writers-->
 
 								<div class="form-group post-characters-container toggle-required" style="display: none;">
-									<label class="text-left flip"><?php esc_html_e('דמות', 'outfit-standalone') ?> <span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('נושא', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="character" name="postCharacter[]" class="reg form-control form-control-md">	
-											<option value="" selected><?php esc_html_e('בחירת דמות', 'outfit-standalone'); ?></option>
+											<option value="" selected><?php esc_html_e('בחירת נושא', 'outfit-standalone'); ?></option>
 											<?php
 											foreach ($characters as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
