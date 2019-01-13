@@ -45,11 +45,11 @@
 						$imageurl = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'classiera-370');
 						$thumb_id = get_post_thumbnail_id($post->ID);
 						?>
-						<img class="img-responsive lazy lazy-hidden" data-lazy-type="image" data-lazy-src="<?php echo esc_url( $imageurl[0] ); ?>" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="<?php the_title() ?>">
+						<img class="img-responsive lazy-hidden" data-lazy-type="image" data-src="<?php echo esc_url( $imageurl[0] ); ?>" src="/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" alt="<?php the_title() ?>">
 						<?php
 					}else{
 						?>
-						<img class="img-responsive lazy lazy-hidden" data-lazy-type="image" data-lazy-src="<?php echo get_template_directory_uri() . '/assets/images/nothumb.png' ?>" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="No Thumb"/>
+						<img class="img-responsive lazy-hidden" data-lazy-type="image" data-src="<?php echo get_template_directory_uri() . '/assets/images/nothumb.png' ?>" src="/wp-content/plugins/a3-lazy-load/assets/images/lazy_placeholder.gif" alt="No Thumb"/>
 						<?php
 					}
 					?>
