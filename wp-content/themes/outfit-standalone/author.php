@@ -24,19 +24,21 @@ $authorAbout = get_the_author_meta(USER_META_ABOUT, $authorId);
 $authorPreferredHours = get_the_author_meta(USER_META_PREFERRED_HOURS, $authorId);
 
 // post location
-$postLocation = OutfitLocation::toAssoc(get_the_author_meta(USER_META_PRIMARY_ADDRESS, $authorId));
+// post location
+$postLocation = OutfitLocation::toAssoc(get_user_meta($authorId, USER_META_PRIMARY_ADDRESS, true));
 $postAddress = '';
 if (null !== $postLocation && isset($postLocation['address'])) {
 	$postAddress = $postLocation['address'];
 }
 // post secondary location
-$postLocation2 = OutfitLocation::toAssoc(get_post_meta(USER_META_SECONDARY_ADDRESS, $authorId));
+$postLocation2 = OutfitLocation::toAssoc(get_user_meta($authorId, USER_META_SECONDARY_ADDRESS, true));
 $postSecAddress = '';
 if (null !== $postLocation2 && isset($postLocation2['address'])) {
 	$postSecAddress = $postLocation2['address'];
 }
 
-$postLocation3 = OutfitLocation::toAssoc(get_post_meta(USER_META_THIRD_ADDRESS, $authorId));
+// post third location
+$postLocation3 = OutfitLocation::toAssoc(get_user_meta($authorId, USER_META_THIRD_ADDRESS, true));
 $postThirdAddress = '';
 if (null !== $postLocation3 && isset($postLocation3['address'])) {
 	$postThirdAddress = $postLocation3['address'];
