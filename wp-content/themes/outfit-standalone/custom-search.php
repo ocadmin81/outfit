@@ -57,7 +57,7 @@ else {
 }
 
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
-$perPage = 10;
+$perPage = 20;
 
 global $currentUserFavoriteAds, $currentUserId;
 wp_get_current_user();
@@ -108,12 +108,12 @@ $searchLocationsStr = json_encode($arr);
 outfit_strip_slashes_from_input();
 
 $postColor = getRequestMultiple('postColor', true);
-$postAgeGroup = getRequestMultiple('postAgeGroup', true);;
-$postBrand = getRequestMultiple('postBrand', true);;
-$postCondition = getRequestMultiple('postCondition', true);;
-$postWriter = getRequestMultiple('postWriter', true);;
-$postCharacter = getRequestMultiple('postCharacter', true);;
-$postKeyword = getGetInput('s', '');
+$postAgeGroup = getRequestMultiple('postAgeGroup', true);
+$postBrand = getRequestMultiple('postBrand', true);
+$postCondition = getRequestMultiple('postCondition', true);
+$postWriter = getRequestMultiple('postWriter', true);
+$postCharacter = getRequestMultiple('postCharacter', true);
+$postKeyword = getGetInput('cs', '');
 $postPrice = getRequestMultiple('priceRange', true);
 $postGender = getRequestMultiple('postGender', true);
 $postLanguage = getRequestMultiple('postLanguage', true);
@@ -302,7 +302,7 @@ if (!empty($metaQuery)) {
 	$args['meta_query'] = $metaQuery;
 }
 
-$inSearch = isset($_GET["s"]);
+$inSearch = isset($_GET["cs"]);
 ?>
 
 <!-- page content -->

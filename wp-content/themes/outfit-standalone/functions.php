@@ -1421,7 +1421,7 @@ function outfit_template_check( $template ) {
 			}
 		}
 	}
-	else if (isset($_GET['search']) || isset($_POST['search']) || isset($_GET['cs']) || isset($_POST['cs'])) {
+	/*else if (isset($_GET['search']) || isset($_POST['search']) || isset($_GET['cs']) || isset($_POST['cs'])) {
 
 		if ( isset($_GET['outfit_ad']) || isset($_POST['outfit_ad']) ){
 			$new_template = get_template_directory() . '/custom-search.php';
@@ -1435,7 +1435,7 @@ function outfit_template_check( $template ) {
 				return $new_template;
 			}
 		}
-	}
+	}*/
 	return $template;
 
 }
@@ -1568,8 +1568,8 @@ function outfit_save_search_filters() {
 }
 
 function outfit_get_brand_link($termId) {
-	$query = 'outfit_ad=1&search=1&postBrand='.$termId.'&bpg=1';
-	$link = home_url('?' . $query );
+	$query = 'search=1&postBrand='.$termId.'&bpg=1';
+	$link = home_url('/advsearch/?' . $query );
 	return $link;
 }
 

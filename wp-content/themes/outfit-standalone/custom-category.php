@@ -30,7 +30,7 @@ $catId = get_queried_object_id();
 $thisCategory = get_category($catId);
 
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
-$perPage = 10;
+$perPage = 20;
 
 $pagepermalink = get_category_link($catId);//get_permalink($post->ID);
 global $currPageId;

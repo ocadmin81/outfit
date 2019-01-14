@@ -30,6 +30,13 @@
 			}
 		}
 	}
+	else if (isset($_GET['cs']) && !empty($_GET['cs'])) {
+		$pageTitle = 'תוצאות חיפוש עבור ' . '"' . $_GET['cs'] . '"';
+	}
+	else if (is_author()) {
+		$author = (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
+		$pageTitle = getAuthorFullName($authorId);
+	}
 	else {
 		$pageTitle = wp_get_document_title();
 	}
