@@ -36,6 +36,12 @@ if (null !== $postLocation2 && isset($postLocation2['address'])) {
 	$postSecAddress = $postLocation2['address'];
 }
 
+$postLocation3 = OutfitLocation::toAssoc(get_post_meta(USER_META_THIRD_ADDRESS, $authorId));
+$postThirdAddress = '';
+if (null !== $postLocation3 && isset($postLocation3['address'])) {
+	$postThirdAddress = $postLocation3['address'];
+}
+
 if (isset($_POST['follow'])) {
 	if (!empty($currentUserId) && !empty($_POST['author_id'])) {
 		outfit_insert_author_follower(intval($_POST['author_id']), $currentUserId);
@@ -135,6 +141,13 @@ get_header();
 											<span>
 												<?php if (!empty($postSecAddress)) { ?>
 													<?php echo esc_html($postSecAddress);?>
+												<?php } ?>
+											</span>
+										</li>
+										<li>
+											<span>
+												<?php if (!empty($postThirdAddress)) { ?>
+													<?php echo esc_html($postThirdAddress);?>
 												<?php } ?>
 											</span>
 										</li>
