@@ -1421,13 +1421,13 @@ function outfit_template_check( $template ) {
 			}
 		}
 	}
-	else if (isset($_GET['search']) || isset($_POST['search']) || isset($_GET['s']) || isset($_POST['s'])) {
+	else if (isset($_GET['search']) || isset($_POST['search']) || isset($_GET['cs']) || isset($_POST['cs'])) {
 
 		if ( isset($_GET['outfit_ad']) || isset($_POST['outfit_ad']) ){
 			$new_template = get_template_directory() . '/custom-search.php';
 			if ( !empty( $new_template ) ) {
 				status_header( 200 );
-				if (isset($_GET['s'])) {
+				if (isset($_GET['cs'])) {
 					$wp_query->is_search = true;
 				}
 
