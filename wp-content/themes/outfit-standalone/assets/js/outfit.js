@@ -427,6 +427,7 @@ jQuery(document).ready(function(jQuery){
                 jQuery('.post-sub-cat-container select').html(response);
                 if(response){
                     jQuery('.post-sub-cat-container').show();
+                    jQuery('.post-sub-cat-container').toggleRequired(1);
                 }
             });
 
@@ -450,6 +451,7 @@ jQuery(document).ready(function(jQuery){
                 jQuery('.post-sub-sub-cat-container select').html(response);
                 if(response){
                     jQuery('.post-sub-sub-cat-container').show();
+                    jQuery('.post-sub-sub-cat-container').toggleRequired(1);
                 }
             });
         }
@@ -460,7 +462,7 @@ jQuery(document).ready(function(jQuery){
                 jQuery('.post-brands-container').toggleRequired(1);
             }
         }
-
+        jQuery('#primaryPostForm').validator('update');
 
     });
 

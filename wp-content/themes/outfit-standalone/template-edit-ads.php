@@ -594,7 +594,7 @@ get_header(); ?>
 								<div class="form-group post-sub-cat-container perfit-cats toggle-required" style="<?php echo (count($subCategories)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md">
+										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md" <?php echo (count($subCategories)? 'required' : ''); ?>>
 											<option value=""><?php esc_html_e('בחירת תת קטגוריה', 'outfit-standalone'); ?></option>
 											<?php foreach ($subCategories as $c): ?>
 												<?php $c = fetch_category_custom_fields($c); ?>
@@ -623,7 +623,7 @@ get_header(); ?>
 								<div class="form-group post-sub-sub-cat-container perfit-cats toggle-required" style="<?php echo (count($subSubCategories)? '' : 'display: none;'); ?>">
 									<label class="text-left flip"><?php esc_html_e('סוג', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
-										<select id="subsubcategory" name="postSubSubcategory" class="reg form-control form-control-md">
+										<select id="subsubcategory" name="postSubSubcategory" class="reg form-control form-control-md" <?php echo (count($subSubCategories)? 'required' : ''); ?>>
 											<option value=""><?php esc_html_e('בחירת תת קטגוריה', 'outfit-standalone'); ?></option>
 											<?php foreach ($subSubCategories as $c): ?>
 												<?php $c = fetch_category_custom_fields($c); ?>
