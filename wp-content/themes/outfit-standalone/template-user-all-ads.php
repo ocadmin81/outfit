@@ -138,7 +138,7 @@ get_header(); ?>
 														<div class="post-action-button-sold">
 														<a class="" href="<?php echo esc_url($soldPostUrl) ?>"
 														   data-title="<?php echo esc_html_e( 'האם לסמן את המוצר כ"נמכר" ולהסירו מהקטגוריה?', 'outfit-standalone' ); ?>"
-														   data-content="<?php echo esc_html_e( 'פה יכול להיות הסבר על התהליך ואיפה המוצר יוכל להופיע או לא', 'outfit-standalone' ); ?>">
+														   data-content="<?php //echo esc_html_e( 'פה יכול להיות הסבר על התהליך ואיפה המוצר יוכל להופיע או לא', 'outfit-standalone' ); ?>">
 															<span class="remove-post">
 																<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/remove-check.png" />
 																<?php esc_html_e('סמן כנמכר', 'outfit-standalone'); ?>

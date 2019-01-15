@@ -847,7 +847,7 @@ get_header(); ?>
 							<!--Address-->
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף עיקרית', 'outfit-standalone'); ?><span>*</span></label>
-								<div><small><?php echo do_shortcode("[do_widget id=text-21]"); ?></small></div>
+								<div><?php echo do_shortcode("[do_widget id=text-21]"); ?></div>
 								<div class="item">
 									<input id="address" type="text" name="address" class="address form-control form-control-md" value="<?php echo esc_html($postAddress); ?>" placeholder="<?php esc_html_e('כתובת מלאה', 'outfit-standalone') ?>" required>
 									<input class="latitude" type="hidden" id="latitude" name="latitude" value="<?php echo esc_html($postLatitude); ?>">
@@ -862,7 +862,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> : </label>
 								<div class="item">
-									<input id="address_2" type="text" name="address_2" class="address form-control form-control-md" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('כתובת או עיר	', 'outfit-standalone') ?>">
+									<input id="address_2" type="text" name="address_2" class="address form-control form-control-md" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('כתובת מלאה	', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2" value="<?php echo esc_html($postSecLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2" value="<?php echo esc_html($postSecLongitude); ?>">
 									<input class="locality" type="hidden" id="locality_2" name="locality_2" value="<?php echo esc_html($postSecLocality); ?>">
@@ -875,7 +875,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> : </label>
 								<div class="item">
-									<input id="address_3" type="text" name="address_3" class="address form-control form-control-md" value="<?php echo esc_html($postThirdAddress); ?>" placeholder="<?php esc_html_e('כתובת או עיר	', 'outfit-standalone') ?>">
+									<input id="address_3" type="text" name="address_3" class="address form-control form-control-md" value="<?php echo esc_html($postThirdAddress); ?>" placeholder="<?php esc_html_e('כתובת מלאה	', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude_3" name="latitude_3" value="<?php echo esc_html($postThirdLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude_3" name="longitude_3" value="<?php echo esc_html($postThirdLongitude); ?>">
 									<input class="locality" type="hidden" id="locality_3" name="locality_3" value="<?php echo esc_html($postThirdLocality); ?>">

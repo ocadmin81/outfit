@@ -362,14 +362,14 @@ get_header();
 									<input class="aal2" type="hidden" id="aal2" name="aal2" value="<?php echo esc_html($postArea2); ?>">
 									<input class="aal1" type="hidden" id="aal1" name="aal1" value="<?php echo esc_html($postArea1); ?>">
 								</div>
-								<div><small><?php echo do_shortcode("[do_widget id=text-21]"); ?></small></div>
+								<div><?php echo do_shortcode("[do_widget id=text-21]"); ?></div>
 							</div>
 
 							<div class="form-group col-sm-6">
 								<label class="text-left flip"><?php esc_html_e('איזורי הגעה נוספים ( לא חובה)', 'outfit-standalone'); ?> : </label>
 								<div class="inner-addon">
 
-									<input id="address_2" type="text" name="address_2" class="address form-control form-control-sm" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('', 'outfit-standalone') ?>">
+									<input id="address_2" type="text" name="address_2" class="address form-control form-control-sm" value="<?php echo esc_html($postSecAddress); ?>" placeholder="<?php esc_html_e('כתובת מלאה', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2" value="<?php echo esc_html($postSecLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude_2" name="longitude_2" value="<?php echo esc_html($postSecLongitude); ?>">
 									<input class="locality" type="hidden" id="locality_2" name="locality_2" value="<?php echo esc_html($postSecLocality); ?>">
@@ -383,7 +383,7 @@ get_header();
 
 								<div class="inner-addon" id="plus-location-hidden">
 
-									<input id="address_3" type="text" name="address_3" class="address form-control form-control-sm" value="<?php echo esc_html($postThirdAddress); ?>" placeholder="<?php esc_html_e('', 'outfit-standalone') ?>">
+									<input id="address_3" type="text" name="address_3" class="address form-control form-control-sm" value="<?php echo esc_html($postThirdAddress); ?>" placeholder="<?php esc_html_e('כתובת מלאה', 'outfit-standalone') ?>">
 									<input class="latitude" type="hidden" id="latitude_3" name="latitude_3" value="<?php echo esc_html($postThirdLatitude); ?>">
 									<input class="longitude" type="hidden" id="longitude_3" name="longitude_3" value="<?php echo esc_html($postThirdLongitude); ?>">
 									<input class="locality" type="hidden" id="locality_3" name="locality_3" value="<?php echo esc_html($postThirdLocality); ?>">
@@ -460,7 +460,7 @@ get_header();
 
 							<!-- Update your Password -->
 							<h4 class="user-detail-section-heading text-uppercase"><?php esc_html_e( 'שינוי סיסמא', 'outfit-standalone' ); ?></h4>
-							<div class="ex"><p><?php esc_html_e( 'אם ברצונך לשנות סיסמא הכנס חדשה, אחרת אשאר ריק', 'outfit-standalone' ); ?></p></div>
+							<div class="ex"><p><?php esc_html_e( 'אם ברצונך לשנות סיסמא הכנס חדשה, אחרת השאר ריק', 'outfit-standalone' ); ?></p></div>
 							<div class="form-inline row" style="display:none;">
 								<div class="form-group col-sm-5">
 									<label for="current-pass">

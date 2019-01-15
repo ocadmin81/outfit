@@ -598,7 +598,7 @@ get_header(); ?>
 							<!--Address-->
 							<div class="form-group">
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף עיקרית', 'outfit-standalone'); ?> <span>*</span></label>
-								<div><small><?php echo do_shortcode("[do_widget id=text-21]"); ?></small></div>
+								<div><?php echo do_shortcode("[do_widget id=text-21]"); ?></div>
 								<div class="item">
 									<input class="address form-control form-control-md" id="address" type="text"
 										   name="address" placeholder="<?php esc_html_e('כתובת מלאה', 'outfit-standalone') ?>"
@@ -622,7 +622,7 @@ get_header(); ?>
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> </label>
 								<div class="item">
 									<input class="address form-control form-control-md" id="address_2" type="text"
-										   name="address_2" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>"
+										   name="address_2" placeholder="<?php esc_html_e('כתובת מלאה', 'outfit-standalone') ?>"
 										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getAddress() : ''); ?>">
 									<input class="latitude" type="hidden" id="latitude_2" name="latitude_2"
 										   value="<?php echo (null != $userSecondaryLocation? $userSecondaryLocation->getLatitude() : ''); ?>">
@@ -643,7 +643,7 @@ get_header(); ?>
 								<label class="text-left flip"><?php esc_html_e('נקודת איסוף נוספת (לא חובה)', 'outfit-standalone'); ?> </label>
 								<div class="item">
 									<input class="address form-control form-control-md" id="address_3" type="text"
-										   name="address_3" placeholder="<?php esc_html_e('כתובת או עיר', 'outfit-standalone') ?>"
+										   name="address_3" placeholder="<?php esc_html_e('כתובת מלאה', 'outfit-standalone') ?>"
 										   value="<?php echo (null != $userThirdLocation? $userThirdLocation->getAddress() : ''); ?>">
 									<input class="latitude" type="hidden" id="latitude_3" name="latitude_3"
 										   value="<?php echo (null != $userThirdLocation? $userThirdLocation->getLatitude() : ''); ?>">
