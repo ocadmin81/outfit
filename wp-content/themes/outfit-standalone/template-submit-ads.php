@@ -316,9 +316,15 @@ if(isset( $_POST['postTitle'] )) {
 				if (null !== $location2 && $location2->isValid()) {
 					update_user_meta($userId, USER_META_SECONDARY_ADDRESS, $location2->toString());
 				}
+				else {
+					delete_user_meta($userId, USER_META_SECONDARY_ADDRESS);
+				}
 
 				if (null !== $location3 && $location3->isValid()) {
 					update_user_meta($userId, USER_META_THIRD_ADDRESS, $location3->toString());
+				}
+				else {
+					delete_user_meta($userId, USER_META_THIRD_ADDRESS);
 				}
 			//}
 

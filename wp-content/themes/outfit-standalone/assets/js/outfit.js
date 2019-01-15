@@ -462,7 +462,7 @@ jQuery(document).ready(function(jQuery){
                 jQuery('.post-brands-container').toggleRequired(1);
             }
         }
-        jQuery('#primaryPostForm').validator('update');
+        //jQuery('#primaryPostForm').validator('update');
 
     });
 
