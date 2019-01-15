@@ -592,7 +592,7 @@ get_header(); ?>
 								</div><!-- /Ad Category-->
 
 								<div class="form-group post-sub-cat-container perfit-cats toggle-required" style="<?php echo (count($subCategories)? '' : 'display: none;'); ?>">
-									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?></label>
+									<label class="text-left flip"><?php esc_html_e('תת קטגוריה', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="subcategory" name="postSubcategory" class="reg form-control form-control-md">
 											<option value=""><?php esc_html_e('בחירת תת קטגוריה', 'outfit-standalone'); ?></option>
@@ -621,7 +621,7 @@ get_header(); ?>
 								</div><!-- /Ad Sub Category-->
 
 								<div class="form-group post-sub-sub-cat-container perfit-cats toggle-required" style="<?php echo (count($subSubCategories)? '' : 'display: none;'); ?>">
-									<label class="text-left flip"><?php esc_html_e('סוג', 'outfit-standalone') ?></label>
+									<label class="text-left flip"><?php esc_html_e('סוג', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="subsubcategory" name="postSubSubcategory" class="reg form-control form-control-md">
 											<option value=""><?php esc_html_e('בחירת תת קטגוריה', 'outfit-standalone'); ?></option>
@@ -654,7 +654,8 @@ get_header(); ?>
 									<label class="text-left flip"><?php esc_html_e('צבע', 'outfit-standalone') ?><span>*</span> </label>
 									<div class="item">
 										<select id="color" name="postColor[]" class="reg form-control form-control-md"
-											<?php echo (($filterBy && $filterBy->catFilterByColor)? 'required' : ''); ?>>											
+											<?php echo (($filterBy && $filterBy->catFilterByColor)? 'required' : ''); ?>>
+											<option></option>
 											<?php
 											foreach ($colors as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"
@@ -667,10 +668,11 @@ get_header(); ?>
 
 								<div class="form-group post-age-groups-container toggle-required"
 									 style="<?php echo (($filterBy && $filterBy->catFilterByAge)? '' : 'display: none;'); ?>">
-									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?><span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="ageGroup" name="postAgeGroup[]" class="reg ageGroup form-control form-control-md"
 											<?php echo (($filterBy && $filterBy->catFilterByAge)? 'required' : ''); ?> multiple>
+											<option></option>
 											<?php
 											foreach ($ageGroups as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"
@@ -684,10 +686,11 @@ get_header(); ?>
 
 								<div class="form-group post-brands-container toggle-required"
 									 style="<?php echo (($filterBy && $filterBy->catFilterByBrand)? '' : 'display: none;'); ?>">
-									<label class="text-left flip"><?php esc_html_e('מותג', 'outfit-standalone') ?><span>*</span> </label>
+									<label class="text-left flip"><?php esc_html_e('מותג', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="brand" name="postBrand[]" class="brand-select reg form-control form-control-md"
 											<?php echo (($filterBy && $filterBy->catFilterByBrand)? 'required' : ''); ?>>
+											<option></option>
 											<?php
 											foreach ($brands as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"
