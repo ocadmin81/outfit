@@ -137,6 +137,14 @@ if(isset( $_POST['postTitle'] )) {
 			$postPhone = trim(getPostInput('postPhone'));
 			$postPreferredHours = trim(getPostInput('postPreferredHours'));
 
+			// post location
+			delete_post_meta($postId, POST_META_LOCATION);
+			delete_post_meta($postId, POST_META_LOCATION_2);
+			delete_post_meta($postId, POST_META_LOCALITY_TAG);
+			delete_post_meta($postId, POST_META_AREA1_TAG);
+			delete_post_meta($postId, POST_META_AREA2_TAG);
+			delete_post_meta($postId, POST_META_AREA3_TAG);
+
 			// post primary location
 			$postAddress = trim(getPostInput('address'));
 			$postLatitude = getPostInput('latitude');
@@ -154,11 +162,11 @@ if(isset( $_POST['postTitle'] )) {
 			]);
 
 			if ($location->isValid()) {
-				update_post_meta($postId, POST_META_LOCATION, $location->toString());
-				update_post_meta($postId, POST_META_LOCALITY_TAG, $postLocality);
-				update_post_meta($postId, POST_META_AREA1_TAG, $postArea1);
-				update_post_meta($postId, POST_META_AREA2_TAG, $postArea2);
-				update_post_meta($postId, POST_META_AREA3_TAG, $postArea3);
+				add_post_meta($postId, POST_META_LOCATION, $location->toString());
+				add_post_meta($postId, POST_META_LOCALITY_TAG, $postLocality);
+				add_post_meta($postId, POST_META_AREA1_TAG, $postArea1);
+				add_post_meta($postId, POST_META_AREA2_TAG, $postArea2);
+				add_post_meta($postId, POST_META_AREA3_TAG, $postArea3);
 			}
 
 			// post secondary location
@@ -180,11 +188,11 @@ if(isset( $_POST['postTitle'] )) {
 				]);
 
 				if ($location2->isValid()) {
-					update_post_meta($postId, POST_META_LOCATION_2, $location2->toString());
-					update_post_meta($postId, POST_META_LOCALITY_TAG, $postSecLocality);
-					update_post_meta($postId, POST_META_AREA1_TAG, $postSecArea1);
-					update_post_meta($postId, POST_META_AREA2_TAG, $postSecArea2);
-					update_post_meta($postId, POST_META_AREA3_TAG, $postSecArea3);
+					add_post_meta($postId, POST_META_LOCATION_2, $location2->toString());
+					add_post_meta($postId, POST_META_LOCALITY_TAG, $postSecLocality);
+					add_post_meta($postId, POST_META_AREA1_TAG, $postSecArea1);
+					add_post_meta($postId, POST_META_AREA2_TAG, $postSecArea2);
+					add_post_meta($postId, POST_META_AREA3_TAG, $postSecArea3);
 				}
 			}
 
@@ -207,11 +215,11 @@ if(isset( $_POST['postTitle'] )) {
 				]);
 
 				if ($location3->isValid()) {
-					update_post_meta($postId, POST_META_LOCATION_3, $location3->toString());
-					update_post_meta($postId, POST_META_LOCALITY_TAG, $postThirdLocality);
-					update_post_meta($postId, POST_META_AREA1_TAG, $postThirdArea1);
-					update_post_meta($postId, POST_META_AREA2_TAG, $postThirdArea2);
-					update_post_meta($postId, POST_META_AREA3_TAG, $postThirdArea3);
+					add_post_meta($postId, POST_META_LOCATION_3, $location3->toString());
+					add_post_meta($postId, POST_META_LOCALITY_TAG, $postThirdLocality);
+					add_post_meta($postId, POST_META_AREA1_TAG, $postThirdArea1);
+					add_post_meta($postId, POST_META_AREA2_TAG, $postThirdArea2);
+					add_post_meta($postId, POST_META_AREA3_TAG, $postThirdArea3);
 				}
 			}
 

@@ -283,6 +283,7 @@ $metaQueryLocation = array();
 // search by locations
 foreach ($searchLocations as $location) {
 	$meta = $location->suggestMetaKeyValue();
+	//var_dump($meta);
 	if (false !== $meta) {
 		$metaQueryLocation[] = array(
 			'key' => $meta['meta_key'],
@@ -292,7 +293,7 @@ foreach ($searchLocations as $location) {
 	}
 }
 
-if (count($metaQueryLocation)) {
+if (count($metaQueryLocation) > 1) {
 	$metaQueryLocation['relation'] = 'OR';
 }
 
@@ -395,7 +396,8 @@ $inSearch = isset($_GET["cs"]);
 											<?php
 											$countPosts = 0;
 											$wp_query= null;
-											$wp_query = new WP_Query($args);											
+											$wp_query = new WP_Query($args);
+											//var_dump($wp_query->request);
 											while ($wp_query->have_posts()) : $wp_query->the_post();
 												get_template_part( 'templates/loops/product');
 												$countPosts++;
