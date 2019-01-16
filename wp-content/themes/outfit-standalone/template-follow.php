@@ -1,6 +1,6 @@
 <?php
 /**
- * Template name: Favorite Ads
+ * Template name: Favorite Sellers
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
