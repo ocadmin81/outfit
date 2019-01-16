@@ -428,7 +428,7 @@ jQuery(document).ready(function(jQuery){
                 if(response){
                     jQuery('.post-sub-cat-container').show();
                     jQuery('.post-sub-cat-container').toggleRequired(1);
-                    jQuery('#outfitPrimaryPostForm').validator('update');
+                    //jQuery('#outfitPrimaryPostForm').validator('validate');
                 }
             });
 
@@ -438,7 +438,7 @@ jQuery(document).ready(function(jQuery){
                 if(response){
                     if (brandFilter == '1') {
                         jQuery('.post-brands-container').toggleRequired(1);
-                        //jQuery('#outfitPrimaryPostForm').validator('update');
+                        //jQuery('#outfitPrimaryPostForm').validator('validate');
                     }
                 }
             });
@@ -448,14 +448,14 @@ jQuery(document).ready(function(jQuery){
             jQuery('.post-sub-cat-container').show();
             if (brandFilter == '1') {
                 jQuery('.post-brands-container').toggleRequired(1);
-                //jQuery('#outfitPrimaryPostForm').validator('update');
+                //jQuery('#outfitPrimaryPostForm').validator('validate');
             }
             jQuery.post(ajaxurl, data, function(response){
                 jQuery('.post-sub-sub-cat-container select').html(response);
                 if(response){
                     jQuery('.post-sub-sub-cat-container').show();
                     jQuery('.post-sub-sub-cat-container').toggleRequired(1);
-                    jQuery('#outfitPrimaryPostForm').validator('update');
+                    //jQuery('#outfitPrimaryPostForm').validator('validate');
                 }
             });
         }
@@ -465,6 +465,7 @@ jQuery(document).ready(function(jQuery){
             if (brandFilter == '1') {
                 jQuery('.post-brands-container').toggleRequired(1);
             }
+            //jQuery('#outfitPrimaryPostForm').validator('validate');
         }
         //jQuery('#primaryPostForm').validator('update');
 
@@ -1397,12 +1398,29 @@ jQuery(document).ready(function(jQuery){
 				var eText = jQuery('#postAgreeToTerms').attr('data-error');				
 				jQuery('#postAgreeToTerms').parent().find('.with-errors').text(eText);
 			}*/
+            var selectAge = jQuery('#ageGroup');
+            var val = (selectAge.val() || []).length;
+            if (val == 0) {
+                //selectAge.closest('.form-group').addClass('has-error has-danger');
+            }
+            else {
+                //selectAge.closest('.form-group').removeClass('has-error has-danger');
+            }
             if (jQuery('.imgInp').length >= 4 && jQuery('#imgInp0').val() == '') {
                 jQuery('#attachment-error').text('תעלו לפחות תמונה אחת');
+                jQuery('#mydropzone').closest('.form-group').addClass('has-error has-danger');
+                jQuery('html, body').animate({scrollTop: jQuery('#mydropzone').offset().top - 20}, 250)
+            }
+            else {
+                jQuery('#attachment-error').text('');
+                jQuery('#mydropzone').closest('.form-group').removeClass('has-error has-danger');
             }
             if (jQuery('#postAgreeToTerms').prop('checked') == false) {
                 var eText = jQuery('#postAgreeToTerms').attr('data-error');
                 jQuery('#postAgreeToTerms').parent().find('.with-errors').text(eText);
+            }
+            else {
+                jQuery('#postAgreeToTerms').parent().find('.with-errors').text('');
             }
 		}
         else {

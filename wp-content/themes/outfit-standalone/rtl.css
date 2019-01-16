@@ -1459,3 +1459,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	border-radius: 2px !important;
 	margin-right: -5px;
 }
+.form-group.has-error .classiera-image-upload {
+	border: solid 1px #ffd1ca !important;
+	border-radius: 2px !important;
+}

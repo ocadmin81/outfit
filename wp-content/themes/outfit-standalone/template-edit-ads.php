@@ -678,7 +678,6 @@ get_header(); ?>
 									<div class="item">
 										<select id="ageGroup" name="postAgeGroup[]" class="reg ageGroup form-control form-control-md"
 											<?php echo (($filterBy && $filterBy->catFilterByAge)? 'required' : ''); ?> multiple>
-											<option></option>
 											<?php
 											foreach ($ageGroups as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"

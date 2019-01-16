@@ -465,7 +465,6 @@ get_header(); ?>
 									<label class="text-left flip"><?php esc_html_e('קבוצות גיל', 'outfit-standalone') ?> <span>*</span> </label>
 									<div class="item">
 										<select id="ageGroup" name="postAgeGroup[]" class="reg ageGroup form-control form-control-md" multiple>		
-										<!--<option value=""><?php //esc_html_e('בחירת קבוצת גיל', 'outfit-standalone'); ?></option>-->
 											<?php
 											foreach ($ageGroups as $c): ?>
 												<option value="<?php echo $c->term_id; ?>"><?php esc_html_e($c->name); ?></option>
