@@ -18,7 +18,7 @@ function outfit_scripts_styles(){
 	wp_enqueue_script('jquery.min', get_template_directory_uri() . '/assets/js/jquery.min.js', 'jquery', '', true);
 	wp_enqueue_script('bootstrap.min', get_template_directory_uri() . '/assets/js/bootstrap.min.js', 'jquery', '', true);
 	wp_enqueue_script('bootstrap-dropdownhover', get_template_directory_uri() . '/assets/js/bootstrap-dropdownhover.js', 'jquery', '', true);
-	wp_enqueue_script('validator.min', get_template_directory_uri() . '/assets/js/validator.min.js', 'jquery', '', true);
+	wp_enqueue_script('validator', get_template_directory_uri() . '/assets/js/validator.js', 'jquery', '', true);
 	wp_enqueue_script('owl.carousel.min', get_template_directory_uri() . '/assets/js/owl.carousel.min.js', 'jquery', '', true);
 	wp_enqueue_script('jquery.matchHeight', get_template_directory_uri() . '/assets/js/jquery.matchHeight.js', 'jquery', '', true);
 	wp_enqueue_script('infinitescroll', get_template_directory_uri() . '/assets/js/infinitescroll.js', 'jquery', '', true);

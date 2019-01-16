@@ -1338,7 +1338,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.home-features ul li:last-child{float: none;display: inline-block;}
 	.home-features ul li p{padding: 0 10px;}
 	.start-selling{background: #f5f5f6 url(assets/images/start-selling-bg.jpg) 0px bottom no-repeat;background-size: contain;}
-	..start-selling-text{padding: 15px 13px 35px;}
+	.start-selling-text{padding: 15px 13px 35px;}
 	.footer-newsletter .form .field{display: inline-block;width: 70%;vertical-align: middle;}
 	.footer-newsletter .form .field:last-child{width: 29%;margin-right: -3px;}
 	.footer-newsletter .form .field input[type="email"]{max-width: 100%;}
@@ -1451,4 +1451,11 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 @media screen and (max-width: 320px){
 	.header-left .m-search, .header-left .favourites, .header-left .login{margin-right: 17px;}
 	.header-right .publish a{    font-size: 11px;}
+}
+
+.form-group.has-error .select2-container, .form-group.has-danger .select2-container
+.form-group.has-error .form-control, .form-group.has-danger .form-control {
+	border: solid 1px #ffd1ca !important;
+	border-radius: 2px !important;
+	margin-right: -5px;
 }

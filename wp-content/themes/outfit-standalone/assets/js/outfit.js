@@ -428,6 +428,7 @@ jQuery(document).ready(function(jQuery){
                 if(response){
                     jQuery('.post-sub-cat-container').show();
                     jQuery('.post-sub-cat-container').toggleRequired(1);
+                    jQuery('#outfitPrimaryPostForm').validator('update');
                 }
             });
 
@@ -437,6 +438,7 @@ jQuery(document).ready(function(jQuery){
                 if(response){
                     if (brandFilter == '1') {
                         jQuery('.post-brands-container').toggleRequired(1);
+                        //jQuery('#outfitPrimaryPostForm').validator('update');
                     }
                 }
             });
@@ -446,12 +448,14 @@ jQuery(document).ready(function(jQuery){
             jQuery('.post-sub-cat-container').show();
             if (brandFilter == '1') {
                 jQuery('.post-brands-container').toggleRequired(1);
+                //jQuery('#outfitPrimaryPostForm').validator('update');
             }
             jQuery.post(ajaxurl, data, function(response){
                 jQuery('.post-sub-sub-cat-container select').html(response);
                 if(response){
                     jQuery('.post-sub-sub-cat-container').show();
                     jQuery('.post-sub-sub-cat-container').toggleRequired(1);
+                    jQuery('#outfitPrimaryPostForm').validator('update');
                 }
             });
         }
@@ -1385,6 +1389,7 @@ jQuery(document).ready(function(jQuery){
 	/*=====================================
 	Show Loader on Submit Ad Form
 	======================================*/
+
     jQuery('#outfitPrimaryPostForm').validator({disable: false, focus: true}).on('submit', function (e){
 		if (e.isDefaultPrevented()) {	
 			/* bug!!! */
