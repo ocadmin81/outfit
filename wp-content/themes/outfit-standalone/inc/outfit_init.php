@@ -98,7 +98,7 @@ class OutfitInit
 
     private static function create_page_if_null($target, $template) {
 
-        $page = get_page_by_title($target);
+        $page = get_page_by_path($target);
         if ($page == NULL) {
             self::create_page_fly($target, $template);
         }

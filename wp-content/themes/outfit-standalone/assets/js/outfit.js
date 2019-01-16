@@ -1385,7 +1385,7 @@ jQuery(document).ready(function(jQuery){
 	/*=====================================
 	Show Loader on Submit Ad Form
 	======================================*/
-	jQuery('#primaryPostForm').validator({disable: false}).on('submit', function (e){
+    jQuery('#outfitPrimaryPostForm').validator({disable: false, focus: true}).on('submit', function (e){
 		if (e.isDefaultPrevented()) {	
 			/* bug!!! */
             /*if (jQuery('#postAgreeToTerms').prop('checked', false)) {

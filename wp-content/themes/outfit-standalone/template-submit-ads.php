@@ -355,7 +355,7 @@ get_header(); ?>
 			<div class="col-lg-7 col-md-7 col-sm-12 user-content-height ad-form">
 
 				<div class="submit-post section-bg-white">
-					<form class="form-horizontal" action="" role="form" id="primaryPostForm" method="POST" data-toggle="validator" enctype="multipart/form-data">
+					<form class="form-horizontal" action="" role="form" id="outfitPrimaryPostForm" method="POST" data-toggle="validator" enctype="multipart/form-data">
 						<div class="form-main-section post-detail">
 						<!-- add photos and media -->
 							<div class="form-group media">

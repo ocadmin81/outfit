@@ -481,7 +481,7 @@ get_header(); ?>
 			<div class="col-lg-9 col-md-8 ad-form user-content-height edit">
 				<div class="submit-post section-bg-white">
 					<h1 class="text-uppercase border-bottom"><?php esc_html_e('עריכת מודעה', 'outfit-standalone') ?></h1>		
-					<form class="form-horizontal" action="" role="form" id="primaryPostForm" method="POST" data-toggle="validator" enctype="multipart/form-data">
+					<form class="form-horizontal" action="" role="form" id="outfitPrimaryPostForm" method="POST" data-toggle="validator" enctype="multipart/form-data">
 
 						<!-- add photos and media -->
 						<div class="form-main-section media-detail">
