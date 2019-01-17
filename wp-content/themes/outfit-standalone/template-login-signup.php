@@ -258,7 +258,9 @@ if(isset($_POST['op_outfit']) && isset($_POST['submit'])) {
 
 						<div class="login-section <?php echo ($isRegistration? '' : 'active') ?>">
 							<div class="social-login-link">
-								<a class="fb-login fb" href="<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1" onclick="window.location = '<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1&redirect='+window.location.href; return false;"><?php esc_html_e('כניסה באמצעות פייסבוק', 'outfit-standalone') ?></a>														
+								<a class="fb-login fb" href="<?php echo get_site_url(); ?>/wp-login.php?loginSocial=facebook"
+								   data-plugin="nsl" data-action="connect" data-redirect="current" data-provider="facebook"
+								   data-popupwidth="475" data-popupheight="175"><?php esc_html_e('כניסה באמצעות פייסבוק', 'outfit-standalone') ?></a>
 								<?php if($outfitSocialLogin == 1){?>							
                                 <!--Social Plugins-->								
 								<?php if(class_exists('NextendSocialLogin', false)){ ?>
@@ -325,8 +327,10 @@ if(isset($_POST['op_outfit']) && isset($_POST['submit'])) {
 								<?php echo do_shortcode("[do_widget id=text-7]"); ?>
 							</div>
 							<div class="social-login-link">
-								<a class="fb-login fb" href="<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1" onclick="window.location = '<?php echo get_site_url(); ?>/wp-login.php?loginFacebook=1&redirect='+window.location.href; return false;"><?php esc_html_e('כניסה באמצעות פייסבוק', 'outfit-standalone') ?></a>														
-								<?php if($outfitSocialLogin == 1){?>							
+								<a class="fb-login fb" href="<?php echo get_site_url(); ?>/wp-login.php?loginSocial=facebook"
+								   data-plugin="nsl" data-action="connect" data-redirect="current" data-provider="facebook"
+								   data-popupwidth="475" data-popupheight="175"><?php esc_html_e('כניסה באמצעות פייסבוק', 'outfit-standalone') ?></a>
+								<?php if($outfitSocialLogin == 1){?>
                                 <!--Social Plugins-->								
 								<?php if(class_exists('NextendSocialLogin', false)){ ?>
 								<!--Nextend Facebook-->
