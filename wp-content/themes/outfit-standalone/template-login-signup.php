@@ -13,12 +13,13 @@ if (isset($_GET['back_to']) && !empty($_GET['back_to'])) {
 	$redirectAfterSuccess = $_GET['back_to'];
 }
 else {
-	$redirectAfterSuccess = outfit_get_page_url('profile_settings');
+	//$redirectAfterSuccess = outfit_get_page_url('profile_settings');
+	$redirectAfterSuccess = outfit_get_page_url('user_all_ads');
 }
 
 if ( is_user_logged_in() ) {
 
-	wp_redirect( outfit_get_page_url('profile_settings') );
+	wp_redirect( $redirectAfterSuccess );
 	exit;
 
 }

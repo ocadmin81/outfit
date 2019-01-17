@@ -1692,3 +1692,12 @@ add_action( 'wp_title', 'outfit_change_title', 10, 3 );
 }
 
 add_filter('request', 'remove_page_from_query_string');*/
+
+function outfit_nsl_register_new_user($userId, $provider) {
+	$userFirstName = $provider->getAuthUserData('first_name');
+	$userLastName = $provider->getAuthUserData('last_name');
+	update_user_meta($userId, USER_META_FIRSTNAME, $userFirstName);
+	update_user_meta($userId, USER_META_LASTNAME, $userLastName);
+}
+
+add_action( 'nsl_register_new_user', 'outfit_nsl_register_new_user', 10, 3 );
