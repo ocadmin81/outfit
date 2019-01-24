@@ -889,15 +889,15 @@ html[lang="he-IL"] button.btn-primary{    margin-top: 15px;width: 250px;color: #
 .post-241 .entry-header{display:none;}
 body.page-two-column:not(.archive) #primary .post-241 .entry-content{width: 100%;}
 .post-241 .entry-title{display:none;}
-.single-post-ad{margin-top: 30px;}
-.single-post-ad{display:block!important;}
-.single-post-ad .img-box .main-img img{max-width: 100%;    position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
-.single-post-ad .img-box .main-img .item{    height: 432px;overflow: hidden;position: relative;}
-.single-post-ad .img-box .thumbs-img .item{margin-bottom: 15px;cursor:pointer;height: 77px;overflow: hidden;position: relative;}
-.single-post-ad .img-box .thumbs-img .item img{width: 100%;    position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
-.single-post-ad .thumbs-img-m .item{height: 350px;overflow: hidden;position: relative;}
-.single-post-ad .thumbs-img-m .item img{    width: 100%;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
-.single-post-ad .img-box .thumbs-img{padding-left: 0;}
+.single-post-prod{margin-top: 30px;}
+.single-post-prod{display:block!important;}
+.single-post-prod .img-box .main-img img{max-width: 100%;    position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
+.single-post-prod .img-box .main-img .item{    height: 432px;overflow: hidden;position: relative;}
+.single-post-prod .img-box .thumbs-img .item{margin-bottom: 15px;cursor:pointer;height: 77px;overflow: hidden;position: relative;}
+.single-post-prod .img-box .thumbs-img .item img{width: 100%;    position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
+.single-post-prod .thumbs-img-m .item{height: 350px;overflow: hidden;position: relative;}
+.single-post-prod .thumbs-img-m .item img{    width: 100%;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;}
+.single-post-prod .img-box .thumbs-img{padding-left: 0;}
 .wish-share button{font-size: 16px;padding-right: 0;background: transparent;}
 /*.wish-share button span{background: url(assets/images/add-to-wish.png) right 0 no-repeat;    background-size: 33px;padding-right: 41px;height: 20px;display: block;}
 .wish-share button.in-fa span{background: url(assets/images/add-to-wish-in.png) right 0 no-repeat;    background-size: 33px;}*/
@@ -916,35 +916,35 @@ body.page-two-column:not(.archive) #primary .post-241 .entry-content{width: 100%
 .middle-ad-column .post-details a{text-decoration:underline!important;}
 .middle-ad-column .post-details li:first-child{padding-top:0;}
 .middle-ad-column .post-details li strong{font-weight: 600;}
-.single-post-ad .post-left{background: #f5f5f6;text-align: center;padding: 30px 30px 15px;}
-.single-post-ad .post-left .user-img img{margin: 0 auto 15px;border-radius: 0;}
-.single-post-ad .author-info .media-heading{    font-weight: 600;font-size: 16px;}
-.single-post-ad .author-info .media-heading a:hover{color:#191919}
-html[lang="he-IL"] .single-post-ad .classiera_follow_user button{background: transparent;border: 1px solid #dadada;padding: 0px 20px;color: #191919;font-size: 16px;height: 45px;width: 100%;text-align: center;}
-html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background: url(assets/images/add-to-seller2.png) right 0 top 0 no-repeat;background-size: 34px;margin: 0;font-size: 16px;display: block;padding-right: 20px;height: 27px;line-height: 27px;}
-html[lang="he-IL"] .single-post-ad .classiera_follow_user button[name="unfollow"] span{background-position: right -27px;}
-.single-post-ad .author-info{    margin-bottom: 20px;}
-.single-post-ad .collect-points{    border-bottom: 1px solid #dadada;margin-bottom: 15px;padding-bottom: 5px;}
-.single-post-ad .collect-points h5,.single-post-ad .collect-details h5{font-weight: 600;font-size: 16px;}
-.single-post-ad .collect-points ul{text-align: right;}
-.single-post-ad .collect-points li span{background: url(assets/images/addr.png) right 0 no-repeat;    display: inline-block;padding-right: 24px;}
-.single-post-ad .collect-details li{display:inline-block;width:100%;}
-.single-post-ad .collect-details li.authorPhone{height: 45px;line-height: 45px;background: #fed3d6;font-size: 18px;margin-bottom: 15px;margin-top: 5px;}
-.single-post-ad .collect-details li.authorPhone span{background: url(assets/images/phone.png) right 2px no-repeat;letter-spacing: 1px!important;    padding-right: 25px;}
-.single-post-ad .collect-details li.PreferredHours span{display:block;}
-.single-post-ad .wish-share form{float: right;}
-.single-post-ad .wish-share .share{float: left;}
-.single-post-ad .wish-share .share ul{list-style: none;margin: 0;}
-.single-post-ad .wish-share .share ul li{float: left;margin-right: 10px;margin-top: 10px;}
-.single-post-ad .wish-share .share ul li a{    color: #707070;}
-.single-post-ad .wish-share.mobile form{width: auto;bottom: 20px;}
-.single-post-ad .wish-share.mobile button{margin: 0;}
-.single-post-ad .wish-share.mobile button span{display: inline-block;}
-.single-post-ad .whatsapp-share{float: right;width: 100%;margin-top: 20px;}
-.single-post-ad .whatsapp-share a{display: block;border: 1px solid #f3f3f3;height: 50px;line-height: 50px;text-align: center;}
-.single-post-ad .whatsapp-share a span{background: url(assets/images/whatsapp.png) right 3px top 12px no-repeat;display: inline-block;padding-right: 33px;background-size: 23px;;}
-.single-post-ad .wish-share.mobile .share ul li{float: none;display: inline-block;}
-.single-post-ad .wish-share.mobile .share{margin-bottom: 15px;text-align: center;width: 100%;}
+.single-post-prod .post-left{background: #f5f5f6;text-align: center;padding: 30px 30px 15px;}
+.single-post-prod .post-left .user-img img{margin: 0 auto 15px;border-radius: 0;}
+.single-post-prod .author-info .media-heading{    font-weight: 600;font-size: 16px;}
+.single-post-prod .author-info .media-heading a:hover{color:#191919}
+html[lang="he-IL"] .single-post-prod .classiera_follow_user button{background: transparent;border: 1px solid #dadada;padding: 0px 20px;color: #191919;font-size: 16px;height: 45px;width: 100%;text-align: center;}
+html[lang="he-IL"] .single-post-prod .classiera_follow_user button span{background: url(assets/images/add-to-seller2.png) right 0 top 0 no-repeat;background-size: 34px;margin: 0;font-size: 16px;display: block;padding-right: 20px;height: 27px;line-height: 27px;}
+html[lang="he-IL"] .single-post-prod .classiera_follow_user button[name="unfollow"] span{background-position: right -27px;}
+.single-post-prod .author-info{    margin-bottom: 20px;}
+.single-post-prod .collect-points{    border-bottom: 1px solid #dadada;margin-bottom: 15px;padding-bottom: 5px;}
+.single-post-prod .collect-points h5,.single-post-prod .collect-details h5{font-weight: 600;font-size: 16px;}
+.single-post-prod .collect-points ul{text-align: right;}
+.single-post-prod .collect-points li span{background: url(assets/images/addr.png) right 0 no-repeat;    display: inline-block;padding-right: 24px;}
+.single-post-prod .collect-details li{display:inline-block;width:100%;}
+.single-post-prod .collect-details li.authorPhone{height: 45px;line-height: 45px;background: #fed3d6;font-size: 18px;margin-bottom: 15px;margin-top: 5px;}
+.single-post-prod .collect-details li.authorPhone span{background: url(assets/images/phone.png) right 2px no-repeat;letter-spacing: 1px!important;    padding-right: 25px;}
+.single-post-prod .collect-details li.PreferredHours span{display:block;}
+.single-post-prod .wish-share form{float: right;}
+.single-post-prod .wish-share .share{float: left;}
+.single-post-prod .wish-share .share ul{list-style: none;margin: 0;}
+.single-post-prod .wish-share .share ul li{float: left;margin-right: 10px;margin-top: 10px;}
+.single-post-prod .wish-share .share ul li a{    color: #707070;}
+.single-post-prod .wish-share.mobile form{width: auto;bottom: 20px;}
+.single-post-prod .wish-share.mobile button{margin: 0;}
+.single-post-prod .wish-share.mobile button span{display: inline-block;}
+.single-post-prod .whatsapp-share{float: right;width: 100%;margin-top: 20px;}
+.single-post-prod .whatsapp-share a{display: block;border: 1px solid #f3f3f3;height: 50px;line-height: 50px;text-align: center;}
+.single-post-prod .whatsapp-share a span{background: url(assets/images/whatsapp.png) right 3px top 12px no-repeat;display: inline-block;padding-right: 33px;background-size: 23px;;}
+.single-post-prod .wish-share.mobile .share ul li{float: none;display: inline-block;}
+.single-post-prod .wish-share.mobile .share{margin-bottom: 15px;text-align: center;width: 100%;}
 html[lang="he-IL"] .user-pages h1,.user-pages .user-detail-section .user-detail-section-heading{font-weight: 600;font-size: 20px;padding-bottom: 10px;margin-bottom: 0;margin-top: 20px;}
 .user-pages.section-gray-bg{padding:50px 0;}
 .submit-post.section-bg-white{padding: 7px 30px 35px;}
@@ -1175,12 +1175,12 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 .mobile-seller .seller-info .seller-icon:after{content:"";background: url(assets/images/seller-info-drop.png) 0 0 no-repeat;    width: 29px;height: 13px;position: absolute;left: 0;right: 0;text-align: center;margin: 0 auto;bottom: -25px;display:none;}
 .mobile-seller .seller-info .phone .seller-icon img{width: 24px;position: absolute;left: 0;right: 0;margin: 0 auto;padding-top: 12px;}
 .mobile-seller .seller-info .area-drop{position: absolute;z-index: 100000;left: 0;right: 0;width: 100%;background: #f5f5f6;text-align: center;margin-top: 22px;display:none;}
-.single-post-ad .mobile-seller .collect-points{padding-bottom: 0;    margin-bottom: 0;border: none;}
-.single-post-ad .mobile-seller .collect-points h5, .single-post-ad .seller-info .collect-details h5{margin-top: 20px;margin-bottom: 0;}
-.single-post-ad .mobile-seller .collect-points ul{    text-align: right;margin-top: 15px;display: inline-block;}
-.single-post-ad .mobile-seller .collect-points ul li{margin-bottom: 10px;}
-.single-post-ad .mobile-seller .collect-details li.authorPhone{width: 80%;margin-top: 15px;}
-.single-post-ad .mobile-seller .collect-details li.PreferredHours{margin-bottom: 15px;}
+.single-post-prod .mobile-seller .collect-points{padding-bottom: 0;    margin-bottom: 0;border: none;}
+.single-post-prod .mobile-seller .collect-points h5, .single-post-prod .seller-info .collect-details h5{margin-top: 20px;margin-bottom: 0;}
+.single-post-prod .mobile-seller .collect-points ul{    text-align: right;margin-top: 15px;display: inline-block;}
+.single-post-prod .mobile-seller .collect-points ul li{margin-bottom: 10px;}
+.single-post-prod .mobile-seller .collect-details li.authorPhone{width: 80%;margin-top: 15px;}
+.single-post-prod .mobile-seller .collect-details li.PreferredHours{margin-bottom: 15px;}
 .mobile-seller .seller-info .seller-info-block.active .seller-info-drop,.mobile-seller .seller-info .seller-info-block.active .seller-icon:after{display:block}
 .remove-post-buttons{position: absolute;top: -12px;right: 25px;z-index: 100;    width: 140px;max-width: 100%;}
 .remove-post-buttons div{background: #fff;border: 1px solid #e0e0e0;border-radius: 35px;padding: 3px 10px;    margin-bottom: 10px;}
@@ -1254,8 +1254,8 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.wrap{padding: 0 15px;}
 	.start-selling-text{height: 70%;}	
 	.header-right div{margin-left: 30px;}
-	.single-post-ad .post-left{padding: 30px 10px 15px;}
-	html[lang="he-IL"] .single-post-ad .classiera_follow_user button{padding: 0;}
+	.single-post-prod .post-left{padding: 30px 10px 15px;}
+	html[lang="he-IL"] .single-post-prod .classiera_follow_user button{padding: 0;}
 	#comments{padding-right: 50px;padding-left: 50px;}
 	.main-navigation ul ul{padding: 0 30px 40px;}
 }
@@ -1268,10 +1268,10 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.navigation-top nav{    margin-bottom: 0;}
 }
 @media screen and (max-width: 991px) and (min-width: 768px){
-	html[lang="he-IL"] .single-post-ad .classiera_follow_user button{padding: 0px 20px;width: auto;text-align: right;}
-	.single-post-ad .post-left .user-img img{    margin: 0 0 15px;}
-	.single-post-ad .post-left{text-align: right;}
-	html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{padding-right: 45px;}
+	html[lang="he-IL"] .single-post-prod .classiera_follow_user button{padding: 0px 20px;width: auto;text-align: right;}
+	.single-post-prod .post-left .user-img img{    margin: 0 0 15px;}
+	.single-post-prod .post-left{text-align: right;}
+	html[lang="he-IL"] .single-post-prod .classiera_follow_user button span{padding-right: 45px;}
 	.author-page .author-info .media-object{width: 110px;height: 110px;}
 	.author-page .author-info .media-img{width: 110px;}
 	.main-navigation a{padding: 0 15px;}
@@ -1364,13 +1364,13 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	html[lang="he-IL"] .ad-form .form-main-btn button.btn-primary{width: 100%;}
 	.submit-post form input[type='checkbox'] + label:before, .submit-post form input[type='radio'] + label:before{padding-right: 0;margin-left: 0px;}
 	.custom-header{padding-bottom: 0;}
-	.single-post-ad .img-box .thumbs-img,.single-post-ad .main-img,.single-post-ad .middle-ad-column,.single-post-ad .post-left-side,.single-post-ad .media-box{padding: 0;}
-	.single-post-ad .media-box{margin-top: 50px;}
-	.single-post-ad .row{margin: 0;}
-	.single-post-ad{    margin-top: 15px;}
+	.single-post-prod .img-box .thumbs-img,.single-post-prod .main-img,.single-post-prod .middle-ad-column,.single-post-prod .post-left-side,.single-post-prod .media-box{padding: 0;}
+	.single-post-prod .media-box{margin-top: 50px;}
+	.single-post-prod .row{margin: 0;}
+	.single-post-prod{    margin-top: 15px;}
 	.post-left-side{float: right;width: 100%;}
-	.single-post-ad .post-left{padding: 30px 30px 15px;}
-	html[lang="he-IL"] .single-post-ad .classiera_follow_user button span{background-position: right 0 top -2px;padding-right: 40px;display: inline-block;}
+	.single-post-prod .post-left{padding: 30px 30px 15px;}
+	html[lang="he-IL"] .single-post-prod .classiera_follow_user button span{background-position: right 0 top -2px;padding-right: 40px;display: inline-block;}
 	.submit-post.section-bg-white{padding: 7px 0 35px;}
 	.edit .submit-post.section-bg-white{padding: 7px 15px 35px;}
 	.submit-post form .form-main-section .classiera-image-upload .classiera-image-box.edit,.submit-post form .form-main-section .classiera-image-upload .classiera-image-box{    width:auto;}	

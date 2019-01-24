@@ -85,7 +85,7 @@ $filterByGender = false;
 
 	?>
 
-	<section class="inner-page-content single-post-page single-post-ad">
+	<section class="inner-page-content single-post-page single-post-prod">
 		<div class="wrap">
 
 			<?php
