@@ -378,7 +378,7 @@ get_header(); ?>
 											<div class="classiera-image-box" id="index-<?php echo $i; ?>">
 												<div class="classiera-upload-box">
 													<input name="image-count" type="hidden" value="<?php echo esc_attr( $imageLimit ); ?>" />
-													<input class="classiera-input-file imgInp" id="imgInp<?php echo esc_attr( $i ); ?>" type="file" name="upload_attachment[]" <?php echo ($i == 0? 'required' : '') ?>>
+													<input class="classiera-input-file imgInp" id="imgInp<?php echo esc_attr( $i ); ?>" type="file" name="upload_attachment[]" <?php //echo ($i == 0? 'required' : '') ?>>
 													<label class="img-label" for="imgInp<?php echo esc_attr( $i ); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/upload-icon.png" /></label>
 													<div class="classiera-image-preview">
 														<img class="my-image" src=""/>

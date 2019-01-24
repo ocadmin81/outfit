@@ -1406,7 +1406,9 @@ jQuery(document).ready(function(jQuery){
             else {
                 //selectAge.closest('.form-group').removeClass('has-error has-danger');
             }
-            if (jQuery('.imgInp').length >= 4 && jQuery('#imgInp0').val() == '') {
+            if (jQuery('.imgInp').length >= 4 &&
+                jQuery('#imgInp0').val() == '' && jQuery('#imgInp1').val() == '' && jQuery('#imgInp2').val() == '' && jQuery('#imgInp3').val() == ''
+            ) {
                 jQuery('#attachment-error').text('תעלו לפחות תמונה אחת');
                 jQuery('#mydropzone').closest('.form-group').addClass('has-error has-danger');
                 jQuery('html, body').animate({scrollTop: jQuery('#mydropzone').offset().top - 20}, 250)
