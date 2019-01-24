@@ -53,9 +53,9 @@ get_header(); ?>
 					</div>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
-					<div class="user-ads favorite-ads">
+					<div class="user-prods favorite-ads">
 						<h1 class="user-detail-section-heading text-uppercase <?php if(!$favoritearray): ?>center<?php endif; ?>"><?php esc_html_e("מוכרים אהובים", 'outfit-standalone') ?></h1>
-						<div class="my-ads">
+						<div class="my-prods">
 							<div class="row">
 								<?php if($favoritearray): ?>
 									<?php foreach ($favoritearray as $aid): ?>
@@ -106,7 +106,7 @@ get_header(); ?>
 								<?php endif; ?>										
 							</div>
 						</div>
-					</div><!--user-ads user-profile-settings-->
+					</div><!--user-prods user-profile-settings-->
 				</div><!--user-detail-section-->
 			</div><!--col-lg-9-->
 		</div><!--row-->

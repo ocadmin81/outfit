@@ -127,8 +127,8 @@ foreach ($postsRows as $i => $postRow) { ?>
 		<div class="row home-cat-row">
 			<div class="col-md-12 user-content-height">
 				<div class="user-detail-section section-bg-white">
-					<div class="user-ads favorite-ads">
-						<div class="my-ads products">
+					<div class="user-prods favorite-ads">
+						<div class="my-prods products">
 							<div class="row">
 								<?php
 								$postsInRow = count($postRow['data']);
@@ -228,7 +228,7 @@ foreach ($postsRows as $i => $postRow) { ?>
 							</div>
 							<?php wp_reset_postdata(); ?>
 						</div>
-					</div><!--user-ads user-profile-settings-->
+					</div><!--user-prods user-profile-settings-->
 				</div><!--user-detail-section-->
 			</div><!--col-lg-9-->
 		</div><!--row-->

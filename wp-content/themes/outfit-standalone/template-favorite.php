@@ -65,7 +65,7 @@ get_header(); ?>
 					</div>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
-					<div class="user-ads favorite-ads">
+					<div class="user-prods favorite-ads">
 					<?php if(!empty($favoritearray)) { ?>
 						<?php
 						foreach ($categories as $c):
@@ -77,7 +77,7 @@ get_header(); ?>
 								if($wp_query->have_posts()) { ?>
 
 								<h1 class="user-detail-section-heading text-uppercase center"><?php echo esc_html($c->name) ?></h1>
-								<div class="my-ads products">
+								<div class="my-prods products">
 									<div class="row">
 
 										<?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
@@ -170,7 +170,7 @@ get_header(); ?>
 							<?php echo do_shortcode("[do_widget id=text-12]"); ?>
 						</div>
 					<?php } ?>
-					</div><!--user-ads user-profile-settings-->
+					</div><!--user-prods user-profile-settings-->
 				</div><!--user-detail-section-->
 			</div><!--col-lg-9-->
 		</div><!--row-->

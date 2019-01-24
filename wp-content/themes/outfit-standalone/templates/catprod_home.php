@@ -21,8 +21,8 @@ $wp_query = new WP_Query( $args );
 <div class="row home-cat-row">
 			<div class="col-md-12 user-content-height">
 				<div class="user-detail-section section-bg-white">
-					<div class="user-ads favorite-ads">
-<div class="my-ads products">
+					<div class="user-prods favorite-ads">
+<div class="my-prods products">
     <div class="row">
         <?php while ($wp_query->have_posts()) : $wp_query->the_post(); ?>
             <div class="col-lg-4 col-md-4 col-sm-6 item">
@@ -82,7 +82,7 @@ $wp_query = new WP_Query( $args );
     </div>
     <?php wp_reset_query(); ?>
 </div>
-</div><!--user-ads user-profile-settings-->
+</div><!--user-prods user-profile-settings-->
 </div><!--user-detail-section-->
 </div><!--col-lg-9-->
 </div><!--row-->

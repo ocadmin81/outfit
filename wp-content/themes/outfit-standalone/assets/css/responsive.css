@@ -355,18 +355,18 @@
   .user-pages aside{
     margin-bottom: 30px;
   }
-  .user-ads .media-left, .user-ads .media-right, .user-ads .media-body{
+  .user-prods .media-left, .user-prods .media-right, .user-prods .media-body{
     display: block;
     text-align: center;
     width: 100%;
   }
-  .user-ads .media-object{
+  .user-prods .media-object{
     margin: 0 auto;
   }
-  .user-ads .media-body{
+  .user-prods .media-body{
     padding: 0 !important;
   }
-  .user-pages .user-detail-section .user-ads.favorite-ads h4{
+  .user-pages .user-detail-section .user-prods.favorite-ads h4{
     margin-bottom: 15px;
   }
   .user-pages .user-detail-section .user-social-profile-links ul li a{
@@ -849,7 +849,7 @@
     border: none;
     padding: 30px 0;
   }
-  .user-pages .user-detail-section .user-ads .media .media-body{
+  .user-pages .user-detail-section .user-prods .media .media-body{
     padding: 0;
   }
   .locations .location-content-v5 ul li{

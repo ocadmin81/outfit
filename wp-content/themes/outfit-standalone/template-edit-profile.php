@@ -271,7 +271,7 @@ get_header();
 					</div>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
-					<div class="user-ads user-profile-settings">
+					<div class="user-prods user-profile-settings">
 						<form data-toggle="validator" role="form" method="POST" id="primaryProfileForm" action="" enctype="multipart/form-data">
 							<!-- upload avatar -->								
 							<h1 class="user-detail-section-heading text-uppercase border-bottom"><?php esc_html_e("פרטים אישיים", 'outfit-standalone') ?></h1>
@@ -498,7 +498,7 @@ get_header();
 							<button type="submit" name="op" value="update_profile" class="btn btn-primary sharp btn-sm btn-style-one"><?php esc_html_e('שמירת שינויים', 'outfit-standalone') ?></button>
 							<!-- Update your Password -->
 						</form>
-					</div><!--user-ads user-profile-settings-->
+					</div><!--user-prods user-profile-settings-->
 				</div><!--user-detail-section-->
 			</div><!--col-lg-9-->
 		</div><!--row-->

@@ -68,9 +68,9 @@ get_header(); ?>
 					</div>
 				<?php } ?>
 				<div class="user-detail-section section-bg-white">
-					<div class="user-ads favorite-ads">
+					<div class="user-prods favorite-ads">
 						<h1 class="user-detail-section-heading text-uppercase <?php if(!$wp_query->have_posts()): ?>center<?php endif; ?>"><?php esc_html_e("המודעות שלי", 'outfit-standalone') ?></h1>
-						<div class="my-ads products">
+						<div class="my-prods products">
 							<div class="row">
 								<?php
 								$wp_query= null;
@@ -188,7 +188,7 @@ get_header(); ?>
 						</div>
 							<?php outfit_pagination(); ?>
 							<?php wp_reset_query(); ?>
-					</div><!--user-ads user-profile-settings-->
+					</div><!--user-prods user-profile-settings-->
 				</div><!--user-detail-section-->
 			</div><!--col-lg-9-->
 		</div><!--row-->
