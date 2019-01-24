@@ -36,7 +36,7 @@ if(!function_exists('outfit_new_ad_email')) {
 				<h1><?php echo esc_html($email_subject); ?>
 				</h1>
 				<?php
-				$link_start = '<a href="'.get_permalink($post->ID).'">';
+				$link_start = '<a href="'.add_query_arg('email', 'admin', get_permalink($post->ID)).'">';
 				$link_end = '</a>';
 				$text = $link_start.esc_html($post->post_title).$link_end;
 				?>
@@ -122,7 +122,7 @@ if(!function_exists('outfit_publish_post_email')) {
 					<?php } ?>
 				<?php } ?>
 				<p style="">
-					<a href="<?php echo esc_url(get_permalink($post->ID)); ?>">
+					<a href="<?php echo esc_url(add_query_arg('email', 'seller', get_permalink($post->ID))); ?>">
 						<img style="width: 100%; padding: 0 15px;" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/email_img2.jpg">
 					</a>
 				</p>

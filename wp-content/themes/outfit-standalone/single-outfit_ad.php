@@ -24,6 +24,19 @@ $userId = $current_user->ID;
 
 $filterByGender = false;
 
+if (isset($_GET['email']) && !is_user_logged_in()) {
+	if ($_GET['email'] == 'admin') {
+		$loginUrl = wp_login_url( get_permalink() );
+		wp_redirect($loginUrl);
+		exit;
+	}
+	else if ($_GET['email'] == 'seller') {
+		$loginUrl = outfit_login_url_back('');
+		wp_redirect($loginUrl);
+		exit;
+	}
+}
+
 ?>
 
 <?php //echo 'curr templ' . $GLOBALS['current_theme_template'] ?>
