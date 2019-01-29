@@ -232,7 +232,7 @@ foreach ($postsRows as $i => $postRow) { ?>
 				</div><!--user-detail-section-->
 			</div><!--col-lg-9-->
 		</div><!--row-->
-			<?php if (!$loggedIn): ?>
+			<?php if (isset($postRow['slug']) && !empty($postRow['slug'])): ?>
 				<div class="cat-link">
 					<a href="category/<?php echo $postRow['slug']; ?>?outfit_ad">הצג עוד</a>
 				</div>
