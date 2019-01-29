@@ -506,7 +506,7 @@ $inSearch = isset($_GET["cs"]);
 													}
 
 													function loadAddressPoints() {
-														var products = jQuery.parseJSON(jQuery('#current-address-points').text());
+														var products = <?php echo json_encode($products); ?>;//jQuery.parseJSON(jQuery('#current-address-points').text());
 
 
 														for (var i = 0; i < products.length; i++){
