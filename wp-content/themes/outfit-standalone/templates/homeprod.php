@@ -53,6 +53,8 @@ else if (isset($_POST['unfavorite'])) {
 $currentUserFavoriteAds = outfit_authors_all_favorite($userId);
 
 $postsRows = array();
+$outfitFollowerPage = outfit_get_page_url('follow');
+$outfitUserFavorite = outfit_get_page_url('favorite_ads');
 
 if ($loggedIn) {
 
@@ -77,15 +79,17 @@ if ($loggedIn) {
 	}
 	$postsRows[] = array(
 		'title' => 'New items to love',
-		'data' => $postsByAgeAndLocation
+		'data' => $postsByAgeAndLocation,
 	);
 	$postsRows[] = array(
 		'title' => 'From your favorite sellers',
-		'data' => $favSellersPosts = outfit_get_posts_of_favorite_sellers($currentUser->ID,$count)
+		'data' => $favSellersPosts = outfit_get_posts_of_favorite_sellers($currentUser->ID,$count),
+		'url' => $outfitFollowerPage
 	);
 	$postsRows[] = array(
 		'title' => 'RECENTLY LOVED',
-		'data' => $wishlist = outfit_get_wishlist_posts($currentUser->ID, $count)
+		'data' => $wishlist = outfit_get_wishlist_posts($currentUser->ID, $count),
+		'url' => $outfitUserFavorite
 	);
 	$postsRows[] = array(
 		'title' => 'Seen lately',
@@ -232,11 +236,15 @@ foreach ($postsRows as $i => $postRow) { ?>
 				</div><!--user-detail-section-->
 			</div><!--col-lg-9-->
 		</div><!--row-->
-			<?php if (isset($postRow['slug']) && !empty($postRow['slug'])): ?>
+			<?php if (isset($postRow['slug']) && !empty($postRow['slug'])) { ?>
 				<div class="cat-link">
 					<a href="category/<?php echo $postRow['slug']; ?>?outfit_ad">הצג עוד</a>
 				</div>
-			<?php endif; ?>		
+			<?php } else if (isset($postRow['url']) && !empty($postRow['url'])) { ?>
+				<div class="cat-link">
+					<a href="<?php echo esc_url($postRow['url']); ?>">הצג עוד</a>
+				</div>
+			<?php } ?>
 	</div>
 	<?php } //if ($wp_query->have_posts()) ?>
 
