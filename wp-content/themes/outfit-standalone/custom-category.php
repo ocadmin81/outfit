@@ -29,6 +29,13 @@ $thisCategory = null;
 $catId = get_queried_object_id();
 $thisCategory = get_category($catId);
 
+$filterBy = false;
+$filterByGender = false;
+
+if (null !== $thisCategory) {
+	$filterBy = fetch_category_custom_fields(get_category($thisCategory->term_id));
+}
+
 $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
 $perPage = 20;
 
@@ -92,7 +99,7 @@ if ($currentUserId) {
 	$searchLocations = outfit_get_preferred_locations($currentUserId);
 
 	//var_dump($searchLocations);
-	if (!empty($searchPrefAge)) {
+	if (!empty($searchPrefAge) && $filterBy && $filterBy->catFilterByAge) {
 		$args['tax_query'] = [array(
 			'taxonomy' => 'age_groups',
 			'field'    => 'term_id',
