@@ -96,6 +96,21 @@ if(isset( $_POST['postTitle'] )) {
 			$hasError = true;
 		}
 		//Image Count check//
+		if ( isset($_FILES['upload_attachment']) ) {
+			foreach ($_FILES['upload_attachment']['name'] as $key => $value) {
+				if ($_FILES['upload_attachment']['name'][$key]) {
+					$fErr = $_FILES['upload_attachment']['error'][$key];
+
+					if ($fErr !== UPLOAD_ERR_OK) {
+						$imageUploadError = esc_html__( 'שגיעת העלעת תמונה', 'outfit-standalone' );
+						$imageUploadError .= ' '.$_FILES['upload_attachment']['name'][$key] . ' ';
+						$imageUploadError .= $fErr;
+						$hasError = true;
+						break;
+					}
+				}
+			}
+		}
 
 		if ($hasError != true) {
 
@@ -396,6 +411,9 @@ get_header(); ?>
 									<?php if ($imageError) { ?>
 										<div class="left-side help-block with-errors" style="color: red;padding-right: 15px;"><?php echo esc_html($imageError); ?></div>
 									<?php } ?>
+									<?php if ($imageUploadError) { ?>
+										<div class="left-side help-block with-errors" style="color: red;padding-right: 15px;"><?php echo esc_html($imageUploadError); ?></div>
+									<?php } ?>
 								</div>
 							</div>
 						<!-- add photos and media -->						
@@ -403,7 +421,7 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip" for="title"><?php esc_html_e('מה אתם מוכרים?', 'outfit-standalone') ?> <span>*</span></label>
 								<div class="item">
-									<input id="title" data-minlength="2" name="postTitle" type="text" class="form-control form-control-md" required>
+									<input id="title" data-minlength="2" name="postTitle" type="text" class="form-control form-control-md" required value="<?php esc_attr(strip_tags($_POST['postTitle'])) ?>">
 
 								</div>
 							</div><!-- /Ad title-->
@@ -603,7 +621,8 @@ get_header(); ?>
 							<div class="form-group">
 								<label class="text-left flip" for="description"><?php esc_html_e('תיאור הפריט', 'outfit-standalone') ?> </label>
 								<div class="item">
-									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('תיאור הפריט', 'outfit-standalone') ?>"></textarea>
+									<textarea name="postContent" id="description" class="form-control" data-error="<?php esc_html_e('תיאור הפריט', 'outfit-standalone') ?>"
+										><?php strip_tags(getPostInput('postContent'), '<h1><h2><h3><strong><b><ul><ol><li><i><a><blockquote><center><embed><iframe><pre><table><tbody><tr><td><video><br>') ?></textarea>
 									<div class="help-block with-errors"></div>
 								</div>
 							</div><!--Ad description-->
