@@ -1432,16 +1432,17 @@ jQuery(document).ready(function(jQuery){
             for (var i = 0; i < imageInputs.length; i++) {
                 var fileName = imageInputs[i].value;
                 if (fileName != '') {
+                    var size = imageInputs[i].files[0].size;
                     var idxDot = fileName.lastIndexOf(".") + 1;
                     var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-                    if (extFile!="jpg" && extFile!="jpeg" && extFile!="png"){
+                    if ((extFile!="jpg" && extFile!="jpeg" && extFile!="png") || size >= (2 * 1024 * 1024)){
                         ok = false;
                     }
                 }
             }
             if (!ok) {
                 e.preventDefault();
-                jQuery('#attachment-error').text('תעלו קבצי תמונה בלבד');
+                jQuery('#attachment-error').text('תעלו קבצי תמונה בלבד' + ', גודל מקסימלי 2M');
                 jQuery('#mydropzone').closest('.form-group').addClass('has-error has-danger');
                 jQuery('html, body').animate({scrollTop: jQuery('#mydropzone').offset().top - 20}, 250)
             }
