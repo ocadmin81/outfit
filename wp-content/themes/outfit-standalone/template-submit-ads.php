@@ -20,6 +20,7 @@ $postTitleError = '';
 $postPriceError = '';
 $catError = '';
 $imageError = '';
+$imageUploadError = '';
 $postContent = '';
 $hasError = false;
 $allowed = '';
@@ -96,20 +97,57 @@ if(isset( $_POST['postTitle'] )) {
 			$hasError = true;
 		}
 		//Image Count check//
-		if ( isset($_FILES['upload_attachment']) ) {
-			foreach ($_FILES['upload_attachment']['name'] as $key => $value) {
-				if ($_FILES['upload_attachment']['name'][$key]) {
-					$fErr = $_FILES['upload_attachment']['error'][$key];
+		$postInfo = array(
+			'post_title' => esc_attr(strip_tags($_POST['postTitle'])),
+			'post_content' => '',
+			'post_type' => OUTFIT_AD_POST_TYPE,
+			'post_status' => 'draft'
+		);
+		$postId = wp_insert_post($postInfo);
 
-					if ($fErr !== UPLOAD_ERR_OK) {
-						$imageUploadError = esc_html__( 'שגיעת העלעת תמונה', 'outfit-standalone' );
-						$imageUploadError .= ' '.$_FILES['upload_attachment']['name'][$key] . ' ';
-						$imageUploadError .= $fErr;
-						$hasError = true;
-						break;
+		if ( isset($_FILES['upload_attachment']) ) {
+
+			$count = 0;
+			$files = $_FILES['upload_attachment'];
+			foreach ($files['name'] as $key => $value) {
+				if ($files['name'][$key]) {
+					$file = array(
+						'name'     => $files['name'][$key],
+						'type'     => $files['type'][$key],
+						'tmp_name' => $files['tmp_name'][$key],
+						'error'    => $files['error'][$key],
+						'size'     => $files['size'][$key]
+					);
+					$_FILES = array("upload_attachment" => $file);
+
+					foreach ($_FILES as $file => $array){
+						$featuredimg = $_POST['outfit_featured_img'];
+						$attachmentId = outfit_insert_attachment($file, $postId);
+
+						if (!$attachmentId) {
+							$imageUploadError = $_FILES[$file]['name'].': '.$_FILES[$file]['error'];
+						}
+						else if (is_wp_error($attachmentId)) {
+							$imageUploadError = $_FILES[$file]['name'].': '.$attachmentId->get_error_message();
+						}
+						if (!empty($imageUploadError)) {
+							$hasError = true;
+							break 2;
+						}
+						if($count == $featuredimg){
+							set_post_thumbnail( $postId, $attachmentId );
+							update_post_meta($postId, POST_META_FEATURED_IMAGE, $featuredimg);
+						}
+						$count++;
 					}
+
 				}
 			}
+		}
+
+		if ($hasError) {
+			wp_delete_post($postId);
+			$postId = 0;
 		}
 
 		if ($hasError != true) {
@@ -137,6 +175,7 @@ if(isset( $_POST['postTitle'] )) {
 
 			//Setup Post Data//
 			$postInfo = array(
+				'ID' => $postId,
 				'post_title' => esc_attr(strip_tags($_POST['postTitle'])),
 				'post_content' => strip_tags(getPostInput('postContent'), '<h1><h2><h3><strong><b><ul><ol><li><i><a><blockquote><center><embed><iframe><pre><table><tbody><tr><td><video><br>'),
 				'post_type' => OUTFIT_AD_POST_TYPE,
@@ -297,7 +336,7 @@ if(isset( $_POST['postTitle'] )) {
 			setPostBicycleSizes($postId, $postBicycleSize);
 
 			//If Its posting featured image//
-			if ( isset($_FILES['upload_attachment']) ) {
+			/*if ( isset($_FILES['upload_attachment']) ) {
                 $count = 0;
                 $files = $_FILES['upload_attachment'];
                 foreach ($files['name'] as $key => $value) {
@@ -323,7 +362,7 @@ if(isset( $_POST['postTitle'] )) {
 
                     }
                 }
-            }
+            }*/
 			//if (isset($_POST['postSavePrefs'])) {
 
 				// save user prefs
@@ -393,7 +432,7 @@ get_header(); ?>
 											<div class="classiera-image-box" id="index-<?php echo $i; ?>">
 												<div class="classiera-upload-box">
 													<input name="image-count" type="hidden" value="<?php echo esc_attr( $imageLimit ); ?>" />
-													<input class="classiera-input-file imgInp" id="imgInp<?php echo esc_attr( $i ); ?>" type="file" name="upload_attachment[]" <?php //echo ($i == 0? 'required' : '') ?>>
+													<input class="classiera-input-file imgInp" id="imgInp<?php echo esc_attr( $i ); ?>" type="file" name="upload_attachment[]" <?php //echo ($i == 0? 'required' : '') ?>  accept="image/x-png,image/gif,image/jpeg" >
 													<label class="img-label" for="imgInp<?php echo esc_attr( $i ); ?>"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/upload-icon.png" /></label>
 													<div class="classiera-image-preview">
 														<img class="my-image" src=""/>

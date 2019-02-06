@@ -1426,7 +1426,28 @@ jQuery(document).ready(function(jQuery){
             }
 		}
         else {
-			jQuery('.loader_submit_form').addClass('active');
+            // validate file types
+            var ok = true;
+            var imageInputs = jQuery('.imgInp');
+            for (var i = 0; i < imageInputs.length; i++) {
+                var fileName = imageInputs[i].value;
+                if (fileName != '') {
+                    var idxDot = fileName.lastIndexOf(".") + 1;
+                    var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
+                    if (extFile!="jpg" && extFile!="jpeg" && extFile!="png"){
+                        ok = false;
+                    }
+                }
+            }
+            if (!ok) {
+                e.preventDefault();
+                jQuery('#attachment-error').text('תעלו קבצי תמונה בלבד');
+                jQuery('#mydropzone').closest('.form-group').addClass('has-error has-danger');
+                jQuery('html, body').animate({scrollTop: jQuery('#mydropzone').offset().top - 20}, 250)
+            }
+            else {
+                jQuery('.loader_submit_form').addClass('active');
+            }
 		}
 	});
 	//mobile menu width
