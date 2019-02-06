@@ -227,6 +227,7 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 					<div class="seller-info">
 						<div class="area seller-info-block">
 							<div class="seller-icon"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/placeholder.svg" /></div>
+							<span class="info-bottom"><?php esc_html_e('מאיפה אוספים', 'outfit-standalone') ?></span>
 							<div class="seller-info-drop area-drop">
 								<div class="widget-content widget-content-post collect-points">
 									<div class="contact-details widget-content-post-area">
@@ -248,6 +249,7 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 						</div>
 						<div class="phone seller-info-block">
 							<div class="seller-icon"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/phone.svg" /></div>
+							<span class="info-bottom"><?php esc_html_e('פרטי התקשרות', 'outfit-standalone') ?></span>
 							<div class="seller-info-drop area-phone area-drop">
 								<div class="widget-content widget-content-post collect-details">
 									<div class="contact-details widget-content-post-area">
@@ -273,6 +275,10 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 						</div>
 					</div>
 				</div>
+				<script>
+					var Swisth = jQuery( window ).width();
+					jQuery(".mobile-seller .seller-info .area-drop").css( "width",Swisth );
+				</script>
 			<?php endif; ?>
 			<div class="row">
 				<div class="col-md-5 col-sm-6 media-box">
