@@ -1363,7 +1363,7 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.submit-post form input[type='checkbox'] + label:before, .submit-post form input[type='radio'] + label:before{padding-right: 0;margin-left: 0px;}
 	.custom-header{padding-bottom: 0;}
 	.single-post-prod .img-box .thumbs-img,.single-post-prod .main-img,.single-post-prod .middle-ad-column,.single-post-prod .post-left-side,.single-post-prod .media-box{padding: 0;}
-	.single-post-prod .media-box{margin-top: 50px;}
+	.single-post-prod .media-box{margin-top: 0;}
 	.single-post-prod .row{margin: 0;}
 	.single-post-prod{    margin-top: 15px;}
 	.post-left-side{float: right;width: 100%;}
