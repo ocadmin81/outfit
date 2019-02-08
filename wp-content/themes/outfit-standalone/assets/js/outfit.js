@@ -1435,7 +1435,7 @@ jQuery(document).ready(function(jQuery){
                     var size = imageInputs[i].files[0].size;
                     var idxDot = fileName.lastIndexOf(".") + 1;
                     var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-                    if ((extFile!="jpg" && extFile!="jpeg" && extFile!="png") || size >= (2 * 1024 * 1024)){
+                    if ((extFile!="gif" && extFile!="jpg" && extFile!="jpeg" && extFile!="png") || size >= (100 * 1024 * 1024)){
                         ok = false;
                     }
                 }

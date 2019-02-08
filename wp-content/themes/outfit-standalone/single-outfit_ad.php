@@ -298,15 +298,19 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 							<div class="row">
 								<!-- Wrapper for slides -->
 								<?php if (!$detect->isMobile() || $detect->isTablet()): ?>
+									<?php $firstatt = ''; ?>
 									<?php if(!empty($attachments)){ ?>
 										<div class="col-md-2 col-sm-2 thumbs-img">
 										<?php
 										$count = 1;
 										foreach($attachments as $att_id => $attachment){
 											$full_img_url = wp_get_attachment_url($attachment->ID);
+											if ($count == 1) {
+												$firstatt = $full_img_url;
+											}
 											?>
 											<div class="item <?php if($count == 1){ echo "active"; }?>">
-												<a href="<?php echo esc_url($full_img_url); ?>" class="fancybox">
+												<a data-attid="<?php echo $att_id ?>" href="<?php echo esc_url($full_img_url); ?>" class="fancybox">
 													<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
 												</a>
 											</div>
@@ -317,10 +321,12 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 										</div>										
 									<?php } ?>
 									<div class="col-md-10 col-sm-10 main-img" role="listbox">
-									<?php $image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' ); ?>
+									<?php
+									$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+									?>
 										<div class="item">
 											<a href="<?php echo esc_url($image[0]); ?>" class="fancybox">
-												<img class="img-responsive" src="<?php echo esc_url($image[0]); ?>" alt="<?php the_title(); ?>">
+												<img class="img-responsive" src="<?php echo esc_url($image? $image[0] : $firstatt); ?>" alt="<?php the_title(); ?>">
 											</a>
 										</div>
 										<div class="wish-share">
@@ -356,7 +362,7 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 												$full_img_url = wp_get_attachment_url($attachment->ID);
 												?>
 												<div class="item <?php if($count == 1){ echo "active"; }?>">
-													<a href="<?php echo esc_url($full_img_url); ?>" class="fancybox">
+													<a data-attid="<?php echo $att_id ?>" href="<?php echo esc_url($full_img_url); ?>" class="fancybox">
 														<img class="img-responsive" src="<?php echo esc_url($full_img_url); ?>" alt="<?php the_title(); ?>">
 													</a>
 												</div>
