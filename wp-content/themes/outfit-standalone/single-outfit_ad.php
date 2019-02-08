@@ -212,74 +212,6 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 					</p>
 				</div>
 			<?php } ?>
-			<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
-				<div class="mobile-seller">
-					<div class="seller-img-link">
-						<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
-							<?php if($authorAvatarUrl): ?>
-								<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
-							<?php else: ?>
-								<img class="media-object" src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/user-placeholder.png" alt="<?php echo esc_attr($postAuthorName); ?>">
-							<?php endif; ?>
-							<span><?php echo esc_attr($postAuthorName); ?></span>
-						</a>
-					</div>
-					<div class="seller-info">
-						<div class="area seller-info-block">
-							<div class="seller-icon"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/placeholder.svg" /></div>
-							<span class="info-bottom"><?php esc_html_e('מאיפה אוספים', 'outfit-standalone') ?></span>
-							<div class="seller-info-drop area-drop">
-								<div class="widget-content widget-content-post collect-points">
-									<div class="contact-details widget-content-post-area">
-										<h5 class="text-uppercase"><?php esc_html_e('נקודות איסוף', 'outfit-standalone') ?></h5>
-										<ul class="list-unstyled c-detail">
-											<?php if (!empty($postAddress)) { ?>
-												<li><span><?php echo esc_html($postAddress);?></span></li>
-											<?php } ?>
-											<?php if (!empty($postSecAddress)) { ?>
-												<li><span><?php echo esc_html($postSecAddress);?></span></li>
-											<?php } ?>
-											<?php if (!empty($postThirdAddress)) { ?>
-												<li><span><?php echo esc_html($postThirdAddress);?></span></li>
-											<?php } ?>
-										</ul>
-									</div>
-								</div><!--widget-content-->								
-							</div>
-						</div>
-						<div class="phone seller-info-block">
-							<div class="seller-icon"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/phone.svg" /></div>
-							<span class="info-bottom"><?php esc_html_e('פרטי התקשרות', 'outfit-standalone') ?></span>
-							<div class="seller-info-drop area-phone area-drop">
-								<div class="widget-content widget-content-post collect-details">
-									<div class="contact-details widget-content-post-area">
-										<h5 class="text-uppercase"><?php esc_html_e('ליצירת קשר עם המוכר/ת', 'outfit-standalone') ?></h5>
-										<ul class="list-unstyled c-detail">
-											<?php if(!empty($authorPhone)){?>
-												<li class="authorPhone">
-													<a href="tel:<?php echo esc_html($authorPhone); ?>"><span class=""><?php echo esc_html($authorPhone);?></a></span>
-												</li>
-											<?php } ?>
-											<?php if(!empty($authorPreferredHours)){?>
-												<li class="PreferredHours">
-													<span class="title"><?php esc_html_e('*שעה נוחה להתקשרות', 'outfit-standalone') ?>:</span>
-													<span>
-														<?php echo esc_html($authorPreferredHours);?>
-													</span>
-												</li>
-											<?php } ?>
-										</ul>
-									</div><!--contact-details-->
-								</div>							
-							</div>
-						</div>
-					</div>
-				</div>
-				<script>
-					var Swisth = jQuery( window ).width();
-					jQuery(".mobile-seller .seller-info .area-drop").css( "width",Swisth );
-				</script>
-			<?php endif; ?>
 			<div class="row">
 				<div class="col-md-5 col-sm-6 media-box">
 					<!-- single post carousel-->
@@ -546,7 +478,6 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 						</div>	
 					<?php endif; ?>
 				</div>
-				<?php if (!$detect->isMobile() || $detect->isTablet()): ?>
 				<div class="col-md-3 col-sm-12 post-left-side">
 					<div class="post-left">
 						<div class="widget-box">
@@ -623,7 +554,6 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 						</div>
 					</div>
 				</div>
-				<?php endif; ?>
 			</div>
 		</div>
 
