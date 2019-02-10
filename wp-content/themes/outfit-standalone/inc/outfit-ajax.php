@@ -19,7 +19,7 @@ function outfitAddToFavoritesLoggedIn() {
     $userId = $current_user->ID;
     if (isset($_GET['post_id']) && !empty($userId) && !empty($_GET['post_id'])) {
         outfit_insert_author_favorite($userId, $_GET['post_id']);
-        wp_send_json(['result' => 'added']);
+        wp_send_json(['result' => 'added', 'count' => outfit_wishlist_count_shortcode()]);
     }
     else {
         wp_send_json(['error' => 'no post id']);
@@ -33,7 +33,7 @@ function outfitRemoveFromFavoritesLoggedIn() {
     $userId = $current_user->ID;
     if (isset($_GET['post_id']) && !empty($userId) && !empty($_GET['post_id'])) {
         outfit_delete_author_favorite($userId, $_GET['post_id']);
-        wp_send_json(['result' => 'removed']);
+        wp_send_json(['result' => 'removed', 'count' => outfit_wishlist_count_shortcode()]);
     }
     else {
         wp_send_json(['error' => 'no post id']);

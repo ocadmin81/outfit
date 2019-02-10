@@ -1399,10 +1399,12 @@ jQuery(document).ready(function(jQuery){
                     else if(response.result == 'added'){
                         button.addClass('in-wish');
                         button.val("unfavorite");
+                        jQuery('.site-branding .favourites .count').text(response.count);
                     }
                     else if (response.result == 'removed') {
                         button.removeClass('in-wish');
                         button.val("favorite");
+                        jQuery('.site-branding .favourites .count').text(response.count);
                     }
                 }
             });
