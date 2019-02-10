@@ -25,8 +25,8 @@ function outfitAddToFavoritesLoggedIn() {
         wp_send_json(['error' => 'no post id']);
     }
 }
-add_action('wp_ajax_outfit_unfavorite_post', 'outfitAddToFavoritesLoggedIn');
-add_action('wp_ajax_nopriv_outfit_unfavorite_post', 'outfitAddToFavoritesLoggedIn');//for users that are not logged in.
+add_action('wp_ajax_outfit_unfavorite_post', 'outfitRemoveFromFavoritesLoggedIn');
+add_action('wp_ajax_nopriv_outfit_unfavorite_post', 'outfitRemoveFromFavoritesLoggedIn');//for users that are not logged in.
 function outfitRemoveFromFavoritesLoggedIn() {
     global $current_user;
     wp_get_current_user();
