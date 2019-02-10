@@ -1383,6 +1383,31 @@ jQuery(document).ready(function(jQuery){
 		});
 	  
 	});
+
+    jQuery("form.fav-form").on("submit", function(e) {
+        e.preventDefault();
+        var postId = this.elements["post_id"].value;
+        var target = e.originalEvent || e.originalTarget;
+        var clickedElement = jQuery( target.currentTarget.activeElement);
+        var button = jQuery(clickedElement);
+        var action = button.prop("name");
+        if (postId) {
+            jQuery.get(ajaxurl, {post_id: postId, action: "outfit_"+(action == "favorite"? "favorite_post" : "unfavorite_post")}, function(response){
+                if(response && !response.hasOwnProperty('error')){
+                    if (response.hasOwnProperty('login')) {
+                        // redirect to response.login
+                        window.location.href = response.login;
+                    }
+                    else if(response.result == 'added'){
+                        button.addClass('in-wish');
+                    }
+                    else if (response.result == 'removed') {
+                        button.removeClass('in-wish');
+                    }
+                }
+            });
+        }
+    });
 	/*=====================================
 	End Hide Price Section
 	For specific categories.

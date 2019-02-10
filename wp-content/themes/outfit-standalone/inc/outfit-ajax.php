@@ -1,5 +1,45 @@
 <?php
 /*==========================
+ Add to favorites AJAX Function
+ ===========================*/
+add_action('wp_ajax_outfit_favorite_post', 'outfitAddToFavoritesLoggedIn');
+add_action('wp_ajax_nopriv_outfit_favorite_post', 'outfitAddToFavoritesLoggedOut');//for users that are not logged in.
+function outfitAddToFavoritesLoggedOut() {
+    if (isset($_GET['post_id'])) {
+        $loginUrl = outfit_login_url_back('', 'favorite', $_GET['post_id']);
+        wp_send_json(['login' => $loginUrl]);
+    }
+    else {
+        wp_send_json(['error' => 'no post id']);
+    }
+}
+function outfitAddToFavoritesLoggedIn() {
+    global $current_user;
+    wp_get_current_user();
+    $userId = $current_user->ID;
+    if (isset($_GET['post_id']) && !empty($userId) && !empty($_GET['post_id'])) {
+        outfit_insert_author_favorite($userId, $_GET['post_id']);
+        wp_send_json(['result' => 'added']);
+    }
+    else {
+        wp_send_json(['error' => 'no post id']);
+    }
+}
+add_action('wp_ajax_outfit_unfavorite_post', 'outfitAddToFavoritesLoggedIn');
+add_action('wp_ajax_nopriv_outfit_unfavorite_post', 'outfitAddToFavoritesLoggedIn');//for users that are not logged in.
+function outfitRemoveFromFavoritesLoggedIn() {
+    global $current_user;
+    wp_get_current_user();
+    $userId = $current_user->ID;
+    if (isset($_GET['post_id']) && !empty($userId) && !empty($_GET['post_id'])) {
+        outfit_delete_author_favorite($userId, $_GET['post_id']);
+        wp_send_json(['result' => 'removed']);
+    }
+    else {
+        wp_send_json(['error' => 'no post id']);
+    }
+}
+/*==========================
  Select Sub categories AJAX Function
  ===========================*/
 add_action('wp_ajax_outfitGetSubCatOnClick', 'outfitGetSubCatOnClick');
