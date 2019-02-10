@@ -1388,7 +1388,7 @@ jQuery(document).ready(function(jQuery){
         e.preventDefault();
         var postId = this.elements["post_id"].value;
         var button = jQuery("button[type='submit']", jQuery(this));
-        var action = button.prop("name");
+        var action = button.val();
         if (postId) {
             jQuery.get(ajaxurl, {post_id: postId, action: "outfit_"+(action == "favorite"? "favorite_post" : "unfavorite_post")}, function(response){
                 if(response && !response.hasOwnProperty('error')){
@@ -1398,11 +1398,11 @@ jQuery(document).ready(function(jQuery){
                     }
                     else if(response.result == 'added'){
                         button.addClass('in-wish');
-                        button.prop("name", "unfavorite")
+                        button.val("unfavorite");
                     }
                     else if (response.result == 'removed') {
                         button.removeClass('in-wish');
-                        button.prop("name", "favorite")
+                        button.val("favorite");
                     }
                 }
             });
