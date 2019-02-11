@@ -1026,7 +1026,7 @@ function outfit_insert_attachment($file_handler,$post_id) {
 	return $attach_id;
 }
 
-add_filter('outfit_ad_upload_prefilter','outfit_ad_upload_prefilter');
+//add_filter('outfit_ad_upload_prefilter','outfit_ad_upload_prefilter');
 function outfit_ad_upload_prefilter($file)
 {
 

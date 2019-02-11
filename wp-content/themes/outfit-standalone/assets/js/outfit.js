@@ -1456,7 +1456,7 @@ jQuery(document).ready(function(jQuery){
             // validate file types
             var ok = true;
             var imageInputs = jQuery('.imgInp');
-            for (var i = 0; i < imageInputs.length; i++) {
+            /*for (var i = 0; i < imageInputs.length; i++) {
                 var fileName = imageInputs[i].value;
                 if (fileName != '') {
                     var size = imageInputs[i].files[0].size;
@@ -1466,10 +1466,10 @@ jQuery(document).ready(function(jQuery){
                         ok = false;
                     }
                 }
-            }
+            }*/
             if (!ok) {
                 e.preventDefault();
-                jQuery('#attachment-error').text('תעלו קבצי תמונה בלבד' + ', גודל מקסימלי 2M');
+                jQuery('#attachment-error').text('תעלו קבצי תמונה בלבד');
                 jQuery('#mydropzone').closest('.form-group').addClass('has-error has-danger');
                 jQuery('html, body').animate({scrollTop: jQuery('#mydropzone').offset().top - 20}, 250)
             }
