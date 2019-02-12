@@ -21,7 +21,9 @@ function outfit_mail_from() {
 if(!function_exists('outfit_new_ad_email')) {
 	add_action( 'transition_post_status', 'outfit_new_ad_email', 10, 3 );
 	function outfit_new_ad_email( $new_status, $old_status, $post ){
-		if($new_status == 'pending' && ($old_status == 'new' || $old_status == 'publish') && $post->post_type == 'outfit_ad'){
+		if($new_status == 'pending' && ($old_status == 'new' || $old_status == 'publish' || $old_status == 'draft')
+			&& $post->post_type == 'outfit_ad')
+		{
 			$post = get_post($post->ID);
 			$author = get_userdata($post->post_author);
 			global $redux_demo, $email_subject;
