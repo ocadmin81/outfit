@@ -21,6 +21,8 @@ global $paged, $wp_query, $wp, $post;
 global $outfitMainCat, $subCategories;
 global $thisCategory;
 
+$showSold = OUTFIT_SHOW_SOLD_IN_CATALOG;
+
 //status_header( 200 );
 //$wp_query->is_page = true;
 //$wp_query->is_404=false;
@@ -83,11 +85,13 @@ $currentUserFavoriteAds = outfit_authors_all_favorite($currentUserId);
 
 $args = array(
 	'post_type' => OUTFIT_AD_POST_TYPE,
-	'post_status' => ['publish', 'sold'],
+	'post_status' => ($showSold? ['publish', 'sold'] : ['publish']),
 	'posts_per_page' => $perPage,
-	'paged' => $paged,
-	'orderby' => array( 'post_status' => 'ASC', 'date' => 'DESC' )
+	'paged' => $paged
 );
+if ($showSold) {
+	$args['orderby'] = array( 'post_status' => 'ASC', 'date' => 'DESC' );
+}
 
 if ($thisCategory) {
 	$args['cat'] = $thisCategory->term_id;
@@ -397,11 +401,15 @@ $inSearch = isset($_GET["cs"]);
 											<?php
 											$countPosts = 0;
 											$wp_query= null;
-											add_action('pre_get_posts', 'outfit_show_sold');
-											add_filter('posts_orderby', 'outfit_filter_orderby_status', 99);
+											if ($showSold) {
+												add_action('pre_get_posts', 'outfit_show_sold');
+												add_filter('posts_orderby', 'outfit_filter_orderby_status', 99);
+											}
 											$wp_query = new WP_Query($args);
-											remove_filter('posts_orderby', 'outfit_filter_orderby_status', 99);
-											remove_action('pre_get_posts', 'outfit_show_sold');
+											if ($showSold) {
+												remove_filter('posts_orderby', 'outfit_filter_orderby_status', 99);
+												remove_action('pre_get_posts', 'outfit_show_sold');
+											}
 											//var_dump($wp_query->request);
 											while ($wp_query->have_posts()) : $wp_query->the_post();
 												get_template_part( 'templates/loops/product');

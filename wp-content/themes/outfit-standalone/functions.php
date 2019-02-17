@@ -12,6 +12,7 @@
 define('OUTFIT_AD_POST_TYPE', 'outfit_ad');
 define('OUTFIT_AD_STATUS_ACTIVE', 'outfit_active');
 define('OUTFIT_AD_STATUS_SOLD', 'outfit_sold');
+define('OUTFIT_SHOW_SOLD_IN_CATALOG', true);
 
 if ( ! function_exists('write_log')) {
 	function write_log ( $log )  {
