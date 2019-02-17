@@ -39,6 +39,11 @@
 	<div class="classiera-box-div classiera-box-div-v1">
 		<figure class="clearfix">
 			<div class="premium-img">
+				<?php if ($post->post_status == 'sold') { ?>
+					<div class="sold">
+						<img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/SOLD.png" />
+					</div>
+				<?php } ?>
 				<a href="<?php the_permalink(); ?>">
 					<?php
 					if( has_post_thumbnail()){

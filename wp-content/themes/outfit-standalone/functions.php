@@ -1585,6 +1585,11 @@ function outfit_get_thank_you_link() {
 	return '/'.'תודה-שפירסמתם-אצלינו';
 }
 
+function outfit_show_sold($query) {
+	$query->set('post_status', array('publish', 'sold'));
+	$query->set( 'orderby', array( 'post_status' => 'ASC', 'date' => 'DESC' ) );
+}
+
 function outfit_show_pending_ad_to_author($query) {
 	global $current_user;
 	wp_get_current_user();

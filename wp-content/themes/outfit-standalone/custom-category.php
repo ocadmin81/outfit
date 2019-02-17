@@ -246,7 +246,9 @@ get_header();
 
 											$countPosts = 0;
 											$wp_query= null;
+											add_action('pre_get_posts', 'outfit_show_sold');
 											$wp_query = new WP_Query($args);
+											remove_action('pre_get_posts', 'outfit_show_sold');
 											while ($wp_query->have_posts()) : $wp_query->the_post();
 												$countPosts++;
 												get_template_part( 'templates/loops/product');

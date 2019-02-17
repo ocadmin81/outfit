@@ -146,7 +146,7 @@ get_header(); ?>
 															<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
 														</a>
 														</div>
-														<div class="post-action-button-remove">
+														<div class="post-action-button-remove" style="display: none;">
 														<a class="" href="<?php echo esc_url($deletePostUrl) ?>"
 														   data-title="<?php echo esc_html_e( 'בטוח שתרצו להסיר את המוצר?', 'outfit-standalone' ); ?>"
 														   data-content="<?php echo esc_html_e( 'ברגע שתלחצו על כן, המוצר שפירסמתם יירד מהמערכת, האם אתה בטוח?', 'outfit-standalone' ); ?>">
