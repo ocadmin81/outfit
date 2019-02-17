@@ -1299,7 +1299,7 @@ a .nav-title,
 .main-navigation ul a > .icon {
 	display: none;
 }
-
+.js .main-navigation ul.menu{display:block;}
 .main-navigation > div > ul {
 	border-top: 1px solid #eee;
 	padding: 0.75em 1.695em;
@@ -1365,7 +1365,7 @@ a .nav-title,
 /* Display the menu toggle when JavaScript is available. */
 
 .js .menu-toggle {
-	display: block;
+	display: none;
 }
 
 .main-navigation.toggled-on ul.nav-menu {
@@ -1399,7 +1399,7 @@ a .nav-title,
 
 /* Dropdown Toggle */
 
-.dropdown-toggle {
+button.dropdown-toggle {
 	background-color: transparent;
 	border: 0;
 	-webkit-box-shadow: none;

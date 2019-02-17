@@ -24,7 +24,7 @@
 			.find( '.screen-reader-text' )
 			.text( twentyseventeenScreenReaderText.collapse );
 		// Set the active submenu initial state.
-		container.find( '.current-menu-ancestor > .sub-menu' ).addClass( 'toggled-on' );
+		//container.find( '.current-menu-ancestor > .sub-menu' ).addClass( 'toggled-on' );
 
 		container.find( '.dropdown-toggle' ).click( function( e ) {
 			var _this = $( this ),
@@ -97,10 +97,10 @@
 			}
 		}
 
-		if ( 'ontouchstart' in window ) {
-			$( window ).on( 'resize.twentyseventeen', toggleFocusClassTouchScreen );
-			toggleFocusClassTouchScreen();
-		}
+		//if ( 'ontouchstart' in window ) {
+		//	$( window ).on( 'resize.twentyseventeen', toggleFocusClassTouchScreen );
+		//	toggleFocusClassTouchScreen();
+		//}
 
 		siteNavigation.find( 'a' ).on( 'focus.twentyseventeen blur.twentyseventeen', function() {
 			$( this ).parents( '.menu-item, .page_item' ).toggleClass( 'focus' );
