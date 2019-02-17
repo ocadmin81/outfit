@@ -1484,6 +1484,13 @@ jQuery(document).ready(function(jQuery){
 	//console.log(Sheight);
 	if(Swisth<=767){
 		jQuery(".menu-top-menu-container .menu").css( "width",Swisth );
+		jQuery( ".menu-top-menu-container .menu li.menu-item-has-children > a" ).each(function( index ) {
+			jQuery(this).attr('href','javascript:void(0);');
+		});
+		jQuery( ".menu-top-menu-container .menu li.menu-item-has-children > a" ).click(function( ) {
+			jQuery(this).parent().find('>.sub-menu').toggleClass('toggled-on');
+		});
+		
 	}
 	//category filter in mobile
 	if(Swisth <= 767){

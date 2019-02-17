@@ -97,10 +97,10 @@
 			}
 		}
 
-		if ( 'ontouchstart' in window ) {
-			$( window ).on( 'resize.twentyseventeen', toggleFocusClassTouchScreen );
-			toggleFocusClassTouchScreen();
-		}
+		//if ( 'ontouchstart' in window ) {
+		//	$( window ).on( 'resize.twentyseventeen', toggleFocusClassTouchScreen );
+		//	toggleFocusClassTouchScreen();
+		//}
 
 		siteNavigation.find( 'a' ).on( 'focus.twentyseventeen blur.twentyseventeen', function() {
 			$( this ).parents( '.menu-item, .page_item' ).toggleClass( 'focus' );

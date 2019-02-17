@@ -85,7 +85,7 @@ input[type="checkbox"] {
 	margin-right: 0;
 }
 
-.dropdown-toggle {
+button.dropdown-toggle {
 	left: -0.5em;
 	right: auto;
 }
@@ -606,7 +606,7 @@ body{font-size:16px;}
 .owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span{    background: #fed3d6;}
 .owl-theme .owl-dots .owl-dot span{width: 13px;height: 13px;  margin: 0 4px;background: #fff;border: 1px solid #cac2c3;}
 .owl-theme .owl-dots{    position: absolute;bottom: 10px;left: 0;right: 0;}
-.dropdown-toggle{right: 0;left: auto;}
+button.dropdown-toggle{right: 0;left: auto;}
 .form-inline select.form-control{background: url(assets/images/select-arrow.png) 18px 18px no-repeat;width: 100%;font-size: 16px;color: #191919;border-radius: 0;height: 45px;border-color: #e2e2e4;}
 .form-inline select.form-control[multiple]{background:none;height: auto;}
 .no-border{    border-bottom: none;}
@@ -1317,14 +1317,16 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.header-left .m-search img,.header-left .favourites img,.header-left .login img{max-width: 24px;}
 	.header-left .favourites .count{    position: absolute;font-size: 13px;top: -6px;background: #fed3d6;border-radius: 50%;width: 17px;text-align: center;right: -10px;line-height: 17px;}
 	.header-left.active .m-search{display:none;}
-	.navigation-top{position: absolute;top: 20px;background: transparent;max-width: 50px;right: 0;z-index: 10;}
+	.navigation-top{position: static;top: 20px;background: transparent;max-width: none;right: 0;z-index: 10;}
 	.header-right, .header-left{width: 37.5%;margin: 0;}
 	.menu-toggle .m-open{display:none;}
 	.menu-toggle.hide{display:none;}
 	.menu-toggle{padding: 0;margin: 0;width: auto;max-width: 55%;float: left;    position: relative;left: 15px;}	
-	.main-navigation > div > ul{border-top: none;    padding: 0;}
-	.main-navigation a{padding: 10px 0;}
-	.menu-top-menu-container{padding: 0;position: absolute;background: #fff;top: 40px;left: 0;right: 0;}
+	.main-navigation > div > ul{border-top: 1px solid #eee;padding: 0;white-space: nowrap;overflow: hidden;overflow-x: scroll;}
+	.main-navigation li  > button.dropdown-toggle{display:none;}
+	.main-navigation ul.sub-menu li  > button.dropdown-toggle{display:block;}
+	.main-navigation a{padding: 5px 0 0px;margin: 0 10px;font-size: 15px;}
+	.menu-top-menu-container{padding: 0;position: static;background: #fff;top: 40px;left: 0;right: 0;}
 	.main-navigation.toggled-on .m-close{display:none;}
 	.main-navigation.toggled-on .m-open{display:block;}
 	.m-menu-top{display:none;}
@@ -1376,15 +1378,17 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.user-pages .user-detail-section .user-profile-settings form .form-group .inner-addon.col-sm-4{margin-bottom:15px;}
 	.wrap.single-post-page{padding: 0 15px;}
 	#comments{padding-right: 15px;padding-left: 15px;}
-	.main-navigation li{position: relative;}
-	.main-navigation li:first-child{border-top: 1px solid #eee;}
+	.main-navigation li{display: inline-block;padding: 5px 0;border-bottom: none;}
+	.main-navigation ul.sub-menu li > button.dropdown-toggle span{display:none;}
+	.main-navigation ul ul li{position:relative;}
+	/*.main-navigation li:first-child{border-top: 1px solid #eee;}*/
 	.navigation-top .current-menu-item > a, .navigation-top .current_page_item > a, .main-navigation li:hover a{border-color: transparent;}
 	.main-navigation ul ul li{width: 100%;text-align: center;border-bottom: 1px solid #eee;}
 	.main-navigation ul ul li,.main-navigation li li:hover, .main-navigation li li.focus{background: #f5f5f6;}
 	.main-navigation ul ul a{padding: 10px 0;}
 	.main-navigation ul ul.toggled-on{display: inline-block;}
 	.main-navigation ul ul li.menu-item-type-yawp_wim{display: none;}
-	.main-navigation ul ul{padding: 0;}
+	.main-navigation ul ul{padding: 0;position: absolute;max-width: 85%;right: 0;margin-top: 5px;}
 	.author-page .col-sm-7,.author-page  .col-sm-5{padding: 0;}
 	.author-page .author-info .media-object{width: auto;height: auto;}
 	.author-page .author-info .media-img{width: 35%;}
