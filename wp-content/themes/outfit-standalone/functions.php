@@ -1587,7 +1587,11 @@ function outfit_get_thank_you_link() {
 
 function outfit_show_sold($query) {
 	$query->set('post_status', array('publish', 'sold'));
-	$query->set( 'orderby', array( 'post_status' => 'ASC', 'date' => 'DESC' ) );
+}
+
+function outfit_filter_orderby_status($orderby_statement) {
+	global $wpdb;
+	return $wpdb->prefix . 'posts' . '.post_status ASC,' . $wpdb->prefix . 'posts' . '.post_date DESC';
 }
 
 function outfit_show_pending_ad_to_author($query) {

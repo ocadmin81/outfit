@@ -83,9 +83,10 @@ $currentUserFavoriteAds = outfit_authors_all_favorite($currentUserId);
 
 $args = array(
 	'post_type' => OUTFIT_AD_POST_TYPE,
-	'post_status' => 'publish',
+	'post_status' => ['publish', 'sold'],
 	'posts_per_page' => $perPage,
-	'paged' => $paged
+	'paged' => $paged,
+	'orderby' => array( 'post_status' => 'ASC', 'date' => 'DESC' )
 );
 
 if ($thisCategory) {
@@ -396,7 +397,11 @@ $inSearch = isset($_GET["cs"]);
 											<?php
 											$countPosts = 0;
 											$wp_query= null;
+											add_action('pre_get_posts', 'outfit_show_sold');
+											add_filter('posts_orderby', 'outfit_filter_orderby_status', 99);
 											$wp_query = new WP_Query($args);
+											remove_filter('posts_orderby', 'outfit_filter_orderby_status', 99);
+											remove_action('pre_get_posts', 'outfit_show_sold');
 											//var_dump($wp_query->request);
 											while ($wp_query->have_posts()) : $wp_query->the_post();
 												get_template_part( 'templates/loops/product');
