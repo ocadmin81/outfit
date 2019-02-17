@@ -52,7 +52,7 @@ if(!function_exists('outfit_new_ad_email')) {
 			write_log($message);
 			ob_end_clean();
 			wp_mail($admin_email, $email_subject, $message);
-			wp_mail("milla@originalconcepts.co.il", $email_subject, $message, ["From: Perfit <$admin_email>"]);
+			//wp_mail("milla@originalconcepts.co.il", $email_subject, $message, ["From: Perfit <$admin_email>"]);
 		}
 	}
 }
