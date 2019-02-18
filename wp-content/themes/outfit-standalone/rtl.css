@@ -1324,11 +1324,16 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.menu-toggle.hide{display:none;}
 	.menu-toggle{padding: 0;margin: 0;width: auto;max-width: 55%;float: left;    position: relative;left: 15px;}	
 	.main-navigation > div > ul{border-top: 1px solid #eee;padding: 0;white-space: nowrap;overflow: hidden;overflow-x: scroll;}
+<<<<<<< HEAD
 	.main-navigation ul.menu{ -webkit-overflow-scrolling: touch;font-size: 0;overflow: auto;white-space: nowrap;overflow-y: visible;}
 	.main-navigation ul.menu.overflow{overflow: visible;}
 	.main-navigation li  > button.dropdown-toggle{display:none;}
 	.main-navigation ul.sub-menu li  > button.dropdown-toggle{display:block;left: 5px;right: auto;}
 	.overlay-nav.overlay-active{display:block}
+=======
+	.main-navigation li  > button.dropdown-toggle{display:none;}
+	.main-navigation ul.sub-menu li  > button.dropdown-toggle{display:block;}
+>>>>>>> 8cc97d7c781b636f6237604b6a34f3cec44db74a
 	.main-navigation a{padding: 5px 0 0px;margin: 0 10px;font-size: 15px;}
 	.menu-top-menu-container{padding: 0;position: static;background: #fff;top: 40px;left: 0;right: 0;}
 	.main-navigation.toggled-on .m-close{display:none;}
@@ -1394,8 +1399,12 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.main-navigation ul ul ul li{background: #fff;padding-right: 15px;}
 	.main-navigation ul ul.toggled-on{display: inline-block;}
 	.main-navigation ul ul li.menu-item-type-yawp_wim{display: none;}
+<<<<<<< HEAD
 	.main-navigation ul ul{padding: 0;position: fixed;max-width: 85%;right: 0;margin-top: 5px;}
 	.main-navigation ul.menu > li > ul{    overflow: visible;overflow-x: scroll;-webkit-overflow-scrolling: touch;z-index: 10000;}
+=======
+	.main-navigation ul ul{padding: 0;position: absolute;max-width: 85%;right: 0;margin-top: 5px;}
+>>>>>>> 8cc97d7c781b636f6237604b6a34f3cec44db74a
 	.author-page .col-sm-7,.author-page  .col-sm-5{padding: 0;}
 	.author-page .author-info .media-object{width: auto;height: auto;}
 	.author-page .author-info .media-img{width: 35%;}
