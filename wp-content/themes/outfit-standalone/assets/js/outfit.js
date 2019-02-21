@@ -1482,12 +1482,14 @@ jQuery(document).ready(function(jQuery){
 	var Swisth = jQuery( window ).width();
 	var Sheight = jQuery( window ).height();
 	//console.log(Sheight);
-	if(Swisth<=767){
-		new PerfectScrollbar('#top-menu');
+	if(Swisth<=767){		
 		jQuery(".menu-top-menu-container .menu").css( "width",Swisth );
 		jQuery(".main-navigation ul.menu > li > ul").css( "height",Sheight-105 );
 		jQuery( ".menu-top-menu-container .menu li.menu-item-has-children > a" ).each(function( index ) {
 			jQuery(this).attr('href','javascript:void(0);');
+		});
+		jQuery( window ).load(function() {
+			new PerfectScrollbar('#top-menu');
 		});
 		jQuery( ".menu-top-menu-container .menu > li.menu-item-has-children > a" ).click(function( ) {			
 			var itemOpen = jQuery(this).parent().find('>.sub-menu');
