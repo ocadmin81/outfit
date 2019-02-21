@@ -1483,6 +1483,7 @@ jQuery(document).ready(function(jQuery){
 	var Sheight = jQuery( window ).height();
 	//console.log(Sheight);
 	if(Swisth<=767){
+		new PerfectScrollbar('#top-menu');
 		jQuery(".menu-top-menu-container .menu").css( "width",Swisth );
 		jQuery(".main-navigation ul.menu > li > ul").css( "height",Sheight-105 );
 		jQuery( ".menu-top-menu-container .menu li.menu-item-has-children > a" ).each(function( index ) {
@@ -1515,13 +1516,6 @@ jQuery(document).ready(function(jQuery){
 				jQuery('.main-navigation ul ul > li.menu-item-has-children > ul.sub-menu').removeClass('toggled-on');
 				itemOpen.addClass('toggled-on');
 			}
-=======
-		jQuery( ".menu-top-menu-container .menu li.menu-item-has-children > a" ).each(function( index ) {
-			jQuery(this).attr('href','javascript:void(0);');
-		});
-		jQuery( ".menu-top-menu-container .menu li.menu-item-has-children > a" ).click(function( ) {
-			jQuery(this).parent().find('>.sub-menu').toggleClass('toggled-on');
->>>>>>> 8cc97d7c781b636f6237604b6a34f3cec44db74a
 		});
 		
 	}
