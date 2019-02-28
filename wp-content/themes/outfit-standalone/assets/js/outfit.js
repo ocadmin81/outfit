@@ -1485,7 +1485,7 @@ jQuery(document).ready(function(jQuery){
 	if(Swisth<=767){		
 		jQuery(".menu-top-menu-container .menu").css( "width",Swisth );
 		jQuery(".main-navigation ul.menu > li > ul").css( "height",Sheight-105 );
-		jQuery( ".menu-top-menu-container .menu li.menu-item-has-children > a" ).each(function( index ) {
+		jQuery( ".menu-top-menu-container .menu > li.menu-item-has-children > a" ).each(function( index ) {
 			jQuery(this).attr('href','javascript:void(0);');
 		});
 		jQuery( window ).load(function() {

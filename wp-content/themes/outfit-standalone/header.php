@@ -11,13 +11,15 @@
  * @since 1.0
  * @version 1.0
  */
-
 ?><!DOCTYPE html>
+<?php $server_uri = $_SERVER['REQUEST_URI']; ?>
 <html <?php language_attributes(); ?> class="no-js no-svg">
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
+	<?php if (strpos($server_uri, 'author') !== false): ?>
+		<meta name="robots" content="NOINDEX,NOFOLLOW" />
+	<?php endif; ?>
 	<!-- Google Tag Manager -->
 	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

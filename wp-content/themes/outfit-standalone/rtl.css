@@ -1387,9 +1387,8 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.main-navigation ul ul li{position:relative;}
 	/*.main-navigation li:first-child{border-top: 1px solid #eee;}*/
 	.navigation-top .current-menu-item > a, .navigation-top .current_page_item > a, .main-navigation li:hover a{border-color: transparent;}
-	.main-navigation ul ul li{width: 100%;text-align: right;border-bottom: 1px solid #eee;padding-right: 0;padding: 0;}
-	.main-navigation ul ul li,.main-navigation li li:hover, .main-navigation li li.focus{background: #f5f5f6;}
-	.main-navigation ul ul a{padding: 2px 0;padding-right: 15px;}
+	.main-navigation ul ul li{width: 100%;text-align: right;border-bottom:none;padding-right: 0;padding: 0;}
+	.main-navigation ul ul a{padding: 2px 0;padding-right: 15px;font-weight: 800;}
 	.main-navigation ul ul ul{max-width: 100%;display: block!important;}
 	.main-navigation ul ul ul li{background: #fff;padding-right: 0;}
 	.main-navigation ul ul.toggled-on{display: inline-block;}
