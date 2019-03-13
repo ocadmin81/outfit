@@ -1487,13 +1487,8 @@ jQuery(document).ready(function(jQuery){
 		jQuery(".main-navigation ul.menu > li > ul").css( "height",Sheight-105 );
 		jQuery( ".menu-top-menu-container .menu > li.menu-item-has-children > a" ).each(function( index ) {
 			var href = jQuery(this).attr('href');
-<<<<<<< HEAD
 			//var text = jQuery(this).text();
 			var text = 'הצג הכל';
-=======
-			var text = jQuery(this).text();
-			var text = 'הצג הכל '+text;
->>>>>>> 7e2cb2fe9472ab655ab9f0e184d87cfeafb4581e
 			jQuery(this).attr('href','javascript:void(0);');
 			jQuery(this).parent().find('>ul.sub-menu').prepend('<li><a href="'+href+'">'+text+'</a></li>');
 		});
