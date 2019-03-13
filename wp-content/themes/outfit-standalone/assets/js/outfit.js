@@ -1486,7 +1486,11 @@ jQuery(document).ready(function(jQuery){
 		jQuery(".menu-top-menu-container .menu").css( "width",Swisth );
 		jQuery(".main-navigation ul.menu > li > ul").css( "height",Sheight-105 );
 		jQuery( ".menu-top-menu-container .menu > li.menu-item-has-children > a" ).each(function( index ) {
+			var href = jQuery(this).attr('href');
+			//var text = jQuery(this).text();
+			var text = 'הצג הכל';
 			jQuery(this).attr('href','javascript:void(0);');
+			jQuery(this).parent().find('>ul.sub-menu').prepend('<li><a href="'+href+'">'+text+'</a></li>');
 		});
 		jQuery( window ).load(function() {
 			new PerfectScrollbar('#top-menu');
