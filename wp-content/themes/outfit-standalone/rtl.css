@@ -863,7 +863,9 @@ body:not(.twentyseventeen-front-page) .single-post-page .entry-header{float: rig
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box{height: 120px;border: 1px solid #e2e2e4!important;margin-bottom: 0;width: 120px;}
 .submit-post form .form-main-section .classiera-image-upload .classiera-image-box .classiera-upload-box .classiera-input-file + label{padding-top: 30px;padding-bottom: 0;margin: 0;background: none;}
 .submit-post form .form-main-section .classiera-image-upload{border: none;background: #fff;padding: 0;}
+.submit-post form .form-main-section #mydropzone{margin-bottom: 0;}
 .submit-post form .form-group{margin: 0;margin-bottom: 20px;position: relative;}
+.submit-post form .form-group.media .item{margin-bottom: 30px;}
 .submit-post form .form-group.main-address label{    margin-bottom: 0;}
 .submit-post form .ad-categories .form-group{border-bottom: 1px solid #e2e2e4;margin-bottom: 5px;padding-bottom: 5px;}
 .submit-post form .ad-categories .form-group.post-age-groups-container{margin-bottom: 30px;}
@@ -1412,7 +1414,10 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	.cat-tabs{display: none;}	
 	html[lang="he-IL"] .cat-title{padding: 0 15px;}
 	.cat-sidebar{padding-left: 0;margin-bottom: 20px;}
-	.cat-sidebar.sidebar .widget-box .widget-title{border: 1px solid #d7d7d7;padding: 8px 15px;font-size: 18px;width: 48%;line-height: 30px;float: right;text-align: center;}
+	.cat-sidebar.sidebar .widget-box .widget-title{border: 1px solid #d7d7d7;padding: 8px 15px;font-size: 15px;width: 48%;line-height: 30px;float: right;text-align: center;}
+	.cat-sidebar.sidebar .widget-box .widget-title i{top: 0px;}
+	form .search-form #innerSearch .inner-search-box.ab .select2-selection,
+	form .search-form #innerSearch .inner-search-box .inner-search-heading{font-size:16px;}
 	.cat-sidebar.sidebar .widget-box .widget-title.title-desk{display:none;}
 	.cat-sidebar.sidebar .widget-box .widget-title.pop-map{float:left;}
 	.cat-tab-content.products .item:nth-child(even){padding-right: 15px;padding-left: 5px;}

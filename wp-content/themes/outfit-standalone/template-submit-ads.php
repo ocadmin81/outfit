@@ -453,7 +453,8 @@ get_header(); ?>
 									<?php if ($imageUploadError) { ?>
 										<div class="left-side help-block with-errors" style="color: red;padding-right: 15px;"><?php echo esc_html($imageUploadError); ?></div>
 									<?php } ?>
-								</div>
+									<?php echo do_shortcode("[do_widget id=text-22]"); ?>
+								</div>								
 							</div>
 						<!-- add photos and media -->						
 
