@@ -1075,7 +1075,7 @@ form .search-form #innerSearch .inner-search-box .link a:hover{color:#f19ea4;}
 form .search-form #innerSearch .inner-search-box .inner-search-heading{color: #191919;font-weight: 600;font-size: 18px;border: none;    padding-bottom: 5px;}
 form .search-form #innerSearch .inner-search-box.ab .inner-search-heading{position: absolute;margin: 0;padding: 0;top: 13px;right: 0;}
 form .search-form #innerSearch .inner-search-box .form-control{color: #191919;font-size: 16px;}
-form .search-form #innerSearch .inner-search-box.ab .select2-selection{border: none;padding-right: 48px;background: url(assets/images/select-arrow.png) 5px 21px no-repeat;    padding-top: 5px;}
+form .search-form #innerSearch .inner-search-box.ab .select2-selection{border: none;padding-right: 65px;background: url(assets/images/select-arrow.png) 5px 21px no-repeat;    padding-top: 5px;}
 .submit-post form .form-group .select2-selection{border: none;padding-right: 90px;background: url(assets/images/select-arrow.png) 5px 21px no-repeat;    padding-top: 5px;}
 .submit-post .select2-container--default .select2-selection--single .select2-selection__rendered {line-height: 42px !important;}
 .select2-container--open .select2-dropdown{border: 1px solid #e2e2e4;}
@@ -1085,7 +1085,7 @@ form .search-form #innerSearch .inner-search-box.ab .select2-selection{border: n
 .select2-container{width:100%!important;    z-index: 10000;}
 .select2-container--default .select2-results>.select2-results__options{    background-color: #f7f7f7;font-size: 16px;}
 form .search-form #innerSearch .inner-search-box.ab select{    border: none;padding-right: 48px;padding-top: 15px;background: url(assets/images/select-arrow.png) 5px 21px no-repeat;}
-form .search-form #innerSearch .inner-search-box.ab input[type="text"]{background: transparent;border: none;    padding-right: 48px;}
+form .search-form #innerSearch .inner-search-box.ab input[type="text"]{background: transparent;border: none;    padding-right: 85px;}
 form .search-form #innerSearch .inner-search-box.address{padding-bottom: 0;    border-bottom: none;margin-bottom: 0;}
 .inner-search-box.save-pre{text-align: center;}
 .inner-search-box.save-pre a{    display: block;width: 100%;height: 45px;background: #f8ead8;line-height: 45px;}
@@ -1419,7 +1419,9 @@ html[lang="he-IL"] .modal-header h4{font-weight: 500;font-size: 22px;margin-bott
 	form .search-form #innerSearch .inner-search-box.ab .select2-selection,
 	form .search-form #innerSearch .inner-search-box .inner-search-heading{font-size:16px;}
 	.cat-sidebar.sidebar .widget-box .widget-title.title-desk{display:none;}
-	.cat-sidebar.sidebar .widget-box .widget-title.pop-map{float:left;}
+	.cat-sidebar.sidebar .widget-box .widget-title.pop-map{float:left;padding:0;}
+	.cat-sidebar.sidebar .widget-box .widget-title.pop-map a{display:block;padding: 8px 15px;}
+	
 	.cat-tab-content.products .item:nth-child(even){padding-right: 15px;padding-left: 5px;}
 	.cat-tab-content.products .item:nth-child(odd){padding-left: 15px;padding-right: 5px;}
 	.cat-tab-content.products .row{    margin-right: -15px;margin-left: -15px;}

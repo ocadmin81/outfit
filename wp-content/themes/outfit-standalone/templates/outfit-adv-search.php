@@ -120,7 +120,7 @@ else {
 				?>
 			<!--Age Groups-->
 			<div class="inner-search-box ab">
-				<div class="inner-search-heading"><?php esc_html_e( 'גיל', 'outfit-standalone' ); ?></div>
+				<div class="inner-search-heading"><?php esc_html_e( 'גיל ומידה', 'outfit-standalone' ); ?></div>
 				<select id="ageGroup" name="postAgeGroup" class="form-control form-control-sm">					
 					<option value=""><?php esc_html_e( 'בחרו גיל', 'outfit-standalone' ); ?></option>
 					<?php
@@ -137,7 +137,7 @@ else {
 
 			<!--Locations-->
 			<div class="inner-search-box ab address">
-				<div class="inner-search-heading"><?php esc_html_e( 'איזור', 'outfit-standalone' ); ?></div>
+				<div class="inner-search-heading"><?php esc_html_e( 'אזורי הגעה', 'outfit-standalone' ); ?></div>
 
 				<textarea style="display: none" id="locations" name="locations"><?php echo $searchLocationsStr; ?></textarea>
 

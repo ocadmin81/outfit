@@ -205,7 +205,7 @@ get_header();
 									<div class="widget-title title-desk"><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 									<div class="box-title-mobile">
 										<div class="widget-title pop-form"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i> <?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
-										<div class="widget-title pop-map"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/addr.png" /><a href="#map" aria-controls="map" role="tab" data-toggle="tab"><?php esc_html_e( 'מפה', 'outfit-standalone' ); ?></a></div>
+										<div class="widget-title pop-map"><a href="#map" aria-controls="map" role="tab" data-toggle="tab"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/images/addr.png" /><?php esc_html_e( 'מפה', 'outfit-standalone' ); ?></a></div>
 									</div>
 									<div class="filter-fixed-title"><i class="sortbutton-icon fa fa-sliders" aria-hidden="true" data-raofz="18"></i><?php esc_html_e( 'סינון לפי', 'outfit-standalone' ); ?></div>
 									<div class="widget-content" style="display:none;">
