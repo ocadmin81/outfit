@@ -17,19 +17,6 @@
 		</div><!-- #content -->
 
 		<footer id="colophon" class="site-footer" role="contentinfo">
-			<!--
-			<div class="footer-newsletter">
-				<div class="wrap">
-					<div class="sign-form">
-						<?php //echo do_shortcode('[mc4wp_form id="399"]'); ?>
-					</div>
-					<?php //if ( has_nav_menu( 'social' ) ) : ?>
-						<nav class="social-navigation" role="navigation" aria-label="<?php //esc_attr_e( 'Footer Social Links Menu', 'twentyseventeen' ); ?>">
-							<?php //echo do_shortcode("[do_widget id=text-15]"); ?>
-						</nav><!-- .social-navigation -->
-					<?php //endif; ?>					
-				<!--</div>
-			</div>-->
 			<div class="footer-review">
 				<div class="wrap">
 					<div class="sign-form">
@@ -38,13 +25,27 @@
 					</div>
 				</div>
 			</div>
-			<div class="wrap">
-				<?php
-				get_template_part( 'template-parts/footer/footer', 'widgets' );
+			<div class="footer-newsletter">
+				<div class="wrap">
+					<div class="sign-form">
+						<?php echo do_shortcode('[mc4wp_form id="399"]'); ?>
+					</div>
+					<?php if ( has_nav_menu( 'social' ) ) : ?>
+						<nav class="social-navigation" role="navigation" aria-label="<?php esc_attr_e( 'Footer Social Links Menu', 'twentyseventeen' ); ?>">
+							<?php echo do_shortcode("[do_widget id=text-15]"); ?>
+						</nav><!-- .social-navigation -->
+					<?php endif; ?>					
+				</div>
+			</div>
+			<div class="footer-bottom-theme">
+				<div class="wrap">
+					<?php
+					get_template_part( 'template-parts/footer/footer', 'widgets' );
 
-				//get_template_part( 'template-parts/footer/site', 'info' );
-				?>
-			</div><!-- .wrap -->
+					//get_template_part( 'template-parts/footer/site', 'info' );
+					?>
+				</div><!-- .wrap -->
+			</div>
 		</footer><!-- #colophon -->
 	</div><!-- .site-content-contain -->
 </div><!-- #page -->
