@@ -1571,6 +1571,35 @@ function outfit_save_search_filters() {
 	wp_die();
 }
 
+function outfit_save_search_filters_sync() {
+
+	if (!is_user_logged_in()) {
+		return;
+	}
+	global $current_user;
+	wp_get_current_user();
+	$currentUser = $current_user;
+	$ageTermId = (isset($_POST['postAgeGroup']) && !empty($_POST['postAgeGroup']) ? intval($_POST['postAgeGroup']) : false);
+	$searchLocations = outfit_get_search_locations();
+
+	if ($ageTermId) {
+		update_user_meta($currentUser->ID, USER_META_SEARCH_PREF_AGE, $ageTermId);
+	}
+	else {
+		delete_user_meta($currentUser->ID, USER_META_SEARCH_PREF_AGE);
+	}
+	if (!empty($searchLocations)) {
+
+		delete_user_meta($currentUser->ID, USER_META_SEARCH_PREF_LOCATION);
+		foreach ($searchLocations as $l) {
+			add_user_meta($currentUser->ID, USER_META_SEARCH_PREF_LOCATION, $l->toString());
+		}
+	}
+	else {
+		delete_user_meta($currentUser->ID, USER_META_SEARCH_PREF_LOCATION);
+	}
+}
+
 function outfit_get_brand_link($termId) {
 	$query = 'search=1&postBrand='.$termId.'&bpg=1';
 	$link = home_url('/advsearch/?' . $query );

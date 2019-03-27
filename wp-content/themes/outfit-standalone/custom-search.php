@@ -83,6 +83,10 @@ else if (isset($_POST['unfavorite'])) {
 
 $currentUserFavoriteAds = outfit_authors_all_favorite($currentUserId);
 
+if (isset($_POST['savePrefs']) && $_POST['savePrefs'] == 1) {
+	outfit_save_search_filters_sync();
+}
+
 $args = array(
 	'post_type' => OUTFIT_AD_POST_TYPE,
 	'post_status' => ($showSold? ['publish', 'sold'] : ['publish']),

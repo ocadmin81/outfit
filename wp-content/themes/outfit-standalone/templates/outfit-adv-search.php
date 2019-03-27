@@ -1,5 +1,9 @@
 <?php
 
+require_once 'Mobile_Detect_Prods.php';
+$detect = new Mobile_Detect_Prods;
+$isMobile = ($detect->isMobile() && !$detect->isTablet());
+
 global $redux_demo;
 global $catId, $outfitMainCat, $subCategories, $thisCategory;
 global $searchLocations, $searchLocationsStr;
@@ -121,7 +125,7 @@ else {
 			<!--Age Groups-->
 			<div class="inner-search-box ab">
 				<div class="inner-search-heading"><?php esc_html_e( 'גיל ומידה', 'outfit-standalone' ); ?></div>
-				<select id="ageGroup" name="postAgeGroup" class="form-control form-control-sm">					
+				<select id="ageGroup" name="postAgeGroup" class="form-control form-control-sm ageGroup">
 					<option value=""><?php esc_html_e( 'בחרו גיל', 'outfit-standalone' ); ?></option>
 					<?php
 					foreach ($liveAgeGroups as $c): ?>
@@ -152,7 +156,7 @@ else {
 					<input class="aal1" type="hidden" id="aal1" value="">
 				</div>
 
-				<div class="">
+				<div class="" id="address-labels-container">
 					<?php foreach ($searchLocations as $i => $l): ?>
 					<div class="address-label tag label label-info" style="display: inline-block;">
 						<span><?php echo esc_html(wp_trim_words($l->getAddress(), 4)); ?></span>
@@ -165,10 +169,16 @@ else {
 			<!--Locations-->
 
 			<?php if (is_user_logged_in()) { ?>
-			<div class="inner-search-box save-pre">
-				<span style="display:none" class="save-done"><?php esc_html_e('ההגדרות נשמרו', 'outfit-standalone') ?></span>
-				<a id="outfit_save_search_prefs" href="javascript:void(0)"><?php esc_html_e('שמור את ההעדפות שלי', 'outfit-standalone') ?></a>
-			</div>
+				<?php if (!$isMobile) { ?>
+					<div class="inner-search-box save-pre">
+						<span style="display:none" class="save-done"><?php esc_html_e('ההגדרות נשמרו', 'outfit-standalone') ?></span>
+						<a id="outfit_save_search_prefs" href="javascript:void(0)"><?php esc_html_e('שמור את ההעדפות שלי', 'outfit-standalone') ?></a>
+					</div>
+				<?php } else { ?>
+					<div class="inner-search-box save-pre">
+						<a style="display:none" id="outfit_save_prefs_and_find" href="javascript:void(0)"><?php esc_html_e('חפש', 'outfit-standalone') ?></a>
+					</div>
+				<?php } ?>
 			<?php } else { ?>
 			<div class="inner-search-box save-pre">
 				<a id="login_to_save_search_prefs" href="<?php echo esc_url(outfit_get_page_url('login')); ?>"><?php esc_html_e('התחבר/י לשמירת העדפה', 'outfit-standalone') ?></a>
@@ -538,6 +548,7 @@ else {
 				<!--Bicycle Sizes-->
 			<?php } ?>
 
+			<input type="hidden" name="savePrefs" id="savePrefsHidden" value="0">
 			<input type="hidden" name="cat_id" value="<?php echo $catId; ?>">
 			<input type="hidden" name="search">
 			<input type="hidden" name="outfit_ad">
@@ -550,6 +561,7 @@ else {
 <script type="text/javascript">
 	jQuery(document).ready(function(){
 
+		var isMobile = <?php echo $isMobile? 'true' : 'false' ?>;
 		var locations = [];
 		var locationsJson = jQuery('#locations').val();
 
@@ -561,21 +573,47 @@ else {
 			jQuery('#address').hide();
 		}
 
-		jQuery('.inner-search-box').on("change", "input:not(.address), select", function(){
+		jQuery('.inner-search-box').on("change", "input:not(.address), select:not(.ageGroup)", function(){
 			jQuery(this).closest('form').submit();
+		});
+		jQuery('.inner-search-box').on("change", ".ageGroup", function(){
+			if (!isMobile) {
+				jQuery(this).closest('form').submit();
+			}
+			else {
+				jQuery('#outfit_save_prefs_and_find').show();
+			}
 		});
 		jQuery('.inner-search-box').on("addresschange", "input.address", function(event, param){
 			locations.push(JSON.stringify(param));
+			console.log('Location to save');
+			console.log(param);
 			jQuery('#locations').val(JSON.stringify(locations));
-			jQuery(this).closest('form').submit();
+			if (!isMobile) {
+				jQuery(this).closest('form').submit();
+			}
+			else {
+				var locationsCount = jQuery('.address-label').length;
+				var template = '<div class="address-label tag label label-info" style="display: inline-block;">'+
+					'<span>'+param.address+'</span>'+
+					'<a><i data-location-index="'+locationsCount+'" class="remove fa fa-times"></i></a></div>';
+				jQuery('#address-labels-container').append(template);
+				jQuery('#outfit_save_prefs_and_find').show();
+			}
 		});
-		jQuery('.address-label i.remove').on("click", function () {
+		jQuery('#address-labels-container').on("click", '.address-label i.remove', function () {
 			var index = jQuery(this).attr('data-location-index');
 			if (index >= 0 && index < locations.length) {
 				locations.splice(index, 1);
 			}
 			jQuery('#locations').val(JSON.stringify(locations));
-			jQuery(this).closest('form').submit();
+			if (!isMobile) {
+				jQuery(this).closest('form').submit();
+			}
+			else {
+				jQuery(this).closest('.address-label').remove();
+				jQuery('#outfit_save_prefs_and_find').show();
+			}
 		});
 		jQuery('.clear-address-filter').on("click", function() {
 			var box = jQuery(this).closest('.inner-search-box');
@@ -586,7 +624,12 @@ else {
 			box.find(".aal2").val('');
 			box.find(".aal1").val('');
 			box.find("input.address").val('');
-			jQuery(this).closest('form').submit();
+			if (!isMobile) {
+				jQuery(this).closest('form').submit();
+			}
+			else {
+				jQuery('#outfit_save_prefs_and_find').show();
+			}
 		});
 		jQuery('.clear-age-filter').on("click", function() {
 			jQuery('#ageGroup').val('').trigger('change');
@@ -621,6 +664,12 @@ else {
 					$btn.removeClass('saving');
 				}
 			});
+		});
+
+		jQuery('#outfit_save_prefs_and_find').on('click', function(event){
+			event.preventDefault();
+			jQuery('#savePrefsHidden').val(1);
+			jQuery(this).closest('form').submit();
 		});
 	});
 </script>
