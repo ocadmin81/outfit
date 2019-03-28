@@ -1527,7 +1527,7 @@ jQuery(document).ready(function(jQuery){
 	}
 	//category filter in mobile
 	if(Swisth <= 767){
-		jQuery( '.cat-sidebar.sidebar .widget-box .widget-title.pop-form,.filter-fixed-title' ).click(function() {
+		jQuery( '.widget-title.pop-form,.filter-fixed-title' ).click(function() {
 			jQuery('.cat-sidebar .search-form').addClass('active');
 		});
 		jQuery( '.cat-sidebar .filter-close img' ).click(function() {
