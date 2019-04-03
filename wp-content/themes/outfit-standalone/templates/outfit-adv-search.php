@@ -631,8 +631,8 @@ else {
 			}
 			else {
 				jQuery(this).closest('.address-label').remove();
-				//jQuery('#outfit_save_prefs_and_find').show();
-				jQuery(this).closest('form').submit();
+				jQuery('#outfit_save_prefs_and_find').show();
+				jQuery('.search-form-outer').addClass('btn-active');
 			}
 		});
 		jQuery('.clear-address-filter').on("click", function() {
