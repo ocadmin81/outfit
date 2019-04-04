@@ -171,7 +171,7 @@ else {
 					<?php } ?>				
 				<!--<div><a class="clear-address-filter" href="javascript:void(0)">clear address</a></div>-->
 				<!--Locations-->
-				<?php if(count($searchLocations) > 0): ?>
+				<?php //if(count($searchLocations) > 0): ?>
 				<div class="inner-search-box address-labels">
 					<div class="" id="address-labels-container">
 						<?php foreach ($searchLocations as $i => $l): ?>
@@ -182,7 +182,7 @@ else {
 						<?php endforeach; ?>
 					</div>
 				</div>
-				<?php endif; ?>
+				<?php //endif; ?>
 			</div>
 			<div class="search-form">
 				<input type="hidden" id="paged" name="paged" value="1">
@@ -618,6 +618,14 @@ else {
 				<?php //if (is_user_logged_in()): ?>
 					jQuery('.search-form-outer').addClass('btn-active');
 				<?php //endif; ?>
+				var box = jQuery(this).closest('.inner-search-box');
+				box.find(".latitude").val('');
+				box.find(".longitude").val('');
+				box.find(".locality").val('');
+				box.find(".aal3").val('');
+				box.find(".aal2").val('');
+				box.find(".aal1").val('');
+				box.find("input.address").val('');
 			}
 		});
 		jQuery('#address-labels-container').on("click", '.address-label i.remove', function () {

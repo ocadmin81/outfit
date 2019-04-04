@@ -66,7 +66,7 @@ jQuery(document).ready(function(){
           parent.find(".aal3").val(ui.item.hash.aal3);
           parent.find(".aal2").val(ui.item.hash.aal2);
           parent.find(".aal1").val(ui.item.hash.aal1);
-          elem.val(ui.item.value);
+          //elem.val(ui.item.value);
           var obj = {
             address: ui.item.value,
             latitude: ui.item.latitude,
@@ -76,6 +76,7 @@ jQuery(document).ready(function(){
             aal2: ui.item.hash.aal2,
             aal1: ui.item.hash.aal1
           };
+          event.preventDefault();
           jQuery(this).trigger('addresschange', [obj]);
           //jQuery(this).trigger('blur', [ui.item.formatted_address]);
         },
