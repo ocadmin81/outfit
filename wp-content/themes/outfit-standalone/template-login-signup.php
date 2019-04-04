@@ -27,11 +27,11 @@ if ( is_user_logged_in() ) {
 //global $user_ID, $username, $password, $remember;
 global $redux_demo;
 $login = outfit_get_page_url('login');
-$outfitSocialLogin = $redux_demo['outfit_social_login'];
+$outfitSocialLogin = (isset($redux_demo['outfit_social_login']) ? $redux_demo['outfit_social_login'] : false);
 //$termsandcondition = $redux_demo['termsandcondition'];
 $termsandcondition = '/תנאי-שימוש-באתר';
-$outfitEmailVerify = $redux_demo['registor-email-verify'];
-$outfitSocialLogin = $redux_demo['outfit_social_login'];
+//$outfitEmailVerify = $redux_demo['registor-email-verify'];
+//$outfitSocialLogin = $redux_demo['outfit_social_login'];
 $rand1 = rand(0,9);
 $rand2 = rand(0,9);
 $rand_answer = $rand1 + $rand2;
