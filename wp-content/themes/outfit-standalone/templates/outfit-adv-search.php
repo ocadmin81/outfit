@@ -160,9 +160,14 @@ else {
 							</div>
 						<?php } ?>
 					<?php } else { ?>
-					<div class="inner-search-box save-pre guest">
-						<a id="login_to_save_search_prefs" href="<?php echo esc_url(outfit_get_page_url('login')); ?>"><?php esc_html_e('התחבר/י לשמירת העדפה', 'outfit-standalone') ?></a>
-					</div>
+				        <?php if ($isMobile) { ?>
+							<div class="inner-search-box save-pre" style="display:none" id="outfit_save_prefs_and_find">
+								<a href="javascript:void(0)"><?php esc_html_e('התחל חיפוש', 'outfit-standalone') ?></a>
+							</div>
+						<?php } ?>
+						<div class="inner-search-box save-pre guest">
+						    <a id="login_to_save_search_prefs" href="<?php echo esc_url(outfit_get_page_url('login')); ?>"><?php esc_html_e('התחבר לשמירת העדפות חיפוש', 'outfit-standalone') ?></a>
+					    </div>
 					<?php } ?>				
 				<!--<div><a class="clear-address-filter" href="javascript:void(0)">clear address</a></div>-->
 				<!--Locations-->
@@ -621,13 +626,13 @@ else {
 				locations.splice(index, 1);
 			}
 			jQuery('#locations').val(JSON.stringify(locations));
-			//if (!isMobile) {
+			if (!isMobile) {
 				jQuery(this).closest('form').submit();
-			//}
-			//else {
-			//	jQuery(this).closest('.address-label').remove();
-			//	jQuery('#outfit_save_prefs_and_find').show();
-			//}
+			}
+			else {
+				jQuery(this).closest('.address-label').remove();
+				jQuery('#outfit_save_prefs_and_find').show();
+			}
 		});
 		jQuery('.clear-address-filter').on("click", function() {
 			var box = jQuery(this).closest('.inner-search-box');
@@ -638,12 +643,12 @@ else {
 			box.find(".aal2").val('');
 			box.find(".aal1").val('');
 			box.find("input.address").val('');
-			//if (!isMobile) {
+			if (!isMobile) {
 				jQuery(this).closest('form').submit();
-			//}
-			//else {
-			//	jQuery('#outfit_save_prefs_and_find').show();
-			//}
+			}
+			else {
+				jQuery('#outfit_save_prefs_and_find').show();
+			}
 		});
 		jQuery('.clear-age-filter').on("click", function() {
 			jQuery('#ageGroup').val('').trigger('change');
