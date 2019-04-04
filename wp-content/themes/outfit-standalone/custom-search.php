@@ -141,6 +141,10 @@ else if (!empty($postKeyword)) {
 	$pageTitle = $postKeyword;
 }
 
+else if ($thisCategory && $thisCategory->name) {
+	$pageTitle = $thisCategory->name;
+}
+
 
 
 if (!empty($postKeyword)) {
