@@ -162,7 +162,7 @@ else {
 					<?php } else { ?>
 				        <?php if ($isMobile) { ?>
 							<div class="inner-search-box save-pre" style="display:none" id="outfit_save_prefs_and_find">
-								<a href="javascript:void(0)"><?php esc_html_e('התחל חיפוש', 'outfit-standalone') ?></a>
+								<a href="javascript:void(0)"><?php esc_html_e('חפש', 'outfit-standalone') ?></a>
 							</div>
 						<?php } ?>
 						<div class="inner-search-box save-pre guest">
@@ -604,7 +604,7 @@ else {
 			locations.push(JSON.stringify(param));
 			console.log('Location to save');
 			console.log(param);
-			jQuery('#locations').val(JSON.stringify(locations));			
+			jQuery('#locations').val(JSON.stringify(locations));
 			if (!isMobile) {
 				jQuery(this).closest('form').submit();
 			}
