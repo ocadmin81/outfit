@@ -594,9 +594,9 @@ else {
 			}
 			else {
 				jQuery('#outfit_save_prefs_and_find').show();
-				<?php if (is_user_logged_in()): ?>
+				<?php //if (is_user_logged_in()): ?>
 					jQuery('.search-form-outer').addClass('btn-active');
-				<?php endif; ?>
+				<?php //endif; ?>
 				
 			}
 		});
@@ -604,7 +604,7 @@ else {
 			locations.push(JSON.stringify(param));
 			console.log('Location to save');
 			console.log(param);
-			jQuery('#locations').val(JSON.stringify(locations));
+			jQuery('#locations').val(JSON.stringify(locations));			
 			if (!isMobile) {
 				jQuery(this).closest('form').submit();
 			}
@@ -615,9 +615,9 @@ else {
 					'<a><i data-location-index="'+locationsCount+'" class="remove fa fa-times"></i></a></div>';
 				jQuery('#address-labels-container').append(template);
 				jQuery('#outfit_save_prefs_and_find').show();
-				<?php if (is_user_logged_in()): ?>
+				<?php //if (is_user_logged_in()): ?>
 					jQuery('.search-form-outer').addClass('btn-active');
-				<?php endif; ?>
+				<?php //endif; ?>
 			}
 		});
 		jQuery('#address-labels-container').on("click", '.address-label i.remove', function () {
@@ -632,6 +632,7 @@ else {
 			else {
 				jQuery(this).closest('.address-label').remove();
 				jQuery('#outfit_save_prefs_and_find').show();
+				jQuery('.search-form-outer').addClass('btn-active');
 			}
 		});
 		jQuery('.clear-address-filter').on("click", function() {
