@@ -87,8 +87,8 @@ if (null !== $postLocation3 && isset($postLocation3['address'])) {
 
 $brands = getListOfAllBrands();
 
-$page = get_page($post->ID);
-$currentPageId = $page->ID;
+$cpage = get_page($post->ID);
+$currentPageId = $cpage->ID;
 
 /*
  * profile image
