@@ -46,7 +46,12 @@
 	}
 	else if (is_author()) {
 		$author = (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
-		$pageTitle = getAuthorFullName($authorId);
+		if ($author) {
+			$pageTitle = getAuthorFullName($author->ID);
+		}
+		else {
+			$pageTitle = wp_get_document_title();
+		}
 	}
 	else {
 		$pageTitle = wp_get_document_title();
