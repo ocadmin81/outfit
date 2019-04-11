@@ -93,7 +93,7 @@ get_header();
 						<div class="author-info">
 							<div class="media">
 								<div class="media-img">
-									<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo get_the_author_meta('display_name', $userId ); ?>">
+									<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo get_the_author_meta('display_name', $authorId ); ?>">
 								</div><!---->
 								<div class="media-body">
 									<h5 class="media-heading text-uppercase">

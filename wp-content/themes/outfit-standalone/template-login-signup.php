@@ -37,6 +37,7 @@ $rand2 = rand(0,9);
 $rand_answer = $rand1 + $rand2;
 global $resetSuccess;
 $login_message = $register_message = $reset_message = '';
+$firstname = $lastname = $email = '';
 
 if(isset($_POST['op_outfit']) && isset($_POST['submit'])) {
 	// login
@@ -365,7 +366,7 @@ if(isset($_POST['op_outfit']) && isset($_POST['submit'])) {
 											   class="form-control form-control-md sharp-edge"
 											   placeholder="<?php esc_html_e('שם פרטי', 'outfit-standalone') ?>"
 											   data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>"
-											   value="<?php echo esc_attr( $firstname ); ?>"
+											   value="<?php echo esc_html( $firstname ); ?>"
 											   required>
 										<div class="help-block with-errors"></div>
 									</div>
@@ -376,7 +377,7 @@ if(isset($_POST['op_outfit']) && isset($_POST['submit'])) {
 											   class="form-control form-control-md sharp-edge"
 											   placeholder="<?php esc_html_e('שם משפחה', 'outfit-standalone') ?>"
 											   data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>"
-											   value="<?php echo esc_attr( $lastname ); ?>"
+											   value="<?php echo esc_html( $lastname ); ?>"
 											   required>
 										<div class="help-block with-errors"></div>
 									</div>
@@ -398,7 +399,7 @@ if(isset($_POST['op_outfit']) && isset($_POST['submit'])) {
 											   class="form-control form-control-md sharp-edge"
 											   placeholder="<?php esc_html_e('אימייל', 'outfit-standalone') ?>"
 											   data-error="<?php esc_html_e('זה שדה חובה', 'outfit-standalone') ?>"
-											   value="<?php echo esc_attr( $email ); ?>"
+											   value="<?php echo esc_html( $email ); ?>"
 											   required>
                                         <div class="help-block with-errors"></div>
                                     </div>
