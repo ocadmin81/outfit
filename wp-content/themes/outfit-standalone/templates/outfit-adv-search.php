@@ -212,6 +212,36 @@ else {
 					</div>
 					<!--Categories-->
 					<?php } ?>
+
+					<?php if ($filterBy && $filterBy->catFilterByShoeSize) { ?>
+						<?php
+						if (!empty($catId)) {
+							$live = outfit_filter_live_terms($catId, 'shoe_sizes', $shoeSizes);
+						}
+						else {
+							$live = $shoeSizes;
+						}
+						?>
+						<?php if(count($live)): ?>
+							<!--Shoe Sizes-->
+							<div class="inner-search-box">
+								<div class="inner-search-heading"><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></div>
+								<div class="inner-addon right-addon">
+									<?php
+									foreach ($live as $i => $c):
+										$checked = in_array($c->term_id, $postShoeSize)? 'checked' : '';
+										?>
+										<div class="checkbox">
+											<input type="checkbox" id="<?php echo esc_attr('shoesize_'.$i); ?>" name="postShoeSize[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
+											<label for="<?php echo esc_attr('shoesize_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
+										</div>
+									<?php endforeach; ?>
+								</div>
+							</div>
+						<?php endif; ?>
+						<!--Shoe Sizes-->
+					<?php } ?>
+
 					<?php if ($filterBy && $filterBy->catFilterByBrand) { ?>
 						<?php
 						if (!empty($catId)) {
@@ -472,34 +502,7 @@ else {
 						<!--Languages-->
 					<?php } ?>
 
-					<?php if ($filterBy && $filterBy->catFilterByShoeSize) { ?>
-						<?php
-						if (!empty($catId)) {
-							$live = outfit_filter_live_terms($catId, 'shoe_sizes', $shoeSizes);
-						}
-						else {
-							$live = $shoeSizes;
-						}
-						?>
-						<?php if(count($live)): ?>
-						<!--Shoe Sizes-->
-						<div class="inner-search-box">
-							<div class="inner-search-heading"><?php esc_html_e( 'מידה', 'outfit-standalone' ); ?></div>
-							<div class="inner-addon right-addon">
-								<?php
-								foreach ($live as $i => $c):
-									$checked = in_array($c->term_id, $postShoeSize)? 'checked' : '';
-									?>
-									<div class="checkbox">
-										<input type="checkbox" id="<?php echo esc_attr('shoesize_'.$i); ?>" name="postShoeSize[]" value="<?php echo $c->term_id; ?>" <?php echo $checked; ?>>
-										<label for="<?php echo esc_attr('shoesize_'.$i); ?>"><?php esc_html_e($c->name); ?></label>
-									</div>
-								<?php endforeach; ?>
-							</div>
-						</div>
-						<?php endif; ?>
-						<!--Shoe Sizes-->
-					<?php } ?>
+
 
 					<?php if ($filterBy && $filterBy->catFilterByMaternitySize) { ?>
 						<!-- if ($filterBy && $filterBy->catFilterByMaternitySize) -->
