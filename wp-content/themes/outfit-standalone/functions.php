@@ -1743,3 +1743,43 @@ function outfit_nsl_register_new_user($userId, $provider) {
 }
 
 add_action( 'nsl_register_new_user', 'outfit_nsl_register_new_user', 10, 3 );
+
+function outfit_extra_profile_fields( $user ) { ?>
+
+	<h3><?php _e('Extra User Details'); ?></h3>
+	<table class="form-table">
+		<tr>
+			<th><label for="gmail">Outfit First Name</label></th>
+			<td>
+				<input type="text" name="outfit_first_name" id="outfit_first_name" value="<?php echo esc_attr( get_the_author_meta( USER_META_FIRSTNAME, $user->ID ) ); ?>" class="regular-text" /><br />
+				<span class="description">Outfit first name to display.</span>
+			</td>
+		</tr>
+		<tr>
+			<th><label for="gmail">Outfit Last Name</label></th>
+			<td>
+				<input type="text" name="outfit_last_name" id="outfit_last_name" value="<?php echo esc_attr( get_the_author_meta( USER_META_LASTNAME, $user->ID ) ); ?>" class="regular-text" /><br />
+				<span class="description">Outfit last name to display.</span>
+			</td>
+		</tr>
+	</table>
+	<?php
+
+}
+
+// Then we hook the function to "show_user_profile" and "edit_user_profile"
+add_action( 'show_user_profile', 'outfit_extra_profile_fields', 10 );
+add_action( 'edit_user_profile', 'outfit_extra_profile_fields', 10 );
+
+function outfit_save_extra_profile_fields( $user_id ) {
+
+	if ( !current_user_can( 'edit_user', $user_id ) )
+		return false;
+
+	/* Edit the following lines according to your set fields */
+	update_user_meta( $user_id, USER_META_FIRSTNAME, $_POST['outfit_first_name'] );
+	update_user_meta( $user_id, USER_META_LASTNAME, $_POST['outfit_last_name'] );
+}
+
+add_action( 'personal_options_update', 'outfit_save_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'outfit_save_extra_profile_fields' );

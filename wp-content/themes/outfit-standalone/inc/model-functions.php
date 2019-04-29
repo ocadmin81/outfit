@@ -416,8 +416,8 @@ function validateDateInput($input, $format = 'Y-m-d') {
 
 function getAuthorFullName($postAuthorId) {
 
-    $firstName = get_the_author_meta(USER_META_FIRSTNAME, $postAuthorId);
-    $lastName = get_the_author_meta(USER_META_LASTNAME, $postAuthorId);
+    $firstName = get_user_meta(USER_META_FIRSTNAME, $postAuthorId);
+    $lastName = get_user_meta(USER_META_LASTNAME, $postAuthorId);
     if (!empty($firstName) && !empty($lastName)) {
         return ($firstName . ' ' . $lastName);
     }
