@@ -1784,7 +1784,7 @@ function outfit_save_extra_profile_fields( $user_id ) {
 add_action( 'personal_options_update', 'outfit_save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'outfit_save_extra_profile_fields' );
 
-add_filter( 'author_link', 'outfit_filter_author_link', 1000 );
-function outfit_filter_author_link($link, $author_id, $author_nicename) {
-
-}
+//add_filter( 'author_link', 'outfit_filter_author_link', 1000 );
+//function outfit_filter_author_link($link, $author_id, $author_nicename) {
+//
+//}
