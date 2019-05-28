@@ -416,8 +416,8 @@ function validateDateInput($input, $format = 'Y-m-d') {
 
 function getAuthorFullName($postAuthorId) {
 
-    $firstName = get_user_meta(USER_META_FIRSTNAME, $postAuthorId);
-    $lastName = get_user_meta(USER_META_LASTNAME, $postAuthorId);
+    $firstName = get_the_author_meta(USER_META_FIRSTNAME, $postAuthorId, true);
+    $lastName = get_the_author_meta(USER_META_LASTNAME, $postAuthorId, true);
     if (!empty($firstName) && !empty($lastName)) {
         return ($firstName . ' ' . $lastName);
     }
@@ -733,4 +733,9 @@ function outfit_get_compare_price_data($cats) {
         }
         return false;
     }
+}
+
+function outfit_get_author_posts_url( $postAuthorId ) {
+
+    return get_author_posts_url($postAuthorId);
 }

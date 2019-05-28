@@ -485,7 +485,7 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 								<div class="author-info widget-content-post-area">
 									<div class="media">
 										<div class="user-img">
-											<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
+											<a href="<?php echo outfit_get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>">
 											<?php if($authorAvatarUrl): ?>
 												<img class="media-object" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorName); ?>">
 											<?php else: ?>
@@ -495,7 +495,7 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 										</div><!--media-left-->
 										<div class="media-body">
 											<h5 class="media-heading text-uppercase">
-												<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php echo esc_attr($postAuthorName); ?></a>
+												<a href="<?php echo outfit_get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php echo esc_attr($postAuthorName); ?></a>
 											</h5>
 											<?php if (!empty($userId) && $userId != $postAuthorId) { ?>
 												<form method="post" class="classiera_follow_user">
@@ -586,7 +586,7 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 				</div><!--row-->
 				<?php wp_reset_query(); ?>
 				<div class="cat-link">
-					<a href="<?php echo get_author_posts_url( $postAuthorId ); ?>">הצג עוד</a>
+					<a href="<?php echo outfit_get_author_posts_url( $postAuthorId ); ?>">הצג עוד</a>
 				</div>
 			</div><!--tab-content-->
 		</div>

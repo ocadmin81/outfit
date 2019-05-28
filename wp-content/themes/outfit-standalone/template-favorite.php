@@ -126,7 +126,7 @@ get_header(); ?>
 															</div><!--premium-img-->
 															<div class="au-price">
 																<div class="au">
-																	<a href="<?php echo get_author_posts_url( $postAuthorId ); ?>">
+																	<a href="<?php echo outfit_get_author_posts_url( $postAuthorId ); ?>">
 																		<img style="height: 30px;" class="" src="<?php echo esc_url($authorAvatarUrl); ?>" alt="<?php echo esc_attr($postAuthorNameTitle); ?>">
 																		<?php echo esc_attr($postAuthorName); ?>
 																	</a>

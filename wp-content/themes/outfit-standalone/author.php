@@ -11,10 +11,12 @@
 global $redux_demo;
 global $current_user;
 $currentUserId = '';
-$author = (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
+global $wp_query;
+$curauth = $wp_query->get_queried_object();
+//$curauth = (get_query_var('author_name')) ? get_user_by('slug', get_query_var('author_name')) : get_userdata(get_query_var('author'));
 wp_get_current_user();
 $currentUserId = $current_user->ID;
-$authorId = $author->ID;
+$authorId = $curauth->ID;
 $authorName = getAuthorFullName($authorId);
 $authorAvatarUrl = outfit_get_user_picture($authorId, 130);
 

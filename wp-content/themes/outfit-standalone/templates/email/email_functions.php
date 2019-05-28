@@ -167,7 +167,7 @@ if (!function_exists('outfitUserNotification')) {
 				],
 				[
 					'text' => '*הוסיפו פרטים לפרופיל שלכם*',
-					'link' => get_author_posts_url($userId)
+					'link' => outfit_get_author_posts_url($userId)
 				],
 				[
 					'text' => '*החיפוש והפרסום יותאם לכם באופן אישי*',

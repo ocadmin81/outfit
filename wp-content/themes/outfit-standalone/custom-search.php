@@ -456,7 +456,7 @@ $inSearch = isset($_GET["cs"]);
 														.'<div class="classiera_map_div content">'
 														.'<a href="'.get_the_permalink().'"><h5 class="classiera_map_div__heading">'.get_the_title().'</a></h5>'
 														.'<p class="classiera_map_div__price"><span>'.$pPrice.'</span></p>'
-														.'<a href="'.get_author_posts_url( $post->post_author ).'">'
+														.'<a href="'.outfit_get_author_posts_url( $post->post_author ).'">'
 														.'<div class="map-author"><img style="height: 30px;" src="'.esc_url($authorAvatarUrl).'" alt="'.esc_attr($pAuthorName).'">'
 														.esc_attr($pAuthorName)
 														.'</a></div></div>'

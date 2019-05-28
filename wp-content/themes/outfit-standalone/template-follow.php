@@ -75,7 +75,7 @@ get_header(); ?>
 														<input type="hidden" name="" value="<?php echo esc_attr($post->ID); ?>">
 													</div><!--remove-post-button-->
 													<div class="premium-img">
-														<a href="<?php echo get_author_posts_url($aid); ?>">
+														<a href="<?php echo outfit_get_author_posts_url($aid); ?>">
 															<?php
 															$authorAvatarUrl = outfit_get_user_picture($aid);
 															if( !empty($authorAvatarUrl)){ ?>
@@ -92,7 +92,7 @@ get_header(); ?>
 													</div><!--premium-img-->
 													<div>
 														<span>
-															<a href="<?php echo get_author_posts_url( $aid ); ?>"><?php echo esc_attr($authorName); ?></a></span>
+															<a href="<?php echo outfit_get_author_posts_url( $aid ); ?>"><?php echo esc_attr($authorName); ?></a></span>
 													</div>
 
 												</figure>
