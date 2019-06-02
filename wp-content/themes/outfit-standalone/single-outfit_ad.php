@@ -466,7 +466,7 @@ if (isset($_GET['email']) && !is_user_logged_in()) {
 					<?php if ($detect->isMobile() && !$detect->isTablet()): ?>
 						<div class="wish-share mobile">
 							<div class="whatsapp-share">
-								<a title="<?php echo the_title(); ?>" class="whatsapp-share-image" href="whatsapp://send?text=<?php //echo $watsappmessage; ?> » <?php echo the_title(); ?> » <?php echo get_permalink(); ?>"><span><?php esc_html_e( 'שיתוף ב- WhatsApp', 'outfit-standalone' ); ?></span></a>
+								<a title="<?php echo the_title(); ?>" class="whatsapp-share-image" href="whatsapp://send?text=<?php //echo $watsappmessage; ?> » <?php echo urlencode(get_the_title()); ?> » <?php echo get_permalink(); ?>"><span><?php esc_html_e( 'שיתוף ב- WhatsApp', 'outfit-standalone' ); ?></span></a>
 							</div>							
 							<div class="share">
 								<ul>
